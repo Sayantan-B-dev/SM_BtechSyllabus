@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lecture Plan Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #0f172a; color: #e2e8f0; padding: 2rem; }
+  h1 { font-size: 1.8rem; margin-bottom: .25rem; color: #f8fafc; }
+  .subtitle { color: #94a3b8; margin-bottom: 2rem; font-size: .9rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.25rem; }
+  .card { background: #1e293b; border-radius: 12px; padding: 1.25rem; border: 1px solid #334155; transition: border-color .2s; }
+  .card:hover { border-color: #3b82f6; }
+  .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+  .card h2 { font-size: 1.1rem; color: #f8fafc; }
+  .badge { background: #3b82f6; color: #fff; padding: 2px 10px; border-radius: 20px; font-size: .75rem; font-weight: 600; }
+  .modules { display: flex; flex-wrap: wrap; gap: 6px; }
+  .module { background: #334155; border-radius: 6px; padding: 4px 10px; font-size: .8rem; color: #cbd5e1; text-decoration: none; transition: background .2s; cursor: pointer; }
+  .module:hover { background: #3b82f6; color: #fff; }
+  .module.tutorials { background: #7c3aed; }
+  .module.tutorials:hover { background: #8b5cf6; }
+  .module.lab { background: #059669; }
+  .module.lab:hover { background: #10b981; }
+  .count { color: #64748b; font-size: .7rem; margin-left: 4px; }
+  .tag { display: inline-block; font-size: .65rem; padding: 1px 6px; border-radius: 4px; margin-left: 6px; font-weight: 600; }
+  .tag.theory { background: #1d4ed8; color: #bfdbfe; }
+  .tag.lab { background: #065f46; color: #a7f3d0; }
+  .footer { margin-top: 2rem; text-align: center; color: #475569; font-size: .8rem; }
+</style>
+</head>
+<body>
+
+<h1> Lecture Plan Dashboard</h1>
+<p class="subtitle">B.Tech. CSE 2025 &mdash; Full semester lecture plan extracted from <code>demo.html</code></p>
+
+<div class="grid" id="dashboard"></div>
+<div class="footer">Last updated: <span id="date"></span></div>
+
+<script>
+const subjects = [
+  {
+    name: "Probability and Statistics",
+    faculty: "RITTIKA BHATTACHARYA",
+    type: "theory",
+    total: 45,
+    modules: [
+      { name: "Module-01", count: 9 },
+      { name: "Module-02", count: 5 },
+      { name: "Module-03", count: 11 },
+      { name: "Module-04", count: 11 },
+      { name: "Module-05", count: 9 },
+    ]
+  },
+  {
+    name: "Python Programming",
+    faculty: "PRANAB GHARAI",
+    type: "theory",
+    total: 60,
+    modules: [
+      { name: "Module-01", count: 10 },
+      { name: "Module-02", count: 6 },
+      { name: "Module-03", count: 12 },
+      { name: "Module-04", count: 7 },
+      { name: "Module-05", count: 10 },
+      { name: "Tutorials", count: 15, cls: "tutorials" },
+    ]
+  },
+  {
+    name: "Computer Organization and Architecture",
+    faculty: "DR. SUBHANKAR SHOME",
+    type: "theory",
+    total: 60,
+    modules: [
+      { name: "Module-01", count: 9 },
+      { name: "Module-02", count: 9 },
+      { name: "Module-03", count: 9 },
+      { name: "Module-04", count: 9 },
+      { name: "Module-05", count: 9 },
+      { name: "Tutorials", count: 15, cls: "tutorials" },
+    ]
+  },
+  {
+    name: "Database Management Systems",
+    faculty: "ANUPAM DAS",
+    type: "theory",
+    total: 60,
+    modules: [
+      { name: "Module-01", count: 9 },
+      { name: "Module-02", count: 15 },
+      { name: "Module-03", count: 10 },
+      { name: "Module-04", count: 7 },
+      { name: "Module-05", count: 4 },
+      { name: "Tutorials", count: 15, cls: "tutorials" },
+    ]
+  },
+  {
+    name: "Python Programming Lab",
+    faculty: "PRANAB GHARAI",
+    type: "lab",
+    total: 30,
+    modules: [
+      { name: "Module-01", count: 8 },
+      { name: "Module-02", count: 4 },
+      { name: "Module-03", count: 6 },
+      { name: "Module-04", count: 6 },
+      { name: "Module-05", count: 6 },
+    ]
+  },
+  {
+    name: "Computer Organization and Architecture Lab",
+    faculty: "DR. SUBHANKAR SHOME",
+    type: "lab",
+    total: 30,
+    modules: [
+      { name: "Module-01", count: 6 },
+      { name: "Module-02", count: 6 },
+      { name: "Module-03", count: 6 },
+      { name: "Module-04", count: 6 },
+      { name: "Module-05", count: 6 },
+    ]
+  },
+  {
+    name: "Database Management Systems Lab",
+    faculty: "ANUPAM DAS",
+    type: "lab",
+    total: 30,
+    modules: [
+      { name: "Module-01", count: 3 },
+      { name: "Module-02", count: 6 },
+      { name: "Module-03", count: 9 },
+      { name: "Module-04", count: 6 },
+      { name: "Module-05", count: 6 },
+    ]
+  }
+];
+
+const grid = document.getElementById("dashboard");
+
+subjects.forEach(s => {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const typeLabel = s.type === "lab" ? "Lab" : "Theory";
+  const typeClass = s.type === "lab" ? "lab" : "theory";
+
+  card.innerHTML = `
+    <div class="card-header">
+      <h2>${s.name} <span class="tag ${typeClass}">${typeLabel}</span></h2>
+      <span class="badge">${s.total} lectures</span>
+    </div>
+    <div style="font-size:.8rem;color:#94a3b8;margin-bottom:.75rem">${s.faculty}</div>
+    <div class="modules">
+      ${s.modules.map(m => `
+        <a class="module ${m.cls || ""}" href="../${encodeURIComponent(s.name)}/${encodeURIComponent(m.name)}/">
+          ${m.name} <span class="count">(${m.count})</span>
+        </a>
+      `).join("")}
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+document.getElementById("date").textContent = new Date().toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" });
+</script>
+</body>
+</html>
