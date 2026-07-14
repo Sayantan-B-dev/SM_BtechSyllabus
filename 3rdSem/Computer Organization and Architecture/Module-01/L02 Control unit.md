@@ -304,16 +304,31 @@ RegWrite: ______________________|___|^^|___________
 ## Practice Problems
 
 1. **Problem**: Explain the difference between hardwired and microprogrammed control in terms of how a new instruction (e.g., MULTIPLY) would be added to the CPU.
-   **Answer**: In hardwired control, adding MULTIPLY would require redesigning the control logic circuit, adding new gates, and possibly modifying the decoder and sequencer. In microprogrammed control, you would only need to write a new microcode routine for MULTIPLY in the control store ROM -- no hardware changes are needed.
+<details>
+<summary>Show Answer</summary>
+In hardwired control, adding MULTIPLY would require redesigning the control logic circuit, adding new gates, and possibly modifying the decoder and sequencer. In microprogrammed control, you would only need to write a new microcode routine for MULTIPLY in the control store ROM -- no hardware changes are needed.
+</details>
 
 2. **Problem**: In which cycle does the control unit check for interrupts? What happens if an interrupt is pending?
-   **Answer**: The control unit checks for interrupts at the end of the execute cycle (or after each instruction cycle is complete). If an interrupt is pending and interrupts are enabled, the control unit saves the current PC (return address) on the stack, loads the address of the Interrupt Service Routine (ISR) into the PC, and then begins fetching instructions from the ISR.
+<details>
+<summary>Show Answer</summary>
+The control unit checks for interrupts at the end of the execute cycle (or after each instruction cycle is complete). If an interrupt is pending and interrupts are enabled, the control unit saves the current PC (return address) on the stack, loads the address of the Interrupt Service Routine (ISR) into the PC, and then begins fetching instructions from the ISR.
+</details>
 
 3. **Problem**: Given the control signals PCtoMAR, MemRead, MBRtoIR, and PCinc, write the sequence in which they should be asserted during the fetch cycle.
-   **Answer**: The correct sequence is: (1) PCtoMAR -- place PC value onto address bus; (2) MemRead -- initiate memory read; (3) wait for memory access; (4) MBRtoIR -- transfer the fetched instruction from MBR to IR; (5) PCinc -- increment the Program Counter to point to the next instruction.
+<details>
+<summary>Show Answer</summary>
+The correct sequence is: (1) PCtoMAR -- place PC value onto address bus; (2) MemRead -- initiate memory read; (3) wait for memory access; (4) MBRtoIR -- transfer the fetched instruction from MBR to IR; (5) PCinc -- increment the Program Counter to point to the next instruction.
+</details>
 
 4. **Problem**: A microprogrammed control unit has a control store that can hold 1024 microinstructions, each 64 bits wide. What is the size of the control store in bytes?
-   **Answer**: 1024 x 64 bits = 1024 x 8 bytes = 8192 bytes = 8 KB.
+<details>
+<summary>Show Answer</summary>
+1024 x 64 bits = 1024 x 8 bytes = 8192 bytes = 8 KB.
+</details>
 
 5. **Problem**: Compare the role of the sequence counter in a hardwired control unit versus the microPC in a microprogrammed control unit.
-   **Answer**: The sequence counter in hardwired control tracks the current T-state (timing step) within the instruction cycle and feeds into the combinational logic to select the appropriate control signals. The microPC in microprogrammed control tracks the current microinstruction address within the microprogram routine stored in control store. Both serve to sequence the steps, but the sequence counter is hardware-based while the microPC reads from a memory array.
+<details>
+<summary>Show Answer</summary>
+The sequence counter in hardwired control tracks the current T-state (timing step) within the instruction cycle and feeds into the combinational logic to select the appropriate control signals. The microPC in microprogrammed control tracks the current microinstruction address within the microprogram routine stored in control store. Both serve to sequence the steps, but the sequence counter is hardware-based while the microPC reads from a memory array.
+</details>

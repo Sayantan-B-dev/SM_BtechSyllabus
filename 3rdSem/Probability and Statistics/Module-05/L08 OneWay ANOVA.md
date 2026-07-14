@@ -274,16 +274,31 @@ Same results, confirming our manual calculations.
 | Within | ? | ? | 5 | |
 | **Total** | 125 | ? | | |
 
-   - **Answer:** Between df = 3, MSB = 15. Total df = 23, Within df = 20, SSE = 100. F = 15/5 = 3.00.
+   <details>
+   <summary>Show Answer</summary>
+   Between df = 3, MSB = 15. Total df = 23, Within df = 20, SSE = 100. F = 15/5 = 3.00.
+   </details>
 
 2. In a one-way ANOVA with 4 groups and 8 observations per group, what are the degrees of freedom for the F-test?
-   - **Answer:** `df1 = k - 1 = 3`, `df2 = N - k = 32 - 4 = 28`.
+   <details>
+   <summary>Show Answer</summary>
+   `df1 = k - 1 = 3`, `df2 = N - k = 32 - 4 = 28`.
+   </details>
 
 3. If SST = 200, SSB = 80, and N = 25 with k = 5, compute the ANOVA table.
-   - **Answer:** SSE = 120. df(B) = 4, MSB = 20. df(W) = 20, MSE = 6. F = 20/6 = 3.333.
+   <details>
+   <summary>Show Answer</summary>
+   SSE = 120. df(B) = 4, MSB = 20. df(W) = 20, MSE = 6. F = 20/6 = 3.333.
+   </details>
 
 4. What is the main advantage of ANOVA over multiple t-tests?
-   - **Answer:** ANOVA controls the overall Type I error rate at `alpha`, while multiple t-tests inflate the error rate.
+   <details>
+   <summary>Show Answer</summary>
+   ANOVA controls the overall Type I error rate at `alpha`, while multiple t-tests inflate the error rate.
+   </details>
 
 5. A one-way ANOVA yields `F = 4.50` with `df1 = 2` and `df2 = 18`. Using `alpha = 0.05` and `F_{0.05,2,18} = 3.55`, what is the conclusion?
-   - **Answer:** Since `4.50 > 3.55`, reject `H_0`. At least one group mean is significantly different.
+   <details>
+   <summary>Show Answer</summary>
+   Since `4.50 > 3.55`, reject `H_0`. At least one group mean is significantly different.
+   </details>

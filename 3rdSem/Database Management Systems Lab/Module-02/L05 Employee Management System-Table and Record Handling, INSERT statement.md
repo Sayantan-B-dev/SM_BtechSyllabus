@@ -117,5 +117,19 @@ SELECT emp_name, department, salary FROM Employee WHERE dept_id IN (1, 3);
 ## Homework / Practice
 
 1. Start a transaction, insert a new department 'Logistics' with budget 100000, then ROLLBACK. Verify the department was not created.
+   <details>
+   <summary>Show Answer</summary>
+   START TRANSACTION; INSERT INTO Department (dept_name, budget) VALUES ('Logistics', 100000.00); ROLLBACK; SELECT * FROM Department WHERE dept_name = 'Logistics'; -- No rows returned
+   </details>
+
 2. Use SAVEPOINT to update employee salaries in steps: add 2000 to IT, set a savepoint, add 3000 to HR, then rollback to the savepoint. Commit and check the results.
+   <details>
+   <summary>Show Answer</summary>
+   START TRANSACTION; UPDATE Employee SET salary = salary + 2000 WHERE department = 'IT'; SAVEPOINT sp1; UPDATE Employee SET salary = salary + 3000 WHERE department = 'HR'; ROLLBACK TO sp1; COMMIT;
+   </details>
+
 3. Write a transaction that transfers 25000 from the Marketing budget to the Research budget. Commit only if both UPDATE statements succeed.
+   <details>
+   <summary>Show Answer</summary>
+   START TRANSACTION; UPDATE Department SET budget = budget - 25000 WHERE dept_name = 'Marketing'; UPDATE Department SET budget = budget + 25000 WHERE dept_name = 'Research'; COMMIT;
+   </details>

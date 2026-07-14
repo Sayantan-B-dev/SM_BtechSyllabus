@@ -184,17 +184,34 @@ Standard deviation: `sigma = sqrt(35/6) ≈ 2.415`
 
 1. A discrete random variable X has PMF: `p(x) = cx` for x = 1, 2, 3, 4, 5. Find c, the mean, and variance of X.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `c(1+2+3+4+5) = 15c = 1` => `c = 1/15`. `E[X] = (1+4+9+16+25)/15 = 55/15 = 11/3`. `E[X^2] = (1+8+27+64+125)/15 = 225/15 = 15`. `Var = 15 - (11/3)^2 = 15 - 121/9 = 14/9`.
+   </details>
+
 2. A random variable X takes values 0, 1, 2, 3 with probabilities 0.2, 0.3, 0.4, 0.1 respectively. Find `E[X]`, `E[X^2]`, and `Var(X)`.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `E[X] = 0(0.2)+1(0.3)+2(0.4)+3(0.1) = 1.4`. `E[X^2] = 0+1(0.3)+4(0.4)+9(0.1) = 3`. `Var = 3 - 1.96 = 1.04`.
+   </details>
 
 3. In a game, a player rolls a fair die and wins rupees equal to the number shown. Find the expected winnings and variance per roll.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. Each number 1-6 has P = 1/6. `E[X] = (1+2+3+4+5+6)/6 = 3.5`. `E[X^2] = (1+4+9+16+25+36)/6 = 91/6`. `Var = 91/6 - (3.5)^2 = 91/6 - 49/4 = 35/12`.
+   </details>
+
 4. Let X be the number of heads when 4 fair coins are tossed. Find the PMF of X and compute the mean.
 
-5. For the PMF `p(x) = (x+2)/k` for x = 0, 1, 2, 3, 4, find k, `P(X < 3)`, mean, and variance.
+   <details>
+   <summary>Show Answer</summary>
+   4. PMF: `P(X=x) = C(4,x)/16` for x = 0,1,2,3,4. `E[X] = 4 * 0.5 = 2`.
+   </details>
 
-**Answers / Hints:**
-1. `c(1+2+3+4+5) = 15c = 1` => `c = 1/15`. `E[X] = (1+4+9+16+25)/15 = 55/15 = 11/3`. `E[X^2] = (1+8+27+64+125)/15 = 225/15 = 15`. `Var = 15 - (11/3)^2 = 15 - 121/9 = 14/9`.
-2. `E[X] = 0(0.2)+1(0.3)+2(0.4)+3(0.1) = 1.4`. `E[X^2] = 0+1(0.3)+4(0.4)+9(0.1) = 3`. `Var = 3 - 1.96 = 1.04`.
-3. Each number 1-6 has P = 1/6. `E[X] = (1+2+3+4+5+6)/6 = 3.5`. `E[X^2] = (1+4+9+16+25+36)/6 = 91/6`. `Var = 91/6 - (3.5)^2 = 91/6 - 49/4 = 35/12`.
-4. PMF: `P(X=x) = C(4,x)/16` for x = 0,1,2,3,4. `E[X] = 4 * 0.5 = 2`.
-5. `k = (0+2)+(1+2)+(2+2)+(3+2)+(4+2) = 20` => `k = 20`. `P(X<3) = (2+3+4)/20 = 9/20`. `E[X] = (0*2+1*3+2*4+3*5+4*6)/20 = 50/20 = 2.5`. `E[X^2] = (0*2+1*3+4*4+9*5+16*6)/20 = 160/20 = 8`. `Var = 8 - 6.25 = 1.75`.
+5. For the PMF `p(x) = (x+2)/k` for x = 0, 1, 2, 3, 4, find k, `P(X < 3)`, mean, and variance.
+   <details>
+   <summary>Show Answer</summary>
+   5. `k = (0+2)+(1+2)+(2+2)+(3+2)+(4+2) = 20` => `k = 20`. `P(X<3) = (2+3+4)/20 = 9/20`. `E[X] = (0*2+1*3+2*4+3*5+4*6)/20 = 50/20 = 2.5`. `E[X^2] = (0*2+1*3+4*4+9*5+16*6)/20 = 160/20 = 8`. `Var = 8 - 6.25 = 1.75`.
+   </details>

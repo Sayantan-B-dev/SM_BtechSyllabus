@@ -330,7 +330,52 @@ The ETL process itself is a security vulnerability. Data is extracted from sourc
 ## Practice Problems
 
 1. Explain the aggregation and inference problems in data warehousing. Give a concrete example of an inference attack and a prevention technique.
+   <details>
+   <summary>Show Answer</summary>
+   **Aggregation problem:** Users can combine multiple low-sensitivity data points to derive high-sensitivity information. **Inference problem:** Users deduce sensitive information from non-sensitive query results. **Example:** A user queries average salary by department. If only one employee is in the "Executive" department, the average reveals their exact salary (inference attack). **Prevention technique:** Enforce a minimum query set size — refuse to return results based on fewer than N records (e.g., `COUNT(*) < 5` yields no result).
+   </details>
 2. What is the difference between static data masking and dynamic data masking? When would you use each?
+   <details>
+   <summary>Show Answer</summary>
+   **Static Data Masking (SDM):** Irreversibly transforms data in a copy of the database (e.g., replacing real credit card numbers with fake but realistic ones). Used for non-production environments (testing, training) where real data is not needed. **Dynamic Data Masking (DDM):** Masks data on-the-fly at query time based on user permissions, without altering the stored data. Used in production when some users should see only partial data (e.g., a call center agent sees only the last 4 digits of a credit card).
+   </details>
 3. Write SQL to set up row-level security on a `sales` table so that salespeople can only see their own records. Assume the `sales` table has a `salesperson` column.
+   <details>
+   <summary>Show Answer</summary>
+   ```sql
+   -- PostgreSQL row-level security
+   CREATE TABLE sales (
+       id INT PRIMARY KEY,
+       product VARCHAR(100),
+       amount DECIMAL,
+       salesperson VARCHAR(50)
+   );
+
+   ALTER TABLE sales ENABLE ROW LEVEL SECURITY;
+
+   CREATE POLICY salesperson_policy ON sales
+       FOR ALL
+       USING (salesperson = CURRENT_USER);
+   ```
+   In SQL Server, use a security predicate function with a filter:
+   ```sql
+   CREATE SCHEMA security;
+   CREATE FUNCTION security.fn_salesPredicate(@salesperson VARCHAR(50))
+       RETURNS TABLE
+       WITH SCHEMABINDING
+   AS
+       RETURN SELECT 1 AS result WHERE @salesperson = USER_NAME();
+   CREATE SECURITY POLICY salesFilter
+       ADD FILTER PREDICATE security.fn_salesPredicate(salesperson) ON dbo.sales;
+   ```
+   </details>
 4. Design an audit strategy for a financial data warehouse. List at least five types of events that must be audited and explain why each is important.
+   <details>
+   <summary>Show Answer</summary>
+   Five critical audit events: (1) **Data access** — log all SELECT queries on sensitive tables (detect data snooping). (2) **Schema changes** — log all ALTER, CREATE, DROP operations (track configuration changes). (3) **Privilege changes** — log all GRANT, REVOKE, role assignments (prevent unauthorized privilege escalation). (4) **Failed login attempts** — log authentication failures (detect brute-force attacks). (5) **Data exports** — log bulk extracts, backup operations, or ETL jobs (detect data exfiltration). Each event should capture user ID, timestamp, source IP, query text, and affected objects.
+   </details>
 5. A healthcare data warehouse contains patient data covered by HIPAA. Describe a layered security approach (at least 4 layers) to protect this warehouse.
+   <details>
+   <summary>Show Answer</summary>
+   (1) **Network layer** — firewall rules restrict database access to only authorized application servers; VPN required for remote access; network segmentation isolates the warehouse. (2) **Authentication & Access Control** — enforce MFA for all users; RBAC with roles like doctor, researcher, auditor; row-level security to restrict patients to their own data. (3) **Data layer** — TDE for data at rest, TLS for data in transit; column-level encryption for sensitive fields (SSN, diagnosis codes); dynamic data masking for non-medical staff. (4) **Audit & Monitoring** — comprehensive audit logs for all queries; database activity monitoring (DAM) to alert on unusual patterns; regular compliance audits against HIPAA requirements.
+   </details>

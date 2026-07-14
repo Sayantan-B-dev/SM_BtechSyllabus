@@ -274,22 +274,37 @@ If `P(A | B) = P(A)`, then knowing B gives no information about A -- this is the
    (b) `P(second is blue | first is red)`
    (c) `P(first is red | second is blue)`
 
+   <details>
+   <summary>Show Answer</summary>
+   1. (a) `(6/10)(5/9) = 30/90 = 1/3` (b) `4/9` (c) Use Bayes' rule or definition: `P(R_1 | B_2)`. Compute `P(B_2)` via total probability: `(6/10)(4/9)+(4/10)(3/9)=36/90=0.4`. `P(R_1 cap B_2) = (6/10)(4/9)=24/90`. So `P(R_1 | B_2) = 24/36 = 2/3`.
+   </details>
+
 2. In a class of 60 students, 35 are boys and 25 are girls. Among them, 20 boys and 15 girls wear glasses. A student is selected at random.
    (a) Find the probability that the student wears glasses given that the student is a boy.
    (b) Find the probability that the student is a girl given that the student wears glasses.
    (c) Are gender and wearing glasses independent?
 
+   <details>
+   <summary>Show Answer</summary>
+   2. (a) 20/35 = 4/7 (b) 15/35 = 3/7 (c) No, `P(glasses) = 35/60 = 7/12`, `P(glasses|boy) = 4/7 != 7/12`.
+   </details>
+
 3. A card is drawn from a standard deck. Given that the card is a face card (Jack, Queen, King), find the probability that it is a heart.
+
+   <details>
+   <summary>Show Answer</summary>
+   3. There are 12 face cards, 3 of which are hearts. `P = 3/12 = 1/4`.
+   </details>
 
 4. Two dice are rolled. Find the probability that the sum is at least 8, given that the first die shows a 5.
 
+   <details>
+   <summary>Show Answer</summary>
+   4. First die = 5: possible outcomes: (5,1) through (5,6). Sum >= 8: (5,3), (5,4), (5,5), (5,6) = 4 outcomes. `P = 4/6 = 2/3`.
+   </details>
+
 5. In a certain population, 5% have a disease. A test for the disease has 90% sensitivity and 85% specificity. If a person tests positive, what is the probability they actually have the disease?
-
----
-
-**Answers/Hints:**
-1. (a) `(6/10)(5/9) = 30/90 = 1/3` (b) `4/9` (c) Use Bayes' rule or definition: `P(R_1 | B_2)`. Compute `P(B_2)` via total probability: `(6/10)(4/9)+(4/10)(3/9)=36/90=0.4`. `P(R_1 cap B_2) = (6/10)(4/9)=24/90`. So `P(R_1 | B_2) = 24/36 = 2/3`.
-2. (a) 20/35 = 4/7 (b) 15/35 = 3/7 (c) No, `P(glasses) = 35/60 = 7/12`, `P(glasses|boy) = 4/7 != 7/12`.
-3. There are 12 face cards, 3 of which are hearts. `P = 3/12 = 1/4`.
-4. First die = 5: possible outcomes: (5,1) through (5,6). Sum >= 8: (5,3), (5,4), (5,5), (5,6) = 4 outcomes. `P = 4/6 = 2/3`.
-5. `P(D|T) = (0.05*0.90) / (0.05*0.90 + 0.95*0.15) = 0.045/0.1875 = 0.24` (24%).
+   <details>
+   <summary>Show Answer</summary>
+   5. `P(D|T) = (0.05*0.90) / (0.05*0.90 + 0.95*0.15) = 0.045/0.1875 = 0.24` (24%).
+   </details>

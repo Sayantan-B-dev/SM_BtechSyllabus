@@ -180,5 +180,19 @@ mysql> SELECT * FROM Course;
 ## Homework / Practice
 
 1. Add a `date_of_joining` column to the Professor table using ALTER TABLE. Then add a `CHECK` constraint to ensure `salary` is between 30000 and 200000.
+   <details>
+   <summary>Show Answer</summary>
+   ALTER TABLE Professor ADD COLUMN date_of_joining DATE; ALTER TABLE Professor ADD CONSTRAINT chk_prof_salary CHECK (salary BETWEEN 30000 AND 200000);
+   </details>
+
 2. Insert two more students and enroll each of them in at least two courses.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO Student VALUES (4, 'David', 'EE', 2023), (5, 'Eve', 'CSE', 2023); INSERT INTO Enrollment VALUES (4, 101, 'A'), (4, 102, 'B'), (5, 101, 'A'), (5, 103, 'A');
+   </details>
+
 3. Use DESC to view the structure of the Enrollment table and explain what each column and constraint means.
+   <details>
+   <summary>Show Answer</summary>
+   DESC Enrollment; The Enrollment table has columns: student_id (FK references Student), course_id (FK references Course), grade (VARCHAR). The primary key is (student_id, course_id). Foreign key constraints ensure referential integrity.
+   </details>

@@ -179,7 +179,27 @@ Real-world database breaches provide critical lessons for understanding security
 ## Practice Problems
 
 1. Describe the Sony PSN breach. What was the entry point and what three security failures allowed it to succeed?
+   <details>
+   <summary>Show Answer</summary>
+   The Sony PlayStation Network breach (2011) exposed 77 million accounts. **Entry point:** SQL injection attack on the PSN website. **Three security failures:** (1) Outdated Apache web server with unpatched vulnerabilities, (2) Passwords stored in plain text instead of hashed, (3) No network segmentation — once inside, attackers could freely move from the web server to the database server.
+   </details>
 2. The Equifax breach cost over $1.4 billion. What single action could have prevented the entire incident? Justify your answer.
+   <details>
+   <summary>Show Answer</summary>
+   **Applying the Apache Struts CVE-2017-5638 security patch.** The breach exploited a known vulnerability in the Apache Struts framework for which a patch had been available for two months before the attack. A proper patch management process would have closed the entry point, preventing attackers from executing arbitrary code on the web server and ultimately accessing the database containing 147 million records.
+   </details>
 3. Was the Cambridge Analytica incident a "hack" in the traditional sense? Why or why not? What access control concept was violated?
+   <details>
+   <summary>Show Answer</summary>
+   No, it was not a traditional hack — there was no system intrusion or security bypass. Facebook's API legitimately granted access to user data, but that data was then collected and used for purposes far beyond what users consented to. The access control concept violated was **the principle of least privilege** — the app was granted more data (friends' data) than was necessary for its stated purpose, and there was insufficient enforcement of purpose-based access control.
+   </details>
 4. List three common root causes shared by at least three of the four breaches discussed.
+   <details>
+   <summary>Show Answer</summary>
+   (1) **Unpatched software** — Sony (outdated Apache), Equifax (unpatched Struts), Marriott (unpatched server). (2) **Poor network segmentation** — Sony (no separation between web and database tiers), Target (POS connected to corporate network), Marriott (no segmentation). (3) **Inadequate access controls** — Cambridge Analytica (overly permissive API), Sony (plain-text passwords), Target (vendor credentials with excessive access).
+   </details>
 5. Prepare a list of 5 specific database security controls that would have mitigated the Marriott breach.
+   <details>
+   <summary>Show Answer</summary>
+   (1) **Data encryption at rest** — encrypt sensitive guest data so stolen files are unreadable. (2) **Network segmentation** — isolate the database from the web/application tier. (3) **Database activity monitoring (DAM)** — alert on unusual query patterns or bulk exports. (4) **Strong access controls** — enforce least privilege and require MFA for database access. (5) **Regular vulnerability scanning and patching** — ensure no known vulnerabilities remain unpatched.
+   </details>

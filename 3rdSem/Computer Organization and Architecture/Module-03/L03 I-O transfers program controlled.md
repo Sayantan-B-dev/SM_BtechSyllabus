@@ -212,11 +212,15 @@ Consider a keyboard with a human typing at 50 characters per second (20 ms betwe
 
 **Q1:** A CPU polls a device every 400 ns. The device becomes ready for data transfer every 2 ms. How many polling cycles are wasted per data transfer?
 
-**A1:** Time between ready states = 2 ms = 2,000,000 ns. Poll interval = 400 ns. Number of polls = 2,000,000 / 400 = 5,000 polls. Of these, only the last poll finds the device ready. Wasted polls = 5,000 - 1 = 4,999.
+<details>
+<summary>Show Answer</summary>
+Time between ready states = 2 ms = 2,000,000 ns. Poll interval = 400 ns. Number of polls = 2,000,000 / 400 = 5,000 polls. Of these, only the last poll finds the device ready. Wasted polls = 5,000 - 1 = 4,999.
+</details>
 
 **Q2:** Write pseudocode for polling a device that requires checking two status bits: READY (bit 0) and ERROR (bit 1) before performing a data read.
 
-**A2:**
+<details>
+<summary>Show Answer</summary>
 ```
 function read_byte():
     loop:
@@ -229,17 +233,27 @@ function read_byte():
             return data
         goto loop                          // Keep polling
 ```
+</details>
 
 **Q3:** Explain why programmed I/O is inefficient in a multitasking operating system.
 
-**A3:** In a multitasking OS, the CPU should be shared among multiple processes. With programmed I/O, a process performing I/O enters a polling loop where it repeatedly checks device status. During this time, the CPU cannot be used by any other process (unless the OS implements a timer interrupt to preempt the polling process). This wastes CPU cycles that could otherwise be used to execute other processes.
+<details>
+<summary>Show Answer</summary>
+In a multitasking OS, the CPU should be shared among multiple processes. With programmed I/O, a process performing I/O enters a polling loop where it repeatedly checks device status. During this time, the CPU cannot be used by any other process (unless the OS implements a timer interrupt to preempt the polling process). This wastes CPU cycles that could otherwise be used to execute other processes.
+</details>
 
 **Q4:** What is the difference between isolated I/O and memory-mapped I/O in terms of I/O instructions used?
 
-**A4:** Isolated I/O uses dedicated I/O instructions (e.g., IN and OUT on x86) that access a separate I/O address space. Memory-mapped I/O uses the same LOAD and STORE instructions used for memory access, treating device registers as locations in the memory address space. The choice affects instruction set design, address space partitioning, and hardware protection.
+<details>
+<summary>Show Answer</summary>
+Isolated I/O uses dedicated I/O instructions (e.g., IN and OUT on x86) that access a separate I/O address space. Memory-mapped I/O uses the same LOAD and STORE instructions used for memory access, treating device registers as locations in the memory address space. The choice affects instruction set design, address space partitioning, and hardware protection.
+</details>
 
 **Q5:** A system has three devices: A (ready every 1 us, fast), B (ready every 50 ms, slow), C (ready every 10 ms, medium). The CPU polls devices in round-robin order A -> B -> C, taking 100 ns per poll. Calculate the maximum polling latency for device B (how long after it becomes ready before it is polled?).
 
-**A5:** One round = 3 polls x 100 ns = 300 ns. If device B becomes ready immediately after it was polled, it must wait for A and C to be polled next. That is 2 polls = 200 ns latency. In the worst case, B becomes ready just after B was polled, and the next poll of B happens after polling A and C in the current cycle, which takes 200 ns. So max latency = 200 ns, which is negligible compared to 50 ms -- so polling order is fine. (Problem occurs when many slow devices are polled with high frequency.)
+<details>
+<summary>Show Answer</summary>
+One round = 3 polls x 100 ns = 300 ns. If device B becomes ready immediately after it was polled, it must wait for A and C to be polled next. That is 2 polls = 200 ns latency. In the worst case, B becomes ready just after B was polled, and the next poll of B happens after polling A and C in the current cycle, which takes 200 ns. So max latency = 200 ns, which is negligible compared to 50 ms -- so polling order is fine. (Problem occurs when many slow devices are polled with high frequency.)
+</details>
 
 ---

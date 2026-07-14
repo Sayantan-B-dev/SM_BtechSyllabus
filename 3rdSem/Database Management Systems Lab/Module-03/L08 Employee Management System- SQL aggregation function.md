@@ -132,5 +132,19 @@ FROM Employee GROUP BY department, job_role WITH ROLLUP;
 ## Homework / Practice
 
 1. Use GROUP BY WITH ROLLUP on department and job_role to find the count of employees at each level.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT department, job_role, COUNT(*) AS employee_count FROM Employee GROUP BY department, job_role WITH ROLLUP;
+   </details>
+
 2. Write a query that shows the minimum, maximum, and average salary for each job_role across all departments.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT job_role, MIN(salary) AS min_salary, MAX(salary) AS max_salary, AVG(salary) AS avg_salary FROM Employee GROUP BY job_role;
+   </details>
+
 3. Explain the difference between ROLLUP and CUBE. Write a query simulating CUBE using UNION (since MySQL does not support CUBE natively).
+   <details>
+   <summary>Show Answer</summary>
+   ROLLUP generates subtotals and grand totals for a hierarchy of columns. CUBE generates subtotals for all combinations of columns. Simulating CUBE: SELECT department, job_role, COUNT(*) FROM Employee GROUP BY department, job_role WITH ROLLUP UNION SELECT department, job_role, COUNT(*) FROM Employee GROUP BY job_role, department WITH ROLLUP;
+   </details>

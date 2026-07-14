@@ -307,13 +307,13 @@ print(factorial_iterative(6))  # 720
 **Problem 1:** Write a recursive function `sum_digits(n)` that returns the sum of digits of a positive integer.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Base case: if n == 0, return 0. Recursive case: return (n % 10) + sum_digits(n // 10).
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def sum_digits(n):
@@ -329,13 +329,13 @@ print(sum_digits(9876))  # 9+8+7+6 = 30
 **Problem 2:** Write a function `is_prime(n)` that returns `True` if n is prime, `False` otherwise. Use only built-in functions.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 A number is prime if it is greater than 1 and divisible only by 1 and itself. Check divisibility from 2 to sqrt(n) using `n % i == 0`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def is_prime(n):
@@ -354,13 +354,13 @@ print(is_prime(25))  # False
 **Problem 3:** Write a recursive function `reverse_string(s)` that returns the reverse of a string.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Base case: if string length is 0 or 1, return the string. Recursive case: return `reverse_string(s[1:]) + s[0]`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def reverse_string(s):
@@ -376,13 +376,13 @@ print(reverse_string("Python"))  # "nohtyP"
 **Problem 4:** Write a void function `print_triangle(n)` that prints a right-angled triangle pattern of stars with n rows. It should return `None` (implicitly).
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use nested loops: outer loop for rows, inner loop for stars in each row.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def print_triangle(n):

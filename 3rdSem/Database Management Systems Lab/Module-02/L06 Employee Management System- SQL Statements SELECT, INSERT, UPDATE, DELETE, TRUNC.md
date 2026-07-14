@@ -137,5 +137,19 @@ After TRUNCATE: count = 0 (cannot roll back)
 ## Homework / Practice
 
 1. Write a query to display the top 5 highest-paid employees with their names and salaries.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT emp_name, salary FROM Employee ORDER BY salary DESC LIMIT 5;
+   </details>
+
 2. Use DISTINCT to find all unique job roles present in the Employee table.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT DISTINCT job_role FROM Employee;
+   </details>
+
 3. Explain the difference between TRUNCATE and DELETE in terms of transaction safety and auto-increment reset. Demonstrate by creating a small table with AUTO_INCREMENT and showing the difference.
+   <details>
+   <summary>Show Answer</summary>
+   TRUNCATE is DDL, cannot be rolled back, resets AUTO_INCREMENT counter. DELETE is DML, can be rolled back, does not reset AUTO_INCREMENT. Example: CREATE TABLE Test (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50)); INSERT INTO Test VALUES (1, 'A'), (2, 'B'); DELETE FROM Test; INSERT INTO Test (name) VALUES ('C'); -- id becomes 3. TRUNCATE TABLE Test; INSERT INTO Test (name) VALUES ('D'); -- id becomes 1.
+   </details>

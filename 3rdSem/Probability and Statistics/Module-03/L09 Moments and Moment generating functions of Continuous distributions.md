@@ -169,17 +169,34 @@ So `E[Z^4] = 3` (fourth moment of standard normal).
 
 1. For `X ~ Uniform(2, 6)`, find the MGF and use it to compute `E[X]` and `E[X^2]`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `M(t) = (e^{6t} - e^{2t})/(4t)`. Using expansion: `M(t) = 1 + 4t + (28/3)t^2 + ...`. So `E[X] = 4`, `E[X^2] = 56/3`, `Var = 56/3 - 16 = 56/3 - 48/3 = 8/3 = (b-a)^2/12`.
+   </details>
+
 2. If `M_X(t) = exp(4t + 2t^2)`, identify the distribution and find `P(X > 4)`.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `X ~ N(4, 4)`. `P(X > 4) = P(Z > 0) = 0.5`.
+   </details>
 
 3. For `X ~ Exp(0.5)`, use the MGF to find the variance.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `M(t) = 0.5/(0.5 - t) = 1/(1-2t)`. `M'(0) = 2`, `M''(0) = 8`. `Var = 8 - 4 = 4 = 1/(0.5)^2`.
+   </details>
+
 4. Find the MGF of `X ~ N(-1, 4)`. Use it to find `E[X^3]`.
 
-5. If X has MGF `M(t) = (0.4 + 0.6e^t)^3`, identify the distribution (discrete). Find `E[X]` and `Var(X)`.
+   <details>
+   <summary>Show Answer</summary>
+   4. `M(t) = e^{-t + 2t^2}`. Find `M'''(0)`. `E[X^3] = -4`.
+   </details>
 
-**Answers / Hints:**
-1. `M(t) = (e^{6t} - e^{2t})/(4t)`. Using expansion: `M(t) = 1 + 4t + (28/3)t^2 + ...`. So `E[X] = 4`, `E[X^2] = 56/3`, `Var = 56/3 - 16 = 56/3 - 48/3 = 8/3 = (b-a)^2/12`.
-2. `X ~ N(4, 4)`. `P(X > 4) = P(Z > 0) = 0.5`.
-3. `M(t) = 0.5/(0.5 - t) = 1/(1-2t)`. `M'(0) = 2`, `M''(0) = 8`. `Var = 8 - 4 = 4 = 1/(0.5)^2`.
-4. `M(t) = e^{-t + 2t^2}`. Find `M'''(0)`. `E[X^3] = -4`.
-5. Binomial(3, 0.6). `E[X] = 1.8`. `Var(X) = 3(0.6)(0.4) = 0.72`.
+5. If X has MGF `M(t) = (0.4 + 0.6e^t)^3`, identify the distribution (discrete). Find `E[X]` and `Var(X)`.
+   <details>
+   <summary>Show Answer</summary>
+   5. Binomial(3, 0.6). `E[X] = 1.8`. `Var(X) = 3(0.6)(0.4) = 0.72`.
+   </details>

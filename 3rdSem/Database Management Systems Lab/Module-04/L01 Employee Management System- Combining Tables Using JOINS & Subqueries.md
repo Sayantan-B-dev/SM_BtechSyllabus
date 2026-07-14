@@ -116,5 +116,19 @@ ORDER BY e.emp_name;
 ## Homework / Practice
 
 1. Write an INNER JOIN query to display all employees along with their department names and the names of projects they are working on.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.emp_name, d.dept_name, p.project_name FROM Employee e INNER JOIN Department d ON e.dept_id = d.dept_id INNER JOIN Works_On w ON e.emp_id = w.emp_id INNER JOIN Project p ON w.project_id = p.project_id;
+   </details>
+
 2. Find the total hours worked by each department on all projects using INNER JOIN and aggregation.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT d.dept_name, SUM(w.hours_worked) AS total_hours FROM Department d INNER JOIN Employee e ON d.dept_id = e.dept_id INNER JOIN Works_On w ON e.emp_id = w.emp_id GROUP BY d.dept_name;
+   </details>
+
 3. Use INNER JOIN to list employees who are working on projects with a budget greater than 100000.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT DISTINCT e.emp_name, p.project_name, p.budget FROM Employee e INNER JOIN Works_On w ON e.emp_id = w.emp_id INNER JOIN Project p ON w.project_id = p.project_id WHERE p.budget > 100000;
+   </details>

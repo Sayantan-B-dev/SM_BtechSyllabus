@@ -643,261 +643,262 @@ print(f"Overhead: {((property_time/direct_time)-1)*100:.1f}%")
 ## Practice Problems
 
 1. **Student Grade with Encapsulation** -- Create a `StudentGrade` class with private `_name`, `_grades` (list). Provide public methods: `add_grade(score)`, `average` (property), `letter_grade` (property), `name` (property with validation).
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class StudentGrade:
+       def __init__(self, name):
+           self._name = None
+           self._grades = []
+           self.name = name
+
+       @property
+       def name(self):
+           return self._name
+
+       @name.setter
+       def name(self, value):
+           if not value or not value.strip():
+               raise ValueError("Name cannot be empty.")
+           self._name = value.strip()
+
+       def add_grade(self, score):
+           if not isinstance(score, (int, float)):
+               raise TypeError("Score must be numeric.")
+           if score < 0 or score > 100:
+               raise ValueError("Score must be 0-100.")
+           self._grades.append(score)
+
+       @property
+       def average(self):
+           if not self._grades:
+               return 0
+           return sum(self._grades) / len(self._grades)
+
+       @property
+       def letter_grade(self):
+           avg = self.average
+           if avg >= 90: return "A"
+           if avg >= 80: return "B"
+           if avg >= 70: return "C"
+           if avg >= 60: return "D"
+           return "F"
+
+   s = StudentGrade("Alice")
+   s.add_grade(85)
+   s.add_grade(90)
+   s.add_grade(78)
+   print(f"{s.name}: avg={s.average:.1f}, grade={s.letter_grade}")
+   ```
+   </details>
 
 2. **Secure Password Container** -- Create a `PasswordVault` class that stores passwords in a private `__passwords` dict. Public methods: `set_password(service, pwd)`, `get_password(service)` (returns masked: "****"), `validate_password(service, pwd)` (returns bool). Never expose the actual password.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class PasswordVault:
+       def __init__(self):
+           self.__passwords = {}
+
+       def set_password(self, service, password):
+           if len(password) < 4:
+               raise ValueError("Password too short.")
+           self.__passwords[service] = password
+           print(f"Password set for '{service}'.")
+
+       def get_password(self, service):
+           if service not in self.__passwords:
+               return None
+           pwd = self.__passwords[service]
+           return pwd[:2] + "*" * (len(pwd) - 4) + pwd[-2:]
+
+       def validate_password(self, service, password):
+           stored = self.__passwords.get(service)
+           if stored is None:
+               return False
+           return stored == password
+
+   vault = PasswordVault()
+   vault.set_password("email", "MySecureP@ss1")
+   print(f"Masked: {vault.get_password('email')}")
+   print(f"Valid? {vault.validate_password('email', 'MySecureP@ss1')}")
+   print(f"Valid? {vault.validate_password('email', 'wrong')}")
+   ```
+   </details>
 
 3. **Inventory System** -- Create an `InventoryItem` class with private `_name`, `_quantity`, `_price`. Properties: `name` (read-only), `quantity` (validated non-negative), `price` (validated positive). Method: `total_value` (computed property). Prevent direct modification of internal data.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class InventoryItem:
+       def __init__(self, name, quantity, price):
+           self._name = None
+           self._quantity = 0
+           self._price = 0.0
+           self._name = name
+           self.quantity = quantity
+           self.price = price
+
+       @property
+       def name(self):
+           return self._name
+
+       @property
+       def quantity(self):
+           return self._quantity
+
+       @quantity.setter
+       def quantity(self, value):
+           if not isinstance(value, int) or value < 0:
+               raise ValueError("Quantity must be non-negative integer.")
+           self._quantity = value
+
+       @property
+       def price(self):
+           return self._price
+
+       @price.setter
+       def price(self, value):
+           if not isinstance(value, (int, float)) or value <= 0:
+               raise ValueError("Price must be positive.")
+           self._price = float(value)
+
+       @property
+       def total_value(self):
+           return self._quantity * self._price
+
+       def __str__(self):
+           return f"{self._name}: qty={self._quantity}, price=${self._price:.2f}"
+
+   item = InventoryItem("Laptop", 10, 999.99)
+   print(f"{item.name}: {item.total_value}")
+   item.quantity = 5
+   print(f"Updated: {item.total_value}")
+   ```
+   </details>
 
 4. **Timer with Encapsulation** -- Create a `Timer` class with private `_start_time`, `_elapsed`. Public methods: `start()`, `stop()`, `reset()`. Property: `elapsed` (returns formatted string "HH:MM:SS"). Prevent direct access to timestamps.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   import time
+
+   class Timer:
+       def __init__(self):
+           self._start_time = None
+           self._elapsed = 0.0
+           self._running = False
+
+       def start(self):
+           if self._running:
+               raise RuntimeError("Timer already running.")
+           self._start_time = time.perf_counter()
+           self._running = True
+           print("Timer started.")
+
+       def stop(self):
+           if not self._running:
+               raise RuntimeError("Timer not running.")
+           self._elapsed += time.perf_counter() - self._start_time
+           self._running = False
+           print(f"Timer stopped. Elapsed: {self.elapsed}")
+
+       def reset(self):
+           self._elapsed = 0.0
+           self._running = False
+           self._start_time = None
+           print("Timer reset.")
+
+       @property
+       def elapsed(self):
+           total = self._elapsed
+           if self._running:
+               total += time.perf_counter() - self._start_time
+           hours = int(total // 3600)
+           minutes = int((total % 3600) // 60)
+           seconds = int(total % 60)
+           ms = int((total * 100) % 100)
+           return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{ms:02d}"
+
+   t = Timer()
+   t.start()
+   time.sleep(0.1)
+   t.stop()
+   print(f"Final: {t.elapsed}")
+   ```
+   </details>
 
 5. **BankAccount with Daily Limit** -- Extend BankAccount with a daily withdrawal limit. Private attributes: `__daily_limit`, `__withdrawn_today`. Property: `daily_limit` (read/write, validated). Override `withdraw` to check daily limit. Add `reset_daily_limit()`.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   import datetime
 
-## Practice Problems
+   class BankAccount:
+       def __init__(self, owner, balance=0, daily_limit=500):
+           self.owner = owner
+           self.__balance = balance
+           self.__daily_limit = daily_limit
+           self.__withdrawn_today = 0
+           self.__last_date = datetime.date.today()
 
-1. **Student Grade with Encapsulation**
+       @property
+       def balance(self):
+           return self.__balance
 
-```python
-class StudentGrade:
-    def __init__(self, name):
-        self._name = None
-        self._grades = []
-        self.name = name
+       @property
+       def daily_limit(self):
+           self.__check_date()
+           return self.__daily_limit
 
-    @property
-    def name(self):
-        return self._name
+       @daily_limit.setter
+       def daily_limit(self, value):
+           if value < 0:
+               raise ValueError("Daily limit cannot be negative.")
+           self.__daily_limit = value
 
-    @name.setter
-    def name(self, value):
-        if not value or not value.strip():
-            raise ValueError("Name cannot be empty.")
-        self._name = value.strip()
+       def __check_date(self):
+           today = datetime.date.today()
+           if self.__last_date != today:
+               self.__withdrawn_today = 0
+               self.__last_date = today
 
-    def add_grade(self, score):
-        if not isinstance(score, (int, float)):
-            raise TypeError("Score must be numeric.")
-        if score < 0 or score > 100:
-            raise ValueError("Score must be 0-100.")
-        self._grades.append(score)
+       def deposit(self, amount):
+           if amount <= 0:
+               raise ValueError("Amount must be positive.")
+           self.__balance += amount
+           print(f"Deposited ${amount}. Balance: ${self.__balance}")
 
-    @property
-    def average(self):
-        if not self._grades:
-            return 0
-        return sum(self._grades) / len(self._grades)
+       def withdraw(self, amount):
+           if amount <= 0:
+               raise ValueError("Amount must be positive.")
+           if amount > self.__balance:
+               raise ValueError("Insufficient funds.")
+           self.__check_date()
+           remaining = self.__daily_limit - self.__withdrawn_today
+           if amount > remaining:
+               raise ValueError(f"Daily limit ${self.__daily_limit}, "
+                                f"${remaining} remaining today.")
+           self.__balance -= amount
+           self.__withdrawn_today += amount
+           print(f"Withdrew ${amount}. Balance: ${self.__balance}")
+           return True
 
-    @property
-    def letter_grade(self):
-        avg = self.average
-        if avg >= 90: return "A"
-        if avg >= 80: return "B"
-        if avg >= 70: return "C"
-        if avg >= 60: return "D"
-        return "F"
+       def reset_daily(self):
+           self.__withdrawn_today = 0
+           print("Daily counter reset.")
 
-s = StudentGrade("Alice")
-s.add_grade(85)
-s.add_grade(90)
-s.add_grade(78)
-print(f"{s.name}: avg={s.average:.1f}, grade={s.letter_grade}")
-```
-
-2. **Secure Password Container**
-
-```python
-class PasswordVault:
-    def __init__(self):
-        self.__passwords = {}
-
-    def set_password(self, service, password):
-        if len(password) < 4:
-            raise ValueError("Password too short.")
-        self.__passwords[service] = password
-        print(f"Password set for '{service}'.")
-
-    def get_password(self, service):
-        if service not in self.__passwords:
-            return None
-        pwd = self.__passwords[service]
-        return pwd[:2] + "*" * (len(pwd) - 4) + pwd[-2:]
-
-    def validate_password(self, service, password):
-        stored = self.__passwords.get(service)
-        if stored is None:
-            return False
-        return stored == password
-
-vault = PasswordVault()
-vault.set_password("email", "MySecureP@ss1")
-print(f"Masked: {vault.get_password('email')}")
-print(f"Valid? {vault.validate_password('email', 'MySecureP@ss1')}")
-print(f"Valid? {vault.validate_password('email', 'wrong')}")
-```
-
-3. **Inventory System**
-
-```python
-class InventoryItem:
-    def __init__(self, name, quantity, price):
-        self._name = None
-        self._quantity = 0
-        self._price = 0.0
-        self._name = name
-        self.quantity = quantity
-        self.price = price
-
-    @property
-    def name(self):
-        return self._name
-
-    @property
-    def quantity(self):
-        return self._quantity
-
-    @quantity.setter
-    def quantity(self, value):
-        if not isinstance(value, int) or value < 0:
-            raise ValueError("Quantity must be non-negative integer.")
-        self._quantity = value
-
-    @property
-    def price(self):
-        return self._price
-
-    @price.setter
-    def price(self, value):
-        if not isinstance(value, (int, float)) or value <= 0:
-            raise ValueError("Price must be positive.")
-        self._price = float(value)
-
-    @property
-    def total_value(self):
-        return self._quantity * self._price
-
-    def __str__(self):
-        return f"{self._name}: qty={self._quantity}, price=${self._price:.2f}"
-
-item = InventoryItem("Laptop", 10, 999.99)
-print(f"{item.name}: {item.total_value}")
-item.quantity = 5
-print(f"Updated: {item.total_value}")
-```
-
-4. **Timer with Encapsulation**
-
-```python
-import time
-
-class Timer:
-    def __init__(self):
-        self._start_time = None
-        self._elapsed = 0.0
-        self._running = False
-
-    def start(self):
-        if self._running:
-            raise RuntimeError("Timer already running.")
-        self._start_time = time.perf_counter()
-        self._running = True
-        print("Timer started.")
-
-    def stop(self):
-        if not self._running:
-            raise RuntimeError("Timer not running.")
-        self._elapsed += time.perf_counter() - self._start_time
-        self._running = False
-        print(f"Timer stopped. Elapsed: {self.elapsed}")
-
-    def reset(self):
-        self._elapsed = 0.0
-        self._running = False
-        self._start_time = None
-        print("Timer reset.")
-
-    @property
-    def elapsed(self):
-        total = self._elapsed
-        if self._running:
-            total += time.perf_counter() - self._start_time
-        hours = int(total // 3600)
-        minutes = int((total % 3600) // 60)
-        seconds = int(total % 60)
-        ms = int((total * 100) % 100)
-        return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{ms:02d}"
-
-t = Timer()
-t.start()
-time.sleep(0.1)
-t.stop()
-print(f"Final: {t.elapsed}")
-```
-
-5. **BankAccount with Daily Limit**
-
-```python
-import datetime
-
-class BankAccount:
-    def __init__(self, owner, balance=0, daily_limit=500):
-        self.owner = owner
-        self.__balance = balance
-        self.__daily_limit = daily_limit
-        self.__withdrawn_today = 0
-        self.__last_date = datetime.date.today()
-
-    @property
-    def balance(self):
-        return self.__balance
-
-    @property
-    def daily_limit(self):
-        self.__check_date()
-        return self.__daily_limit
-
-    @daily_limit.setter
-    def daily_limit(self, value):
-        if value < 0:
-            raise ValueError("Daily limit cannot be negative.")
-        self.__daily_limit = value
-
-    def __check_date(self):
-        today = datetime.date.today()
-        if self.__last_date != today:
-            self.__withdrawn_today = 0
-            self.__last_date = today
-
-    def deposit(self, amount):
-        if amount <= 0:
-            raise ValueError("Amount must be positive.")
-        self.__balance += amount
-        print(f"Deposited ${amount}. Balance: ${self.__balance}")
-
-    def withdraw(self, amount):
-        if amount <= 0:
-            raise ValueError("Amount must be positive.")
-        if amount > self.__balance:
-            raise ValueError("Insufficient funds.")
-        self.__check_date()
-        remaining = self.__daily_limit - self.__withdrawn_today
-        if amount > remaining:
-            raise ValueError(f"Daily limit ${self.__daily_limit}, "
-                             f"${remaining} remaining today.")
-        self.__balance -= amount
-        self.__withdrawn_today += amount
-        print(f"Withdrew ${amount}. Balance: ${self.__balance}")
-        return True
-
-    def reset_daily(self):
-        self.__withdrawn_today = 0
-        print("Daily counter reset.")
-
-acc = BankAccount("Alice", 1000, 300)
-acc.withdraw(200)
-acc.withdraw(100)
-try:
-    acc.withdraw(50)
-except ValueError as e:
-    print(f"Error: {e}")
-```
+   acc = BankAccount("Alice", 1000, 300)
+   acc.withdraw(200)
+   acc.withdraw(100)
+   try:
+       acc.withdraw(50)
+   except ValueError as e:
+       print(f"Error: {e}")
+   ```
+   </details>

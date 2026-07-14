@@ -624,7 +624,8 @@ PC <- IR[address]     ; PC = 100 (program loops back)
 ## Practice Problems
 
 1. **Problem**: Write the complete RTL sequence (fetch + execute) for the instruction `ADD R3, R5` assuming two-address format where R3 is both source and destination.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    ; Fetch
    MAR <- PC
@@ -635,17 +636,23 @@ PC <- IR[address]     ; PC = 100 (program loops back)
    R3 <- R3 + R5
    PSW <- Update flags
    ```
+</details>
 
 2. **Problem**: Translate the following assembly code into RTL (compact notation): `LOAD R1, 500; ADD R1, R2; STORE R1, 600`
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    R1 <- M[500]
    R1 <- R1 + R2
    M[600] <- R1
    ```
+</details>
 
 3. **Problem**: In RTL notation, what does `M[--SP] <- PC` mean? Explain each symbol.
-   **Answer**: This is the CALL instruction's save operation. `--SP` means "decrement SP first, then use the new value" (pre-decrement). `M[--SP]` means "the memory location addressed by the decremented SP". `<- PC` means "the value of PC is written to that memory location". So the operation saves the return address on the stack and adjusts the stack pointer.
+<details>
+<summary>Show Answer</summary>
+This is the CALL instruction's save operation. `--SP` means "decrement SP first, then use the new value" (pre-decrement). `M[--SP]` means "the memory location addressed by the decremented SP". `<- PC` means "the value of PC is written to that memory location". So the operation saves the return address on the stack and adjusts the stack pointer.
+</details>
 
 4. **Problem**: Given the RTL sequence:
    ```
@@ -657,10 +664,14 @@ PC <- IR[address]     ; PC = 100 (program loops back)
    T5: R1 <- MBR
    ```
    What instruction does this implement? Which cycle does T3-T5 belong to?
-   **Answer**: This implements `LOAD R1, X`. T0-T2 is the fetch cycle. T3-T5 is the execute cycle (load phase: get address, read memory, transfer to register).
+<details>
+<summary>Show Answer</summary>
+This implements `LOAD R1, X`. T0-T2 is the fetch cycle. T3-T5 is the execute cycle (load phase: get address, read memory, transfer to register).
+</details>
 
 5. **Problem**: Write RTL for a decrement-and-skip-if-zero instruction: `DSZ R1` (decrement R1; if R1 becomes zero, skip the next instruction by incrementing PC again).
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    ; Fetch (normal)
    MAR <- PC
@@ -671,3 +682,4 @@ PC <- IR[address]     ; PC = 100 (program loops back)
    R1 <- R1 - 1
    IF (R1 == 0) THEN PC <- PC + 1  ; Skip next instruction
    ```
+</details>

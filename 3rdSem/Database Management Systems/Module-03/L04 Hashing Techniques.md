@@ -297,7 +297,7 @@ Now lookups use:
 **Problem 1:** A hash table uses linear probing with B = 7 buckets. Insert keys: 14, 21, 28, 35, 42. Use h(K) = K mod 7. Show the final hash table.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 h(14)=0, h(21)=0, h(28)=0, h(35)=0, h(42)=0.
 
@@ -314,7 +314,7 @@ Final:
 **Problem 2:** In extendible hashing, global depth = 3, directory size = 8. A key has hash bits ...110. Which directory entry does it use? (Assume last d bits are used.)
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 d = 3. Use last 3 bits = 110 (binary) = 6 (decimal). Directory entry [6] is used.
 </details>
@@ -322,7 +322,7 @@ d = 3. Use last 3 bits = 110 (binary) = 6 (decimal). Directory entry [6] is used
 **Problem 3:** What is the primary advantage of double hashing over linear probing?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Double hashing uses a second hash function to determine the probe step, so keys that hash to the same initial slot use different probe sequences. This eliminates primary clustering (which causes long runs of occupied slots in linear probing) and provides more uniform distribution, leading to better performance as the table fills up.
 </details>
@@ -330,7 +330,7 @@ Double hashing uses a second hash function to determine the probe step, so keys 
 **Problem 4:** In linear hashing, n = 8, split pointer sp = 3. A key K has h0(K) = 5. Which hash function should be used for lookup?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 h0(K) = 5. Since 5 >= sp (= 3), bucket [5] has not been split yet. Use h0 (K mod 8) to find the bucket.
 </details>
@@ -338,7 +338,7 @@ h0(K) = 5. Since 5 >= sp (= 3), bucket [5] has not been split yet. Use h0 (K mod
 **Problem 5:** Compare open hashing (chaining) with closed hashing (open addressing) in terms of deletion and load factor tolerance.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - **Open hashing (chaining):** Deletion is simple (remove from linked list). Can tolerate load factors > 1 (overflow chains just get longer). Uses extra space for pointers.
 - **Closed hashing (open addressing):** Deletion requires tombstones or rehashing (otherwise search breaks). Performance degrades rapidly as load factor approaches 1 (clustering). Typically kept below 0.7-0.8 load factor for acceptable performance. No pointer overhead.

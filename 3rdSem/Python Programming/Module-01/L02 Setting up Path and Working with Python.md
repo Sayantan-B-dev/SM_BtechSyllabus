@@ -250,15 +250,46 @@ Hello from VS Code!
 ## Practice Problems
 
 1. **Installation Check:** Open Command Prompt and run `python --version` and `pip --version`. Write down the output you see.
+   <details>
+   <summary>Show Answer</summary>
+   Sample output: `Python 3.12.5` and `pip 24.2 from C:\...\site-packages\pip (python 3.12)`. Your actual versions may differ.
+   </details>
 
 2. **REPL Practice:** Open the Python interactive shell and evaluate the following expressions one by one:
    - `15 + 7`
    - `10 * 3`
    - `"Hello" + " " + "World"`
    - `2 ** 10`
+   <details>
+   <summary>Show Answer</summary>
+   Results: `22`, `30`, `"Hello World"`, `1024`.
+   </details>
 
 3. **Script Practice:** Create a file `myname.py` that prints your name, your age, and your favorite color on three separate lines. Run it and note the output.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   # myname.py
+   print("Alice")
+   print(20)
+   print("Blue")
+   ```
+   Output:
+   ```
+   Alice
+   20
+   Blue
+   ```
+   </details>
 
 4. **Error Exploration:** In the REPL, type `print("Hello"` (intentionally missing the closing parenthesis). What error do you get?
+   <details>
+   <summary>Show Answer</summary>
+   You get a `SyntaxError: '(' was never closed` (or `unexpected EOF while parsing`). The REPL may also show a continuation prompt `...` because it expects the rest of the expression.
+   </details>
 
 5. **IDLE vs VS Code:** Open `myname.py` in both IDLE and VS Code. Run it in both environments. Which do you prefer and why?
+   <details>
+   <summary>Show Answer</summary>
+   Sample preference: VS Code is preferred because it offers syntax highlighting, integrated terminal, linting, debugging, and extensions. IDLE is simpler and lighter but lacks advanced features. (Your answer will depend on personal experience.)
+   </details>

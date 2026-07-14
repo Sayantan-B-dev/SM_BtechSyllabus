@@ -224,16 +224,31 @@ Result: 0 10000000000 1001001000011111101101010100010001000010110100011000
 ## Practice Problems
 
 1. **Signed representation**: Represent the decimal number -27 using 8-bit signed magnitude, ones complement, and twos complement.
-   - **Answer**: Signed magnitude: 10011011. Ones complement: 11100100. Twos complement: 11100101.
+<details>
+<summary>Show Answer</summary>
+Signed magnitude: 10011011. Ones complement: 11100100. Twos complement: 11100101.
+</details>
 
 2. **IEEE 754 conversion**: Convert decimal 13.625 to IEEE 754 single precision (32-bit). Express as hex.
-   - **Answer**: 13 = 1101, 0.625 = 0.101. So 13.625 = 1101.101 = 1.101101 x 2^3. Exponent = 3+127=130=10000010. Mantissa = 101101000... Sign=0. Result: 0x415A0000.
+<details>
+<summary>Show Answer</summary>
+13 = 1101, 0.625 = 0.101. So 13.625 = 1101.101 = 1.101101 x 2^3. Exponent = 3+127=130=10000010. Mantissa = 101101000... Sign=0. Result: 0x415A0000.
+</details>
 
 3. **ASCII encoding**: What is the binary ASCII representation of the string "COA"?
-   - **Answer**: C=67=1000011, O=79=1001111, A=65=1000001. Stored as bytes: 01000011 01001111 01000001.
+<details>
+<summary>Show Answer</summary>
+C=67=1000011, O=79=1001111, A=65=1000001. Stored as bytes: 01000011 01001111 01000001.
+</details>
 
 4. **Fixed-point**: An 8-bit Q4.4 fixed-point number has bits 1101.0110. What is its decimal value (signed, twos complement)?
-   - **Answer**: Signed number 1101.0110. The integer part is 1101 = -3 (in 4-bit twos complement). Fractional 0.0110 = 0.375. Total = -3.0 + 0.375 = -2.625.
+<details>
+<summary>Show Answer</summary>
+Signed number 1101.0110. The integer part is 1101 = -3 (in 4-bit twos complement). Fractional 0.0110 = 0.375. Total = -3.0 + 0.375 = -2.625.
+</details>
 
 5. **Floating-point range**: What is the largest normalized positive number in IEEE 754 single precision?
-   - **Answer**: Exponent = 254 (bias 127 gives actual +127). Mantissa = all 1s = 1.111... (23 ones) = 2 - 2^(-23). Value = (2 - 2^(-23)) x 2^127 ~ 3.403 x 10^38.
+<details>
+<summary>Show Answer</summary>
+Exponent = 254 (bias 127 gives actual +127). Mantissa = all 1s = 1.111... (23 ones) = 2 - 2^(-23). Value = (2 - 2^(-23)) x 2^127 ~ 3.403 x 10^38.
+</details>

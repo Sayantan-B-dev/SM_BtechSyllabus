@@ -304,10 +304,29 @@ Mean of y = 930 / 30 = 31.00
 
    Use classes: Height: 150-160, 160-170, 170-180. Weight: 50-60, 60-70, 70-80.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. Bivariate table:
+   
+   | Height\Weight | 50-60 | 60-70 | 70-80 | Total |
+   |---|---|---|---|---|
+   | 150-160 | 4 | 0 | 0 | 4 |
+   | 160-170 | 1 | 6 | 0 | 7 |
+   | 170-180 | 0 | 2 | 7 | 9 |
+   | **Total** | **5** | **8** | **7** | **20** |
+   </details>
+
 2. From the bivariate table in Problem 1, find:
    a) The marginal distribution of height.
    b) The marginal distribution of weight.
    c) The conditional distribution of weight given height 160-170.
+
+   <details>
+   <summary>Show Answer</summary>
+   2a. Height: 150-160: 4, 160-170: 7, 170-180: 9.
+   2b. Weight: 50-60: 5, 60-70: 8, 70-80: 7.
+   2c. Weight given Height 160-170: 50-60: 1/7, 60-70: 6/7, 70-80: 0/7.
+   </details>
 
 3. For the following bivariate frequency table, find the mean of x and the mean of y:
 
@@ -317,35 +336,29 @@ Mean of y = 930 / 30 = 31.00
 | 10-20 | 4 | 6 | 1 |
 | 20-30 | 1 | 2 | 6 |
 
+   <details>
+   <summary>Show Answer</summary>
+   3. Midpoints: x: 5, 15, 25. y: 5, 15, 25.
+      Row totals: 10, 11, 9. N = 30.
+      Mean of x = (10*5 + 11*15 + 9*25)/30 = (50+165+225)/30 = 440/30 = 14.67.
+      Col totals: 10, 11, 9.
+      Mean of y = (10*5 + 11*15 + 9*25)/30 = 440/30 = 14.67.
+   </details>
+
 4. Distinguish between marginal distribution and conditional distribution with an example.
+
+   <details>
+   <summary>Show Answer</summary>
+   4. Marginal distribution shows the distribution of one variable irrespective of the other. Conditional distribution shows the distribution of one variable given a specific value/class of the other variable. Example: Marginal distribution of height considers all students; conditional distribution of height given weight 60-70 considers only students in that weight range.
+   </details>
 
 5. Explain what a scatter diagram would look like in the case of:
    a) Perfect positive correlation
    b) Perfect negative correlation
    c) No correlation between variables
-
-**Answers/Hints:**
-1. Bivariate table:
-
-| Height\Weight | 50-60 | 60-70 | 70-80 | Total |
-|---|---|---|---|---|
-| 150-160 | 4 | 0 | 0 | 4 |
-| 160-170 | 1 | 6 | 0 | 7 |
-| 170-180 | 0 | 2 | 7 | 9 |
-| **Total** | **5** | **8** | **7** | **20** |
-
-2a. Height: 150-160: 4, 160-170: 7, 170-180: 9.
-2b. Weight: 50-60: 5, 60-70: 8, 70-80: 7.
-2c. Weight given Height 160-170: 50-60: 1/7, 60-70: 6/7, 70-80: 0/7.
-
-3. Midpoints: x: 5, 15, 25. y: 5, 15, 25.
-   Row totals: 10, 11, 9. N = 30.
-   Mean of x = (10*5 + 11*15 + 9*25)/30 = (50+165+225)/30 = 440/30 = 14.67.
-   Col totals: 10, 11, 9.
-   Mean of y = (10*5 + 11*15 + 9*25)/30 = 440/30 = 14.67.
-
-4. Marginal distribution shows the distribution of one variable irrespective of the other. Conditional distribution shows the distribution of one variable given a specific value/class of the other variable. Example: Marginal distribution of height considers all students; conditional distribution of height given weight 60-70 considers only students in that weight range.
-
-5a. Perfect positive: All points lie exactly on an upward-sloping straight line.
-5b. Perfect negative: All points lie exactly on a downward-sloping straight line.
-5c. No correlation: Points are scattered randomly with no pattern.
+   <details>
+   <summary>Show Answer</summary>
+   5a. Perfect positive: All points lie exactly on an upward-sloping straight line.
+   5b. Perfect negative: All points lie exactly on a downward-sloping straight line.
+   5c. No correlation: Points are scattered randomly with no pattern.
+   </details>

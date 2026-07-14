@@ -345,160 +345,161 @@ def read_config_best():
 ## Practice Problems
 
 1. **File Statistics** -- Write a function `file_stats(filename)` that reads a file and prints line count, word count, and character count. Use `try-except-else-finally`. In `else`, compute and print statistics. In `finally`, close the file. Handle `FileNotFoundError`.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   def file_stats(filename):
+       f = None
+       try:
+           f = open(filename, "r")
+           content = f.read()
+       except FileNotFoundError:
+           print(f"File '{filename}' not found.")
+           return
+       else:
+           lines = content.count("\n") + 1 if content else 0
+           if not content.endswith("\n"):
+               lines += 0
+           words = len(content.split())
+           chars = len(content)
+           print(f"File: {filename}")
+           print(f"Lines: {lines}")
+           print(f"Words: {words}")
+           print(f"Characters: {chars}")
+       finally:
+           if f:
+               f.close()
+               print("File closed.")
+
+   file_stats("sample.txt")
+   ```
+   </details>
 
 2. **Calculator with History Logging** -- Create a calculator that performs division. Use `else` to log successful operations to a list. Use `finally` to print "Operation complete." regardless of outcome. Handle `ZeroDivisionError` and `ValueError`.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   history = []
+   while True:
+       user_input = input("Enter a / b (or 'quit'): ")
+       if user_input.lower() == "quit":
+           break
+       parts = user_input.split("/")
+       if len(parts) != 2:
+           print("Format: a / b")
+           continue
+       try:
+           a, b = float(parts[0]), float(parts[1])
+           result = a / b
+       except ValueError:
+           print("Invalid numbers.")
+       except ZeroDivisionError:
+           print("Cannot divide by zero.")
+       else:
+           history.append(f"{a}/{b}={result}")
+           print(f"Result: {result}")
+           print(f"History: {history}")
+       finally:
+           print("Operation complete.")
+   ```
+   </details>
 
 3. **Network Request Simulation** -- Simulate connecting to a server. The connection may raise `TimeoutError` or `ConnectionError`. Use `else` to process data, `finally` to always print "Disconnected from server."
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   import random
+   def connect_to_server():
+       if random.random() < 0.3:
+           raise TimeoutError("Connection timed out.")
+       if random.random() < 0.3:
+           raise ConnectionError("Connection refused.")
+       return "Server response: OK"
+
+   try:
+       print("Connecting...")
+       response = connect_to_server()
+   except TimeoutError as e:
+       print(f"Timeout: {e}")
+   except ConnectionError as e:
+       print(f"Connection failed: {e}")
+   else:
+       print(f"Data received: {response}")
+   finally:
+       print("Disconnected from server.")
+   ```
+   </details>
 
 4. **Bank Transaction** -- Write a function `transfer(from_bal, to_bal, amount)` that simulates a transfer. Use `finally` to print a transaction receipt (with current balances) regardless of success. Raise `ValueError` if amount exceeds balance.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   def transfer(from_bal, to_bal, amount):
+       print(f"Transferring ${amount:.2f}...")
+       try:
+           if amount > from_bal:
+               raise ValueError("Insufficient funds.")
+           if amount < 0:
+               raise ValueError("Amount must be positive.")
+           from_bal -= amount
+           to_bal += amount
+       except ValueError as e:
+           print(f"Transfer failed: {e}")
+       else:
+           print(f"Transfer of ${amount:.2f} successful.")
+       finally:
+           print(f"Receipt: From=${from_bal:.2f}, To=${to_bal:.2f}")
+       return from_bal, to_bal
+
+   transfer(1000, 500, 200)
+   print("---")
+   transfer(1000, 500, 1500)
+   ```
+   </details>
 
 5. **Temperature Converter with Logging** -- Create a converter that reads from a file, converts Celsius to Fahrenheit, writes to another file. Use try-except-else-finally at each step.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   def convert_celsius_to_fahrenheit():
+       input_file = "celsius.txt"
+       output_file = "fahrenheit.txt"
+       fin = None
+       fout = None
+       try:
+           fin = open(input_file, "r")
+           celsius_values = fin.readlines()
+       except FileNotFoundError:
+           print(f"Input file '{input_file}' not found.")
+           return
+       else:
+           try:
+               fout = open(output_file, "w")
+               for line in celsius_values:
+                   line = line.strip()
+                   if not line:
+                       continue
+                   try:
+                       c = float(line)
+                       f = c * 9/5 + 32
+                       fout.write(f"{c}C = {f:.1f}F\n")
+                   except ValueError:
+                       fout.write(f"Invalid input: {line}\n")
+               print(f"Converted {len(celsius_values)} values.")
+           except PermissionError:
+               print(f"Cannot write to '{output_file}'.")
+       finally:
+           if fin:
+               fin.close()
+           if fout:
+               fout.close()
+           print(f"Files closed. Check '{output_file}' for results.")
 
-## Practice Problems
-
-1. **File Statistics**
-
-```python
-def file_stats(filename):
-    f = None
-    try:
-        f = open(filename, "r")
-        content = f.read()
-    except FileNotFoundError:
-        print(f"File '{filename}' not found.")
-        return
-    else:
-        lines = content.count("\n") + 1 if content else 0
-        if not content.endswith("\n"):
-            lines += 0
-        words = len(content.split())
-        chars = len(content)
-        print(f"File: {filename}")
-        print(f"Lines: {lines}")
-        print(f"Words: {words}")
-        print(f"Characters: {chars}")
-    finally:
-        if f:
-            f.close()
-            print("File closed.")
-
-file_stats("sample.txt")
-```
-
-2. **Calculator with History Logging**
-
-```python
-history = []
-while True:
-    user_input = input("Enter a / b (or 'quit'): ")
-    if user_input.lower() == "quit":
-        break
-    parts = user_input.split("/")
-    if len(parts) != 2:
-        print("Format: a / b")
-        continue
-    try:
-        a, b = float(parts[0]), float(parts[1])
-        result = a / b
-    except ValueError:
-        print("Invalid numbers.")
-    except ZeroDivisionError:
-        print("Cannot divide by zero.")
-    else:
-        history.append(f"{a}/{b}={result}")
-        print(f"Result: {result}")
-        print(f"History: {history}")
-    finally:
-        print("Operation complete.")
-```
-
-3. **Network Request Simulation**
-
-```python
-import random
-def connect_to_server():
-    if random.random() < 0.3:
-        raise TimeoutError("Connection timed out.")
-    if random.random() < 0.3:
-        raise ConnectionError("Connection refused.")
-    return "Server response: OK"
-
-try:
-    print("Connecting...")
-    response = connect_to_server()
-except TimeoutError as e:
-    print(f"Timeout: {e}")
-except ConnectionError as e:
-    print(f"Connection failed: {e}")
-else:
-    print(f"Data received: {response}")
-finally:
-    print("Disconnected from server.")
-```
-
-4. **Bank Transaction**
-
-```python
-def transfer(from_bal, to_bal, amount):
-    print(f"Transferring ${amount:.2f}...")
-    try:
-        if amount > from_bal:
-            raise ValueError("Insufficient funds.")
-        if amount < 0:
-            raise ValueError("Amount must be positive.")
-        from_bal -= amount
-        to_bal += amount
-    except ValueError as e:
-        print(f"Transfer failed: {e}")
-    else:
-        print(f"Transfer of ${amount:.2f} successful.")
-    finally:
-        print(f"Receipt: From=${from_bal:.2f}, To=${to_bal:.2f}")
-    return from_bal, to_bal
-
-transfer(1000, 500, 200)
-print("---")
-transfer(1000, 500, 1500)
-```
-
-5. **Temperature Converter with Logging**
-
-```python
-def convert_celsius_to_fahrenheit():
-    input_file = "celsius.txt"
-    output_file = "fahrenheit.txt"
-    fin = None
-    fout = None
-    try:
-        fin = open(input_file, "r")
-        celsius_values = fin.readlines()
-    except FileNotFoundError:
-        print(f"Input file '{input_file}' not found.")
-        return
-    else:
-        try:
-            fout = open(output_file, "w")
-            for line in celsius_values:
-                line = line.strip()
-                if not line:
-                    continue
-                try:
-                    c = float(line)
-                    f = c * 9/5 + 32
-                    fout.write(f"{c}C = {f:.1f}F\n")
-                except ValueError:
-                    fout.write(f"Invalid input: {line}\n")
-            print(f"Converted {len(celsius_values)} values.")
-        except PermissionError:
-            print(f"Cannot write to '{output_file}'.")
-    finally:
-        if fin:
-            fin.close()
-        if fout:
-            fout.close()
-        print(f"Files closed. Check '{output_file}' for results.")
-
-convert_celsius_to_fahrenheit()
-```
+   convert_celsius_to_fahrenheit()
+   ```
+   </details>

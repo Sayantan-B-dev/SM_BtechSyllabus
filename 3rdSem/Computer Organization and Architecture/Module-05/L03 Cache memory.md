@@ -256,20 +256,35 @@ Typical usage         | L1 caches      | L2/L3 caches    | Small TLBs
 
 **Problem 1:** A cache has 64 lines, each storing 8 words (32 bytes). The main memory is 32-bit byte-addressable. For a direct-mapped cache, determine the number of bits in tag, index, and offset.
 
-**Answer:** Offset = log2(32) = 5 bits. Index = log2(64) = 6 bits. Tag = 32 - 5 - 6 = 21 bits.
+<details>
+<summary>Show Answer</summary>
+Offset = log2(32) = 5 bits. Index = log2(64) = 6 bits. Tag = 32 - 5 - 6 = 21 bits.
+</details>
 
 **Problem 2:** For the same cache configured as 4-way set-associative, determine tag, set, and offset bits.
 
-**Answer:** Offset = 5 bits. Number of sets = 64 / 4 = 16. Set bits = log2(16) = 4 bits. Tag = 32 - 5 - 4 = 23 bits.
+<details>
+<summary>Show Answer</summary>
+Offset = 5 bits. Number of sets = 64 / 4 = 16. Set bits = log2(16) = 4 bits. Tag = 32 - 5 - 4 = 23 bits.
+</details>
 
 **Problem 3:** In a direct-mapped cache with 8 lines and 4-byte blocks, which cache line does memory address 0x2C (44 decimal) map to?
 
-**Answer:** Word address = 44 / 4 = 11 (block address 11). Cache line = 11 mod 8 = 3. So address 0x2C maps to cache line 3.
+<details>
+<summary>Show Answer</summary>
+Word address = 44 / 4 = 11 (block address 11). Cache line = 11 mod 8 = 3. So address 0x2C maps to cache line 3.
+</details>
 
 **Problem 4:** Explain why fully associative caches are impractical for large cache sizes.
 
-**Answer:** Fully associative caches require a comparator for every cache line to simultaneously compare all tags. For a cache with thousands of lines, this requires thousands of comparators, consuming enormous chip area and power. The parallel comparison also increases access time, defeating the purpose of a fast cache.
+<details>
+<summary>Show Answer</summary>
+Fully associative caches require a comparator for every cache line to simultaneously compare all tags. For a cache with thousands of lines, this requires thousands of comparators, consuming enormous chip area and power. The parallel comparison also increases access time, defeating the purpose of a fast cache.
+</details>
 
 **Problem 5:** A 2-way set-associative cache has 4 sets, each with 2 lines. Cache block size is 1 word. Show the set mapping for addresses 0, 1, 2, 3, 4, 5, 6, 7.
 
-**Answer:** Set number = Block Address mod 4. Addr 0 -> Set 0, Addr 1 -> Set 1, Addr 2 -> Set 2, Addr 3 -> Set 3, Addr 4 -> Set 0, Addr 5 -> Set 1, Addr 6 -> Set 2, Addr 7 -> Set 3. Each set has 2 ways, so up to 2 different blocks can be stored per set.
+<details>
+<summary>Show Answer</summary>
+Set number = Block Address mod 4. Addr 0 -> Set 0, Addr 1 -> Set 1, Addr 2 -> Set 2, Addr 3 -> Set 3, Addr 4 -> Set 0, Addr 5 -> Set 1, Addr 6 -> Set 2, Addr 7 -> Set 3. Each set has 2 ways, so up to 2 different blocks can be stored per set.
+</details>

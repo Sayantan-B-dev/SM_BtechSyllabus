@@ -327,30 +327,30 @@ Despite being mostly superseded, these models are still historically important:
 
 **1.** What is the fundamental structural difference between the hierarchical and network models?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Hierarchical is a tree structure where each child has exactly one parent. Network is a graph structure where a child can have multiple parents via membership in multiple sets.
 </details>
 
 **2.** How are M:N relationships handled in the hierarchical model?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 They are not directly supported. Workarounds include data duplication (storing the same segment under multiple parents) or using virtual segments (logical pointers), both of which introduce complexity and potential inconsistency.
 </details>
 
 **3.** Define the "set" concept in the network model. What are its components?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 A set is a named 1:N relationship between record types. It has an OWNER (the "one" side) and MEMBER(s) (the "many" side). Each set occurrence links one owner record to zero or more member records.
 </details>
 
 **4.** Why do the hierarchical and network models have poor data independence?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Because application programs embed the navigational access paths (pointers, tree paths, set traversal). If the database structure changes (e.g., a segment is moved, or a set is reorganized), the programs must be rewritten to follow the new paths.
 </details>
 
 **5.** Compare navigational models (hierarchical/network) with the relational model in terms of query approach and ease of use.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Navigational models use procedural DML -- the programmer explicitly navigates from record to record using pointers/currency indicators (how to get data). The relational model uses declarative SQL -- the user specifies what data is needed, and the DBMS optimizer determines how to retrieve it. SQL is far easier for ad-hoc queries and non-programmers.
 </details>

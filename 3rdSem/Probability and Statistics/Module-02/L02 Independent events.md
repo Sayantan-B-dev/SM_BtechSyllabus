@@ -230,27 +230,42 @@ Parallel systems are much more reliable than series systems.
    (b) at least one tail
    (c) exactly 3 heads
 
+   <details>
+   <summary>Show Answer</summary>
+   1. (a) 1/32 (b) 31/32 (c) `C(5,3)/32 = 10/32 = 5/16`
+   </details>
+
 2. The probability that A hits a target is 1/4 and the probability that B hits the same target is 2/5. If each fires one shot independently, find the probability that:
    (a) both hit the target
    (b) the target is hit at least once
    (c) exactly one of them hits the target
+
+   <details>
+   <summary>Show Answer</summary>
+   2. (a) 1/10 (b) 11/20 (c) `P(A hits, B misses) + P(A misses, B hits) = (1/4)(3/5) + (3/4)(2/5) = 9/20`
+   </details>
 
 3. A bag contains 4 red and 3 black balls. A ball is drawn at random, its color is noted, and the ball is replaced. Then another ball is drawn. Find the probability of getting:
    (a) both red
    (b) first red, second black
    (c) one red and one black
 
+   <details>
+   <summary>Show Answer</summary>
+   3. Note: with replacement, draws are independent. (a) `(4/7)^2 = 16/49` (b) `(4/7)(3/7) = 12/49` (c) `2 * (4/7)(3/7) = 24/49`
+   </details>
+
 4. Events A and B are such that `P(A) = 0.6`, `P(B) = 0.4`, and `P(A cap B) = 0.24`. Check if:
    (a) A and B are independent
    (b) A and B are mutually exclusive
 
+   <details>
+   <summary>Show Answer</summary>
+   4. (a) Yes, because `P(A)*P(B) = 0.24 = P(A cap B)` (b) No, because `P(A cap B) != 0`
+   </details>
+
 5. A system has 4 components in series, each with reliability 0.9. Find the system reliability. What would it be if they were in parallel?
-
----
-
-**Answers/Hints:**
-1. (a) 1/32 (b) 31/32 (c) `C(5,3)/32 = 10/32 = 5/16`
-2. (a) 1/10 (b) 11/20 (c) `P(A hits, B misses) + P(A misses, B hits) = (1/4)(3/5) + (3/4)(2/5) = 9/20`
-3. Note: with replacement, draws are independent. (a) `(4/7)^2 = 16/49` (b) `(4/7)(3/7) = 12/49` (c) `2 * (4/7)(3/7) = 24/49`
-4. (a) Yes, because `P(A)*P(B) = 0.24 = P(A cap B)` (b) No, because `P(A cap B) != 0`
-5. Series: `0.9^4 = 0.6561`. Parallel: `1 - (0.1)^4 = 0.9999`.
+   <details>
+   <summary>Show Answer</summary>
+   5. Series: `0.9^4 = 0.6561`. Parallel: `1 - (0.1)^4 = 0.9999`.
+   </details>

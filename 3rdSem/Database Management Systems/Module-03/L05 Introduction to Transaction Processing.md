@@ -243,7 +243,7 @@ ROLLBACK TO sp1;   -- undo only the update, not the whole transaction
 **Problem 1:** What are the six transaction states? Which state comes after PARTIALLY COMMITTED?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Active, Partially Committed, Committed, Failed, Aborted, Terminated. After Partially Committed, the transaction goes to either Committed (if no errors and output succeeds) or Failed (if an error occurs during output).
 </details>
@@ -251,7 +251,7 @@ Active, Partially Committed, Committed, Failed, Aborted, Terminated. After Parti
 **Problem 2:** In the fund transfer example, what is the minimum number of write operations to disk that must be atomic to ensure consistency?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Both output(A) and output(B) must be performed atomically. If only one of the two writes to disk succeeds, the database is inconsistent (money is created or destroyed). The recovery manager ensures this atomicity via logging and recovery.
 </details>
@@ -259,7 +259,7 @@ Both output(A) and output(B) must be performed atomically. If only one of the tw
 **Problem 3:** Draw the transaction state diagram and label all transitions.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 See the ASCII diagram in the notes above. Transitions:
 - ACTIVE -> PARTIALLY COMMITTED (end of operations)
@@ -274,7 +274,7 @@ See the ASCII diagram in the notes above. Transitions:
 **Problem 4:** A transaction T reads X, increments it by 1, and writes X back. If the initial value of X is 5, and T executes successfully, what is the final value of X? What if T aborts after writing?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 If T commits: X = 6. If T aborts after writing: the recovery manager rolls back the write to X, restoring X = 5.
 </details>
@@ -282,7 +282,7 @@ If T commits: X = 6. If T aborts after writing: the recovery manager rolls back 
 **Problem 5:** Why is the PARTIALLY COMMITTED state necessary? Why not go directly from ACTIVE to COMMITTED?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 The PARTIALLY COMMITTED state is necessary because after the final operation, the changes exist only in memory buffers. The system must verify that all operations have completed successfully, ensure no integrity constraints are violated, and then write the changes to disk (commit). If any of these steps fail, the transaction must abort. PARTIALLY COMMITTED represents this in-between state where the transaction has finished executing but has not yet been permanently recorded.
 </details>

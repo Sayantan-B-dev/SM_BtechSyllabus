@@ -212,18 +212,32 @@ Step 2: `pi_Name` gives:
 ## Practice Problems
 
 1. Given `PRODUCT(ProdID, Name, Price, Category)`, write a relational algebra expression to find the names of all products in the 'Electronics' category with a price less than 500.
+<details>
+<summary>Show Answer</summary>
+`pi_Name(sigma_Category = 'Electronics' AND Price < 500(PRODUCT))`
+</details>
 
 2. Given `EMP(EmpID, Name, Dept, Salary, City)`, write RA to find the employee IDs and names of employees who work in 'Sales' OR earn more than 80000.
+<details>
+<summary>Show Answer</summary>
+`pi_EmpID, Name(sigma_Dept = 'Sales' OR Salary > 80000(EMP))`
+</details>
 
 3. What is the difference between SELECT and PROJECT in relational algebra?
+<details>
+<summary>Show Answer</summary>
+SELECT picks rows (horizontal subset) using a condition; PROJECT picks columns (vertical subset) and removes duplicates.
+</details>
 
 4. Show that SELECT is commutative: `sigma_c1(sigma_c2(R)) = sigma_c2(sigma_c1(R))` with a brief explanation.
+<details>
+<summary>Show Answer</summary>
+Both orderings produce the same set of tuples satisfying both c1 and c2 because AND is commutative.
+</details>
 
 5. Given `R(A, B, C)` with tuples `(1,2,3), (1,2,4), (2,3,4)`, what does `pi_A,B(R)` return?
+<details>
+<summary>Show Answer</summary>
+`(1,2), (2,3)` -- note that tuples `(1,2,3)` and `(1,2,4)` collapse to `(1,2)` once after projection, and `(2,3,4)` gives `(2,3)`.
+</details>
 
-**Answers:**
-1. `pi_Name(sigma_Category = 'Electronics' AND Price < 500(PRODUCT))`
-2. `pi_EmpID, Name(sigma_Dept = 'Sales' OR Salary > 80000(EMP))`
-3. SELECT picks rows (horizontal subset) using a condition; PROJECT picks columns (vertical subset) and removes duplicates.
-4. Both orderings produce the same set of tuples satisfying both c1 and c2 because AND is commutative.
-5. `(1,2), (2,3)` -- note that tuples `(1,2,3)` and `(1,2,4)` collapse to `(1,2)` once after projection, and `(2,3,4)` gives `(2,3)`.

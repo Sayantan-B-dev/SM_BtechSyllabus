@@ -394,40 +394,53 @@ Interpretation: About 91.6% of the variation in exam scores is explained by hour
 
 Find the multiple regression equation `y = a + b1*x1 + b2*x2`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. sum x1 = 20, sum x2 = 9, sum y = 70, sum x1^2 = 90, sum x2^2 = 19, sum x1*x2 = 39, sum x1*y = 298, sum x2*y = 134.
+      x1_bar = 4, x2_bar = 1.8, y_bar = 14.
+      S11 = 90 - 400/5 = 90-80 = 10.
+      S22 = 19 - 81/5 = 19-16.2 = 2.8.
+      S12 = 39 - 180/5 = 39-36 = 3.
+      S1y = 298 - 1400/5 = 298-280 = 18.
+      S2y = 134 - 630/5 = 134-126 = 8.
+      Denom = 10*2.8 - 9 = 28-9 = 19.
+      b1 = (18*2.8 - 8*3)/19 = (50.4-24)/19 = 26.4/19 = 1.3895.
+      b2 = (8*10 - 18*3)/19 = (80-54)/19 = 26/19 = 1.3684.
+      a = 14 - 1.3895*4 - 1.3684*1.8 = 14 - 5.558 - 2.463 = 5.979.
+      y = 5.98 + 1.39*x1 + 1.37*x2.
+   </details>
+
 2. Given: n = 8, sum x1 = 48, sum x2 = 32, sum y = 120, sum x1^2 = 300, sum x2^2 = 140, sum x1*x2 = 200, sum x1*y = 740, sum x2*y = 500. Find b1 and b2.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. x1_bar = 6, x2_bar = 4, y_bar = 15.
+      S11 = 300 - 2304/8 = 300-288 = 12.
+      S22 = 140 - 1024/8 = 140-128 = 12.
+      S12 = 200 - 1536/8 = 200-192 = 8.
+      S1y = 740 - 5760/8 = 740-720 = 20.
+      S2y = 500 - 3840/8 = 500-480 = 20.
+      Denom = 12*12 - 64 = 144-64 = 80.
+      b1 = (20*12 - 20*8)/80 = (240-160)/80 = 80/80 = 1.
+      b2 = (20*12 - 20*8)/80 = 80/80 = 1.
+   </details>
 
 3. In a multiple regression with two predictors, R^2 = 0.75. Interpret this value.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. R^2 = 0.75 means 75% of the variation in the dependent variable y is explained by the two independent variables together. The remaining 25% is due to other factors not included in the model.
+   </details>
+
 4. Explain the meaning of b1 = 2.5 in the equation `y_hat = 15 + 2.5*x1 + 1.2*x2`.
 
+   <details>
+   <summary>Show Answer</summary>
+   4. b1 = 2.5 means that for every one-unit increase in x1, the predicted value of y increases by 2.5 units, holding x2 constant. (The intercept 15 is the predicted value when both x1 and x2 are zero.)
+   </details>
+
 5. What is multicollinearity and why is it a problem in multiple regression?
-
-**Answers/Hints:**
-1. sum x1 = 20, sum x2 = 9, sum y = 70, sum x1^2 = 90, sum x2^2 = 19, sum x1*x2 = 39, sum x1*y = 298, sum x2*y = 134.
-   x1_bar = 4, x2_bar = 1.8, y_bar = 14.
-   S11 = 90 - 400/5 = 90-80 = 10.
-   S22 = 19 - 81/5 = 19-16.2 = 2.8.
-   S12 = 39 - 180/5 = 39-36 = 3.
-   S1y = 298 - 1400/5 = 298-280 = 18.
-   S2y = 134 - 630/5 = 134-126 = 8.
-   Denom = 10*2.8 - 9 = 28-9 = 19.
-   b1 = (18*2.8 - 8*3)/19 = (50.4-24)/19 = 26.4/19 = 1.3895.
-   b2 = (8*10 - 18*3)/19 = (80-54)/19 = 26/19 = 1.3684.
-   a = 14 - 1.3895*4 - 1.3684*1.8 = 14 - 5.558 - 2.463 = 5.979.
-   y = 5.98 + 1.39*x1 + 1.37*x2.
-
-2. x1_bar = 6, x2_bar = 4, y_bar = 15.
-   S11 = 300 - 2304/8 = 300-288 = 12.
-   S22 = 140 - 1024/8 = 140-128 = 12.
-   S12 = 200 - 1536/8 = 200-192 = 8.
-   S1y = 740 - 5760/8 = 740-720 = 20.
-   S2y = 500 - 3840/8 = 500-480 = 20.
-   Denom = 12*12 - 64 = 144-64 = 80.
-   b1 = (20*12 - 20*8)/80 = (240-160)/80 = 80/80 = 1.
-   b2 = (20*12 - 20*8)/80 = 80/80 = 1.
-
-3. R^2 = 0.75 means 75% of the variation in the dependent variable y is explained by the two independent variables together. The remaining 25% is due to other factors not included in the model.
-
-4. b1 = 2.5 means that for every one-unit increase in x1, the predicted value of y increases by 2.5 units, holding x2 constant. (The intercept 15 is the predicted value when both x1 and x2 are zero.)
-
-5. Multicollinearity occurs when two or more independent variables are highly correlated with each other. Problems include: (a) unstable coefficient estimates (small changes in data cause large changes in coefficients), (b) inflated standard errors making coefficients statistically insignificant, (c) difficulty in interpreting individual effects. It can be detected using variance inflation factor (VIF).
+   <details>
+   <summary>Show Answer</summary>
+   5. Multicollinearity occurs when two or more independent variables are highly correlated with each other. Problems include: (a) unstable coefficient estimates (small changes in data cause large changes in coefficients), (b) inflated standard errors making coefficients statistically insignificant, (c) difficulty in interpreting individual effects. It can be detected using variance inflation factor (VIF).
+   </details>

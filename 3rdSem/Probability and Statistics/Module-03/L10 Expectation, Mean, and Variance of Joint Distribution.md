@@ -184,17 +184,34 @@ If all pairs are uncorrelated (Cov = 0), this simplifies to sum of variances.
 
 Find `E[X]`, `E[Y]`, `E[XY]`, `Cov(X, Y)`, and `Corr(X, Y)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `E[X] = 0.5`, `E[Y] = 0.4`, `E[XY] = 0.1`. `Cov = 0.1 - 0.5*0.4 = -0.1`. `Var(X) = 0.25`, `Var(Y)=0.24`. `Corr = -0.1/sqrt(0.06) = -0.408`.
+   </details>
+
 2. Joint PDF: `f(x, y) = 4xy` for `0 <= x <= 1, 0 <= y <= 1`. Find `E[X]`, `E[Y]`, `E[XY]`, and `Cov(X, Y)`. Are X and Y independent?
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `E[X] = int_0^1 int_0^1 x*4xy dy dx = 4/5`. By symmetry `E[Y]=4/5`. `E[XY] = int_0^1 int_0^1 4x^2 y^2 dy dx = 4/9`. `Cov = 4/9 - 16/25 = 100/225 - 144/225 = -44/225`. X and Y are independent since f(x,y) = (2x)(2y) = f_X(x)f_Y(y).
+   </details>
 
 3. If `Var(X) = 4`, `Var(Y) = 9`, and `Cov(X, Y) = -3`, find `Var(2X + Y)` and `Corr(X, Y)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `Var(2X+Y) = 4Var(X) + Var(Y) + 4Cov(X,Y) = 16 + 9 + 4(-3) = 13`. `Corr = -3/(2*3) = -0.5`.
+   </details>
+
 4. The joint PMF of X and Y is: `p(x, y) = (x+y)/k` for x = 0, 1 and y = 0, 1, 2. Find k and Cov(X, Y).
 
-5. If X and Y are independent, show that Cov(X, Y) = 0.
+   <details>
+   <summary>Show Answer</summary>
+   4. `k = sum sum (x+y) = (0+0)+(0+1)+(0+2)+(1+0)+(1+1)+(1+2) = 0+1+2+1+2+3 = 9`. `E[X] = 1/9 * (0+0+0+1+1+1) = 3/9 = 1/3`. `E[Y] = 1/9 * (0+1+2+0+1+2) = 6/9 = 2/3`. `E[XY] = 1/9 * (0+0+0+0+1+2) = 3/9 = 1/3`. `Cov = 1/3 - (1/3)(2/3) = 1/3 - 2/9 = 1/9`.
+   </details>
 
-**Answers / Hints:**
-1. `E[X] = 0.5`, `E[Y] = 0.4`, `E[XY] = 0.1`. `Cov = 0.1 - 0.5*0.4 = -0.1`. `Var(X) = 0.25`, `Var(Y)=0.24`. `Corr = -0.1/sqrt(0.06) = -0.408`.
-2. `E[X] = int_0^1 int_0^1 x*4xy dy dx = 4/5`. By symmetry `E[Y]=4/5`. `E[XY] = int_0^1 int_0^1 4x^2 y^2 dy dx = 4/9`. `Cov = 4/9 - 16/25 = 100/225 - 144/225 = -44/225`. X and Y are independent since f(x,y) = (2x)(2y) = f_X(x)f_Y(y).
-3. `Var(2X+Y) = 4Var(X) + Var(Y) + 4Cov(X,Y) = 16 + 9 + 4(-3) = 13`. `Corr = -3/(2*3) = -0.5`.
-4. `k = sum sum (x+y) = (0+0)+(0+1)+(0+2)+(1+0)+(1+1)+(1+2) = 0+1+2+1+2+3 = 9`. `E[X] = 1/9 * (0+0+0+1+1+1) = 3/9 = 1/3`. `E[Y] = 1/9 * (0+1+2+0+1+2) = 6/9 = 2/3`. `E[XY] = 1/9 * (0+0+0+0+1+2) = 3/9 = 1/3`. `Cov = 1/3 - (1/3)(2/3) = 1/3 - 2/9 = 1/9`.
-5. `E[XY] = sum sum xy p(x,y) = sum sum xy p_X(x)p_Y(y) = (sum x p_X(x))(sum y p_Y(y)) = E[X]E[Y]`. So `Cov = E[X]E[Y] - E[X]E[Y] = 0`.
+5. If X and Y are independent, show that Cov(X, Y) = 0.
+   <details>
+   <summary>Show Answer</summary>
+   5. `E[XY] = sum sum xy p(x,y) = sum sum xy p_X(x)p_Y(y) = (sum x p_X(x))(sum y p_Y(y)) = E[X]E[Y]`. So `Cov = E[X]E[Y] - E[X]E[Y] = 0`.
+   </details>

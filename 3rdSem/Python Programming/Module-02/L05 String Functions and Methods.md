@@ -479,8 +479,9 @@ print(content)                     # Output: UTF-8 is great for Unicode
 ## Practice Problems
 
 1. **Invoice Generator**: Write a program that uses `center()`, `ljust()`, `rjust()`, and `zfill()` to generate a formatted invoice for a list of items with quantities and prices.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    print("=".center(50, "="))
    print("INVOICE".center(50))
@@ -508,12 +509,12 @@ print(content)                     # Output: UTF-8 is great for Unicode
    print(f"{'Tax (8%):':>33} ${tax:.2f}")
    print(f"{'Total:':>33} ${subtotal + tax:.2f}")
    ```
+   </details>
 
 2. **Character Replacement Tool**: Write a program that uses `maketrans()` and `translate()` to create a simple cipher where each letter is shifted by a given offset.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Create translation tables for uppercase and lowercase letters separately.
-
-   **Answer**:
    ```python
    def caesar_cipher(text, shift):
        import string
@@ -531,20 +532,24 @@ print(content)                     # Output: UTF-8 is great for Unicode
    decrypted = caesar_cipher(encrypted, -3)
    print(f"Decrypted: {decrypted}")
    ```
+   </details>
 
 3. **Data Parser Using partition()**: Write a program that parses a log entry in the format "timestamp|level|message" using `partition()` and displays formatted output.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    log_entry = "2026-08-10 14:30:00|ERROR|Connection timeout occurred"
    timestamp, sep1, rest = log_entry.partition("|")
    level, sep2, message = rest.partition("|")
    print(f"[{level}]".ljust(10) + timestamp.ljust(25) + message)
    ```
+   </details>
 
 4. **File Size Formatter**: Write a function that takes a file size in bytes and uses `format()` to display it in human-readable format (KB, MB, GB) with appropriate decimal places.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    def format_size(bytes_size):
        for unit in ["B", "KB", "MB", "GB", "TB"]:
@@ -556,10 +561,12 @@ print(content)                     # Output: UTF-8 is great for Unicode
    for s in sizes:
        print(f"{s:>12} -> {format_size(s)}")
    ```
+   </details>
 
 5. **Text Alignment Menu**: Write a program that displays a menu of options using `center()`, `ljust()`, and `rjust()` to create a professional-looking menu interface.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    print("=" * 50)
    print("MAIN MENU".center(50))
@@ -575,3 +582,4 @@ print(content)                     # Output: UTF-8 is great for Unicode
        print(f"  [{num}]".ljust(8) + item.ljust(30) + "[Enter]".rjust(10))
    print("=" * 50)
    ```
+   </details>

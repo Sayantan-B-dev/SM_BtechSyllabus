@@ -230,7 +230,36 @@ Examples:
 ## Practice Problems
 
 1. Write a GRANT statement that gives user `jane` SELECT and INSERT privileges on the `orders` table, with the ability to pass these privileges to others.
+   <details>
+   <summary>Show Answer</summary>
+   ```sql
+   GRANT SELECT, INSERT ON orders TO jane WITH GRANT OPTION;
+   ```
+   The `WITH GRANT OPTION` allows `jane` to grant the same privileges to other users.
+   </details>
 2. What is the difference between `REVOKE ... CASCADE` and `REVOKE ... RESTRICT`? Give an example scenario where RESTRICT would prevent an error.
+   <details>
+   <summary>Show Answer</summary>
+   `REVOKE ... CASCADE` revokes the privilege from the target user and from any user who received it from them. `REVOKE ... RESTRICT` fails if any dependent privileges exist. Example: If Alice granted SELECT to Carol, then `REVOKE SELECT ON orders FROM Alice RESTRICT` would fail with an error, preventing the accidental revocation of Carol's privilege.
+   </details>
 3. Draw an authorization graph for the following: DBA grants SELECT to Alice and Bob. Alice grants SELECT to Carol. Bob grants SELECT to Dave. Then DBA revokes SELECT from Bob with CASCADE. Who retains the privilege?
+   <details>
+   <summary>Show Answer</summary>
+   **Authorization graph:** DBA → Alice → Carol; DBA → Bob → Dave. After DBA revokes SELECT from Bob with CASCADE, both Bob and Dave lose the privilege. Alice and Carol retain SELECT because Alice's privilege came directly from DBA, not through Bob.
+   </details>
 4. Explain the principle of least privilege and give two concrete examples of its application in a university database.
+   <details>
+   <summary>Show Answer</summary>
+   The principle of least privilege states that a user should be granted only the minimum privileges necessary to perform their job. Examples: (1) A **student** should have SELECT access only on their own grades, not on all student records. (2) A **registration clerk** needs INSERT and UPDATE on enrollment records but not DROP or ALTER permissions on any table.
+   </details>
 5. How can views be used as an authorization mechanism? Write SQL to demonstrate.
+   <details>
+   <summary>Show Answer</summary>
+   Views provide a horizontal or vertical subset of a table, allowing access to only specific rows/columns. Example:
+   ```sql
+   CREATE VIEW student_own_grades AS
+   SELECT course, grade FROM enrollments WHERE student_id = CURRENT_USER;
+   GRANT SELECT ON student_own_grades TO student_role;
+   ```
+   This lets students see only their own grades without direct table access.
+   </details>

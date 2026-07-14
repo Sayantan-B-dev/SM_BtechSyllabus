@@ -225,11 +225,26 @@ For `n > 2`, `25/n < 12.5`. So `hat{theta}_1` has smaller variance (for `n >= 3`
 (b) "The average weight of packages is between 495 g and 505 g with 99% confidence."
 (c) "The sample mean is 62.4."
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** (a) Point estimate. (b) Interval estimate. (c) Point estimate.
+   </details>
+
 **Problem 2:** A statistician proposes using the sample median to estimate the population median. Is the sample median an estimator or an estimate? Explain.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** Both. The formula "sample median" is the estimator (a rule). The specific value computed from data is the estimate.
+   </details>
 
 **Problem 3:** For a population with mean `mu` and variance `sigma^2`, consider two estimators: `hat{theta}_1 = bar{X}` and `hat{theta}_2 = (X_1 + X_2 + X_3) / 3`. For a sample of size `n = 5`:
 (a) Are both unbiased?
 (b) Which has smaller variance?
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** (a) Yes, both are unbiased. `E[hat{theta}_1] = mu`, `E[hat{theta}_2] = (mu+mu+mu)/3 = mu`. (b) `Var(hat{theta}_1) = sigma^2/5`, `Var(hat{theta}_2) = sigma^2/3`. So `hat{theta}_1` has smaller variance.
+   </details>
 
 **Problem 4:** Explain in one sentence each what it means for an estimator to be:
 (a) Unbiased
@@ -237,18 +252,13 @@ For `n > 2`, `25/n < 12.5`. So `hat{theta}_1` has smaller variance (for `n >= 3`
 (c) Efficient
 (d) Sufficient
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** (a) On average, the estimator equals the true value. (b) The estimator gets arbitrarily close to the true value as sample size grows. (c) Among unbiased estimators, it has the smallest variance. (d) It captures all information in the sample about the parameter.
+   </details>
+
 **Problem 5:** Is `bar{X}` always the best estimator for `mu`? What about when the data come from a distribution with very heavy tails (extreme outliers)?
-
----
-
-### Answers / Hints
-
-**Problem 1:** (a) Point estimate. (b) Interval estimate. (c) Point estimate.
-
-**Problem 2:** Both. The formula "sample median" is the estimator (a rule). The specific value computed from data is the estimate.
-
-**Problem 3:** (a) Yes, both are unbiased. `E[hat{theta}_1] = mu`, `E[hat{theta}_2] = (mu+mu+mu)/3 = mu`. (b) `Var(hat{theta}_1) = sigma^2/5`, `Var(hat{theta}_2) = sigma^2/3`. So `hat{theta}_1` has smaller variance.
-
-**Problem 4:** (a) On average, the estimator equals the true value. (b) The estimator gets arbitrarily close to the true value as sample size grows. (c) Among unbiased estimators, it has the smallest variance. (d) It captures all information in the sample about the parameter.
-
-**Problem 5:** No. For heavy-tailed distributions (e.g., Cauchy), the sample mean can be severely affected by outliers. The sample median may be a more robust and efficient estimator in such cases.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** No. For heavy-tailed distributions (e.g., Cauchy), the sample mean can be severely affected by outliers. The sample median may be a more robust and efficient estimator in such cases.
+   </details>

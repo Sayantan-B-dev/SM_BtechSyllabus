@@ -258,22 +258,32 @@ We only need Name (from EMPLOYEE) and DeptID (for the join). In EMPLOYEE, we nee
 ## Practice Problems
 
 1. Explain how pipelining differs from materialization.
+<details>
+<summary>Show Answer</summary>
+Materialization stores each intermediate result as a temporary relation on disk. Pipelining passes tuples directly between operators without storing intermediates. Pipelining saves I/O but is not always possible (e.g., when sorting is needed).
+</details>
 
 2. What is selection pushdown and why is it beneficial?
+<details>
+<summary>Show Answer</summary>
+Selection pushdown moves SELECT operations closer to the leaves of the operator tree, filtering out tuples as early as possible. This reduces the size of intermediate relations, making subsequent operations (joins, projections) faster.
+</details>
 
 3. For the query `SELECT * FROM R, S WHERE R.A = S.B AND R.C > 10`, show the initial RA tree and an optimized version.
+<details>
+<summary>Show Answer</summary>
+Initial: `sigma_R.A = S.B AND R.C > 10(R times S)`. Optimized: `sigma_R.A = S.B(sigma_R.C > 10(R) times S)` then replace times+sigma with join: `sigma_R.C > 10(R) bowtie_R.A = S.B S`.
+</details>
 
 4. How does the presence of an index affect query evaluation?
+<details>
+<summary>Show Answer</summary>
+An index allows the DBMS to directly access tuples satisfying a condition rather than scanning the entire table. For joins, an index on the join attribute enables indexed nested-loop join which is O(n log m) instead of O(n*m).
+</details>
 
 5. Why is join ordering important? Give an example with three relations.
+<details>
+<summary>Show Answer</summary>
+Join ordering determines the size of intermediate results. Joining smaller relations first keeps intermediates small. Example: R(100), S(1000), T(10000). `(R bowtie S) bowtie T` is likely cheaper than `(S bowtie T) bowtie R` because the first joins produce smaller intermediates.
+</details>
 
-**Answers:**
-1. Materialization stores each intermediate result as a temporary relation on disk. Pipelining passes tuples directly between operators without storing intermediates. Pipelining saves I/O but is not always possible (e.g., when sorting is needed).
-
-2. Selection pushdown moves SELECT operations closer to the leaves of the operator tree, filtering out tuples as early as possible. This reduces the size of intermediate relations, making subsequent operations (joins, projections) faster.
-
-3. Initial: `sigma_R.A = S.B AND R.C > 10(R times S)`. Optimized: `sigma_R.A = S.B(sigma_R.C > 10(R) times S)` then replace times+sigma with join: `sigma_R.C > 10(R) bowtie_R.A = S.B S`.
-
-4. An index allows the DBMS to directly access tuples satisfying a condition rather than scanning the entire table. For joins, an index on the join attribute enables indexed nested-loop join which is O(n log m) instead of O(n*m).
-
-5. Join ordering determines the size of intermediate results. Joining smaller relations first keeps intermediates small. Example: R(100), S(1000), T(10000). `(R bowtie S) bowtie T` is likely cheaper than `(S bowtie T) bowtie R` because the first joins produce smaller intermediates.

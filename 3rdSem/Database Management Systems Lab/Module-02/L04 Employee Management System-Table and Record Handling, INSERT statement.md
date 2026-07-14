@@ -85,5 +85,19 @@ mysql> SELECT emp_id, emp_name, department, job_role, salary, status FROM Employ
 ## Homework / Practice
 
 1. Insert 3 new employees in the Marketing department in a single INSERT statement.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO employee (emp_name, department, job_role, salary, hire_date) VALUES ('Alice', 'Marketing', 'Executive', 45000, '2024-01-01'), ('Bob', 'Marketing', 'Manager', 65000, '2024-01-15'), ('Charlie', 'Marketing', 'Analyst', 52000, '2024-02-01');
+   </details>
+
 2. Update the budget of the IT department to 600000.00.
+   <details>
+   <summary>Show Answer</summary>
+   UPDATE department SET budget = 600000.00 WHERE dept_name = 'IT';
+   </details>
+
 3. Delete all employees who were hired before 2019. First use SELECT to verify which employees would be affected.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM employee WHERE hire_date < '2019-01-01'; DELETE FROM employee WHERE hire_date < '2019-01-01';
+   </details>

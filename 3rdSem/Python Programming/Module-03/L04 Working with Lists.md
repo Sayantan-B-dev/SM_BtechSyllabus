@@ -227,7 +227,7 @@ print(fruits)  # []
 - Sort the list in descending order
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [3, 1, 4, 1, 5, 9, 2, 6]
@@ -244,7 +244,7 @@ print(popped)   # 5
 **Problem 2:** Write a program that takes a list of numbers and removes all occurrences of a specific value using a loop and `remove()`. Test with `nums = [1, 2, 3, 2, 4, 2, 5]` and remove all `2`s.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Be careful: removing elements while iterating forward can skip elements. Iterate over a copy or use a while loop.
 
@@ -259,7 +259,7 @@ print(nums)  # [1, 3, 4, 5]
 **Problem 3:** Use `extend()` to add all elements of `[10, 20, 30]` to `base = [1, 2, 3]`. Then use `append()` to add `[40, 50]` as a single element. Print the final list.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 base = [1, 2, 3]
@@ -272,7 +272,7 @@ print(base)  # [1, 2, 3, 10, 20, 30, [40, 50]]
 **Problem 4:** Use `index()` and `count()` to find the position and number of occurrences of `"apple"` in `fruits = ["banana", "apple", "cherry", "apple", "date"]`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 fruits = ["banana", "apple", "cherry", "apple", "date"]
@@ -284,7 +284,7 @@ print(fruits.count("apple"))  # 2
 **Problem 5:** Write code that creates a list `[1, 2, 3, 4, 5]`, reverses it in-place, then clears it. Print the list after each operation.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [1, 2, 3, 4, 5]

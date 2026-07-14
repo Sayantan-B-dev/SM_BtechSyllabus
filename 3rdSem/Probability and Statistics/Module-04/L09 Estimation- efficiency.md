@@ -271,24 +271,34 @@ The MLE has lower MSE (0.36 vs 0.5) even though it is biased, because its varian
 
 **Problem 1:** For a normal distribution `N(mu, 4)`, a sample of size `n = 16` is taken. What is the CRLB for estimating `mu`? What is `Var(bar{X})`? Is `bar{X}` efficient?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** CRLB `= sigma^2/n = 4/16 = 0.25`. `Var(bar{X}) = 4/16 = 0.25`. `Eff = 1`. Yes, `bar{X}` is efficient.
+   </details>
+
 **Problem 2:** Two unbiased estimators of `theta` have variances: `Var(hat{theta}_1) = 2/n` and `Var(hat{theta}_2) = 5/n`. Which estimator is more efficient? Compute the relative efficiency.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `hat{theta}_1` is more efficient. `Eff(hat{theta}_1, hat{theta}_2) = (5/n)/(2/n) = 2.5`. Estimator 1 is 2.5 times more efficient.
+   </details>
 
 **Problem 3:** Derive the Fisher information `I_1(lambda)` for a single Poisson observation.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** `ln f = -lambda + x*ln lambda - ln(x!)`. `d/dlambda ln f = -1 + x/lambda`. `d^2/dlambda^2 ln f = -x/lambda^2`. `I_1(lambda) = -E[-X/lambda^2] = E[X]/lambda^2 = lambda/lambda^2 = 1/lambda`.
+   </details>
+
 **Problem 4:** For a normal distribution with unknown `mu` and known `sigma^2 = 9`, compare the efficiency of `bar{X}` and the sample median as estimators of `mu` for large `n`.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** `Var(bar{X}) = 9/n`. `Var(median) approx (pi/2)*(9/n) = 14.137/n`. `Eff = 14.137/9 = 1.571`. `bar{X}` is 1.571 times more efficient.
+   </details>
+
 **Problem 5:** What does it mean for an estimator to be asymptotically efficient? Why are MLEs generally preferred over MOM estimators in large samples?
-
----
-
-### Answers / Hints
-
-**Problem 1:** CRLB `= sigma^2/n = 4/16 = 0.25`. `Var(bar{X}) = 4/16 = 0.25`. `Eff = 1`. Yes, `bar{X}` is efficient.
-
-**Problem 2:** `hat{theta}_1` is more efficient. `Eff(hat{theta}_1, hat{theta}_2) = (5/n)/(2/n) = 2.5`. Estimator 1 is 2.5 times more efficient.
-
-**Problem 3:** `ln f = -lambda + x*ln lambda - ln(x!)`. `d/dlambda ln f = -1 + x/lambda`. `d^2/dlambda^2 ln f = -x/lambda^2`. `I_1(lambda) = -E[-X/lambda^2] = E[X]/lambda^2 = lambda/lambda^2 = 1/lambda`.
-
-**Problem 4:** `Var(bar{X}) = 9/n`. `Var(median) approx (pi/2)*(9/n) = 14.137/n`. `Eff = 14.137/9 = 1.571`. `bar{X}` is 1.571 times more efficient.
-
-**Problem 5:** Asymptotically efficient means that as `n -> infinity`, the estimator's variance approaches the CRLB. MLEs are asymptotically efficient, while MOM estimators may not achieve the CRLB. Therefore, for large samples, MLEs are preferred.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** Asymptotically efficient means that as `n -> infinity`, the estimator's variance approaches the CRLB. MLEs are asymptotically efficient, while MOM estimators may not achieve the CRLB. Therefore, for large samples, MLEs are preferred.
+   </details>

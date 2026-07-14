@@ -193,22 +193,37 @@ Common interface standards that define how I/O modules connect to devices:
 
 **Q1:** A 4K monitor (3840 x 2160 pixels) runs at 60 Hz with 24-bit color (8 bits per RGB channel). What is the data rate required to drive this display?
 
-**A1:** Pixels per frame = 3840 x 2160 = 8,294,400. Bits per frame = 8,294,400 x 24 = 199,065,600 bits = 199.07 Mb. Data rate = 199.07 Mb x 60 fps = 11,944 Mbps = ~11.9 Gbps.
+<details>
+<summary>Show Answer</summary>
+Pixels per frame = 3840 x 2160 = 8,294,400. Bits per frame = 8,294,400 x 24 = 199,065,600 bits = 199.07 Mb. Data rate = 199.07 Mb x 60 fps = 11,944 Mbps = ~11.9 Gbps.
+</details>
 
 **Q2:** Why is data buffering important in an I/O module?
 
-**A2:** The CPU and memory bus operate at very high speeds (GHz, GB/s), while peripherals are typically slower (KB/s to MB/s). Buffering allows the CPU to transfer data at bus speed into the buffer and return to other tasks, while the I/O module transfers data to/from the device at its own slower pace. Without buffering, the CPU would have to wait for the slow device for every byte.
+<details>
+<summary>Show Answer</summary>
+The CPU and memory bus operate at very high speeds (GHz, GB/s), while peripherals are typically slower (KB/s to MB/s). Buffering allows the CPU to transfer data at bus speed into the buffer and return to other tasks, while the I/O module transfers data to/from the device at its own slower pace. Without buffering, the CPU would have to wait for the slow device for every byte.
+</details>
 
 **Q3:** Distinguish between character-oriented and block-oriented I/O devices with examples.
 
-**A3:** Character-oriented devices transfer data one character (typically 1 byte) at a time. Examples: keyboard (each keystroke generates one scan code), serial port (each byte). Block-oriented devices transfer a block of data (multiple bytes) in a single operation. Examples: hard disk (sector = 512 bytes or 4 KB), SSD (page = 4 KB), network interface (frame/packet = up to 1500 bytes).
+<details>
+<summary>Show Answer</summary>
+Character-oriented devices transfer data one character (typically 1 byte) at a time. Examples: keyboard (each keystroke generates one scan code), serial port (each byte). Block-oriented devices transfer a block of data (multiple bytes) in a single operation. Examples: hard disk (sector = 512 bytes or 4 KB), SSD (page = 4 KB), network interface (frame/packet = up to 1500 bytes).
+</details>
 
 **Q4:** List four essential functions performed by an I/O module and explain each briefly.
 
-**A4:** (1) Control and timing: coordinates the sequence of operations between CPU and device. (2) Device communication: translates CPU commands into device-specific signals. (3) Data buffering: temporarily stores data to bridge speed differences. (4) Error detection: checks for transmission errors using parity, CRC, or checksums and reports them to the CPU.
+<details>
+<summary>Show Answer</summary>
+(1) Control and timing: coordinates the sequence of operations between CPU and device. (2) Device communication: translates CPU commands into device-specific signals. (3) Data buffering: temporarily stores data to bridge speed differences. (4) Error detection: checks for transmission errors using parity, CRC, or checksums and reports them to the CPU.
+</details>
 
 **Q5:** What is the unit of transfer for a hard disk drive and why?
 
-**A5:** The unit of transfer is a sector (typically 512 bytes or 4096 bytes). Disks are block devices that read and write entire sectors at once because the physical mechanism (spinning platters with magnetic heads) naturally reads a complete sector as the head passes over the track. Reading individual bytes from a disk would be extremely inefficient due to mechanical seek and rotational latency.
+<details>
+<summary>Show Answer</summary>
+The unit of transfer is a sector (typically 512 bytes or 4096 bytes). Disks are block devices that read and write entire sectors at once because the physical mechanism (spinning platters with magnetic heads) naturally reads a complete sector as the head passes over the track. Reading individual bytes from a disk would be extremely inefficient due to mechanical seek and rotational latency.
+</details>
 
 ---

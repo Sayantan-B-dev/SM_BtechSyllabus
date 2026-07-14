@@ -228,25 +228,39 @@ In cycle 1, both T0 and T1 fetch instructions. In cycle 3, the EX stage processe
 
 **Problem 1**: How many vector instructions are needed to perform A = B * C + D (element-wise) for vectors of length 128 on a vector processor?
 
-**Answer**: 3 vector instructions:
+<details>
+<summary>Show Answer</summary>
+3 vector instructions:
+</details>
 1. VMUL T, B, C (multiply B and C, store in temporary T)
 2. VADD A, T, D (add T and D)
 3. No loop overhead. With chaining, both operations can be overlapped.
 
 **Problem 2**: A GPU has 80 SMs, each with 64 CUDA cores. Each SM can run 64 warps (32 threads each). What is the maximum number of threads the GPU can have in flight?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - Threads per SM = 64 warps x 32 threads = 2048 threads
 - Total threads = 80 x 2048 = 163,840 threads
+</details>
 
 **Problem 3**: Compare fine-grained multi-threading and SMT in terms of utilization of a 6-issue superscalar processor.
 
-**Answer**: Fine-grained MT issues at most one thread's instruction per cycle, so only one thread can utilize the 6-wide pipeline. SMT allows multiple threads to issue instructions in the same cycle, potentially using all 6 issue slots (e.g., 2 from thread A, 4 from thread B). SMT achieves higher throughput on wide superscalars.
+<details>
+<summary>Show Answer</summary>
+Fine-grained MT issues at most one thread's instruction per cycle, so only one thread can utilize the 6-wide pipeline. SMT allows multiple threads to issue instructions in the same cycle, potentially using all 6 issue slots (e.g., 2 from thread A, 4 from thread B). SMT achieves higher throughput on wide superscalars.
+</details>
 
 **Problem 4**: A vector processor has vector registers of length 256. A program processes an array of 1024 elements. How many iterations of a scalar loop are replaced by one vector loop?
 
-**Answer**: With vector length 256, 1024/256 = 4 vector iterations replace 1024 scalar iterations. The vector loop also has reduced control overhead (4 loop iterations vs 1024).
+<details>
+<summary>Show Answer</summary>
+With vector length 256, 1024/256 = 4 vector iterations replace 1024 scalar iterations. The vector loop also has reduced control overhead (4 loop iterations vs 1024).
+</details>
 
 **Problem 5**: Explain why GPUs use many simple cores rather than a few complex cores.
 
-**Answer**: GPU workloads (graphics, matrix operations) exhibit massive data-level parallelism. Simple cores occupy less area, allowing thousands on a chip. Complexity (OoO, branch prediction) is not needed because threads are interleaved to hide latency. Area efficiency is paramount for throughput computing.
+<details>
+<summary>Show Answer</summary>
+GPU workloads (graphics, matrix operations) exhibit massive data-level parallelism. Simple cores occupy less area, allowing thousands on a chip. Complexity (OoO, branch prediction) is not needed because threads are interleaved to hide latency. Area efficiency is paramount for throughput computing.
+</details>

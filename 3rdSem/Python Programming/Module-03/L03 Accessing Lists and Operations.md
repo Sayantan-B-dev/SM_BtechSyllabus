@@ -197,7 +197,7 @@ print(original[0] is deep[0])  # False (completely independent)
 - Change the element at row 1, column 1 to 50
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
@@ -211,7 +211,7 @@ print(matrix)         # [[50, 2, 3], [4, 5, 6], [7, 8, 9]]
 **Problem 2:** Use a list comprehension to create a list of cubes of numbers from 1 to 10.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 cubes = [x ** 3 for x in range(1, 11)]
@@ -222,7 +222,7 @@ print(cubes)  # [1, 8, 27, 64, 125, 216, 343, 512, 729, 1000]
 **Problem 3:** Use `enumerate()` to print the index and value of each element in `colors = ["red", "green", "blue"]` starting from index 1.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 colors = ["red", "green", "blue"]
@@ -239,7 +239,7 @@ for i, color in enumerate(colors, start=1):
 **Problem 4:** Demonstrate the difference between shallow copy and deep copy using a nested list `[[1, 2], [3, 4]]`. Show that modifying a nested element in the shallow copy affects the original, but modifying it in the deep copy does not.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 import copy
@@ -265,7 +265,7 @@ print("Deep copy:", deep)                     # [[99, 2], [3, 4]]
 **Problem 5:** Use a list comprehension to create a list of all even numbers between 1 and 20 (inclusive).
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 evens = [x for x in range(1, 21) if x % 2 == 0]

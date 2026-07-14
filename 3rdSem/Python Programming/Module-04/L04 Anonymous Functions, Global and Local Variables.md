@@ -422,13 +422,13 @@ print(fourth(2))   # 16
 **Problem 1:** Using a lambda with `filter()`, write a one-liner that extracts all words with length greater than 4 from the list `words = ["cat", "elephant", "dog", "giraffe", "bird", "dolphin"]`.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 `filter(lambda w: len(w) > 4, words)`
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 words = ["cat", "elephant", "dog", "giraffe", "bird", "dolphin"]
@@ -440,13 +440,13 @@ print(long_words)  # ['elephant', 'giraffe', 'dolphin']
 **Problem 2:** Write a function `make_discount(percentage)` that returns a closure which applies the given percentage discount to a price. For example, `ten_off = make_discount(10)` and `ten_off(100)` should return `90.0`.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 The inner function takes `price` and returns `price * (1 - percentage / 100)`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def make_discount(percentage):
@@ -466,13 +466,13 @@ print(ten_off(250))    # 225.0
 **Problem 3:** Write a lambda that sorts a list of tuples `(name, age, score)` by score in descending order. Use the `sorted()` function with a lambda as key.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `key=lambda t: t[2]` with `reverse=True`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 data = [("Alice", 22, 85), ("Bob", 20, 92), ("Charlie", 23, 78), ("Diana", 21, 95)]
@@ -485,13 +485,13 @@ print(sorted_data)
 **Problem 4:** Write a function `create_logger(prefix)` that returns a closure. The closure should take a message string and print it as `[prefix] message`. Each call to the returned function should also increment an internal counter and display it, like `[prefix #1] message`, `[prefix #2] message`, ...
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `nonlocal` for the counter variable inside the nested function.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def create_logger(prefix):

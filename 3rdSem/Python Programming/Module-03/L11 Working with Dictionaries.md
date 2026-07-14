@@ -244,7 +244,7 @@ print(f"List membership: {end - start:.6f} seconds")  # Slower
 **Problem 1:** Create a nested dictionary `company` with departments as keys and each department containing a list of employee names. For example: `"Engineering": ["Alice", "Bob"]`, `"Sales": ["Charlie"]`. Add a new employee to Engineering and print the structure.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 company = {
@@ -261,7 +261,7 @@ print(company)
 **Problem 2:** Use `defaultdict` to group a list of words by their first letter. Test with `words = ["apple", "banana", "avocado", "blueberry", "cherry"]`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import defaultdict
@@ -278,7 +278,7 @@ print(dict(groups))
 **Problem 2:** Use `Counter` to find the most common character in the string "mississippi".
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import Counter
@@ -290,7 +290,7 @@ print(c.most_common(1))  # [('i', 4)]
 **Problem 3:** Demonstrate that dictionary view objects are dynamic by modifying the dictionary after creating a view and showing the view reflects the change.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 d = {"a": 1, "b": 2}
@@ -304,7 +304,7 @@ print(list(keys))  # ['a', 'b', 'c']  -- view updated automatically
 **Problem 4:** Use `defaultdict` with `list` to build a dictionary that maps each word length to a list of words of that length. Test with `["hi", "hello", "hey", "python", "go"]`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import defaultdict
@@ -321,7 +321,7 @@ print(dict(by_length))
 **Problem 4:** Use `Counter` to count the frequency of each word in the sentence "the quick brown fox jumps over the lazy dog". Print the 3 most common words.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import Counter
@@ -336,7 +336,7 @@ print(counter.most_common(3))
 **Problem 5:** Create a nested dictionary representing a library with two books. Each book has `title`, `author`, and `year`. Print the author of the second book.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 library = {

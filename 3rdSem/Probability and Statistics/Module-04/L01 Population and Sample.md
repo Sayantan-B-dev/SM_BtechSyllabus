@@ -178,11 +178,21 @@ A pharmaceutical company wants to determine the effectiveness of a new drug.
 (c) What is the parameter of interest?
 (d) What is the corresponding statistic?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** (a) All registered voters. (b) The 2,000 voters called. (c) True proportion of all voters supporting the candidate (`p`). (d) Sample proportion (`hat{p}`) from the 2,000 respondents.
+   </details>
+
 **Problem 2:** State whether the following populations are finite or infinite:
 (a) The number of fish in the Atlantic Ocean.
 (b) The possible outcomes of measuring the temperature at noon in a city (in Celsius).
 (c) The number of students in all universities in Japan.
 (d) The sequence of heads and tails when a coin is flipped indefinitely.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** (a) Finite (though very large and uncountable in practice, the number is theoretically finite). (b) Infinite (temperature is a continuous measurement). (c) Finite. (d) Infinite.
+   </details>
 
 **Problem 3:** A bakery produces 5,000 loaves of bread each day. The baker tests 50 loaves to check the quality (taste, texture, appearance). He finds that 3 loaves are substandard.
 
@@ -191,20 +201,20 @@ A pharmaceutical company wants to determine the effectiveness of a new drug.
 (c) What is the parameter (define in words)?
 (d) What is the statistic (compute the proportion)?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** (a) All 5,000 loaves produced that day; finite. (b) The 50 loaves tested. (c) The true proportion of substandard loaves among all 5,000 loaves. (d) `hat{p} = 3/50 = 0.06`.
+   </details>
+
 **Problem 4:** Explain why a census is usually not preferred over a sample survey for quality control in a manufacturing plant that produces thousands of items daily.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** A census would require testing every item, which is destructive for many quality tests (e.g., testing the breaking strength of a loaf would destroy it). It would also be too expensive and time-consuming.
+   </details>
+
 **Problem 5:** Distinguish between a parameter and a statistic. Give one example of each.
-
----
-
-### Answers / Hints
-
-**Problem 1:** (a) All registered voters. (b) The 2,000 voters called. (c) True proportion of all voters supporting the candidate (`p`). (d) Sample proportion (`hat{p}`) from the 2,000 respondents.
-
-**Problem 2:** (a) Finite (though very large and uncountable in practice, the number is theoretically finite). (b) Infinite (temperature is a continuous measurement). (c) Finite. (d) Infinite.
-
-**Problem 3:** (a) All 5,000 loaves produced that day; finite. (b) The 50 loaves tested. (c) The true proportion of substandard loaves among all 5,000 loaves. (d) `hat{p} = 3/50 = 0.06`.
-
-**Problem 4:** A census would require testing every item, which is destructive for many quality tests (e.g., testing the breaking strength of a loaf would destroy it). It would also be too expensive and time-consuming.
-
-**Problem 5:** A parameter is a numerical measure describing a population (e.g., `mu` = average height of all Indians). A statistic is a numerical measure describing a sample (e.g., `bar{x}` = average height of 500 sampled Indians).
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** A parameter is a numerical measure describing a population (e.g., `mu` = average height of all Indians). A statistic is a numerical measure describing a sample (e.g., `bar{x}` = average height of 500 sampled Indians).
+   </details>

@@ -252,24 +252,34 @@ Therefore, any weighted average of the observations with weights summing to 1 is
 
 **Problem 1:** Let `X_1, X_2, ..., X_n` be a random sample from a population with mean `mu`. Consider the estimator `T = (X_1 + X_n) / 2`. Is `T` unbiased for `mu`?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `E[T] = (E[X_1] + E[X_n])/2 = (mu + mu)/2 = mu`. Yes, `T` is unbiased.
+   </details>
+
 **Problem 2:** The MLE of `sigma^2` for a normal distribution is `hat{sigma}^2 = (1/n) sum (X_i - bar{X})^2`. What is the bias of this estimator? What happens to the bias as `n -> infinity`?
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `Bias(hat{sigma}^2) = -sigma^2/n`. As `n -> infinity`, the bias goes to 0, so the estimator is asymptotically unbiased.
+   </details>
 
 **Problem 3:** A sample of size `n = 25` from a normal distribution yields `sum (x_i - bar{x})^2 = 240`. Compute both `s_n^2` and `s^2`. Which one is unbiased?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** `s_n^2 = 240/25 = 9.6`, `s^2 = 240/24 = 10`. `s^2` is unbiased.
+   </details>
+
 **Problem 4:** You have two estimators for `mu`: `hat{mu}_1 = bar{X}` and `hat{mu}_2 = (X_1 + X_2 + ... + X_n) / (n+1)`. Which is biased? Compute the bias of the biased estimator.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** `hat{mu}_2` is biased. `E[hat{mu}_2] = n*mu/(n+1)`. `Bias = n*mu/(n+1) - mu = -mu/(n+1)`.
+   </details>
+
 **Problem 5:** Prove that the sample proportion `hat{p} = X/n` from a binomial experiment is an unbiased estimator of `p`.
-
----
-
-### Answers / Hints
-
-**Problem 1:** `E[T] = (E[X_1] + E[X_n])/2 = (mu + mu)/2 = mu`. Yes, `T` is unbiased.
-
-**Problem 2:** `Bias(hat{sigma}^2) = -sigma^2/n`. As `n -> infinity`, the bias goes to 0, so the estimator is asymptotically unbiased.
-
-**Problem 3:** `s_n^2 = 240/25 = 9.6`, `s^2 = 240/24 = 10`. `s^2` is unbiased.
-
-**Problem 4:** `hat{mu}_2` is biased. `E[hat{mu}_2] = n*mu/(n+1)`. `Bias = n*mu/(n+1) - mu = -mu/(n+1)`.
-
-**Problem 5:** `E[hat{p}] = E[X/n] = (1/n) * E[X] = (1/n) * (n*p) = p`. Therefore `hat{p}` is unbiased.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** `E[hat{p}] = E[X/n] = (1/n) * E[X] = (1/n) * (n*p) = p`. Therefore `hat{p}` is unbiased.
+   </details>

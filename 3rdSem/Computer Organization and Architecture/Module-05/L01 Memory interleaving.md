@@ -179,20 +179,35 @@ If T_bus is negligible compared to T_access, speedup approaches N.
 
 **Problem 1:** A memory system has 8 modules with low-order interleaving. Each module access time is 50 ns, bus transfer time is 5 ns. How long does it take to read 16 consecutive words?
 
-**Answer:** First word: 50 ns access + 5 ns transfer = 55 ns (but first transfer overlaps with next access). Total = 50 + 15 x 5 = 125 ns. Without interleaving: 16 x 55 = 880 ns. Speedup = 7.04x.
+<details>
+<summary>Show Answer</summary>
+First word: 50 ns access + 5 ns transfer = 55 ns (but first transfer overlaps with next access). Total = 50 + 15 x 5 = 125 ns. Without interleaving: 16 x 55 = 880 ns. Speedup = 7.04x.
+</details>
 
 **Problem 2:** Given a 32-bit address and 16 memory modules, how many bits are used for module selection in low-order interleaving if each module stores 2^28 words?
 
-**Answer:** 16 modules require log2(16) = 4 bits for module selection. The remaining 28 bits are for word offset within the module.
+<details>
+<summary>Show Answer</summary>
+16 modules require log2(16) = 4 bits for module selection. The remaining 28 bits are for word offset within the module.
+</details>
 
 **Problem 3:** Distinguish between high-order and low-order interleaving in terms of sequential access performance.
 
-**Answer:** High-order interleaving places consecutive addresses in the same module, so sequential accesses hit the same module -- no parallelism. Low-order interleaving distributes consecutive addresses across different modules, enabling overlapped access and improved bandwidth for sequential patterns.
+<details>
+<summary>Show Answer</summary>
+High-order interleaving places consecutive addresses in the same module, so sequential accesses hit the same module -- no parallelism. Low-order interleaving distributes consecutive addresses across different modules, enabling overlapped access and improved bandwidth for sequential patterns.
+</details>
 
 **Problem 4:** A system uses 4-way low-order interleaving with 32-bit addresses and 4-byte words. What are the module number and word offset for address 0x1C (28 decimal)?
 
-**Answer:** Word address = 28 / 4 = 7 (word number). Module = 7 mod 4 = 3 (M3). Word offset = floor(7 / 4) = 1 (word 1 within the module). Byte offset within word = 28 mod 4 = 0.
+<details>
+<summary>Show Answer</summary>
+Word address = 28 / 4 = 7 (word number). Module = 7 mod 4 = 3 (M3). Word offset = floor(7 / 4) = 1 (word 1 within the module). Byte offset within word = 28 mod 4 = 0.
+</details>
 
 **Problem 5:** Prove that low-order interleaving with N modules reduces the effective memory access time for a burst of N consecutive reads to approximately T_access + (N-1) * T_bus.
 
-**Answer:** The first access takes T_access. After the first module completes its access in T_access, it starts transferring on the bus for T_bus. Each subsequent module can start its access T_bus after the previous one (pipelined start). The last module finishes its transfer at time T_access + (N-1) * T_bus, assuming the bus transfers are non-overlapping for each word.
+<details>
+<summary>Show Answer</summary>
+The first access takes T_access. After the first module completes its access in T_access, it starts transferring on the bus for T_bus. Each subsequent module can start its access T_bus after the previous one (pipelined start). The last module finishes its transfer at time T_access + (N-1) * T_bus, assuming the bus transfers are non-overlapping for each word.
+</details>

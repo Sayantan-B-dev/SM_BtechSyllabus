@@ -598,13 +598,13 @@ with open("people.csv", "r") as f:
 **Problem 1:** Write a program that reads a text file named `poem.txt`, counts the number of lines, words, and characters (excluding spaces), and prints the results.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use a loop over the file object. For each line: increment line count, split to get words, remove spaces for character count.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 lines_count = 0
@@ -626,13 +626,13 @@ print(f"Characters (no spaces): {chars_count}")
 **Problem 2:** Write a program that appends the current date and time (as a string) to a file `log.txt` every time it is run. Use the `datetime` module.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Open in append mode. Use `import datetime` and `datetime.datetime.now()`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 from datetime import datetime
@@ -652,13 +652,13 @@ with open("log.txt", "r") as f:
 **Problem 3:** Write a program that reads a file `data.txt` containing one integer per line, squares each integer, and writes the results to `squared.txt` (one per line). Handle the case where `data.txt` does not exist.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `try-except` with `FileNotFoundError`. Use `int(line.strip())` for conversion.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 try:
@@ -678,13 +678,13 @@ except ValueError as e:
 **Problem 4:** Write a program that reads a binary file `image.jpg`, reverses the byte order, and writes the result to `reversed.jpg`. The reversed file will be corrupted (this is for learning purposes).
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `'rb'` and `'wb'` modes. Use `data[::-1]` to reverse bytes.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 try:
@@ -705,13 +705,13 @@ except FileNotFoundError:
 **Problem 5:** Write a program that asks the user for their name, age, and favorite color, then saves this information to a file `user_info.txt` in a formatted way using `print()` with the `file` parameter.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `input()` to collect data. Use `print(f"...", file=f)` to write formatted output.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 name = input("Enter your name: ")

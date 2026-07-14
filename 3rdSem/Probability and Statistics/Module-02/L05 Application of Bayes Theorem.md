@@ -310,22 +310,37 @@ Bayesian methods are increasingly dominant in machine learning, artificial intel
 
 1. A spam filter uses two keywords: "offer" and "congratulations". Among spam emails, 70% contain "offer" and 40% contain "congratulations". Among non-spam emails, 10% contain "offer" and 5% contain "congratulations". Assume 30% of all emails are spam. An email contains both "offer" and "congratulations". Using the Naive Bayes assumption, find the probability it is spam.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `P(S|O&C) = 0.30*(0.70*0.40) / [0.30*(0.70*0.40) + 0.70*(0.10*0.05)] = 0.084/0.0875 = 0.96`. About 96% probability of spam.
+   </details>
+
 2. Three machines M1, M2, M3 produce 40%, 35%, and 25% of the items in a factory respectively. Their defect rates are 2%, 3%, and 1.5% respectively. A random item is defective. Find the probability it came from M2.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `P(M2|D) = 0.35*0.03 / (0.40*0.02 + 0.35*0.03 + 0.25*0.015) = 0.0105/0.02125 = 0.4941`
+   </details>
 
 3. In the classic Monty Hall problem, suppose there are FOUR doors instead of three. One hides a car, three hide goats. You pick Door 1. Monty opens two doors with goats (say, Doors 3 and 4). What is the probability the car is behind Door 2? Should you switch?
 
+   <details>
+   <summary>Show Answer</summary>
+   3. With 4 doors: `P(C_1) = 1/4`. Monty opens 2 goat doors. `P(C_1|open) = (1/4 * 1) / [(1/4)(1) + (1/4)(1) + ...]`. Actually: `P(H|C_1) = C(3,2)/C(3,2) = 1` (Monty opens any 2 of the 3 goat doors). `P(H|C_2) = C(2,2)/C(3,2) = 1/3` (must choose 2 specific goat doors from the 3 remaining). Similar for C_3, C_4. `P(H) = (1/4)(1) + 3*(1/4)(1/3) = 1/4 + 1/4 = 1/2`. `P(C_1|H) = (1/4)/0.5 = 1/2`. `P(C_2|H) = (1/4)(1/3)/0.5 = 1/6`. Switching to any specific remaining door gives 1/6, but switching to one of the two unopened doors gives 1/6 + 1/6 = 1/3. Better to switch.
+   </details>
+
 4. A weather forecaster predicts rain or sunshine. When it will actually rain, the forecaster predicts rain 90% of the time. When it will be sunny, the forecaster predicts rain 15% of the time. In the region, it rains 25% of the days. If the forecaster predicts rain, what is the probability it will actually rain?
+
+   <details>
+   <summary>Show Answer</summary>
+   4. `P(Rain|Pred) = (0.25*0.90) / (0.25*0.90 + 0.75*0.15) = 0.225/0.3375 = 2/3`
+   </details>
 
 5. An AI system classifies images as "cat" or "dog". It is known that 45% of images in the test set are cats and 55% are dogs. The classifier has the following performance:
    - For cat images: correctly identifies 92% as cat, 8% as dog.
    - For dog images: correctly identifies 88% as dog, 12% as cat.
    If the classifier says an image is a cat, what is the probability it is actually a cat?
-
----
-
-**Answers/Hints:**
-1. `P(S|O&C) = 0.30*(0.70*0.40) / [0.30*(0.70*0.40) + 0.70*(0.10*0.05)] = 0.084/0.0875 = 0.96`. About 96% probability of spam.
-2. `P(M2|D) = 0.35*0.03 / (0.40*0.02 + 0.35*0.03 + 0.25*0.015) = 0.0105/0.02125 = 0.4941`
-3. With 4 doors: `P(C_1) = 1/4`. Monty opens 2 goat doors. `P(C_1|open) = (1/4 * 1) / [(1/4)(1) + (1/4)(1) + ...]`. Actually: `P(H|C_1) = C(3,2)/C(3,2) = 1` (Monty opens any 2 of the 3 goat doors). `P(H|C_2) = C(2,2)/C(3,2) = 1/3` (must choose 2 specific goat doors from the 3 remaining). Similar for C_3, C_4. `P(H) = (1/4)(1) + 3*(1/4)(1/3) = 1/4 + 1/4 = 1/2`. `P(C_1|H) = (1/4)/0.5 = 1/2`. `P(C_2|H) = (1/4)(1/3)/0.5 = 1/6`. Switching to any specific remaining door gives 1/6, but switching to one of the two unopened doors gives 1/6 + 1/6 = 1/3. Better to switch.
-4. `P(Rain|Pred) = (0.25*0.90) / (0.25*0.90 + 0.75*0.15) = 0.225/0.3375 = 2/3`
-5. `P(Cat|Classified Cat) = (0.45*0.92) / (0.45*0.92 + 0.55*0.12) = 0.414/0.48 = 0.8625`
+   <details>
+   <summary>Show Answer</summary>
+   5. `P(Cat|Classified Cat) = (0.45*0.92) / (0.45*0.92 + 0.55*0.12) = 0.414/0.48 = 0.8625`
+   </details>

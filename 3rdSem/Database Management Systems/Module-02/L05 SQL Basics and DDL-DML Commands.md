@@ -283,17 +283,9 @@ GROUP BY d.DName;
 ## Practice Problems
 
 1. Write a CREATE TABLE statement for a `STUDENT` table with columns: RollNo (INT, PK), Name (VARCHAR(50), NOT NULL), Age (INT, CHECK >= 18), Major (VARCHAR(30)).
-
-2. Insert three sample students into the STUDENT table.
-
-3. Write a SELECT query to find the names of all students majoring in 'CS', ordered alphabetically.
-
-4. What is the difference between CHAR(10) and VARCHAR(10)?
-
-5. Write a query that returns the top 2 oldest students.
-
-**Answers:**
-1. ```sql
+<details>
+<summary>Show Answer</summary>
+```sql
 CREATE TABLE STUDENT (
     RollNo INT PRIMARY KEY,
     Name VARCHAR(50) NOT NULL,
@@ -301,16 +293,38 @@ CREATE TABLE STUDENT (
     Major VARCHAR(30)
 );
 ```
-2. ```sql
+</details>
+
+2. Insert three sample students into the STUDENT table.
+<details>
+<summary>Show Answer</summary>
+```sql
 INSERT INTO STUDENT VALUES
     (1, 'Ram', 21, 'CS'),
     (2, 'Shyam', 19, 'Math'),
     (3, 'Sita', 22, 'CS');
 ```
-3. ```sql
+</details>
+
+3. Write a SELECT query to find the names of all students majoring in 'CS', ordered alphabetically.
+<details>
+<summary>Show Answer</summary>
+```sql
 SELECT Name FROM STUDENT WHERE Major = 'CS' ORDER BY Name;
 ```
-4. CHAR(10) always stores 10 characters (padded with spaces). VARCHAR(10) stores only the actual characters (up to 10), saving space.
-5. ```sql
+</details>
+
+4. What is the difference between CHAR(10) and VARCHAR(10)?
+<details>
+<summary>Show Answer</summary>
+CHAR(10) always stores 10 characters (padded with spaces). VARCHAR(10) stores only the actual characters (up to 10), saving space.
+</details>
+
+5. Write a query that returns the top 2 oldest students.
+<details>
+<summary>Show Answer</summary>
+```sql
 SELECT * FROM STUDENT ORDER BY Age DESC LIMIT 2;
 ```
+</details>
+

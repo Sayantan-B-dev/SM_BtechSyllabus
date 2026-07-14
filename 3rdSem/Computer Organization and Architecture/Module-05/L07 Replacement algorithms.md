@@ -292,7 +292,8 @@ Note: LRU sometimes performs worse than FIFO on specific access patterns (e.g., 
 
 **Problem 1:** For a 2-line fully associative cache, apply LRU to the reference string: 1, 2, 3, 1, 2, 3. Count misses.
 
-**Answer:**
+<details>
+<summary>Show Answer</summary>
 Ref 1 -> [1] Miss
 Ref 2 -> [2, 1] Miss
 Ref 3 -> [3, 2] Miss (evict 1)
@@ -300,22 +301,33 @@ Ref 1 -> [1, 3] Miss (evict 2)
 Ref 2 -> [2, 1] Miss (evict 3)
 Ref 3 -> [3, 2] Miss (evict 1)
 Total: 6 misses (no hits). This is thrashing -- the working set (3 items) is larger than the cache (2 lines).
+</details>
 
 **Problem 2:** Same as Problem 1 but with Random replacement. Is the miss rate always the same?
 
-**Answer:** No. Random could occasionally get a hit if it evicts a block that is not immediately needed. For example, if Random evicts block 3 instead of 1 on the 3rd reference, the 4th reference (1) would hit. The miss rate varies between runs.
+<details>
+<summary>Show Answer</summary>
+No. Random could occasionally get a hit if it evicts a block that is not immediately needed. For example, if Random evicts block 3 instead of 1 on the 3rd reference, the 4th reference (1) would hit. The miss rate varies between runs.
+</details>
 
 **Problem 3:** What is Belady's anomaly? Which replacement algorithms suffer from it?
 
-**Answer:** Belady's anomaly is the phenomenon where increasing cache size increases the miss rate. It occurs with FIFO but not with LRU or OPT. LRU and OPT have the "stack property" guaranteeing monotonic improvement with larger cache.
+<details>
+<summary>Show Answer</summary>
+Belady's anomaly is the phenomenon where increasing cache size increases the miss rate. It occurs with FIFO but not with LRU or OPT. LRU and OPT have the "stack property" guaranteeing monotonic improvement with larger cache.
+</details>
 
 **Problem 4:** Explain why OPT is unimplementable in practice.
 
-**Answer:** OPT requires knowledge of all future memory references to determine which cached block will be used farthest in the future. Since the future is unknown, OPT can only be used as a theoretical upper bound for comparison.
+<details>
+<summary>Show Answer</summary>
+OPT requires knowledge of all future memory references to determine which cached block will be used farthest in the future. Since the future is unknown, OPT can only be used as a theoretical upper bound for comparison.
+</details>
 
 **Problem 5:** In a 4-way set-associative cache using LRU, a set contains blocks A, B, C, D in LRU order (D is LRU). The access sequence is: X (miss), A (hit), Y (miss), C (hit), Z (miss). Show the state after each access.
 
-**Answer:**
+<details>
+<summary>Show Answer</summary>
 Initial: [A (MRU), B, C, D (LRU)]
 After X (miss): D evicted, [X, A, B, C]
 After A (hit): [A, X, B, C] (A moved to MRU)
@@ -328,3 +340,4 @@ Access A (hit): move A to front. State: [A, X, B, C]
 Access Y (miss): evict C, insert Y. State: [Y, A, X, B]
 Access C (miss): evict B, insert C. State: [C, Y, A, X]
 Access Z (miss): evict X, insert Z. State: [Z, C, Y, A]
+</details>

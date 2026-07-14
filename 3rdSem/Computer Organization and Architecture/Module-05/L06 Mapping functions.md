@@ -252,20 +252,35 @@ Observation: As associativity increases, tag storage overhead increases, hardwar
 
 **Problem 1:** A 32 KB, 4-way set-associative cache uses 64-byte blocks. The system has 32-bit byte addresses. Calculate the number of tag, set, and offset bits.
 
-**Answer:** Cache lines = 32,768 / 64 = 512. Sets = 512 / 4 = 128. Offset bits = log2(64) = 6. Set bits = log2(128) = 7. Tag bits = 32 - 7 - 6 = 19.
+<details>
+<summary>Show Answer</summary>
+Cache lines = 32,768 / 64 = 512. Sets = 512 / 4 = 128. Offset bits = log2(64) = 6. Set bits = log2(128) = 7. Tag bits = 32 - 7 - 6 = 19.
+</details>
 
 **Problem 2:** Why does a fully associative cache require more tag bits than a direct-mapped cache of the same size?
 
-**Answer:** Fully associative has no index field -- all address bits above the offset become the tag. Direct-mapped has both tag and index fields. For 32-bit addresses with 32-byte blocks: direct-mapped uses 18 tag + 9 index + 5 offset = 32; fully associative uses 27 tag + 5 offset = 32. The fully associative tag is 9 bits larger.
+<details>
+<summary>Show Answer</summary>
+Fully associative has no index field -- all address bits above the offset become the tag. Direct-mapped has both tag and index fields. For 32-bit addresses with 32-byte blocks: direct-mapped uses 18 tag + 9 index + 5 offset = 32; fully associative uses 27 tag + 5 offset = 32. The fully associative tag is 9 bits larger.
+</details>
 
 **Problem 3:** For a 2-way set-associative cache with 16 sets, 8-byte blocks, and 16-bit byte addresses, show how address 0x1234 (4660 decimal) is mapped.
 
-**Answer:** Block address = 4660 / 8 = 582 (integer division). Set = 582 mod 16 = 6. Tag = floor(582 / 16) = 36. Offset = 4660 mod 8 = 4. So address 0x1234 maps to set 6, tag 36, offset 4.
+<details>
+<summary>Show Answer</summary>
+Block address = 4660 / 8 = 582 (integer division). Set = 582 mod 16 = 6. Tag = floor(582 / 16) = 36. Offset = 4660 mod 8 = 4. So address 0x1234 maps to set 6, tag 36, offset 4.
+</details>
 
 **Problem 4:** Compare the number of tag comparisons required per memory access for each mapping scheme (assume a 1024-line cache).
 
-**Answer:** Direct-mapped: 1 comparison. 4-way set-associative: 4 comparisons (parallel within the set). Fully associative: 1024 comparisons (parallel across all lines).
+<details>
+<summary>Show Answer</summary>
+Direct-mapped: 1 comparison. 4-way set-associative: 4 comparisons (parallel within the set). Fully associative: 1024 comparisons (parallel across all lines).
+</details>
 
 **Problem 5:** A cache has 256 lines arranged as 64 sets of 4 ways each. Block size is 16 bytes. If a program accesses blocks 0, 64, 128, 192, 256 sequentially, which set does each map to? Will there be conflicts?
 
-**Answer:** Set number = block mod 64. Block 0 -> Set 0. Block 64 -> Set 0. Block 128 -> Set 0. Block 192 -> Set 0. Block 256 -> Set 0. All map to Set 0. With 4 ways, Set 0 can hold at most 4 blocks simultaneously. The 5th access (block 256) will cause a miss and evict one of the previous blocks (conflict miss within the set).
+<details>
+<summary>Show Answer</summary>
+Set number = block mod 64. Block 0 -> Set 0. Block 64 -> Set 0. Block 128 -> Set 0. Block 192 -> Set 0. Block 256 -> Set 0. All map to Set 0. With 4 ways, Set 0 can hold at most 4 blocks simultaneously. The 5th access (block 256) will cause a miss and evict one of the previous blocks (conflict miss within the set).
+</details>

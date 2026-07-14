@@ -311,22 +311,37 @@ The hierarchy exploits:
 
 **Q1:** A memory chip has 12 address lines and 8 data lines. What is the storage capacity in bits? In bytes?
 
-**A1:** 2^12 = 4096 locations. Each location is 8 bits. Total = 4096 x 8 = 32,768 bits = 4096 bytes (4 KB).
+<details>
+<summary>Show Answer</summary>
+2^12 = 4096 locations. Each location is 8 bits. Total = 4096 x 8 = 32,768 bits = 4096 bytes (4 KB).
+</details>
 
 **Q2:** Why does DRAM require periodic refreshing while SRAM does not?
 
-**A2:** DRAM stores charge on a capacitor, which leaks over time (typically loses charge in ~64 ms). Without refreshing, the stored data would be lost. SRAM uses a flip-flop (cross-coupled inverters) that maintains its state as long as power is supplied, as long as the transistors remain in saturation or cutoff the data persists indefinitely without any refresh.
+<details>
+<summary>Show Answer</summary>
+DRAM stores charge on a capacitor, which leaks over time (typically loses charge in ~64 ms). Without refreshing, the stored data would be lost. SRAM uses a flip-flop (cross-coupled inverters) that maintains its state as long as power is supplied, as long as the transistors remain in saturation or cutoff the data persists indefinitely without any refresh.
+</details>
 
 **Q3:** You need to design a 16K x 8 memory using 4K x 4 memory chips. How many chips are needed, and how are they organized?
 
-**A3:** Each chip is 4K x 4 = 4096 x 4 bits. Target is 16K x 8 = 16384 x 8 bits. Total target bits = 16384 x 8 = 131072 bits. Per chip bits = 4096 x 4 = 16384 bits. Chips needed = 131072 / 16384 = 8 chips. Organization: Create 2 banks of 4 chips each for word width (4-bit to 8-bit), then use a 2-to-4 decoder on the two highest address lines to select among the 4 banks for address expansion.
+<details>
+<summary>Show Answer</summary>
+Each chip is 4K x 4 = 4096 x 4 bits. Target is 16K x 8 = 16384 x 8 bits. Total target bits = 16384 x 8 = 131072 bits. Per chip bits = 4096 x 4 = 16384 bits. Chips needed = 131072 / 16384 = 8 chips. Organization: Create 2 banks of 4 chips each for word width (4-bit to 8-bit), then use a 2-to-4 decoder on the two highest address lines to select among the 4 banks for address expansion.
+</details>
 
 **Q4:** Distinguish between NAND Flash and NOR Flash in terms of access characteristics and typical usage.
 
-**A4:** NOR Flash provides random-access read (byte-addressable) with fast read times, making it suitable for execute-in-place (XIP) firmware like BIOS/UEFI. NAND Flash is block-oriented with slower random read but much faster sequential read/write, higher density, and lower cost per bit, making it ideal for mass storage devices like SSDs and USB drives.
+<details>
+<summary>Show Answer</summary>
+NOR Flash provides random-access read (byte-addressable) with fast read times, making it suitable for execute-in-place (XIP) firmware like BIOS/UEFI. NAND Flash is block-oriented with slower random read but much faster sequential read/write, higher density, and lower cost per bit, making it ideal for mass storage devices like SSDs and USB drives.
+</details>
 
 **Q5:** A DRAM requires a refresh operation every 64 ms. If the memory has 8192 rows and each refresh operation takes 50 ns to refresh one row, what fraction of the memory's time is spent on refreshing?
 
-**A5:** Time to refresh all rows = 8192 x 50 ns = 409,600 ns = 0.4096 ms. Fraction = 0.4096 ms / 64 ms = 0.0064 = 0.64%.
+<details>
+<summary>Show Answer</summary>
+Time to refresh all rows = 8192 x 50 ns = 409,600 ns = 0.4096 ms. Fraction = 0.4096 ms / 64 ms = 0.0064 = 0.64%.
+</details>
 
 ---

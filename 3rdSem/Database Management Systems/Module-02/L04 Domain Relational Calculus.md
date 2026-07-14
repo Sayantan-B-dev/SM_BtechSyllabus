@@ -186,18 +186,32 @@ Let's trace with the actual data. The only same-department pairs:
 ## Practice Problems
 
 1. Write a DRC query to find the names of all departments.
+<details>
+<summary>Show Answer</summary>
+`{ <dept> | DEPARTMENT(<dept, loc, budget>) }`
+</details>
 
 2. Write a DRC query to find employee IDs of employees who earn less than 50000.
+<details>
+<summary>Show Answer</summary>
+`{ <id> | EXISTS name, dept, salary (EMPLOYEE(<id, name, dept, salary>) AND salary < 50000) }`
+</details>
 
 3. Write a DRC query to find the names of employees who work in a department with budget > 300000.
+<details>
+<summary>Show Answer</summary>
+`{ <name> | EXISTS id, dept, salary, loc, budget (EMPLOYEE(<id, name, dept, salary>) AND DEPARTMENT(<dept, loc, budget>) AND budget > 300000) }`
+</details>
 
 4. What is the key difference between TRC and DRC?
+<details>
+<summary>Show Answer</summary>
+TRC uses tuple variables that range over entire tuples (e.g., `t.Name`); DRC uses domain variables that range over individual attribute values (e.g., `<name, ...>`).
+</details>
 
 5. Express the query "Find names of employees who work in ALL departments" in DRC (or explain why it cannot be expressed safely).
+<details>
+<summary>Show Answer</summary>
+This is difficult because an employee cannot work in ALL departments -- each employee belongs to exactly one department in our schema. A more realistic version: "Find employees who have ALL skills" requires division, which DRC can express using FORALL but it is complex.
+</details>
 
-**Answers:**
-1. `{ <dept> | DEPARTMENT(<dept, loc, budget>) }`
-2. `{ <id> | EXISTS name, dept, salary (EMPLOYEE(<id, name, dept, salary>) AND salary < 50000) }`
-3. `{ <name> | EXISTS id, dept, salary, loc, budget (EMPLOYEE(<id, name, dept, salary>) AND DEPARTMENT(<dept, loc, budget>) AND budget > 300000) }`
-4. TRC uses tuple variables that range over entire tuples (e.g., `t.Name`); DRC uses domain variables that range over individual attribute values (e.g., `<name, ...>`).
-5. This is difficult because an employee cannot work in ALL departments -- each employee belongs to exactly one department in our schema. A more realistic version: "Find employees who have ALL skills" requires division, which DRC can express using FORALL but it is complex.

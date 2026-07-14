@@ -396,7 +396,7 @@ Final state: A=50, B=150, C=300
 **Problem 1:** A system crash occurs. The log contains `<COMMIT T1>` and `<START T2>` but no `<COMMIT T2>`. T1 modified A (old=100, new=50). T2 modified B (old=200, new=300). What recovery actions are needed?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - T1: Committed. Must **redo**: set A = 50 (if not already flushed).
 - T2: NOT committed. Must **undo**: restore B = 200.
@@ -405,7 +405,7 @@ Final state: A=50, B=150, C=300
 **Problem 2:** What is the purpose of write-ahead logging (WAL)? Why must the log be written before the data page?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 WAL ensures that the log contains the information needed for recovery BEFORE a data page is modified on disk. If the system crashes after modifying a data page but before the corresponding log record is written, there is no record of the change, making recovery impossible (the change cannot be undone because there is no old value, and it cannot be redone because there is no new value). WAL guarantees that the log always has enough information for undo and redo.
 </details>
@@ -413,7 +413,7 @@ WAL ensures that the log contains the information needed for recovery BEFORE a d
 **Problem 3:** In ARIES, what information does the Dirty Page Table (DPT) contain, and how is it used during the analysis phase?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 The DPT contains page IDs and the recLSN (the LSN of the first log record that dirtied the page). During analysis, the DPT is reconstructed from the log starting at the last checkpoint. It is used to determine the **redo LSN** (the smallest recLSN), which is the point in the log from which redo must begin. Pages whose lastLSN >= recLSN need redo; pages already flushed to disk (pageLSN >= recLSN but data on disk is current) are skipped.
 </details>
@@ -421,7 +421,7 @@ The DPT contains page IDs and the recLSN (the LSN of the first log record that d
 **Problem 4:** Distinguish between undo logging and redo logging. When would you use each?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - **Undo logging:** Records old values. Used when the DBMS uses a STEAL policy (dirty pages can be written to disk before commit). On recovery, undo restores old values for uncommitted transactions. Problem: cannot redo committed transactions (no new values recorded).
 - **Redo logging:** Records new values. Used when the DBMS uses a NO-STEAL policy (dirty pages NOT written to disk before commit). On recovery, redo writes new values for committed transactions. Problem: cannot undo uncommitted transactions.
@@ -431,7 +431,7 @@ The DPT contains page IDs and the recLSN (the LSN of the first log record that d
 **Problem 5:** ARIES uses three recovery phases: Analysis, Redo, Undo. Why is the Redo phase performed BEFORE the Undo phase?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Redo is performed first to "repeat history" -- reconstruct the exact state of the database as it was at the time of the crash, including both committed and uncommitted changes. This ensures that the undo phase sees the correct state. If Undo were performed first, it would undo changes that might need to be redone later (for committed transactions), leading to inconsistency. Redo-first guarantees that all committed changes are in place before any undo begins.
 </details>

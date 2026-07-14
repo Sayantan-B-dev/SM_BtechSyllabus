@@ -587,21 +587,30 @@ A3A2A1A0 (multiplicand)        B3B2B1B0 (multiplier)
 ## Practice Problems
 
 1. **3:2 compression**: Show how three numbers X=101, Y=110, Z=011 are reduced to two numbers using a carry save adder.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      Bit 0: 1+0+1=2 => S=0, C=1 (pos 1)
      Bit 1: 0+1+1=2 => S=0, C=1 (pos 2)
      Bit 2: 1+1+0=2 => S=0, C=1 (pos 3)
      Sum = 000, Carry = 1110
      Sum + Carry = 000 + 1110 = 1110 = 14. Check: 5+6+3 = 14. Correct.
+</details>
 
 2. **Wallace tree reduction**: For an 8x8 multiplier, how many partial products are generated, and how many reduction stages are needed?
-   - **Answer**: 8 partial products. Reduction: 8->6 (stage 1), 6->4 (stage 2), 4->3 (stage 3), 3->2 (stage 4). Total 4 stages. Final CPA. Total ~5-6 stages.
+<details>
+<summary>Show Answer</summary>
+8 partial products. Reduction: 8->6 (stage 1), 6->4 (stage 2), 4->3 (stage 3), 3->2 (stage 4). Total 4 stages. Final CPA. Total ~5-6 stages.
+</details>
 
 3. **CSA advantage**: Why is keeping the carry separate in a CSA beneficial for multiplication?
-   - **Answer**: The carry does not propagate within the CSA stage, so all CSAs in a stage operate in parallel with O(1) delay. Only the final CPA has carry propagation. This avoids the O(n) carry chain for intermediate sums.
+<details>
+<summary>Show Answer</summary>
+The carry does not propagate within the CSA stage, so all CSAs in a stage operate in parallel with O(1) delay. Only the final CPA has carry propagation. This avoids the O(n) carry chain for intermediate sums.
+</details>
 
 4. **4x4 CSA**: Multiply A=1010 (10) by B=0011 (3) using the CSA reduction method.
-   - **Answer**:
+<details>
+<summary>Show Answer</summary>
      PP0=1010, PP1=0000 (B1=0), PP2=101000<<2=10<<2... Actually: PP2 = A shifted 2 = 101000 = 40, PP3=0. 
      PP0=1010 at pos 3-0, PP2=1010 at pos 5-2.
      Stage 1: Reduce PP0, PP1, PP2: 
@@ -612,6 +621,10 @@ A3A2A1A0 (multiplicand)        B3B2B1B0 (multiplier)
       Pos 4: 0,0,1 => sum=1, carry=0
       Pos 5: 0,0,0 => sum=0, carry=0
      Sum=011110, Carry=0. + PP3=0 => 011110 = 30. Check: 10x3=30.
+</details>
 
 5. **Compare**: Compare the number of full adders needed for a 4-bit shift-and-add multiplier vs a 4-bit CSA multiplier.
-   - **Answer**: Shift-and-add: 1 n-bit adder (4 FAs) reused 4 times sequentially. CSA: ~4 CSAs per stage, 2 stages + final CPA (4 FAs) = ~12 FAs. CSA uses more hardware but is faster.
+<details>
+<summary>Show Answer</summary>
+Shift-and-add: 1 n-bit adder (4 FAs) reused 4 times sequentially. CSA: ~4 CSAs per stage, 2 stages + final CPA (4 FAs) = ~12 FAs. CSA uses more hardware but is faster.
+</details>

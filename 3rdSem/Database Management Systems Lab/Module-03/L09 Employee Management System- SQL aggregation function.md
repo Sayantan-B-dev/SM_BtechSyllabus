@@ -139,5 +139,19 @@ FROM Employee GROUP BY department HAVING COUNT(DISTINCT job_role) > 1;
 ## Homework / Practice
 
 1. Find departments where the average salary is between 60000 and 90000, and the department has at least 2 employees.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT department, AVG(salary) AS avg_salary, COUNT(*) AS emp_count FROM Employee GROUP BY department HAVING AVG(salary) BETWEEN 60000 AND 90000 AND COUNT(*) >= 2;
+   </details>
+
 2. Write a nested query that finds employees whose salary is greater than the average salary of all employees in the same job_role.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e1.* FROM Employee e1 WHERE e1.salary > (SELECT AVG(e2.salary) FROM Employee e2 WHERE e2.job_role = e1.job_role);
+   </details>
+
 3. Use HAVING to identify job roles that appear in more than one department.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT job_role, COUNT(DISTINCT department) AS dept_count FROM Employee GROUP BY job_role HAVING COUNT(DISTINCT department) > 1;
+   </details>

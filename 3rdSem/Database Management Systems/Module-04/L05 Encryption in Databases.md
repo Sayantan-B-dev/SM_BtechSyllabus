@@ -281,7 +281,41 @@ Encryption is only as secure as the key management.
 ## Practice Problems
 
 1. Explain the difference between symmetric and asymmetric encryption. Give one advantage of each.
+   <details>
+   <summary>Show Answer</summary>
+   **Symmetric encryption** uses the same key for encryption and decryption (e.g., AES). *Advantage:* Fast and efficient for large data. **Asymmetric encryption** uses a public-private key pair (e.g., RSA). *Advantage:* No need to share a secret key; the public key can be openly distributed.
+   </details>
 2. What is Transparent Data Encryption (TDE)? How does it differ from column-level encryption?
+   <details>
+   <summary>Show Answer</summary>
+   TDE encrypts the entire database at the file level automatically; the database engine encrypts/decrypts data as it is written/read from disk, requiring no application changes. Column-level encryption encrypts only specific columns, giving finer control but requiring application-level key management and SQL functions (e.g., `AES_ENCRYPT()`/`AES_DECRYPT()`). TDE protects against physical theft of storage; column-level protects against unauthorized queries.
+   </details>
 3. Write SQL statements to encrypt a column `credit_card` in a `payments` table using AES in MySQL.
+   <details>
+   <summary>Show Answer</summary>
+   ```sql
+   CREATE TABLE payments (
+       id INT PRIMARY KEY,
+       customer_name VARCHAR(100),
+       credit_card VARBINARY(256)
+   );
+
+   -- Insert encrypted data
+   INSERT INTO payments (id, customer_name, credit_card)
+   VALUES (1, 'John Doe', AES_ENCRYPT('4111-1111-1111-1111', 'encryption_key'));
+
+   -- Read decrypted data
+   SELECT id, customer_name, AES_DECRYPT(credit_card, 'encryption_key')
+   FROM payments;
+   ```
+   </details>
 4. Why is hashing preferred over encryption for password storage? What is a salt and why is it important?
+   <details>
+   <summary>Show Answer</summary>
+   Hashing is one-way (cannot be reversed), so even if the password file is stolen, the original passwords cannot be recovered. Encryption is two-way — if the encryption key is compromised, all passwords are exposed. A **salt** is a random value appended to each password before hashing. It prevents attackers from using precomputed rainbow tables and ensures that identical passwords produce different hashes.
+   </details>
 5. Describe the SSL/TLS handshake process for securing a database connection.
+   <details>
+   <summary>Show Answer</summary>
+   (1) Client sends a "ClientHello" with supported TLS versions and cipher suites. (2) Server responds with "ServerHello" selecting a cipher suite and sends its digital certificate. (3) Client verifies the certificate against a trusted CA. (4) Client generates a pre-master secret, encrypts it with the server's public key, and sends it to the server. (5) Both derive the symmetric session key from the pre-master secret. (6) They exchange "Finished" messages to confirm the secure connection is established. All subsequent data is encrypted with the session key.
+   </details>

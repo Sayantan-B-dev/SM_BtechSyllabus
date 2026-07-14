@@ -524,27 +524,39 @@ RET                  ; Stack: return (pop PC from stack)
 ## Practice Problems
 
 1. **Problem**: For the instruction `LOAD R1, 1000`, explain what happens in each addressing mode (direct, indirect, register indirect) and how the effective address is computed.
-   **Answer**: 
+<details>
+<summary>Show Answer</summary>
    - Direct: EA = 1000. R1 = M[1000]. One memory access for the operand.
    - Indirect: EA = M[1000]. First, read M[1000] to get the pointer value P, then EA = P. R1 = M[P]. Two memory accesses.
    - Register indirect: The 1000 is treated differently or the instruction format is wrong. For register indirect, the address would be in a register: `LOAD R1, [R2]` where R2 = 1000. EA = R2. One memory access for operand.
+</details>
 
 2. **Problem**: Write assembly code using displacement addressing to access the 5th element of an array (each element is 4 bytes) whose base address is in register R2.
-   **Answer**: `LOAD R1, 16[R2]` (5th element means index 4, so offset = 4 x 4 = 16). R1 = M[R2 + 16].
+<details>
+<summary>Show Answer</summary>
+`LOAD R1, 16[R2]` (5th element means index 4, so offset = 4 x 4 = 16). R1 = M[R2 + 16].
+</details>
 
 3. **Problem**: Explain the difference between indexed addressing and displacement addressing. Give an example where each is most useful.
-   **Answer**: 
+<details>
+<summary>Show Answer</summary>
    - Displacement addressing uses a fixed displacement (constant offset) added to a base register. Best for accessing struct fields at known offsets.
    - Indexed addressing uses a variable index register that can be incremented. Best for array traversal.
    - Often they overlap: `LOAD R1, 10[R2]` and `LOAD R1, [R2+R3]` can both be considered displacement+indexed combined.
+</details>
 
 4. **Problem**: Given the code `LOAD R1, [R2]`, where R2 = 3000 and M[3000] = 42, what is the value loaded into R1?
-   **Answer**: This is register indirect addressing. EA = R2 = 3000. R1 = M[3000] = 42.
+<details>
+<summary>Show Answer</summary>
+This is register indirect addressing. EA = R2 = 3000. R1 = M[3000] = 42.
+</details>
 
 5. **Problem**: A CPU has 16 general purpose registers, 4-bit opcode, and supports 5 addressing modes. Each instruction is 16 bits. Design the instruction format for a LOAD instruction using register indirect with displacement addressing.
-   **Answer**: 
+<details>
+<summary>Show Answer</summary>
    - 4 bits: opcode (LOAD)
    - 3 bits: addressing mode (5 modes need 3 bits, with 3 spare)
    - 4 bits: base register (16 registers)
    - 5 bits: displacement (signed, range -16 to +15)
    Total: 4 + 3 + 4 + 5 = 16 bits.
+</details>

@@ -525,13 +525,13 @@ from analytics.models.statistics import mean, median
 **Problem 1:** Create a package `calculator` with two modules: `basic.py` (add, subtract, multiply, divide) and `advanced.py` (power, sqrt, factorial_mod). Write a script that imports and uses all functions.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Create the directory `calculator/` with `__init__.py` that imports from both modules.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 **Directory structure:**
 ```
@@ -585,13 +585,13 @@ print(calculator.factorial_mod(5))
 **Problem 2:** Install the `requests` package using pip, then write a script to fetch and print the current weather for a city using a free API (e.g., `wttr.in`).
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `pip install requests` first. Then use `requests.get("https://wttr.in/London?format=3")`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```bash
 pip install requests
@@ -610,13 +610,13 @@ print(response.text)
 **Problem 3:** Create a virtual environment called `project_env`, activate it, install the `numpy` package, write a Python script that computes the dot product of two vectors using `numpy`, then capture the `pip freeze` output. Provide all shell commands and the script.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `python -m venv project_env`, then activate, then `pip install numpy`, then write the script.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```bash
 # Create and activate
@@ -653,13 +653,13 @@ deactivate
 **Problem 4:** Using relative imports, create a package `company` with subpackages `hr` and `it`. `hr` has `employees.py` (function `employee_count()`), `it` has `systems.py` (function `server_status()`). In a sibling module, import from the sibling subpackage using relative imports.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 In `hr/employees.py`, use `from ..it.systems import server_status` for a relative import.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```
 company/

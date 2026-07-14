@@ -230,27 +230,32 @@ Check Relation B (`ORDER`) for transitive dependency:
 ## Practice Problems
 
 1. Is the following relation in 1NF? If not, convert it.
-
-| Student | Subjects |
-|---------|----------|
-| Ram | Math, Physics |
-| Shyam | Chemistry |
+<details>
+<summary>Show Answer</summary>
+No (Subjects is multi-valued). Convert by flattening: `(Ram, Math), (Ram, Physics), (Shyam, Chemistry)`.
+</details>
 
 2. Consider `R(A, B, C, D)` with FDs `{AB -> C, B -> D}` and candidate key `{A, B}`. Is R in 2NF?
+<details>
+<summary>Show Answer</summary>
+No. `B -> D` is a partial dependency (B is a proper subset of the candidate key AB, and D is non-prime). Decompose: `R1(A, B, C)` and `R2(B, D)`.
+</details>
 
 3. Consider `R(A, B, C, D)` with FD `{A -> B, B -> C}` and candidate key `{A}`. Is R in 3NF?
+<details>
+<summary>Show Answer</summary>
+Check FDs: `A -> B` (key -> non-key, OK), `B -> C` (non-key -> non-key, transitive). Not in 3NF. Decompose: `R1(A, B)` and `R2(B, C)`.
+</details>
 
 4. Normalize the following to 3NF: `SALES(InvoiceNo, CustomerName, ProductName, Quantity, CustomerCity)` with FDs: `InvoiceNo -> CustomerName, CustomerCity` and `CustomerName -> CustomerCity`.
+<details>
+<summary>Show Answer</summary>
+1NF: Already atomic. Key: `InvoiceNo, ProductName`. 2NF: Remove partial dependency `InvoiceNo -> CustomerName, CustomerCity`. Get `SALE(InvoiceNo, ProductName, Quantity)` and `INVOICE(InvoiceNo, CustomerName, CustomerCity)`. 3NF: Remove transitive dependency `CustomerName -> CustomerCity` from INVOICE. Get `INVOICE(InvoiceNo, CustomerName)` and `CUSTOMER(CustomerName, CustomerCity)`.
+</details>
 
 5. Explain the difference between partial dependency and transitive dependency.
+<details>
+<summary>Show Answer</summary>
+**Partial dependency:** A non-key attribute depends on only part of a composite key (e.g., `CourseID -> Instructor` when the key is `(StudentID, CourseID)`). **Transitive dependency:** A non-key attribute depends on another non-key attribute (e.g., `EmpID -> DeptID` and `DeptID -> Location`, so Location is transitively dependent on EmpID).
+</details>
 
-**Answers:**
-1. No (Subjects is multi-valued). Convert by flattening: `(Ram, Math), (Ram, Physics), (Shyam, Chemistry)`.
-
-2. No. `B -> D` is a partial dependency (B is a proper subset of the candidate key AB, and D is non-prime). Decompose: `R1(A, B, C)` and `R2(B, D)`.
-
-3. Check FDs: `A -> B` (key -> non-key, OK), `B -> C` (non-key -> non-key, transitive). Not in 3NF. Decompose: `R1(A, B)` and `R2(B, C)`.
-
-4. 1NF: Already atomic. Key: `InvoiceNo, ProductName`. 2NF: Remove partial dependency `InvoiceNo -> CustomerName, CustomerCity`. Get `SALE(InvoiceNo, ProductName, Quantity)` and `INVOICE(InvoiceNo, CustomerName, CustomerCity)`. 3NF: Remove transitive dependency `CustomerName -> CustomerCity` from INVOICE. Get `INVOICE(InvoiceNo, CustomerName)` and `CUSTOMER(CustomerName, CustomerCity)`.
-
-5. **Partial dependency:** A non-key attribute depends on only part of a composite key (e.g., `CourseID -> Instructor` when the key is `(StudentID, CourseID)`). **Transitive dependency:** A non-key attribute depends on another non-key attribute (e.g., `EmpID -> DeptID` and `DeptID -> Location`, so Location is transitively dependent on EmpID).

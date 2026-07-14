@@ -151,30 +151,30 @@ A DBMS provides a controlled, secure, and efficient environment for managing dat
 
 **1.** List four major problems of the file-based approach that a DBMS solves.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Data redundancy, data inconsistency, difficulty of concurrent access, and lack of data independence.
 </details>
 
 **2.** A bank uses a file system to store customer accounts. Two clerks simultaneously credit Rs. 500 to the same account with a balance of Rs. 2000. Describe the possible inconsistency.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Both clerks read the balance (Rs. 2000). Each adds Rs. 500 and writes back Rs. 2500. The final balance should be Rs. 3000, but it remains Rs. 2500 -- a lost update due to lack of concurrency control.
 </details>
 
 **3.** Give an example where using a DBMS would be inappropriate.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 A temperature sensor in an industrial furnace that logs temperature every millisecond. The overhead of a DBMS would interfere with real-time data capture; a simple log file is more appropriate.
 </details>
 
 **4.** Differentiate between a database and a DBMS.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 A database is the collection of data itself (e.g., all student records). A DBMS is the software that manages that database (e.g., MySQL, Oracle).
 </details>
 
 **5.** What are the responsibilities of a Database Administrator (DBA)?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Schema definition, user management, security enforcement, backup and recovery, performance monitoring and tuning, and ensuring data integrity.
 </details>

@@ -175,17 +175,34 @@ This is the PDF of the exponential distribution with parameter 1.
 
 1. A random variable X has PMF: `P(X=x) = c(x^2 + 1)` for x = 0, 1, 2, 3. Find the value of c and compute `P(X >= 2)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `sum_{x=0}^{3} c(x^2+1) = c(1+2+5+10) = 18c = 1` => `c = 1/18`. `P(X>=2) = P(2)+P(3) = 5/18 + 10/18 = 15/18 = 5/6`.
+   </details>
+
 2. For a continuous random variable with PDF `f(x) = kx(1-x)` on `0 <= x <= 1`, find k, compute `P(0.2 < X < 0.6)`, and find the CDF.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `int_0^1 kx(1-x)dx = k/6 = 1` => `k = 6`. `P(0.2 < X < 0.6) = int_{0.2}^{0.6} 6x(1-x)dx = 0.544`. CDF: `F(x) = 3x^2 - 2x^3` on [0,1].
+   </details>
 
 3. The CDF of a random variable X is `F(x) = 0` for x < 0, `F(x) = x/4` for 0 <= x < 2, `F(x) = (x^2)/8` for 2 <= x < sqrt(8), and `F(x) = 1` for x >= sqrt(8). Find `P(1 < X < 3)` and the PDF `f(x)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `P(1 < X < 3) = F(3-) - F(1) = (9/8) - (1/4) = 7/8`. PDF: f(x) = 1/4 for [0,2), x/4 for [2, sqrt(8)).
+   </details>
+
 4. A fair coin is tossed 3 times. Let X = number of heads. Write the PMF and CDF of X. Find `P(X <= 2)`.
 
-5. Determine if `f(x) = 3e^{-3x}` for x >= 0 is a valid PDF. If yes, find the CDF.
+   <details>
+   <summary>Show Answer</summary>
+   4. PMF: P(0)=1/8, P(1)=3/8, P(2)=3/8, P(3)=1/8. CDF: step function. P(X<=2) = 7/8.
+   </details>
 
-**Answers / Hints:**
-1. `sum_{x=0}^{3} c(x^2+1) = c(1+2+5+10) = 18c = 1` => `c = 1/18`. `P(X>=2) = P(2)+P(3) = 5/18 + 10/18 = 15/18 = 5/6`.
-2. `int_0^1 kx(1-x)dx = k/6 = 1` => `k = 6`. `P(0.2 < X < 0.6) = int_{0.2}^{0.6} 6x(1-x)dx = 0.544`. CDF: `F(x) = 3x^2 - 2x^3` on [0,1].
-3. `P(1 < X < 3) = F(3-) - F(1) = (9/8) - (1/4) = 7/8`. PDF: f(x) = 1/4 for [0,2), x/4 for [2, sqrt(8)).
-4. PMF: P(0)=1/8, P(1)=3/8, P(2)=3/8, P(3)=1/8. CDF: step function. P(X<=2) = 7/8.
-5. Yes. `int_0^{infty} 3e^{-3x} dx = 1`. CDF: `F(x) = 1 - e^{-3x}` for x >= 0.
+5. Determine if `f(x) = 3e^{-3x}` for x >= 0 is a valid PDF. If yes, find the CDF.
+   <details>
+   <summary>Show Answer</summary>
+   5. Yes. `int_0^{infty} 3e^{-3x} dx = 1`. CDF: `F(x) = 1 - e^{-3x}` for x >= 0.
+   </details>

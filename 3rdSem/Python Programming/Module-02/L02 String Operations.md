@@ -373,6 +373,8 @@ print(output)
 
    **Hint**: Use `(word + "-") * (n-1) + word`.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    word = input("Enter a word: ")
@@ -380,9 +382,12 @@ print(output)
    result = (word + "-") * (n - 1) + word
    print(result)
    ```
+   </details>
 
 2. **Vowel Checker**: Write a program that takes a character from the user and checks if it is a vowel using the `in` operator.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    ch = input("Enter a character: ").lower()
@@ -391,11 +396,14 @@ print(output)
    else:
        print(f"{ch} is not a vowel")
    ```
+   </details>
 
 3. **Lexicographic Sorter**: Write a program that takes three words and prints them in alphabetical order using comparison operators.
 
    **Hint**: Use a series of `if-elif-else` comparisons.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    w1 = input("Word 1: ")
@@ -405,9 +413,12 @@ print(output)
    words.sort()
    print("Sorted:", words[0], words[1], words[2])
    ```
+   </details>
 
 4. **Escape Sequence Table**: Write a program that uses tab (`\t`) and newline (`\n`) escape sequences to print a formatted table of escape sequences themselves.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    print("Sequence\tName\t\t\tExample")
@@ -416,11 +427,14 @@ print(output)
    print("\\\\t\t\tTab\t\t\tprint(\"A\\tB\")")
    print("\\\\\\\\\t\tBackslash\t\tprint(\"C:\\\\\\\\Users\")")
    ```
+   </details>
 
 5. **File Path Converter**: Write a program that converts a Windows file path entered with forward slashes (e.g., "C:/Users/Name") to a raw string with backslashes.
 
    **Hint**: Use `replace("/", "\\")` and prepend `r`.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    path = input("Enter path with forward slashes: ")
@@ -428,3 +442,4 @@ print(output)
    print(f"Windows path: {converted}")
    print(f"Raw string: r\"{converted}\"")
    ```
+   </details>

@@ -158,7 +158,7 @@ print(len(student))  # 4
 **Problem 1:** Create a dictionary `car` with keys `brand`, `model`, `year`, and `color`. Assign appropriate values. Print the dictionary and its length.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 car = {
@@ -175,7 +175,7 @@ print(len(car))  # 4
 **Problem 2:** Given `student = {"name": "Bob", "age": 22}`, add a new key `"grade"` with value `"B"`, then change `"age"` to `23`. Print the updated dictionary.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 student = {"name": "Bob", "age": 22}
@@ -188,7 +188,7 @@ print(student)  # {'name': 'Bob', 'age': 23, 'grade': 'B'}
 **Problem 3:** Use `dict.get()` to safely access a key that does not exist. Provide a default value of `"Not Found"`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 d = {"a": 1, "b": 2}
@@ -201,7 +201,7 @@ print(d.get("a", "Not Found")) # 1 (key exists, default ignored)
 **Problem 4:** Create a dictionary using the `dict()` constructor with keyword arguments for `title`, `author`, and `year`. Print the dictionary.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 book = dict(title="1984", author="George Orwell", year=1949)
@@ -213,7 +213,7 @@ print(book)
 **Problem 5:** Try to use a list as a dictionary key. What error do you get? Explain why.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 # d = {[1, 2]: "value"}  # TypeError: unhashable type: 'list'

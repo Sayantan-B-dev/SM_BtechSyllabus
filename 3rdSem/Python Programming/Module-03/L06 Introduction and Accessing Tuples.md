@@ -199,7 +199,7 @@ print(x, y, z)  # 3, 1, 2
 **Problem 1:** Create a tuple `person` containing your name, age, and favorite programming language. Then unpack it into three variables and print each one.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 person = ("Alice", 25, "Python")
@@ -213,7 +213,7 @@ print(lang)  # Python
 **Problem 2:** Create a single-element tuple containing the number `100`. Verify its type.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 t = (100,)
@@ -229,7 +229,7 @@ print(t)        # (100,)
 - The tuple in reverse
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 tup = (5, 10, 15, 20, 25, 30)
@@ -243,7 +243,7 @@ print(tup[::-1])  # (30, 25, 20, 15, 10, 5)
 **Problem 4:** Use tuple unpacking to swap the values of `a = 100` and `b = 200` in a single line.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 a, b = 100, 200
@@ -255,7 +255,7 @@ print(a, b)  # 200 100
 **Problem 5:** Demonstrate that tuples are immutable by attempting to change an element. Show the error message.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 t = (1, 2, 3)

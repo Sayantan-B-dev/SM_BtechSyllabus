@@ -661,269 +661,270 @@ print(f"isinstance(rectangle, Square): {isinstance(rectangle, Square)}")
 ## Practice Problems
 
 1. **Employee Hierarchy** -- Create a base class `Employee` with name, emp_id, salary. Create subclasses `Manager` (with bonus percentage), `Developer` (with programming languages list), `Intern` (with duration). Each should have a `calculate_pay()` method that differs.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Employee:
+       def __init__(self, name, emp_id, salary):
+           self.name = name
+           self.emp_id = emp_id
+           self.salary = salary
+
+       def calculate_pay(self):
+           return self.salary
+
+       def __str__(self):
+           return f"{self.name} ({self.emp_id}): ${self.calculate_pay():.2f}"
+
+   class Manager(Employee):
+       def __init__(self, name, emp_id, salary, bonus_pct=0.15):
+           super().__init__(name, emp_id, salary)
+           self.bonus_pct = bonus_pct
+
+       def calculate_pay(self):
+           return self.salary * (1 + self.bonus_pct)
+
+   class Developer(Employee):
+       def __init__(self, name, emp_id, salary, languages=None):
+           super().__init__(name, emp_id, salary)
+           self.languages = languages or []
+
+       def calculate_pay(self):
+           bonus = len(self.languages) * 2000
+           return self.salary + bonus
+
+   class Intern(Employee):
+       def __init__(self, name, emp_id, stipend, duration_months=3):
+           super().__init__(name, emp_id, stipend)
+           self.duration_months = duration_months
+
+       def calculate_pay(self):
+           return self.salary * self.duration_months
+
+   emps = [
+       Manager("Alice", "M001", 80000, 0.20),
+       Developer("Bob", "D001", 70000, ["Python", "Java", "JS"]),
+       Intern("Charlie", "I001", 2000, 6),
+   ]
+   for e in emps:
+       print(e)
+   ```
+   </details>
 
 2. **Library System** -- Create `LibraryItem` (title, year, is_borrowed). Subclasses: `Book` (author, pages), `DVD` (director, duration), `Magazine` (issue_number, month). Each should override `__str__`. Use super() in `__init__`.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class LibraryItem:
+       def __init__(self, title, year):
+           self.title = title
+           self.year = year
+           self.is_borrowed = False
+
+       def borrow(self):
+           if self.is_borrowed:
+               return False
+           self.is_borrowed = True
+           return True
+
+       def return_item(self):
+           self.is_borrowed = False
+
+       def __str__(self):
+           status = "B" if self.is_borrowed else "A"
+           return f"[{status}] {self.title} ({self.year})"
+
+   class Book(LibraryItem):
+       def __init__(self, title, year, author, pages):
+           super().__init__(title, year)
+           self.author = author
+           self.pages = pages
+
+       def __str__(self):
+           return f"{super().__str__()} by {self.author}, {self.pages}p"
+
+   class DVD(LibraryItem):
+       def __init__(self, title, year, director, duration_min):
+           super().__init__(title, year)
+           self.director = director
+           self.duration_min = duration_min
+
+       def __str__(self):
+           return f"{super().__str__()} dir. {self.director}, {self.duration_min}min"
+
+   class Magazine(LibraryItem):
+       def __init__(self, title, year, issue_no, month):
+           super().__init__(title, year)
+           self.issue_no = issue_no
+           self.month = month
+
+       def __str__(self):
+           return f"{super().__str__()} Vol.{self.issue_no} ({self.month})"
+
+   items = [
+       Book("1984", 1949, "Orwell", 328),
+       DVD("Inception", 2010, "Nolan", 148),
+       Magazine("NatGeo", 2024, 250, "March"),
+   ]
+   for item in items:
+       print(item)
+   ```
+   </details>
 
 3. **Multiple Inheritance: Flying Car** -- Create classes `Car` (start, stop, drive), `Aircraft` (takeoff, land, fly). Create `FlyingCar` that inherits from both. Implement MRO properly. Use super() to ensure both parents are initialized.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Car:
+       def __init__(self, make, model):
+           self.make = make
+           self.model = model
+           print(f"Car: {make} {model}")
+
+       def start(self):
+           print("Car engine started.")
+
+       def drive(self):
+           print("Driving on road.")
+
+   class Aircraft:
+       def __init__(self, max_altitude=10000):
+           self.max_altitude = max_altitude
+           print(f"Aircraft: max altitude {max_altitude}ft")
+
+       def takeoff(self):
+           print("Aircraft taking off.")
+
+       def fly(self):
+           print("Flying in air.")
+
+   class FlyingCar(Car, Aircraft):
+       def __init__(self, make, model, max_altitude=10000):
+           Car.__init__(self, make, model)
+           Aircraft.__init__(self, max_altitude)
+           print("FlyingCar created!")
+
+       def start(self):
+           super().start()
+           print("FlyingCar systems ready.")
+
+   fc = FlyingCar("Aero", "X1", 5000)
+   fc.start()
+   fc.drive()
+   fc.takeoff()
+   fc.fly()
+   print(f"MRO: {[c.__name__ for c in FlyingCar.__mro__]}")
+   ```
+   </details>
 
 4. **Override and Extend** -- Create a base `Logger` class with `log(message, level)` method. Create `FileLogger` (writes to file) and `ConsoleLogger` (prints to console). Both override `log` and extend it with additional formatting. Use super() to call parent's log.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Logger:
+       def __init__(self, prefix="[LOG]"):
+           self.prefix = prefix
+
+       def log(self, message, level="INFO"):
+           print(f"{self.prefix} [{level}] {message}")
+
+   class FileLogger(Logger):
+       def __init__(self, filename, prefix="[FILE]"):
+           super().__init__(prefix)
+           self.filename = filename
+
+       def log(self, message, level="INFO"):
+           super().log(message, level)
+           with open(self.filename, "a") as f:
+               import datetime
+               ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+               f.write(f"[{ts}] [{level}] {message}\n")
+           print(f"(Logged to {self.filename})")
+
+   class ConsoleLogger(Logger):
+       def __init__(self, prefix="[CONSOLE]"):
+           super().__init__(prefix)
+           self._count = 0
+
+       def log(self, message, level="INFO"):
+           self._count += 1
+           colored = f"\033[92m{self.prefix}\033[0m" if level == "INFO" else \
+                     f"\033[93m{self.prefix}\033[0m" if level == "WARN" else \
+                     f"\033[91m{self.prefix}\033[0m"
+           print(f"{colored} [{level}] #{self._count}: {message}")
+
+   cl = ConsoleLogger()
+   cl.log("System started")
+   cl.log("Low memory", "WARN")
+   cl.log("Disk failure", "ERROR")
+
+   fl = FileLogger("app.log")
+   fl.log("App initialized")
+   fl.log("Connection lost", "ERROR")
+   ```
+   </details>
 
 5. **Zoo Hierarchy with isinstance** -- Create `Animal` base with name, age. Subclasses: `Mammal`, `Bird`, `Fish`. Further subclasses: `Dog(Mammal)`, `Eagle(Bird)`, `Salmon(Fish)`. Create a `Zoo` class that holds animals and has methods like `feed_all()`, `list_mammals()`, `count_by_type()`. Use isinstance extensively.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   class Animal:
+       def __init__(self, name, age):
+           self.name = name
+           self.age = age
 
-## Practice Problems
+       def make_sound(self):
+           return "..."
 
-1. **Employee Hierarchy**
+       def __str__(self):
+           return f"{self.name} ({type(self).__name__}, {self.age}y)"
 
-```python
-class Employee:
-    def __init__(self, name, emp_id, salary):
-        self.name = name
-        self.emp_id = emp_id
-        self.salary = salary
+   class Mammal(Animal): pass
+   class Bird(Animal): pass
+   class Fish(Animal): pass
 
-    def calculate_pay(self):
-        return self.salary
+   class Dog(Mammal):
+       def make_sound(self): return "Woof!"
+   class Eagle(Bird):
+       def make_sound(self): return "Screech!"
+   class Salmon(Fish):
+       def make_sound(self): return "Blub!"
 
-    def __str__(self):
-        return f"{self.name} ({self.emp_id}): ${self.calculate_pay():.2f}"
+   class Zoo:
+       def __init__(self, name):
+           self.name = name
+           self.animals = []
 
-class Manager(Employee):
-    def __init__(self, name, emp_id, salary, bonus_pct=0.15):
-        super().__init__(name, emp_id, salary)
-        self.bonus_pct = bonus_pct
+       def add(self, animal):
+           self.animals.append(animal)
 
-    def calculate_pay(self):
-        return self.salary * (1 + self.bonus_pct)
+       def feed_all(self):
+           for a in self.animals:
+               print(f"Feeding {a.name}... {a.make_sound()}")
 
-class Developer(Employee):
-    def __init__(self, name, emp_id, salary, languages=None):
-        super().__init__(name, emp_id, salary)
-        self.languages = languages or []
+       def list_mammals(self):
+           return [a for a in self.animals if isinstance(a, Mammal)]
 
-    def calculate_pay(self):
-        bonus = len(self.languages) * 2000
-        return self.salary + bonus
+       def count_by_type(self):
+           counts = {"Mammal": 0, "Bird": 0, "Fish": 0}
+           for a in self.animals:
+               if isinstance(a, Mammal): counts["Mammal"] += 1
+               if isinstance(a, Bird): counts["Bird"] += 1
+               if isinstance(a, Fish): counts["Fish"] += 1
+           return counts
 
-class Intern(Employee):
-    def __init__(self, name, emp_id, stipend, duration_months=3):
-        super().__init__(name, emp_id, stipend)
-        self.duration_months = duration_months
-
-    def calculate_pay(self):
-        return self.salary * self.duration_months
-
-emps = [
-    Manager("Alice", "M001", 80000, 0.20),
-    Developer("Bob", "D001", 70000, ["Python", "Java", "JS"]),
-    Intern("Charlie", "I001", 2000, 6),
-]
-for e in emps:
-    print(e)
-```
-
-2. **Library System**
-
-```python
-class LibraryItem:
-    def __init__(self, title, year):
-        self.title = title
-        self.year = year
-        self.is_borrowed = False
-
-    def borrow(self):
-        if self.is_borrowed:
-            return False
-        self.is_borrowed = True
-        return True
-
-    def return_item(self):
-        self.is_borrowed = False
-
-    def __str__(self):
-        status = "B" if self.is_borrowed else "A"
-        return f"[{status}] {self.title} ({self.year})"
-
-class Book(LibraryItem):
-    def __init__(self, title, year, author, pages):
-        super().__init__(title, year)
-        self.author = author
-        self.pages = pages
-
-    def __str__(self):
-        return f"{super().__str__()} by {self.author}, {self.pages}p"
-
-class DVD(LibraryItem):
-    def __init__(self, title, year, director, duration_min):
-        super().__init__(title, year)
-        self.director = director
-        self.duration_min = duration_min
-
-    def __str__(self):
-        return f"{super().__str__()} dir. {self.director}, {self.duration_min}min"
-
-class Magazine(LibraryItem):
-    def __init__(self, title, year, issue_no, month):
-        super().__init__(title, year)
-        self.issue_no = issue_no
-        self.month = month
-
-    def __str__(self):
-        return f"{super().__str__()} Vol.{self.issue_no} ({self.month})"
-
-items = [
-    Book("1984", 1949, "Orwell", 328),
-    DVD("Inception", 2010, "Nolan", 148),
-    Magazine("NatGeo", 2024, 250, "March"),
-]
-for item in items:
-    print(item)
-```
-
-3. **Multiple Inheritance: Flying Car**
-
-```python
-class Car:
-    def __init__(self, make, model):
-        self.make = make
-        self.model = model
-        print(f"Car: {make} {model}")
-
-    def start(self):
-        print("Car engine started.")
-
-    def drive(self):
-        print("Driving on road.")
-
-class Aircraft:
-    def __init__(self, max_altitude=10000):
-        self.max_altitude = max_altitude
-        print(f"Aircraft: max altitude {max_altitude}ft")
-
-    def takeoff(self):
-        print("Aircraft taking off.")
-
-    def fly(self):
-        print("Flying in air.")
-
-class FlyingCar(Car, Aircraft):
-    def __init__(self, make, model, max_altitude=10000):
-        Car.__init__(self, make, model)
-        Aircraft.__init__(self, max_altitude)
-        print("FlyingCar created!")
-
-    def start(self):
-        super().start()
-        print("FlyingCar systems ready.")
-
-fc = FlyingCar("Aero", "X1", 5000)
-fc.start()
-fc.drive()
-fc.takeoff()
-fc.fly()
-print(f"MRO: {[c.__name__ for c in FlyingCar.__mro__]}")
-```
-
-4. **Override and Extend**
-
-```python
-class Logger:
-    def __init__(self, prefix="[LOG]"):
-        self.prefix = prefix
-
-    def log(self, message, level="INFO"):
-        print(f"{self.prefix} [{level}] {message}")
-
-class FileLogger(Logger):
-    def __init__(self, filename, prefix="[FILE]"):
-        super().__init__(prefix)
-        self.filename = filename
-
-    def log(self, message, level="INFO"):
-        super().log(message, level)
-        with open(self.filename, "a") as f:
-            import datetime
-            ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            f.write(f"[{ts}] [{level}] {message}\n")
-        print(f"(Logged to {self.filename})")
-
-class ConsoleLogger(Logger):
-    def __init__(self, prefix="[CONSOLE]"):
-        super().__init__(prefix)
-        self._count = 0
-
-    def log(self, message, level="INFO"):
-        self._count += 1
-        colored = f"\033[92m{self.prefix}\033[0m" if level == "INFO" else \
-                  f"\033[93m{self.prefix}\033[0m" if level == "WARN" else \
-                  f"\033[91m{self.prefix}\033[0m"
-        print(f"{colored} [{level}] #{self._count}: {message}")
-
-cl = ConsoleLogger()
-cl.log("System started")
-cl.log("Low memory", "WARN")
-cl.log("Disk failure", "ERROR")
-
-fl = FileLogger("app.log")
-fl.log("App initialized")
-fl.log("Connection lost", "ERROR")
-```
-
-5. **Zoo Hierarchy with isinstance**
-
-```python
-class Animal:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-
-    def make_sound(self):
-        return "..."
-
-    def __str__(self):
-        return f"{self.name} ({type(self).__name__}, {self.age}y)"
-
-class Mammal(Animal): pass
-class Bird(Animal): pass
-class Fish(Animal): pass
-
-class Dog(Mammal):
-    def make_sound(self): return "Woof!"
-class Eagle(Bird):
-    def make_sound(self): return "Screech!"
-class Salmon(Fish):
-    def make_sound(self): return "Blub!"
-
-class Zoo:
-    def __init__(self, name):
-        self.name = name
-        self.animals = []
-
-    def add(self, animal):
-        self.animals.append(animal)
-
-    def feed_all(self):
-        for a in self.animals:
-            print(f"Feeding {a.name}... {a.make_sound()}")
-
-    def list_mammals(self):
-        return [a for a in self.animals if isinstance(a, Mammal)]
-
-    def count_by_type(self):
-        counts = {"Mammal": 0, "Bird": 0, "Fish": 0}
-        for a in self.animals:
-            if isinstance(a, Mammal): counts["Mammal"] += 1
-            if isinstance(a, Bird): counts["Bird"] += 1
-            if isinstance(a, Fish): counts["Fish"] += 1
-        return counts
-
-zoo = Zoo("City Zoo")
-zoo.add(Dog("Rex", 3))
-zoo.add(Eagle("Freedom", 5))
-zoo.add(Salmon("Nemo", 1))
-zoo.add(Dog("Max", 2))
-zoo.feed_all()
-print(f"\nMammals: {[a.name for a in zoo.list_mammals()]}")
-print(f"Counts: {zoo.count_by_type()}")
-```
+   zoo = Zoo("City Zoo")
+   zoo.add(Dog("Rex", 3))
+   zoo.add(Eagle("Freedom", 5))
+   zoo.add(Salmon("Nemo", 1))
+   zoo.add(Dog("Max", 2))
+   zoo.feed_all()
+   print(f"\nMammals: {[a.name for a in zoo.list_mammals()]}")
+   print(f"Counts: {zoo.count_by_type()}")
+   ```
+   </details>

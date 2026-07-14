@@ -136,14 +136,31 @@ Understanding COs, POs, and Bloom's Taxonomy helps you:
 ## Practice Problems
 
 1. Identify the Bloom's level for the following question: "Calculate the mean and standard deviation of the data: 5, 8, 12, 15, 20."
-2. Write one CO for a course in Probability and Statistics at the "Apply" level using an appropriate action verb.
-3. PO1 states "Engineering Knowledge." Give an example of how probability and statistics relates to engineering knowledge.
-4. A CO says "Students will be able to evaluate the reliability of a data set using appropriate statistical measures." What Bloom's level is this? Justify your answer.
-5. Map CO1 (from this course) to PO4 with a justification.
+   <details>
+   <summary>Show Answer</summary>
+   1. L3 (Apply) -- the student performs a calculation using a formula.
+   </details>
 
-**Answers/Hints:**
-1. L3 (Apply) -- the student performs a calculation using a formula.
-2. Example: "Students will be able to apply regression analysis to predict outcomes from bivariate data."
-3. Example: Civil engineers use statistical methods to analyze concrete strength test results; mechanical engineers use statistics for quality control.
-4. L5 (Evaluate) -- the student judges the reliability of data, which requires making a judgment based on criteria.
-5. PO4 (Conduct Investigations) -- CO1 involves analyzing data, which is a core part of conducting investigations. Strength: 2 or 3.
+2. Write one CO for a course in Probability and Statistics at the "Apply" level using an appropriate action verb.
+   <details>
+   <summary>Show Answer</summary>
+   2. Example: "Students will be able to apply regression analysis to predict outcomes from bivariate data."
+   </details>
+
+3. PO1 states "Engineering Knowledge." Give an example of how probability and statistics relates to engineering knowledge.
+   <details>
+   <summary>Show Answer</summary>
+   3. Example: Civil engineers use statistical methods to analyze concrete strength test results; mechanical engineers use statistics for quality control.
+   </details>
+
+4. A CO says "Students will be able to evaluate the reliability of a data set using appropriate statistical measures." What Bloom's level is this? Justify your answer.
+   <details>
+   <summary>Show Answer</summary>
+   4. L5 (Evaluate) -- the student judges the reliability of data, which requires making a judgment based on criteria.
+   </details>
+
+5. Map CO1 (from this course) to PO4 with a justification.
+   <details>
+   <summary>Show Answer</summary>
+   5. PO4 (Conduct Investigations) -- CO1 involves analyzing data, which is a core part of conducting investigations. Strength: 2 or 3.
+   </details>

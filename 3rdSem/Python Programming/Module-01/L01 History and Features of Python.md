@@ -154,11 +154,31 @@ Python is widely recommended as a first programming language for several reasons
 ## Practice Problems
 
 1. **Research:** Find out which version of Python is currently the latest stable release. Compare it to the version installed on your computer.
+   <details>
+   <summary>Show Answer</summary>
+   As of mid-2026, the latest stable release is Python 3.14. You can check your installed version by running `python --version` in a terminal. Compare the output to the latest on python.org to see if an upgrade is available.
+   </details>
 
 2. **Reflection:** Write down two features of Python that seem most interesting to you. Explain why they would help a beginner programmer.
+   <details>
+   <summary>Show Answer</summary>
+   Two key features: (1) **Readable syntax** — Python uses indentation instead of braces, making code clean and easy to read. (2) **Batteries included** — the vast standard library means beginners can do file I/O, web requests, etc. without installing extra packages.
+   </details>
 
 3. **Short Answer:** What does "batteries included" mean in the context of Python?
+   <details>
+   <summary>Show Answer</summary>
+   "Batteries included" means Python ships with a large standard library that provides modules and functions for common tasks (file handling, networking, data structures, etc.) out of the box, so you don't need to install third-party packages for basic functionality.
+   </details>
 
 4. **Comparison:** List three differences between Python 2 and Python 3.
+   <details>
+   <summary>Show Answer</summary>
+   Three differences: (1) `print` is a statement in Python 2 (`print "Hello"`) but a function in Python 3 (`print("Hello")`). (2) Integer division: `3/2` gives `1` in Python 2 but `1.5` in Python 3. (3) `raw_input()` in Python 2 is renamed to `input()` in Python 3; the old `input()` (which evaluated input as code) was removed.
+   </details>
 
 5. **Reading:** Go to python.org and read the "Beginners Guide" section. Note down three things you learned.
+   <details>
+   <summary>Show Answer</summary>
+   Sample answers: (1) Python can be downloaded from python.org and comes with IDLE, a simple IDE. (2) The Beginners Guide links to tutorials, books, and interactive courses. (3) Python is used in web development, data science, automation, and education. (Your actual answers will vary based on what you read.)
+   </details>

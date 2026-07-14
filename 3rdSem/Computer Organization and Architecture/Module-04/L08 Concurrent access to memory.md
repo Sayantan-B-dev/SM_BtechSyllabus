@@ -268,13 +268,17 @@ struct {
 
 **Problem 1**: For a system with 64 processors and a directory with 16K blocks, what is the minimum directory size using (a) full bit vector, (b) limited pointer with 4 pointers?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - (a) Full bit vector: 1 dirty + 64 presence = 65 bits per block. Total = 16K x 65 bits = 16,384 x 65 = 1,064,960 bits = 130 KB.
 - (b) Limited pointer (4 pointers): 1 dirty + 4 x 6 bits (log2(64)=6) = 1 + 24 = 25 bits per block. Total = 16K x 25 = 409,600 bits = 50 KB.
+</details>
 
 **Problem 2**: In a directory protocol, P0 has block Y in Modified state. P1 issues a ReadReq for Y. List all messages exchanged and state changes.
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
+</details>
 1. P1 -> Directory: ReadReq(Y)
 2. Directory (dirty=1, owner=P0) -> P0: Fetch(Y)
 3. P0 flushes Y, state to Invalid (or Shared), P0 -> Directory: Data(Y)
@@ -286,17 +290,25 @@ Total: 5 messages (ReadReq, Fetch, Data, ReadReply) -- plus possible ack.
 
 **Problem 3**: Distinguish between true sharing and false sharing.
 
-**Answer**: True sharing: multiple processors access the SAME variable and the coherence protocol correctly synchronizes them. False sharing: processors access DIFFERENT variables within the same cache block. The coherence protocol treats it as if they were sharing, causing unnecessary invalidations and thrashing.
+<details>
+<summary>Show Answer</summary>
+True sharing: multiple processors access the SAME variable and the coherence protocol correctly synchronizes them. False sharing: processors access DIFFERENT variables within the same cache block. The coherence protocol treats it as if they were sharing, causing unnecessary invalidations and thrashing.
+</details>
 
 **Problem 4**: Why does snooping not scale well beyond 16 processors?
 
-**Answer**: (1) The shared bus has finite bandwidth; each transaction is broadcast to all, limiting throughput. (2) Each cache must snoop every transaction, consuming power and potentially creating snoop filter bottlenecks. (3) Bus arbitration becomes complex with many requesters. (4) Electrical limitations of bus length and capacitance at high frequencies.
+<details>
+<summary>Show Answer</summary>
+(1) The shared bus has finite bandwidth; each transaction is broadcast to all, limiting throughput. (2) Each cache must snoop every transaction, consuming power and potentially creating snoop filter bottlenecks. (3) Bus arbitration becomes complex with many requesters. (4) Electrical limitations of bus length and capacitance at high frequencies.
+</details>
 
 **Problem 5**: A system has 8 processors and uses a directory protocol. A block starts uncached. Trace all messages for: P0 reads, P1 reads, P2 writes, P3 reads.
 
-**Answer**: 
+<details>
+<summary>Show Answer</summary>
 - P0 ReadReq: Dir -> P0 ReadReply (dir: presence[0]=1)
 - P1 ReadReq: Dir -> P1 ReadReply (dir: presence[0,1]=2)
 - P2 WriteReq: Dir -> P0 Invalidate, Dir -> P1 Invalidate, P0 Ack, P1 Ack, Dir -> P2 WriteReply (dir: dirty=1, presence[2]=1)
 - P3 ReadReq: Dir -> P2 Fetch, P2 -> Dir Data, Dir -> P3 ReadReply (dir: dirty=0, presence[2,3]=2)
 Total messages: 10 (4 requests + 2 replies + 2 invalidations + 2 acks = 10)
+</details>

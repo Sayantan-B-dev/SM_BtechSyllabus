@@ -269,16 +269,27 @@ Step 5: CPU transfers MBR to R1
 ## Practice Problems
 
 1. **Problem**: A computer has a 32-bit address bus and a 64-bit data bus. What is the maximum amount of memory it can address? How many bytes can it transfer in one bus cycle?
-   **Answer**: With a 32-bit address bus, it can address 2^32 = 4,294,967,296 locations (4 GB). With a 64-bit data bus, it can transfer 64 bits = 8 bytes per bus cycle.
+<details>
+<summary>Show Answer</summary>
+With a 32-bit address bus, it can address 2^32 = 4,294,967,296 locations (4 GB). With a 64-bit data bus, it can transfer 64 bits = 8 bytes per bus cycle.
+</details>
 
 2. **Problem**: Explain why the Von Neumann architecture is also known as a "stored-program" computer.
-   **Answer**: Because the program instructions are stored in memory as binary data, just like the data. The CPU fetches instructions from memory, decodes them, and executes them. Programs can be changed by writing new instructions into memory, without rewiring the hardware.
+<details>
+<summary>Show Answer</summary>
+Because the program instructions are stored in memory as binary data, just like the data. The CPU fetches instructions from memory, decodes them, and executes them. Programs can be changed by writing new instructions into memory, without rewiring the hardware.
+</details>
 
 3. **Problem**: A program accesses memory locations 100, 101, 102, 103, 100, 101, 102, 103 repeatedly. Which type of locality does this exhibit? How would cache help?
-   **Answer**: This exhibits both spatial locality (sequential addresses 100-103) and temporal locality (same addresses repeated). Cache stores copies of these locations after the first access; subsequent accesses are serviced from fast cache instead of slow main memory.
+<details>
+<summary>Show Answer</summary>
+This exhibits both spatial locality (sequential addresses 100-103) and temporal locality (same addresses repeated). Cache stores copies of these locations after the first access; subsequent accesses are serviced from fast cache instead of slow main memory.
+</details>
 
 4. **Problem**: Draw a simplified diagram showing how the data bus, address bus, and control bus connect CPU, memory, and an I/O device.
-   **Answer**: (ASCII diagram)
+<details>
+<summary>Show Answer</summary>
+(ASCII diagram)
    ```
    CPU --[Address Bus]--> Memory
    CPU --[Address Bus]--> I/O Device
@@ -288,6 +299,10 @@ Step 5: CPU transfers MBR to R1
    CPU --[Control Bus]--> I/O Device (I/ORead, I/OWrite)
    I/O Device --[IRQ]--> CPU (interrupt)
    ```
+</details>
 
 5. **Problem**: In the context of DMA, why is it beneficial compared to programmed I/O?
-   **Answer**: In programmed I/O, the CPU must repeatedly check the I/O device status (polling), wasting CPU cycles. In interrupt-driven I/O, the CPU is interrupted for each data transfer, still consuming CPU time for data movement. DMA allows the DMA controller to transfer data directly between I/O device and memory without CPU involvement, freeing the CPU to execute other tasks during the transfer.
+<details>
+<summary>Show Answer</summary>
+In programmed I/O, the CPU must repeatedly check the I/O device status (polling), wasting CPU cycles. In interrupt-driven I/O, the CPU is interrupted for each data transfer, still consuming CPU time for data movement. DMA allows the DMA controller to transfer data directly between I/O device and memory without CPU involvement, freeing the CPU to execute other tasks during the transfer.
+</details>

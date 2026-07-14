@@ -491,13 +491,61 @@ p is r: True
    - `17 % 3 + 4`
    - `2 ** 3 ** 2`
    - `True or False and not False`
+   <details>
+   <summary>Show Answer</summary>
+   - `10 + 5 * 2` → `10 + 10` → `20`
+   - `(10 + 5) * 2` → `15 * 2` → `30`
+   - `17 % 3 + 4` → `2 + 4` → `6`
+   - `2 ** 3 ** 2` → `2 ** 9` → `512` (right-associative)
+   - `True or False and not False` → `True or (False and True)` → `True or False` → `True`
+   </details>
 
 2. **Even or Odd (bitwise):** Use the bitwise AND operator `&` to check if a number is even or odd. (Hint: `x & 1` is `1` for odd numbers, `0` for even numbers.)
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   x = int(input("Enter a number: "))
+   if x & 1:
+       print(f"{x} is odd")
+   else:
+       print(f"{x} is even")
+   ```
+   </details>
 
 3. **Leap Year Logic:** Write an expression that checks if a year is a leap year:
    - Divisible by 4, but not by 100, unless also divisible by 400.
    - Use logical operators (`and`, `or`, `not`).
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   year = int(input("Enter year: "))
+   is_leap = (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0)
+   print(f"{year} is{' ' if is_leap else ' not '}a leap year")
+   ```
+   </details>
 
 4. **Identity vs Equality:** Create two lists `a = [1, 2, 3]` and `b = [1, 2, 3]`. Check `a == b` and `a is b`. Now set `c = a`. Check `c is a`. Explain the difference.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   a = [1, 2, 3]
+   b = [1, 2, 3]
+   c = a
+   print(a == b)   # True - same values
+   print(a is b)   # False - different objects in memory
+   print(c is a)   # True - c references the same object as a
+   ```
+   `==` checks **value equality** (do they contain the same data?). `is` checks **identity** (do they refer to the same object in memory?).
+   </details>
 
 5. **Assignment Chain:** Using compound assignment operators, start with `x = 100`. Apply `//=` by 3, then `**=` by 2, then `-=` by 5. What is the final value of `x`?
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   x = 100
+   x //= 3   # x = 33
+   x **= 2   # x = 1089
+   x -= 5    # x = 1084
+   print(x)  # 1084
+   ```
+   </details>

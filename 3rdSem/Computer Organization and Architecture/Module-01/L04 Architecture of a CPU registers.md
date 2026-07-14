@@ -420,20 +420,34 @@ JZ SKIP           ; Jump to SKIP if Z=1 (first ADD sets Z=1)
 ## Practice Problems
 
 1. **Problem**: List all the registers that are involved in executing the instruction `LOAD R1, [R2]` (load M[R2] into R1) and describe the role of each.
-   **Answer**: The instruction goes through fetch and execute phases:
+<details>
+<summary>Show Answer</summary>
+The instruction goes through fetch and execute phases:
    - **Fetch**: PC (provides address of instruction), MAR (receives PC value for memory read), MBR (receives instruction from data bus), IR (receives instruction from MBR), PC (incremented).
    - **Execute**: R2 (provides the memory address), MAR (receives R2 value), MBR (receives data from memory at that address), R1 (receives data from MBR).
+</details>
 
 2. **Problem**: After executing the instruction `ADD R1, R2`, the zero flag (Z) and sign flag (S) in the PSW are both 0. What can you conclude about the result?
-   **Answer**: Z = 0 means the result is non-zero. S = 0 means the result is non-negative (MSB = 0). Therefore, the result in R1 is a positive non-zero number.
+<details>
+<summary>Show Answer</summary>
+Z = 0 means the result is non-zero. S = 0 means the result is non-negative (MSB = 0). Therefore, the result in R1 is a positive non-zero number.
+</details>
 
 3. **Problem**: If the PC register is 16 bits wide, what is the maximum addressable memory (in bytes) if the architecture is byte-addressable?
-   **Answer**: A 16-bit PC can hold 2^16 = 65,536 distinct addresses. For a byte-addressable architecture, this means 64 KB of addressable memory. (Note: some architectures use the PC differently, e.g., if it points to words instead of bytes, the addressable space changes.)
+<details>
+<summary>Show Answer</summary>
+A 16-bit PC can hold 2^16 = 65,536 distinct addresses. For a byte-addressable architecture, this means 64 KB of addressable memory. (Note: some architectures use the PC differently, e.g., if it points to words instead of bytes, the addressable space changes.)
+</details>
 
 4. **Problem**: Explain why the MAR and MBR registers are needed instead of connecting the address/data buses directly to registers or the ALU.
-   **Answer**: The system bus is external to the CPU and operates at a slower speed than the CPU's internal components. MAR and MBR serve as **buffers** that isolate the fast internal CPU components from the slower external bus. This allows the CPU to continue internal operations while a memory access is in progress (the MAR/MBR hold the address/data externally). Without these buffers, the CPU would be forced to wait idle during every memory access.
+<details>
+<summary>Show Answer</summary>
+The system bus is external to the CPU and operates at a slower speed than the CPU's internal components. MAR and MBR serve as **buffers** that isolate the fast internal CPU components from the slower external bus. This allows the CPU to continue internal operations while a memory access is in progress (the MAR/MBR hold the address/data externally). Without these buffers, the CPU would be forced to wait idle during every memory access.
+</details>
 
 5. **Problem**: For the x86 EFLAGS register, name three condition flags and three control flags. Give an example instruction that sets each condition flag.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    - Condition flags: ZF (Zero) set by `CMP EAX, EBX` when EAX = EBX; CF (Carry) set by `ADD` when unsigned overflow occurs; SF (Sign) set by `SUB` when result is negative.
    - Control flags: IF (Interrupt Flag) -- set/cleared by `STI`/`CLI`; DF (Direction Flag) -- set/cleared by `STD`/`CLD`; IOPL (I/O Privilege Level) -- modified by `POPF`.
+</details>

@@ -220,28 +220,38 @@ For our example: Fi projections don't give us C -> B back. So it's not dependenc
 ## Practice Problems
 
 1. `R(A, B, C)` with `F = {AB -> C, C -> A}`. Decomposition: `R1(A, C)`, `R2(B, C)`. Is this dependency-preserving?
+<details>
+<summary>Show Answer</summary>
+F1 (to R1(A,C)): A+ = {A,C} -> A -> C. C+ = {A,C} -> C -> A. F1 = {A -> C, C -> A}. F2 (to R2(B,C)): C+ = {A,C}. Nothing with only B,C. B+ = {B}. So F2 = {}. Union = {A -> C, C -> A}. Original F = {AB -> C, C -> A}. AB -> C is not implied by {A -> C, C -> A}. NOT dependency-preserving.
+</details>
 
 2. `R(A, B, C, D)` with `F = {A -> B, B -> C, C -> D}`. Decomposition: `R1(A, B)`, `R2(B, C)`, `R3(C, D)`. Is this dependency-preserving?
+<details>
+<summary>Show Answer</summary>
+F1 = {A -> B}, F2 = {B -> C}, F3 = {C -> D}. Union = {A -> B, B -> C, C -> D} = F. YES.
+</details>
 
 3. What does it mean for a decomposition to be non-dependency-preserving?
+<details>
+<summary>Show Answer</summary>
+A non-dependency-preserving decomposition means that some FDs from the original schema cannot be enforced on the individual decomposed relations without performing a join. The DBMS would need to join the relations to check the FD, which is expensive.
+</details>
 
 4. Explain the algorithm for projecting FDs onto a relation.
+<details>
+<summary>Show Answer</summary>
+For each subset X of attributes in Ri, compute X+ under F. For each attribute A in Ri such that A is in X+ - X, add X -> A. Then minimize.
+</details>
 
 5. For the BCNF decomposition of `R(A, B, C)` with `F = {AB -> C, C -> B}`, is the decomposition dependency-preserving? (Decompose first, then check.)
-
-**Answers:**
-1. F1 (to R1(A,C)): A+ = {A,C} -> A -> C. C+ = {A,C} -> C -> A. F1 = {A -> C, C -> A}. F2 (to R2(B,C)): C+ = {A,C}. Nothing with only B,C. B+ = {B}. So F2 = {}. Union = {A -> C, C -> A}. Original F = {AB -> C, C -> A}. AB -> C is not implied by {A -> C, C -> A}. NOT dependency-preserving.
-
-2. F1 = {A -> B}, F2 = {B -> C}, F3 = {C -> D}. Union = {A -> B, B -> C, C -> D} = F. YES.
-
-3. A non-dependency-preserving decomposition means that some FDs from the original schema cannot be enforced on the individual decomposed relations without performing a join. The DBMS would need to join the relations to check the FD, which is expensive.
-
-4. For each subset X of attributes in Ri, compute X+ under F. For each attribute A in Ri such that A is in X+ - X, add X -> A. Then minimize.
-
-5. Candidate keys: (A,B), (A,C). Violating FD for BCNF: C -> B. Decompose: R1(A,C), R2(B,C).
+<details>
+<summary>Show Answer</summary>
+Candidate keys: (A,B), (A,C). Violating FD for BCNF: C -> B. Decompose: R1(A,C), R2(B,C).
    Check preservation: F1 = {C -> A, A -> C} (projection onto R1).
    F2 = {} (C -> B has B in R2 but C -> B is in F. Wait: projection onto R2(B,C): C+ = {C,A,B}. C -> B. Yes! So F2 = {C -> B}).
    Wait: B and C are both in R2. So C -> B is directly in R2. F2 = {C -> B}.
    Union = {C -> A, A -> C, C -> B}. Does this imply AB -> C?
    From A -> C and B (which we have), yes: AB -> C. Since we have A -> C, AB -> C is implied. So YES, dependency-preserving.
    Wait, AB -> C: A -> C means if we know A, we know C. Augment with B: AB -> BC. Decompose: AB -> C. Yes, it's implied. So preserving.
+</details>
+

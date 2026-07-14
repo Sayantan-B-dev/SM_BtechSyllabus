@@ -581,10 +581,9 @@ print(timestamps)
    - At least one lowercase letter
    - At least one digit
    - At least one special character (@, #, $, %, etc.)
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Use lookahead assertions in regex: `^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%]).{8,}$`
-
-   **Answer**:
    ```python
    import re
    password = input("Enter password: ")
@@ -594,12 +593,12 @@ print(timestamps)
    else:
        print("Weak password. Must be 8+ chars with upper, lower, digit, and special char.")
    ```
+   </details>
 
 2. **URL Parser with Regex**: Write a function that extracts protocol, domain, and path from a URL using regex groups.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Pattern: `(\w+)://([^/]+)(/.*)?`
-
-   **Answer**:
    ```python
    import re
    def parse_url(url):
@@ -615,10 +614,12 @@ print(timestamps)
        for key, value in parsed.items():
            print(f"{key}: {value}")
    ```
+   </details>
 
 3. **Word Scrambler Using f-strings and ord()/chr()**: Write a program that takes a word and shifts each character by a random amount between 1-5, displaying the original and scrambled versions.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    import random
    word = input("Enter a word: ")
@@ -636,6 +637,7 @@ print(timestamps)
    print(f"Original: {word}")
    print(f"Scrambled: {scrambled}")
    ```
+   </details>
 
 4. **Text Statistics with f-strings**: Write a program that reads a paragraph and displays statistics using f-strings:
    - Total characters (including and excluding spaces)
@@ -643,8 +645,9 @@ print(timestamps)
    - Total sentences
    - Average word length
    - Uppercase, lowercase, digit, and space counts
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    text = input("Enter a paragraph: ")
    char_count = len(text)
@@ -670,10 +673,12 @@ print(timestamps)
    print(f"{'Digits':<30} {digits:<10}")
    print(f"{'Spaces':<30} {spaces:<10}")
    ```
+   </details>
 
 5. **Regex-Based Search and Replace Tool**: Write a program that takes a text and a regex pattern, then finds all matches and offers to replace each with user-provided text.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    import re
    text = input("Enter text: ")
@@ -687,3 +692,4 @@ print(timestamps)
        result = re.sub(pattern, replace_with, text)
        print("Result:", result)
    ```
+   </details>

@@ -150,5 +150,19 @@ LEFT JOIN Employee s ON m.manager_id = s.emp_id ORDER BY e.emp_name;
 ## Homework / Practice
 
 1. Add a column `senior_manager_id` to the Employee table and populate it. Then write a three-level self-join query showing employee, manager, and senior manager.
+   <details>
+   <summary>Show Answer</summary>
+   ALTER TABLE Employee ADD COLUMN senior_manager_id INT; UPDATE Employee SET senior_manager_id = NULL; -- In this dataset, no senior managers exist beyond 2 levels, but we can demonstrate the query structure. SELECT e.emp_name AS employee, m.emp_name AS manager, s.emp_name AS senior_manager FROM Employee e LEFT JOIN Employee m ON e.manager_id = m.emp_id LEFT JOIN Employee s ON m.manager_id = s.emp_id ORDER BY e.emp_name;
+   </details>
+
 2. Find employees who have the same job_role as their manager.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.emp_name AS employee, e.job_role AS emp_role, m.emp_name AS manager, m.job_role AS manager_role FROM Employee e INNER JOIN Employee m ON e.manager_id = m.emp_id WHERE e.job_role = m.job_role;
+   </details>
+
 3. Write a query that shows the organizational hierarchy tree using a self-join, sorted by manager name.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT m.emp_name AS manager, e.emp_name AS employee FROM Employee e LEFT JOIN Employee m ON e.manager_id = m.emp_id ORDER BY m.emp_name, e.emp_name;
+   </details>

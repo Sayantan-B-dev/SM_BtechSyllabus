@@ -185,5 +185,19 @@ Total employees: 3
 ## Homework / Practice
 
 1. Insert 5 employee documents into MongoDB with varying fields (some with address, some with skills array).
+   <details>
+   <summary>Show Answer</summary>
+   db.employees.insertMany([{ emp_id: 4, emp_name: "Sneha Kapoor", email: "sneha@company.com", department: "Finance", job_role: "Finance Manager", salary: 85000, skills: ["Accounting", "Audit"], address: { street: "456 Finance St", city: "New York", zip: "10002" }, status: "Active" }, { emp_id: 5, emp_name: "Vikram Singh", email: "vikram@company.com", department: "HR", job_role: "HR Executive", salary: 50000, status: "Active" }, { emp_id: 6, emp_name: "Ananya Das", email: "ananya@company.com", department: "IT", job_role: "DevOps Engineer", salary: 93000, skills: ["Docker", "Kubernetes", "AWS"], status: "Active" }, { emp_id: 7, emp_name: "Rohit Verma", email: "rohit@company.com", department: "Sales", job_role: "Sales Rep", salary: 72000, address: { street: "789 Market Ave", city: "Chicago", zip: "60007" }, status: "Active" }, { emp_id: 8, emp_name: "Neha Agarwal", email: "neha@company.com", department: "Sales", job_role: "Sales Manager", salary: 90000, skills: ["CRM", "Negotiation"], address: { street: "321 Commerce Blvd", city: "Chicago", zip: "60008" }, status: "Active" }]);
+   </details>
+
 2. Write a query to find all employees with salary greater than 80000.
+   <details>
+   <summary>Show Answer</summary>
+   db.employees.find({ salary: { $gt: 80000 } });
+   </details>
+
 3. Update all employees in the IT department to add a new skill "MongoDB" to their skills array using updateMany().
+   <details>
+   <summary>Show Answer</summary>
+   db.employees.updateMany({ department: "IT" }, { $push: { skills: "MongoDB" } });
+   </details>

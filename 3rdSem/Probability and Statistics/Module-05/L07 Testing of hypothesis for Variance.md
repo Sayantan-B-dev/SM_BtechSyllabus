@@ -217,16 +217,31 @@ Step 6: Insufficient evidence that the variance of Class A is greater.
 ## Practice Problems
 
 1. A sample of 25 items has variance 8.5. Test `H_0: sigma^2 = 5` against `H_1: sigma^2 > 5` at `alpha = 0.05`.
-   - **Answer:** `chi^2 = (24 * 8.5) / 5 = 40.8`. `chi^2_{0.05, 24} = 36.415`. Since `40.8 > 36.415`, reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   `chi^2 = (24 * 8.5) / 5 = 40.8`. `chi^2_{0.05, 24} = 36.415`. Since `40.8 > 36.415`, reject `H_0`.
+   </details>
 
 2. Two samples: n1=13, s1^2=30; n2=16, s2^2=14. Test equality of variances at `alpha = 0.10`.
-   - **Answer:** `F = 30/14 = 2.143`. `df1=12, df2=15`. `F_{0.05,12,15} = 2.48` (approx). Since `2.143 < 2.48`, fail to reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   `F = 30/14 = 2.143`. `df1=12, df2=15`. `F_{0.05,12,15} = 2.48` (approx). Since `2.143 < 2.48`, fail to reject `H_0`.
+   </details>
 
 3. What is the critical assumption for both chi-square and F-tests for variances?
-   - **Answer:** The populations must be normally distributed. Both tests are very sensitive to violations of normality.
+   <details>
+   <summary>Show Answer</summary>
+   The populations must be normally distributed. Both tests are very sensitive to violations of normality.
+   </details>
 
 4. A quality control engineer wants to test if the variance of a process has decreased from `sigma^2 = 0.04`. Sample of 20 items has variance 0.025. Test at `alpha = 0.05`.
-   - **Answer:** `H_0: sigma^2 >= 0.04`, `H_1: sigma^2 < 0.04`. `chi^2 = (19*0.025)/0.04 = 11.875`. `chi^2_{0.95,19} = 10.117`. Since `11.875 > 10.117`, fail to reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: sigma^2 >= 0.04`, `H_1: sigma^2 < 0.04`. `chi^2 = (19*0.025)/0.04 = 11.875`. `chi^2_{0.95,19} = 10.117`. Since `11.875 > 10.117`, fail to reject `H_0`.
+   </details>
 
 5. Which test would you use to compare the consistency (variability) of two production lines?
-   - **Answer:** F-test for equality of two variances.
+   <details>
+   <summary>Show Answer</summary>
+   F-test for equality of two variances.
+   </details>

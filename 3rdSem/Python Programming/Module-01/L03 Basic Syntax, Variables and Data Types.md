@@ -419,8 +419,24 @@ This is useful for understanding when variables refer to the same object vs. dif
    - `_count`
    - `class`
    - `total$`
+   <details>
+   <summary>Show Answer</summary>
+   - `2nd_place` — Invalid (starts with digit). Fix: `second_place`
+   - `my_name` — Valid
+   - `_count` — Valid
+   - `class` — Invalid (reserved keyword). Fix: `class_` or `my_class`
+   - `total$` — Invalid (`$` is not allowed). Fix: `total`
+   </details>
 
 2. **Multiple Assignment:** Use multiple assignment to swap the values of `a = 15` and `b = 30` so that `a` becomes 30 and `b` becomes 15. Print the result.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   a, b = 15, 30
+   a, b = b, a
+   print(a, b)  # Output: 30 15
+   ```
+   </details>
 
 3. **Type Inspection:** For each of the following values, determine the type without running code, then verify with `type()`:
    - `42`
@@ -429,12 +445,31 @@ This is useful for understanding when variables refer to the same object vs. dif
    - `"True"`
    - `True`
    - `None`
+   <details>
+   <summary>Show Answer</summary>
+   - `42` → `int`
+   - `3.0` → `float`
+   - `"42"` → `str`
+   - `"True"` → `str` (it's a string because of the quotes)
+   - `True` → `bool`
+   - `None` → `NoneType`
+   </details>
 
 4. **String Slicing:** Given `s = "Python Programming"`, write slicing expressions to get:
    - `"Python"`
    - `"Programming"`
    - `"Pto rgamn"` (every 2nd character)
    - The string reversed
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   s = "Python Programming"
+   s[:6]        # "Python"
+   s[7:]        # "Programming"
+   s[::2]       # "Pto rgamn"
+   s[::-1]      # "gnimmargorP nohtyP"
+   ```
+   </details>
 
 5. **Truthiness:** Predict the output of this code without running it:
    ```python
@@ -448,3 +483,12 @@ This is useful for understanding when variables refer to the same object vs. dif
    else:
        print("Non-empty string is falsy")
    ```
+   <details>
+   <summary>Show Answer</summary>
+   Output:
+   ```
+   Zero is falsy
+   Non-empty string is truthy
+   ```
+   `0` is falsy in Python. `"False"` is a non-empty string, which is truthy.
+   </details>

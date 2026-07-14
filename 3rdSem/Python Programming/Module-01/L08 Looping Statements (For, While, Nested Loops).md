@@ -532,13 +532,88 @@ else:
 ## Practice Problems
 
 1. **Sum of Even Numbers:** Write a program that takes a number N and calculates the sum of all even numbers from 1 to N using a `for` loop.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   N = int(input("Enter N: "))
+   total = 0
+   for i in range(2, N + 1, 2):
+       total += i
+   print(f"Sum of even numbers: {total}")
+   ```
+   </details>
 
 2. **Countdown Timer:** Write a program that takes a number N and counts down from N to 1 using a `while` loop, then prints "Blast off!". Ensure the program handles negative input.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   N = int(input("Enter N: "))
+   if N <= 0:
+       print("Please enter a positive number.")
+   else:
+       while N > 0:
+           print(N)
+           N -= 1
+       print("Blast off!")
+   ```
+   </details>
 
 3. **Find the First:** Write a program that finds the first number between 1 and 1000 that is divisible by 13 and 17. Use a `for` loop with `break`.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   for i in range(1, 1001):
+       if i % 13 == 0 and i % 17 == 0:
+           print(f"First number divisible by 13 and 17: {i}")
+           break
+   ```
+   Output: `First number divisible by 13 and 17: 221`
+   </details>
 
 4. **Skip Multiples:** Write a program that prints numbers from 1 to 30, but skips numbers that are multiples of 3. Use `continue`.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   for i in range(1, 31):
+       if i % 3 == 0:
+           continue
+       print(i, end=" ")
+   ```
+   Output: `1 2 4 5 7 8 10 11 13 14 16 17 19 20 22 23 25 26 28 29`
+   </details>
 
 5. **Average Calculator:** Write a program that keeps taking numbers from the user until they enter -1. Then calculate and print the average of all numbers entered (excluding -1). Use a `while` loop.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   total = 0
+   count = 0
+   while True:
+       num = float(input("Enter a number (-1 to stop): "))
+       if num == -1:
+           break
+       total += num
+       count += 1
+   if count > 0:
+       print(f"Average: {total / count:.2f}")
+   else:
+       print("No numbers entered.")
+   ```
+   </details>
 
 6. **Palindrome Checker:** Write a program that checks if a given number is a palindrome (reads the same forward and backward, e.g., 121, 12321). Use a `while` loop to reverse the number and compare.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   num = int(input("Enter a number: "))
+   original = num
+   rev = 0
+   while num > 0:
+       rev = rev * 10 + num % 10
+       num //= 10
+   if original == rev:
+       print(f"{original} is a palindrome")
+   else:
+       print(f"{original} is not a palindrome")
+   ```
+   </details>

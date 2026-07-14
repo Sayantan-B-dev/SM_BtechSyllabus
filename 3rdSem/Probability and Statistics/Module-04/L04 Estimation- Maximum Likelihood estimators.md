@@ -297,24 +297,34 @@ From standard normal table, `Phi(2.94) = 0.9984`, so:
 
 **Problem 1:** In a sample of 200 items from a production line, 15 are defective. Find the MLE of the proportion of defective items.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `hat{p} = 15/200 = 0.075`.
+   </details>
+
 **Problem 2:** The number of accidents per day at an intersection is recorded for 30 days. The sum of all accidents is 45. Assuming a Poisson distribution, find the MLE of the mean number of accidents per day.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `hat{lambda} = bar{x} = 45/30 = 1.5`.
+   </details>
 
 **Problem 3:** A random sample of size `n = 10` from a normal distribution gives `sum x_i = 250` and `sum (x_i - bar{x})^2 = 40`. Find the MLEs of `mu` and `sigma^2`.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** `hat{mu} = 250/10 = 25`. `hat{sigma}^2 = 40/10 = 4`.
+   </details>
+
 **Problem 4:** State the invariance property of MLEs. If `hat{lambda} = bar{X}` is the MLE of the Poisson parameter `lambda`, what is the MLE of `e^{-lambda}` (the probability of zero events)?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** Invariance property: MLE of `g(theta)` is `g(hat{theta})`. MLE of `e^{-lambda}` is `e^{-hat{lambda}} = e^{-bar{X}}`.
+   </details>
+
 **Problem 5:** Derive the MLE of the Bernoulli parameter `p` from first principles (hint: Bernoulli is a special case of Binomial with `n = 1`).
-
----
-
-### Answers / Hints
-
-**Problem 1:** `hat{p} = 15/200 = 0.075`.
-
-**Problem 2:** `hat{lambda} = bar{x} = 45/30 = 1.5`.
-
-**Problem 3:** `hat{mu} = 250/10 = 25`. `hat{sigma}^2 = 40/10 = 4`.
-
-**Problem 4:** Invariance property: MLE of `g(theta)` is `g(hat{theta})`. MLE of `e^{-lambda}` is `e^{-hat{lambda}} = e^{-bar{X}}`.
-
-**Problem 5:** For Bernoulli, `f(x; p) = p^x (1-p)^{1-x}` for `x = 0, 1`. `L(p) = prod p^{x_i} (1-p)^{1-x_i} = p^{sum x_i} (1-p)^{n - sum x_i}`. `l(p) = (sum x_i) ln p + (n - sum x_i) ln(1-p)`. `dl/dp = (sum x_i)/p - (n - sum x_i)/(1-p) = 0` gives `hat{p} = (sum x_i)/n = bar{x}`.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** For Bernoulli, `f(x; p) = p^x (1-p)^{1-x}` for `x = 0, 1`. `L(p) = prod p^{x_i} (1-p)^{1-x_i} = p^{sum x_i} (1-p)^{n - sum x_i}`. `l(p) = (sum x_i) ln p + (n - sum x_i) ln(1-p)`. `dl/dp = (sum x_i)/p - (n - sum x_i)/(1-p) = 0` gives `hat{p} = (sum x_i)/n = bar{x}`.
+   </details>

@@ -143,18 +143,32 @@
 ## Practice Problems
 
 1. What is the main advantage of using MySQL over Oracle?
+<details>
+<summary>Show Answer</summary>
+Cost -- MySQL is open-source and free to use, while Oracle requires expensive licensing.
+</details>
 
 2. Which storage engine in MySQL supports ACID transactions?
+<details>
+<summary>Show Answer</summary>
+InnoDB supports ACID transactions with commit, rollback, and crash recovery.
+</details>
 
 3. What is Oracle RAC used for?
+<details>
+<summary>Show Answer</summary>
+Real Application Clusters (RAC) provides high availability and scalability by allowing multiple servers to access the same database simultaneously.
+</details>
 
 4. Name two features available in Oracle but not in MySQL.
+<details>
+<summary>Show Answer</summary>
+Materialized views, function-based indexes, sequences, Oracle RAC, Flashback technology (any two).
+</details>
 
 5. In which scenario would you choose Oracle over MySQL?
+<details>
+<summary>Show Answer</summary>
+Large-scale enterprise applications requiring high availability, advanced security, and mission-critical reliability, such as banking systems.
+</details>
 
-**Answers:**
-1. Cost -- MySQL is open-source and free to use, while Oracle requires expensive licensing.
-2. InnoDB supports ACID transactions with commit, rollback, and crash recovery.
-3. Real Application Clusters (RAC) provides high availability and scalability by allowing multiple servers to access the same database simultaneously.
-4. Materialized views, function-based indexes, sequences, Oracle RAC, Flashback technology (any two).
-5. Large-scale enterprise applications requiring high availability, advanced security, and mission-critical reliability, such as banking systems.

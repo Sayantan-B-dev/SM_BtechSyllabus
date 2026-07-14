@@ -451,7 +451,7 @@ Graph: T1 <-> T2. CYCLE! Not conflict serializable.
 **Problem 1:** Consider the schedule: `r1(A) w2(A) w1(A) r2(A)`. Draw the precedence graph and determine if it is conflict serializable.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Conflicts:
 - r1(A) before w2(A): T1 -> T2
@@ -464,7 +464,7 @@ Graph: T1 <-> T2. Cycle. NOT conflict serializable.
 **Problem 2:** For schedule `w3(A) r1(A) w1(B) r3(B) c1 c3`, draw the precedence graph and find an equivalent serial schedule if one exists.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Conflicts:
 - w3(A) before r1(A): T3 -> T1 (WR on A)
@@ -476,7 +476,7 @@ Graph: T3 -> T1 -> T3. Cycle. NOT conflict serializable.
 **Problem 3:** Given three transactions T1, T2, T3, what does a cycle in the precedence graph indicate?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 A cycle indicates that the schedule is NOT conflict serializable. There is no way to reorder the operations into a serial schedule that respects all conflict orders. The schedule may produce results that are not equivalent to any serial execution.
 </details>
@@ -484,7 +484,7 @@ A cycle indicates that the schedule is NOT conflict serializable. There is no wa
 **Problem 4:** Schedule: `r1(A) r2(A) w1(A) w2(A)`. Is it conflict serializable?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Conflicts on A:
 - r1(A) before w2(A): T1 -> T2
@@ -501,7 +501,7 @@ This is the classic "lost update" scenario:
 **Problem 5:** Can a schedule be conflict serializable even if it has a dirty read (read of uncommitted data)?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Yes. A dirty read does not automatically make a schedule non-serializable. Consider:
 

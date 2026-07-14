@@ -281,7 +281,7 @@ Delete 40:
 **Problem 1:** A B-tree of order 7 (m=7) has a root that is not a leaf. How many keys must the root have at minimum? How many children?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 For the root, minimum children = 2. Minimum keys = 1 (since keys = children - 1). There is no lower bound on the number of keys in the root (unlike other nodes).
 </details>
@@ -289,7 +289,7 @@ For the root, minimum children = 2. Minimum keys = 1 (since keys = children - 1)
 **Problem 2:** Draw the B-tree of order 3 (m=3, also called a 2-3 tree) after inserting the keys: 10, 5, 15, 3, 7, 12, 18.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 m=3: max keys = 2, min keys (non-root) = ceil(3/2)-1 = 1. Min children = 2.
 
@@ -326,7 +326,7 @@ Insert 18:
 **Problem 3:** What is the maximum number of keys in a B-tree of order m=100 and height 3 (root at level 0, leaves at level 3)?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - Root: max m-1 = 99 keys, max m = 100 children.
 - Level 1: 100 nodes, each with max 99 keys, max 100 children each.
@@ -338,7 +338,7 @@ Insert 18:
 **Problem 4:** In the B-tree deletion algorithm, what is the difference between redistribution and merging? When is each used?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 When a node underflows, the DBMS first checks if an adjacent sibling has more than the minimum number of keys. If yes, **redistribution** is used: one key moves from sibling through the parent to the underflowing node. If the sibling also has only the minimum number of keys, **merging** is used: the underflowing node, the sibling, and the parent key between them are combined into a single node.
 </details>
@@ -346,7 +346,7 @@ When a node underflows, the DBMS first checks if an adjacent sibling has more th
 **Problem 5:** Why is a B-tree preferred over a binary search tree for database indexing?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 A binary search tree has fan-out = 2, so its height is O(log2 n). For n = 10^6, height ~ 20. A B-tree of order 500 has fan-out ~ 250 (average), height ~ log250(10^6) ~ 3. Each node access = one disk I/O. The B-tree requires ~3 I/Os vs ~20 for BST. B-trees are also self-balancing, while BSTs can degenerate to O(n) height in the worst case.
 </details>

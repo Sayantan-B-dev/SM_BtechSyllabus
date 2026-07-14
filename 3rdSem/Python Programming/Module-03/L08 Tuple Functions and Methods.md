@@ -185,7 +185,7 @@ print(p2)  # Point(x=10, y=7) -- new instance
 **Problem 1:** Given `scores = (78, 92, 85, 67, 95, 88)`, use built-in functions to find the highest score, lowest score, total score, and average score.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 scores = (78, 92, 85, 67, 95, 88)
@@ -199,7 +199,7 @@ print("Avg:", sum(scores) / len(scores))  # 84.17
 **Problem 2:** Use `sorted()` to sort the tuple `(9, 3, 7, 1, 5)` in descending order. What type does `sorted()` return? Convert it back to a tuple.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 tup = (9, 3, 7, 1, 5)
@@ -215,7 +215,7 @@ print(sorted_tup)  # (9, 7, 5, 3, 1)
 **Problem 3:** Use `any()` and `all()` to check if the tuple `(10, 20, 30, 40, 50)` contains any number less than 15, and if all numbers are multiples of 5.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 tup = (10, 20, 30, 40, 50)
@@ -227,7 +227,7 @@ print(all(x % 5 == 0 for x in tup))  # True
 **Problem 4:** Create a `namedtuple` called `Student` with fields `name`, `age`, and `grade`. Create two instances and print their names.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import namedtuple
@@ -242,7 +242,7 @@ print(s2.name)  # Bob
 **Problem 5:** Use a generator expression to create a generator that yields squares of numbers from 1 to 5. Convert it to a tuple and print the result.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 gen = (x ** 2 for x in range(1, 6))

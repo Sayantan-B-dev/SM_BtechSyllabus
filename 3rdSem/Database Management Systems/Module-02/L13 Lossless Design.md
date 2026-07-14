@@ -226,23 +226,33 @@ Every decomposition algorithm for 3NF and BCNF guarantees lossless join.
 ## Practice Problems
 
 1. Given `R(A, B, C)` with `F = {A -> B}`, decomposition `R1(A, B)`, `R2(B, C)`. Is it lossless?
+<details>
+<summary>Show Answer</summary>
+Common = {B}. Does B -> R1(A,B)? Not necessarily (B -> A is not given). Does B -> R2(B,C)? Yes (B -> C is not given either). Hmm, B+ under F: B+ = {B}. So neither `B -> R1` nor `B -> R2` holds. But let me use the tableau:
+   R1: (a1, a2, b13), R2: (b21, a2, a3). Apply FD A->B: no two rows have same A. So no change. Row 1: (a1, a2, b13). Row 2: (b21, a2, a3). Neither is all-a. Lossy.
+</details>
 
 2. Given `R(A, B, C, D)` with `F = {AB -> C, C -> D}`, decomposition `R1(A, B, C)`, `R2(C, D)`. Is it lossless? Use both the sufficient condition and the tableau method.
+<details>
+<summary>Show Answer</summary>
+Common = {C}. Does C -> R1(A,B,C)? C+ = {C,D}. Missing A,B. No. Does C -> R2(C,D)? C+ = {C,D}. C -> D is in F. Yes! So lossless.
+</details>
 
 3. Explain why lossless decomposition is important.
+<details>
+<summary>Show Answer</summary>
+Lossless decomposition ensures that when we join the decomposed relations, we get back exactly the original data without any spurious tuples. Without it, queries that join the decomposed tables would produce incorrect (extra) results.
+</details>
 
 4. Given `R(A, B, C, D, E)` with `F = {A -> BC, CD -> E, B -> D, E -> A}`, decomposition `R1(A, B, C)`, `R2(A, D, E)`. Is it lossless?
+<details>
+<summary>Show Answer</summary>
+Common = {A}. Compute A+ under F: A->BC, B->D, so A+ = {A,B,C,D}. Also CD->E, so A+ = {A,B,C,D,E}. A determines all attributes. So A is a superkey of R. Does A -> R1? Yes (A+ contains all of R1's attributes). Lossless.
+</details>
 
 5. What is the difference between lossless and dependency-preserving decomposition?
+<details>
+<summary>Show Answer</summary>
+Lossless ensures no spurious tuples upon joining; dependency preservation ensures all FDs can be checked on individual relations without joins. A decomposition can be lossless but not dependency-preserving, or vice versa (though the latter is less useful).
+</details>
 
-**Answers:**
-1. Common = {B}. Does B -> R1(A,B)? Not necessarily (B -> A is not given). Does B -> R2(B,C)? Yes (B -> C is not given either). Hmm, B+ under F: B+ = {B}. So neither `B -> R1` nor `B -> R2` holds. But let me use the tableau:
-   R1: (a1, a2, b13), R2: (b21, a2, a3). Apply FD A->B: no two rows have same A. So no change. Row 1: (a1, a2, b13). Row 2: (b21, a2, a3). Neither is all-a. Lossy.
-
-2. Common = {C}. Does C -> R1(A,B,C)? C+ = {C,D}. Missing A,B. No. Does C -> R2(C,D)? C+ = {C,D}. C -> D is in F. Yes! So lossless.
-
-3. Lossless decomposition ensures that when we join the decomposed relations, we get back exactly the original data without any spurious tuples. Without it, queries that join the decomposed tables would produce incorrect (extra) results.
-
-4. Common = {A}. Compute A+ under F: A->BC, B->D, so A+ = {A,B,C,D}. Also CD->E, so A+ = {A,B,C,D,E}. A determines all attributes. So A is a superkey of R. Does A -> R1? Yes (A+ contains all of R1's attributes). Lossless.
-
-5. Lossless ensures no spurious tuples upon joining; dependency preservation ensures all FDs can be checked on individual relations without joins. A decomposition can be lossless but not dependency-preserving, or vice versa (though the latter is less useful).

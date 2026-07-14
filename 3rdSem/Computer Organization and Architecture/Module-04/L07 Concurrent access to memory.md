@@ -263,25 +263,39 @@ P1: Write X = 50
 P0: Read X
 ```
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - P0 Read X: P0=E (BusRd, no sharer)
 - P1 Read X: P0=S, P1=S (BusRd, P0 shares)
 - P1 Write X=50: P1=M, P0=I (BusUpgr, P0 invalidates)
 - P0 Read X: P0=S, P1=S (BusRd, P1 flushes to S)
+</details>
 
 **Problem 2**: In a write-update protocol, how many bus messages are needed for: 4 processors share block X, then P0 writes X 3 times, then P1 reads X?
 
-**Answer**: Write-update: Each write broadcasts update to all 3 other processors = 3 messages x 3 writes = 9 update messages. No subsequent read miss for P1 (already updated). Total: 9 bus messages.
+<details>
+<summary>Show Answer</summary>
+Write-update: Each write broadcasts update to all 3 other processors = 3 messages x 3 writes = 9 update messages. No subsequent read miss for P1 (already updated). Total: 9 bus messages.
 Write-invalidate: First write broadcasts 1 invalidation. P1's subsequent read misses (1 read broadcast). For 3 writes: 1 invalidation + 1 write-back + 1 read = 3 messages (much less).
+</details>
 
 **Problem 3**: In MESI, why does a read miss on a block in state I with no sharer result in Exclusive (E) state instead of Shared (S)?
 
-**Answer**: Because the requesting processor will be the only one with a copy. Marking it E allows the processor to silently upgrade to M on a subsequent write (no BusUpgr needed), saving a bus transaction.
+<details>
+<summary>Show Answer</summary>
+Because the requesting processor will be the only one with a copy. Marking it E allows the processor to silently upgrade to M on a subsequent write (no BusUpgr needed), saving a bus transaction.
+</details>
 
 **Problem 4**: What happens in MESI when a cache in state M receives a BusRd from another processor?
 
-**Answer**: The cache supplies the modified data to the bus (so the requester and memory get it). Then it transitions from M to S (shared). Memory is updated with the flushed data.
+<details>
+<summary>Show Answer</summary>
+The cache supplies the modified data to the bus (so the requester and memory get it). Then it transitions from M to S (shared). Memory is updated with the flushed data.
+</details>
 
 **Problem 5**: A system uses write-invalidate with 4 caches. A block is in state S in all 4 caches. P0 writes to the block. How many messages? Now P1 writes again. How many messages?
 
-**Answer**: First write (P0, S hit): Broadcast BusUpgr, 3 invalidations sent (1 message, received by 3 caches). P0 goes to M, others to I. Second write (P1, I miss): Broadcast BusRdX (1 message). P0 snoops, flushes data, goes to I. P1 gets data, goes to M. One more message for the flush = 2 messages. Total: 1 + 2 = 3 bus messages.
+<details>
+<summary>Show Answer</summary>
+First write (P0, S hit): Broadcast BusUpgr, 3 invalidations sent (1 message, received by 3 caches). P0 goes to M, others to I. Second write (P1, I miss): Broadcast BusRdX (1 message). P0 snoops, flushes data, goes to I. P1 gets data, goes to M. One more message for the flush = 2 messages. Total: 1 + 2 = 3 bus messages.
+</details>

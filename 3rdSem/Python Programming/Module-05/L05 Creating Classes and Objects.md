@@ -657,201 +657,202 @@ Error: Temperature below absolute zero.
 ## Practice Problems
 
 1. **Product Inventory System** -- Create a `Product` class with class variable `tax_rate = 0.08`. Instance attributes: name, price, quantity. Instance methods: `total_cost()` (price * qty), `total_with_tax()` (total * (1+tax)). Class method: `set_tax_rate(new_rate)`. Static method: `convert_currency(amount, rate)`.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Product:
+       tax_rate = 0.08
+
+       def __init__(self, name, price, quantity):
+           self.name = name
+           self.price = price
+           self.quantity = quantity
+
+       def total_cost(self):
+           return self.price * self.quantity
+
+       def total_with_tax(self):
+           return self.total_cost() * (1 + Product.tax_rate)
+
+       @classmethod
+       def set_tax_rate(cls, new_rate):
+           cls.tax_rate = new_rate
+
+       @staticmethod
+       def convert_currency(amount, rate):
+           return amount * rate
+
+   p = Product("Laptop", 1000, 2)
+   print(f"Total: ${p.total_cost()}")
+   print(f"With tax: ${p.total_with_tax():.2f}")
+   Product.set_tax_rate(0.10)
+   print(f"With new tax: ${p.total_with_tax():.2f}")
+   print(f"EUR: {Product.convert_currency(1000, 0.85):.2f}")
+   ```
+   </details>
 
 2. **Employee Management** -- Create an `Employee` class. Class variable: `company`. Class method: `from_csv(csv_line)` factory. Static method: `is_valid_email(email)`. Instance method: `yearly_cost()` returns salary + benefits.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Employee:
+       company = "TechCorp"
+
+       def __init__(self, name, salary, benefits=0):
+           self.name = name
+           self.salary = salary
+           self.benefits = benefits
+
+       @classmethod
+       def from_csv(cls, csv_line):
+           name, salary, benefits = csv_line.split(",")
+           return cls(name.strip(), float(salary.strip()), float(benefits.strip()))
+
+       @staticmethod
+       def is_valid_email(email):
+           return "@" in email and "." in email.split("@")[-1]
+
+       def yearly_cost(self):
+           return self.salary + self.benefits
+
+   e = Employee.from_csv("Alice, 50000, 10000")
+   print(f"{e.name}: ${e.yearly_cost()}")
+   print(f"Is valid? {Employee.is_valid_email('alice@test.com')}")
+   ```
+   </details>
 
 3. **Rectangle with Properties** -- Create a `Rectangle` class with `_width` and `_height` as private attributes. Use `@property` for `width`, `height`, `area`, `perimeter`. Validate that width/height are positive in setters.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Rectangle:
+       def __init__(self, width, height):
+           self._width = width
+           self._height = height
+
+       @property
+       def width(self):
+           return self._width
+
+       @width.setter
+       def width(self, value):
+           if value <= 0:
+               raise ValueError("Width must be positive.")
+           self._width = value
+
+       @property
+       def height(self):
+           return self._height
+
+       @height.setter
+       def height(self, value):
+           if value <= 0:
+               raise ValueError("Height must be positive.")
+           self._height = value
+
+       @property
+       def area(self):
+           return self._width * self._height
+
+       @property
+       def perimeter(self):
+           return 2 * (self._width + self._height)
+
+   r = Rectangle(10, 5)
+   print(f"Area: {r.area}, Perimeter: {r.perimeter}")
+   r.width = 20
+   print(f"New area: {r.area}")
+   ```
+   </details>
 
 4. **BankAccount with Properties** -- Create a `BankAccount` class with a `_balance` attribute. Property `balance` (read-only). Property `formatted_balance` returns "$X,XXX.XX". Method `deposit` and `withdraw` (validate in methods, not setter).
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class BankAccount:
+       def __init__(self, owner, initial_balance=0):
+           self.owner = owner
+           self._balance = initial_balance
+
+       @property
+       def balance(self):
+           return self._balance
+
+       @property
+       def formatted_balance(self):
+           return f"${self._balance:,.2f}"
+
+       def deposit(self, amount):
+           if amount <= 0:
+               raise ValueError("Deposit amount must be positive.")
+           self._balance += amount
+           print(f"Deposited {amount}. New balance: {self.formatted_balance}")
+
+       def withdraw(self, amount):
+           if amount <= 0:
+               raise ValueError("Withdrawal amount must be positive.")
+           if amount > self._balance:
+               raise ValueError("Insufficient funds.")
+           self._balance -= amount
+           print(f"Withdrew {amount}. New balance: {self.formatted_balance}")
+
+   acc = BankAccount("Alice", 1000)
+   print(acc.formatted_balance)
+   acc.deposit(500)
+   acc.withdraw(200)
+   print(f"Balance: {acc.balance}")
+   ```
+   </details>
 
 5. **Student Management System** -- Create `Student` with class variable `school`, class method `from_string(data)`, static method `calculate_grade(marks_list)`, instance method `display()`. Use property for `average` that computes from `marks` list.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   class Student:
+       school = "Greenwood High"
 
-## Practice Problems
+       def __init__(self, name, marks=None):
+           self.name = name
+           self.marks = marks if marks else []
 
-1. **Product Inventory System**
+       @classmethod
+       def from_string(cls, data):
+           name, *marks = data.split(",")
+           return cls(name.strip(), [float(m) for m in marks])
 
-```python
-class Product:
-    tax_rate = 0.08
+       @staticmethod
+       def calculate_grade(marks_list):
+           if not marks_list:
+               return "N/A"
+           avg = sum(marks_list) / len(marks_list)
+           if avg >= 90: return "A"
+           if avg >= 80: return "B"
+           if avg >= 70: return "C"
+           if avg >= 60: return "D"
+           return "F"
 
-    def __init__(self, name, price, quantity):
-        self.name = name
-        self.price = price
-        self.quantity = quantity
+       @property
+       def average(self):
+           if not self.marks:
+               return 0
+           return sum(self.marks) / len(self.marks)
 
-    def total_cost(self):
-        return self.price * self.quantity
+       def display(self):
+           print(f"Student: {self.name}")
+           print(f"School: {Student.school}")
+           print(f"Marks: {self.marks}")
+           print(f"Average: {self.average:.1f}")
+           print(f"Grade: {Student.calculate_grade(self.marks)}")
 
-    def total_with_tax(self):
-        return self.total_cost() * (1 + Product.tax_rate)
+   s = Student("Alice", [85, 90, 78, 92])
+   s.display()
 
-    @classmethod
-    def set_tax_rate(cls, new_rate):
-        cls.tax_rate = new_rate
-
-    @staticmethod
-    def convert_currency(amount, rate):
-        return amount * rate
-
-p = Product("Laptop", 1000, 2)
-print(f"Total: ${p.total_cost()}")
-print(f"With tax: ${p.total_with_tax():.2f}")
-Product.set_tax_rate(0.10)
-print(f"With new tax: ${p.total_with_tax():.2f}")
-print(f"EUR: {Product.convert_currency(1000, 0.85):.2f}")
-```
-
-2. **Employee Management**
-
-```python
-class Employee:
-    company = "TechCorp"
-
-    def __init__(self, name, salary, benefits=0):
-        self.name = name
-        self.salary = salary
-        self.benefits = benefits
-
-    @classmethod
-    def from_csv(cls, csv_line):
-        name, salary, benefits = csv_line.split(",")
-        return cls(name.strip(), float(salary.strip()), float(benefits.strip()))
-
-    @staticmethod
-    def is_valid_email(email):
-        return "@" in email and "." in email.split("@")[-1]
-
-    def yearly_cost(self):
-        return self.salary + self.benefits
-
-e = Employee.from_csv("Alice, 50000, 10000")
-print(f"{e.name}: ${e.yearly_cost()}")
-print(f"Is valid? {Employee.is_valid_email('alice@test.com')}")
-```
-
-3. **Rectangle with Properties**
-
-```python
-class Rectangle:
-    def __init__(self, width, height):
-        self._width = width
-        self._height = height
-
-    @property
-    def width(self):
-        return self._width
-
-    @width.setter
-    def width(self, value):
-        if value <= 0:
-            raise ValueError("Width must be positive.")
-        self._width = value
-
-    @property
-    def height(self):
-        return self._height
-
-    @height.setter
-    def height(self, value):
-        if value <= 0:
-            raise ValueError("Height must be positive.")
-        self._height = value
-
-    @property
-    def area(self):
-        return self._width * self._height
-
-    @property
-    def perimeter(self):
-        return 2 * (self._width + self._height)
-
-r = Rectangle(10, 5)
-print(f"Area: {r.area}, Perimeter: {r.perimeter}")
-r.width = 20
-print(f"New area: {r.area}")
-```
-
-4. **BankAccount with Properties**
-
-```python
-class BankAccount:
-    def __init__(self, owner, initial_balance=0):
-        self.owner = owner
-        self._balance = initial_balance
-
-    @property
-    def balance(self):
-        return self._balance
-
-    @property
-    def formatted_balance(self):
-        return f"${self._balance:,.2f}"
-
-    def deposit(self, amount):
-        if amount <= 0:
-            raise ValueError("Deposit amount must be positive.")
-        self._balance += amount
-        print(f"Deposited {amount}. New balance: {self.formatted_balance}")
-
-    def withdraw(self, amount):
-        if amount <= 0:
-            raise ValueError("Withdrawal amount must be positive.")
-        if amount > self._balance:
-            raise ValueError("Insufficient funds.")
-        self._balance -= amount
-        print(f"Withdrew {amount}. New balance: {self.formatted_balance}")
-
-acc = BankAccount("Alice", 1000)
-print(acc.formatted_balance)
-acc.deposit(500)
-acc.withdraw(200)
-print(f"Balance: {acc.balance}")
-```
-
-5. **Student Management System**
-
-```python
-class Student:
-    school = "Greenwood High"
-
-    def __init__(self, name, marks=None):
-        self.name = name
-        self.marks = marks if marks else []
-
-    @classmethod
-    def from_string(cls, data):
-        name, *marks = data.split(",")
-        return cls(name.strip(), [float(m) for m in marks])
-
-    @staticmethod
-    def calculate_grade(marks_list):
-        if not marks_list:
-            return "N/A"
-        avg = sum(marks_list) / len(marks_list)
-        if avg >= 90: return "A"
-        if avg >= 80: return "B"
-        if avg >= 70: return "C"
-        if avg >= 60: return "D"
-        return "F"
-
-    @property
-    def average(self):
-        if not self.marks:
-            return 0
-        return sum(self.marks) / len(self.marks)
-
-    def display(self):
-        print(f"Student: {self.name}")
-        print(f"School: {Student.school}")
-        print(f"Marks: {self.marks}")
-        print(f"Average: {self.average:.1f}")
-        print(f"Grade: {Student.calculate_grade(self.marks)}")
-
-s = Student("Alice", [85, 90, 78, 92])
-s.display()
-
-s2 = Student.from_string("Bob, 75, 80, 88")
-s2.display()
-```
+   s2 = Student.from_string("Bob, 75, 80, 88")
+   s2.display()
+   ```
+   </details>

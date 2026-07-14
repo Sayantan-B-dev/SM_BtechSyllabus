@@ -283,29 +283,37 @@ WHERE e.DeptID = d.DeptID AND d.DName = 'IT';
 ## Practice Problems
 
 1. Compare nested loop join and block nested loop join. Which is better and why?
+<details>
+<summary>Show Answer</summary>
+Block nested loop is better because it reads the inner relation block-by-block instead of tuple-by-tuple, significantly reducing I/O. For R(10 blocks) and S(100 blocks), nested loop costs ~10 + 100*100 = 10010 blocks, while block nested loop (M=5) costs ~10 + 3*100 = 310 blocks.
+</details>
 
 2. When would you choose a hash join over a merge join?
+<details>
+<summary>Show Answer</summary>
+Hash join is preferred when both relations are large and unsorted, and the hash function can distribute tuples evenly. Merge join is preferred when one or both relations are already sorted on the join attribute.
+</details>
 
 3. Given R(500 blocks) and S(2000 blocks), both unsorted, with no indexes. Available memory: 10 blocks. Which join strategy would you recommend?
-
-4. Explain how a cost-based optimizer differs from a rule-based optimizer.
-
-5. For the query `SELECT * FROM R, S WHERE R.A = S.B`, with R having 100 tuples (20 blocks) and S having 1000 tuples (100 blocks), and a B+ tree index on S.B (height 2, clustered), estimate the cost of an indexed nested loop join.
-
-**Answers:**
-1. Block nested loop is better because it reads the inner relation block-by-block instead of tuple-by-tuple, significantly reducing I/O. For R(10 blocks) and S(100 blocks), nested loop costs ~10 + 100*100 = 10010 blocks, while block nested loop (M=5) costs ~10 + 3*100 = 310 blocks.
-
-2. Hash join is preferred when both relations are large and unsorted, and the hash function can distribute tuples evenly. Merge join is preferred when one or both relations are already sorted on the join attribute.
-
-3. Neither relation is sorted, no indexes exist. Options:
+<details>
+<summary>Show Answer</summary>
+Neither relation is sorted, no indexes exist. Options:
 - Block nested loop: R as outer -> 500 + 500/9 * 2000 = 500 + 111,111 = 111,611 blocks
 - Hash join: 3*(500+2000) = 7500 blocks
 - Merge join: Sorting cost + 2500 = 500*log(500) + 2000*log(2000) + 2500 blocks
 Best choice: Hash join.
+</details>
 
-4. Cost-based optimizer uses statistics (cardinality, selectivity, index properties) to estimate actual execution costs and chooses the cheapest plan. Rule-based optimizer applies fixed heuristics (e.g., "always push selection down") without estimating costs. Cost-based is generally more accurate but requires good statistics.
+4. Explain how a cost-based optimizer differs from a rule-based optimizer.
+<details>
+<summary>Show Answer</summary>
+Cost-based optimizer uses statistics (cardinality, selectivity, index properties) to estimate actual execution costs and chooses the cheapest plan. Rule-based optimizer applies fixed heuristics (e.g., "always push selection down") without estimating costs. Cost-based is generally more accurate but requires good statistics.
+</details>
 
-5. Steps:
+5. For the query `SELECT * FROM R, S WHERE R.A = S.B`, with R having 100 tuples (20 blocks) and S having 1000 tuples (100 blocks), and a B+ tree index on S.B (height 2, clustered), estimate the cost of an indexed nested loop join.
+<details>
+<summary>Show Answer</summary>
+Steps:
 - Read R: 20 blocks
 - For each of 100 tuples in R, probe S via index:
   - B+ tree traversal: 2 block accesses (height 2)
@@ -313,3 +321,5 @@ Best choice: Hash join.
   - Cost per probe: 3 blocks
   - Total probe cost: 100 * 3 = 300 blocks
 - Total: 20 + 300 = 320 block transfers
+</details>
+

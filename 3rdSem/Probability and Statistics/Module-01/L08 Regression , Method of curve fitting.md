@@ -486,8 +486,25 @@ Verification: x=0 => y=2, x=1 => y=4, x=2 => y=8, x=3 => y=16, x=4 => y=32. Perf
 
 Find the regression line of y on x. Predict y when x = 7.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. sum x = 15, sum y = 35, sum xy = 125, sum x^2 = 55.
+      b = (5*125 - 15*35)/(5*55 - 225) = (625-525)/(275-225) = 100/50 = 2.
+      a = 7 - 2*3 = 1.
+      y = 1 + 2x. For x = 7, y = 1 + 14 = 15.
+   </details>
+
 2. Given: n = 8, sum x = 40, sum y = 64, sum xy = 340, sum x^2 = 220, sum y^2 = 540.
    Find the two regression lines.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. x_bar = 5, y_bar = 8.
+      b_yx = (8*340 - 40*64)/(8*220 - 1600) = (2720-2560)/(1760-1600) = 160/160 = 1.
+      a = 8 - 1*5 = 3. y = 3 + x.
+      b_xy = (8*340 - 40*64)/(8*540 - 4096) = 160/(4320-4096) = 160/224 = 0.7143.
+      a' = 5 - 0.7143*8 = 5 - 5.7144 = -0.7144. x = -0.7144 + 0.7143*y.
+   </details>
 
 3. Fit a parabola y = a + bx + cx^2 to the data:
 
@@ -495,39 +512,35 @@ Find the regression line of y on x. Predict y when x = 7.
 |---|---|---|---|---|
 | y | 0 | 1 | 4 | 9 |
 
+   <details>
+   <summary>Show Answer</summary>
+   3. sum x = 6, sum y = 14, sum x^2 = 14, sum x^3 = 36, sum x^4 = 98, sum xy = 38, sum x^2y = 98.
+      Normal equations:
+      14 = 4a + 6b + 14c
+      38 = 6a + 14b + 36c
+      98 = 14a + 36b + 98c
+      Solving: a = 0, b = 1, c = 1. y = x + x^2 = x(x+1).
+   </details>
+
 4. Fit an exponential curve y = a * b^x to:
 
 | x | 0 | 1 | 2 |
 |---|---|---|---|
 | y | 3 | 6 | 12 |
 
+   <details>
+   <summary>Show Answer</summary>
+   4. Transform Y = log(y):
+      x: 0, 1, 2. Y = log(3)=0.4771, log(6)=0.7782, log(12)=1.0792.
+      sum x = 3, sum Y = 2.3345, sum xY = 0.7782+2.1584 = 2.9366, sum x^2 = 5.
+      b = (3*2.9366-3*2.3345)/(3*5-9) = (8.8098-7.0035)/(15-9) = 1.8063/6 = 0.30105.
+      A = 2.3345/3 - 0.30105*1 = 0.77817 - 0.30105 = 0.47712.
+      a = 10^0.47712 = 3, b = 10^0.30105 = 2.
+      y = 3 * 2^x.
+   </details>
+
 5. The regression coefficients are b_yx = 0.8 and b_xy = 0.5. Find the correlation coefficient r.
-
-**Answers/Hints:**
-1. sum x = 15, sum y = 35, sum xy = 125, sum x^2 = 55.
-   b = (5*125 - 15*35)/(5*55 - 225) = (625-525)/(275-225) = 100/50 = 2.
-   a = 7 - 2*3 = 1.
-   y = 1 + 2x. For x = 7, y = 1 + 14 = 15.
-
-2. x_bar = 5, y_bar = 8.
-   b_yx = (8*340 - 40*64)/(8*220 - 1600) = (2720-2560)/(1760-1600) = 160/160 = 1.
-   a = 8 - 1*5 = 3. y = 3 + x.
-   b_xy = (8*340 - 40*64)/(8*540 - 4096) = 160/(4320-4096) = 160/224 = 0.7143.
-   a' = 5 - 0.7143*8 = 5 - 5.7144 = -0.7144. x = -0.7144 + 0.7143*y.
-
-3. sum x = 6, sum y = 14, sum x^2 = 14, sum x^3 = 36, sum x^4 = 98, sum xy = 38, sum x^2y = 98.
-   Normal equations:
-   14 = 4a + 6b + 14c
-   38 = 6a + 14b + 36c
-   98 = 14a + 36b + 98c
-   Solving: a = 0, b = 1, c = 1. y = x + x^2 = x(x+1).
-
-4. Transform Y = log(y):
-   x: 0, 1, 2. Y = log(3)=0.4771, log(6)=0.7782, log(12)=1.0792.
-   sum x = 3, sum Y = 2.3345, sum xY = 0.7782+2.1584 = 2.9366, sum x^2 = 5.
-   b = (3*2.9366-3*2.3345)/(3*5-9) = (8.8098-7.0035)/(15-9) = 1.8063/6 = 0.30105.
-   A = 2.3345/3 - 0.30105*1 = 0.77817 - 0.30105 = 0.47712.
-   a = 10^0.47712 = 3, b = 10^0.30105 = 2.
-   y = 3 * 2^x.
-
-5. r = sqrt(b_yx * b_xy) = sqrt(0.8 * 0.5) = sqrt(0.4) = 0.6325.
+   <details>
+   <summary>Show Answer</summary>
+   5. r = sqrt(b_yx * b_xy) = sqrt(0.8 * 0.5) = sqrt(0.4) = 0.6325.
+   </details>

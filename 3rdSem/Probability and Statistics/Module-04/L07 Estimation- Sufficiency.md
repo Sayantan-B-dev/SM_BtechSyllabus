@@ -255,24 +255,34 @@ If `T` is a complete sufficient statistic for `theta`, then any unbiased estimat
 
 **Problem 1:** Let `X_1, X_2, ..., X_n` be i.i.d. `Bernoulli(p)`. Use the Neyman-Fisher factorization theorem to show that `sum X_i` is sufficient for `p`.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `f(x; p) = prod p^{x_i} (1-p)^{1-x_i} = p^{sum x_i} (1-p)^{n - sum x_i} = [p^{t} (1-p)^{n-t}] * 1`. So `T = sum X_i` is sufficient.
+   </details>
+
 **Problem 2:** Let `X_1, X_2, ..., X_n` be i.i.d. `Poisson(lambda)`. Is `T = sum X_i^2` sufficient for `lambda`? Explain.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** No. The joint PMF is `e^{-n*lambda} * lambda^{sum x_i} / prod (x_i!)`. This depends on the data only through `sum x_i`, not `sum x_i^2`. So `sum x_i` is sufficient, but `sum x_i^2` is not (it does not factor in the same way).
+   </details>
 
 **Problem 3:** For a normal distribution with both parameters unknown, why do we need two statistics `(sum X_i, sum X_i^2)` rather than just `sum X_i`?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** The joint normal PDF contains terms `-sum x_i^2/(2*sigma^2)` and `mu*sum x_i/sigma^2`. The parameter `sigma^2` appears in the `sum x_i^2` term, so we need both `sum X_i` and `sum X_i^2` to capture all information.
+   </details>
+
 **Problem 4:** Let `X_1, X_2, ..., X_n` be i.i.d. `Exponential(lambda)`. Show that the sample mean `bar{X}` is sufficient for `lambda`.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** Joint PDF: `lambda^n * e^{-lambda * sum x_i}`. This is `[lambda^n * e^{-lambda * n * bar{x}}] * 1`. So `T = bar{X}` is sufficient (since `bar{X} = sum X_i / n` is a one-to-one function of `sum X_i`).
+   </details>
+
 **Problem 5:** What is a minimal sufficient statistic? Why is the full sample `(X_1, ..., X_n)` considered sufficient but not minimal?
-
----
-
-### Answers / Hints
-
-**Problem 1:** `f(x; p) = prod p^{x_i} (1-p)^{1-x_i} = p^{sum x_i} (1-p)^{n - sum x_i} = [p^{t} (1-p)^{n-t}] * 1`. So `T = sum X_i` is sufficient.
-
-**Problem 2:** No. The joint PMF is `e^{-n*lambda} * lambda^{sum x_i} / prod (x_i!)`. This depends on the data only through `sum x_i`, not `sum x_i^2`. So `sum x_i` is sufficient, but `sum x_i^2` is not (it does not factor in the same way).
-
-**Problem 3:** The joint normal PDF contains terms `-sum x_i^2/(2*sigma^2)` and `mu*sum x_i/sigma^2`. The parameter `sigma^2` appears in the `sum x_i^2` term, so we need both `sum X_i` and `sum X_i^2` to capture all information.
-
-**Problem 4:** Joint PDF: `lambda^n * e^{-lambda * sum x_i}`. This is `[lambda^n * e^{-lambda * n * bar{x}}] * 1`. So `T = bar{X}` is sufficient (since `bar{X} = sum X_i / n` is a one-to-one function of `sum X_i`).
-
-**Problem 5:** A minimal sufficient statistic achieves the maximum possible data reduction while remaining sufficient. The full sample is trivially sufficient but does not reduce the data at all; it has the same dimension as the data.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** A minimal sufficient statistic achieves the maximum possible data reduction while remaining sufficient. The full sample is trivially sufficient but does not reduce the data at all; it has the same dimension as the data.
+   </details>

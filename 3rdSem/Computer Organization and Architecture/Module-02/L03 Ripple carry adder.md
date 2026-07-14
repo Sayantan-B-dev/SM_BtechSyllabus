@@ -156,21 +156,35 @@ Final result: C4 S3 S2 S1 S0 = 0 1 0 0 0 = 8. Correct (7+1=8).
 ## Practice Problems
 
 1. **Delay calculation**: A 16-bit ripple carry adder uses full adders with t_FA = 0.5 ns each. What is the total addition time?
-   - **Answer**: t = 16 x 0.5 = 8 ns.
+<details>
+<summary>Show Answer</summary>
+t = 16 x 0.5 = 8 ns.
+</details>
 
 2. **Truth table**: Draw the truth table for a full adder and derive the expression for carry-out using K-map.
-   - **Answer**: Co = AB + ACi + BCi. (Derived from grouping minterms: Co = 1 for rows 3,5,6,7 of the truth table).
+<details>
+<summary>Show Answer</summary>
+Co = AB + ACi + BCi. (Derived from grouping minterms: Co = 1 for rows 3,5,6,7 of the truth table).
+</details>
 
 3. **4-bit addition**: Show the ripple carry propagation for A = 1010, B = 0110, Cin = 0. Track each C1, C2, C3.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      FA0: 0+0+0, S0=0, C1=0
      FA1: 1+1+0, S1=0, C2=1
      FA2: 0+1+1, S2=0, C3=1
      FA3: 1+0+1, S3=0, C4=1
      Result: 10000 (16). Check: 10 + 6 = 16. Correct.
+</details>
 
 4. **Critical path**: Explain why the critical path of an RCA goes through the carry chain and not through the sum generation.
-   - **Answer**: The sum at each stage depends on the carry from the previous stage. While the XOR for A XOR B can be computed in parallel in all stages, the actual sum S = (A XOR B) XOR Ci must wait for Ci, which depends on all lower-order stages. Thus the carry chain is the critical path.
+<details>
+<summary>Show Answer</summary>
+The sum at each stage depends on the carry from the previous stage. While the XOR for A XOR B can be computed in parallel in all stages, the actual sum S = (A XOR B) XOR Ci must wait for Ci, which depends on all lower-order stages. Thus the carry chain is the critical path.
+</details>
 
 5. **Scaling**: If a 4-bit RCA takes 2 ns, how long would a 64-bit RCA take (assuming same FA delay)?
-   - **Answer**: 4-bit takes 2 ns => t_FA = 2/4 = 0.5 ns. 64-bit: 64 x 0.5 = 32 ns.
+<details>
+<summary>Show Answer</summary>
+4-bit takes 2 ns => t_FA = 2/4 = 0.5 ns. 64-bit: 64 x 0.5 = 32 ns.
+</details>

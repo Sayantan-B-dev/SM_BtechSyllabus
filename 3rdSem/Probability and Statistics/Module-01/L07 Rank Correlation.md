@@ -378,6 +378,12 @@ The result (0.847) is very close to the uncorrected value (0.851), confirming th
 | G | 7 | 8 |
 | H | 8 | 7 |
 
+   <details>
+   <summary>Show Answer</summary>
+   1. d: -1, 1, -1, 1, -1, 1, -1, 1. d^2: 1,1,1,1,1,1,1,1. sum = 8.
+      r_s = 1 - 6*8/(8*63) = 1 - 48/504 = 1 - 0.0952 = 0.9048. Strong positive correlation (judges somewhat agree).
+   </details>
+
 2. The marks of 6 students in two subjects are:
 
 | Student | Subject A | Subject B |
@@ -391,7 +397,19 @@ The result (0.847) is very close to the uncorrected value (0.851), confirming th
 
 Find the rank correlation coefficient.
 
+   <details>
+   <summary>Show Answer</summary>
+   2. Ranks: P(3,4), Q(5,3), R(6,6), S(1,1), T(4,5), U(2,2).
+      d: -1, 2, 0, 0, -1, 0. d^2: 1,4,0,0,1,0. sum = 6.
+      r_s = 1 - 6*6/(6*35) = 1 - 36/210 = 1 - 0.1714 = 0.8286.
+   </details>
+
 3. For 10 pairs of observations, sum d^2 = 60. Find Spearman's rank correlation coefficient.
+
+   <details>
+   <summary>Show Answer</summary>
+   3. r_s = 1 - 6*60/(10*99) = 1 - 360/990 = 1 - 0.3636 = 0.6364. Moderate positive rank correlation.
+   </details>
 
 4. Calculate the rank correlation for the following (with ties):
 
@@ -404,23 +422,18 @@ Find the rank correlation coefficient.
 | X5 | 72 | 72 |
 | X6 | 90 | 88 |
 
+   <details>
+   <summary>Show Answer</summary>
+   4. Test 1: 65(1), 72,72(avg 2.5), 88,88(avg 4.5), 90(6).
+      Test 2: 68(1), 70(2), 72(3), 85(4), 88(5), 90(6).
+      x-ranks: 4.5, 2.5, 4.5, 1, 2.5, 6.
+      y-ranks: 4, 2, 6, 1, 3, 5.
+      d: 0.5, 0.5, -1.5, 0, -0.5, 1. d^2: 0.25, 0.25, 2.25, 0, 0.25, 1. sum = 4.
+      r_s = 1 - 6*4/(6*35) = 1 - 24/210 = 1 - 0.1143 = 0.8857.
+   </details>
+
 5. Explain the difference between Pearson's and Spearman's correlation coefficients.
-
-**Answers/Hints:**
-1. d: -1, 1, -1, 1, -1, 1, -1, 1. d^2: 1,1,1,1,1,1,1,1. sum = 8.
-   r_s = 1 - 6*8/(8*63) = 1 - 48/504 = 1 - 0.0952 = 0.9048. Strong positive correlation (judges somewhat agree).
-
-2. Ranks: P(3,4), Q(5,3), R(6,6), S(1,1), T(4,5), U(2,2).
-   d: -1, 2, 0, 0, -1, 0. d^2: 1,4,0,0,1,0. sum = 6.
-   r_s = 1 - 6*6/(6*35) = 1 - 36/210 = 1 - 0.1714 = 0.8286.
-
-3. r_s = 1 - 6*60/(10*99) = 1 - 360/990 = 1 - 0.3636 = 0.6364. Moderate positive rank correlation.
-
-4. Test 1: 65(1), 72,72(avg 2.5), 88,88(avg 4.5), 90(6).
-   Test 2: 68(1), 70(2), 72(3), 85(4), 88(5), 90(6).
-   x-ranks: 4.5, 2.5, 4.5, 1, 2.5, 6.
-   y-ranks: 4, 2, 6, 1, 3, 5.
-   d: 0.5, 0.5, -1.5, 0, -0.5, 1. d^2: 0.25, 0.25, 2.25, 0, 0.25, 1. sum = 4.
-   r_s = 1 - 6*4/(6*35) = 1 - 24/210 = 1 - 0.1143 = 0.8857.
-
-5. Pearson's r measures linear relationships using actual values and assumes normality. Spearman's r_s measures monotonic relationships using ranks and makes no distributional assumptions. Spearman is preferred for ordinal data, non-normal data, or when outliers are present.
+   <details>
+   <summary>Show Answer</summary>
+   5. Pearson's r measures linear relationships using actual values and assumes normality. Spearman's r_s measures monotonic relationships using ranks and makes no distributional assumptions. Spearman is preferred for ordinal data, non-normal data, or when outliers are present.
+   </details>

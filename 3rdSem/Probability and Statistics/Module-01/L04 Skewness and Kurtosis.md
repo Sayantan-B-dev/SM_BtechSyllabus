@@ -374,14 +374,31 @@ gamma2 = beta2 - 3 = 1.829 - 3 = -1.171
 ## Practice Problems
 
 1. For a distribution, Mean = 50, Median = 55, SD = 10. Compute Karl Pearson's coefficient of skewness and interpret.
-2. For a data set, Q1 = 20, Q2 = 30, Q3 = 45. Compute Bowley's coefficient of skewness.
-3. For a distribution, `mu_2 = 25` and `mu_3 = 40`. Compute `beta1` and `gamma1`. What do they indicate?
-4. For a distribution, `mu_2 = 9` and `mu_4 = 243`. Compute `beta2` and determine the type of kurtosis.
-5. For the data: 10, 12, 14, 16, 18, 20, 22, compute `gamma1` and `gamma2`. Interpret the shape.
+   <details>
+   <summary>Show Answer</summary>
+   1. `Sk_p = 3*(50-55)/10 = -1.5`. Negative skewness (left-skewed).
+   </details>
 
-**Answers/Hints:**
-1. `Sk_p = 3*(50-55)/10 = -1.5`. Negative skewness (left-skewed).
-2. `Sk_b = (45+20-2*30)/(45-20) = (65-60)/25 = 5/25 = 0.2`. Slight positive skewness.
-3. `sigma = 5`. `beta1 = 40^2/25^3 = 1600/15625 = 0.1024`. `gamma1 = 40/125 = 0.32`. Positive skewness.
-4. `beta2 = 243/9^2 = 243/81 = 3`. Mesokurtic (same kurtosis as normal distribution).
-5. Mean = 16. Deviations: -6,-4,-2,0,2,4,6. `mu_2 = (36+16+4+0+4+16+36)/7 = 112/7 = 16`. `mu_3 = (-216-64-8+0+8+64+216)/7 = 0/7 = 0`. `mu_4 = (1296+256+16+0+16+256+1296)/7 = 3136/7 = 448`. `gamma1 = 0/64 = 0` (symmetric). `beta2 = 448/16^2 = 448/256 = 1.75`. `gamma2 = 1.75-3 = -1.25` (platykurtic).
+2. For a data set, Q1 = 20, Q2 = 30, Q3 = 45. Compute Bowley's coefficient of skewness.
+   <details>
+   <summary>Show Answer</summary>
+   2. `Sk_b = (45+20-2*30)/(45-20) = (65-60)/25 = 5/25 = 0.2`. Slight positive skewness.
+   </details>
+
+3. For a distribution, `mu_2 = 25` and `mu_3 = 40`. Compute `beta1` and `gamma1`. What do they indicate?
+   <details>
+   <summary>Show Answer</summary>
+   3. `sigma = 5`. `beta1 = 40^2/25^3 = 1600/15625 = 0.1024`. `gamma1 = 40/125 = 0.32`. Positive skewness.
+   </details>
+
+4. For a distribution, `mu_2 = 9` and `mu_4 = 243`. Compute `beta2` and determine the type of kurtosis.
+   <details>
+   <summary>Show Answer</summary>
+   4. `beta2 = 243/9^2 = 243/81 = 3`. Mesokurtic (same kurtosis as normal distribution).
+   </details>
+
+5. For the data: 10, 12, 14, 16, 18, 20, 22, compute `gamma1` and `gamma2`. Interpret the shape.
+   <details>
+   <summary>Show Answer</summary>
+   5. Mean = 16. Deviations: -6,-4,-2,0,2,4,6. `mu_2 = (36+16+4+0+4+16+36)/7 = 112/7 = 16`. `mu_3 = (-216-64-8+0+8+64+216)/7 = 0/7 = 0`. `mu_4 = (1296+256+16+0+16+256+1296)/7 = 3136/7 = 448`. `gamma1 = 0/64 = 0` (symmetric). `beta2 = 448/16^2 = 448/256 = 1.75`. `gamma2 = 1.75-3 = -1.25` (platykurtic).
+   </details>

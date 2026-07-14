@@ -375,7 +375,7 @@ Standard SQL is **declarative** -- you say *what* you want, and the DBMS's **que
 
 **1.** Write the DDL command to create a table `Employee` with columns `emp_id` (INT, PK), `name` (VARCHAR(50), NOT NULL), `salary` (DECIMAL(10,2)), and `dept_id` (INT, FK referencing Department).
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 CREATE TABLE Employee (
@@ -390,13 +390,13 @@ CREATE TABLE Employee (
 
 **2.** What is the difference between `DELETE FROM Student` and `TRUNCATE TABLE Student`?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 `DELETE` is DML -- removes rows one by one, can be rolled back, fires triggers, and preserves auto-increment counters. `TRUNCATE` is DDL -- deallocates entire data pages, cannot be rolled back, does not fire triggers, and resets auto-increment counters.
 </details>
 
 **3.** Write a DML query to increase the salary of all instructors in the 'CS' department by 15%.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 UPDATE Instructor
@@ -407,12 +407,12 @@ WHERE dept_id = 'CS';
 
 **4.** Classify these statements as DDL or DML: `CREATE INDEX`, `DELETE`, `RENAME`, `INSERT INTO ... SELECT`, `TRUNCATE`.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 DDL: CREATE INDEX, RENAME, TRUNCATE. DML: DELETE, INSERT INTO ... SELECT.
 </details>
 
 **5.** Explain why DDL statements cannot be rolled back with `ROLLBACK` but DML statements can.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 DDL statements auto-commit the current transaction immediately because they modify the data dictionary (system catalog), which must remain consistent. DML statements operate on user data and are wrapped in transactions that can be committed or rolled back explicitly.
 </details>

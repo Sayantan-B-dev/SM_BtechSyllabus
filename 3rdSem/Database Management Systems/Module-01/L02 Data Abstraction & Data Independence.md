@@ -248,30 +248,30 @@ When the library reorganizes shelves (physical change), the catalog (conceptual)
 
 **1.** Explain the difference between physical and logical data independence with one example each.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Physical independence: Changing storage structure (e.g., adding an index) without changing conceptual schema. Logical independence: Changing conceptual schema (e.g., adding a column) without changing external views.
 </details>
 
 **2.** A university's Student table is stored as a heap file. The DBA decides to reorganize it as a hash file on student_id. Which level(s) of the architecture are affected?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Only the physical level. The conceptual schema (Student table definition) and external views remain unchanged. This is an example of physical data independence.
 </details>
 
 **3.** If a column `date_of_birth` is added to the `Employee` table but a view `EmployeeList` (which selects only `emp_id` and `name`) exists, does the view need modification?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 No, because the view explicitly lists only `emp_id` and `name`. However, if the view used `SELECT *`, it would now include `date_of_birth`, potentially breaking dependent applications.
 </details>
 
 **4.** Draw a diagram of the three-schema architecture and label each level.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Top: View Level (External Schema) -- multiple user views. Middle: Conceptual Level (Conceptual Schema) -- logical structure. Bottom: Physical Level (Internal Schema) -- storage details. Arrows represent mappings between levels.
 </details>
 
 **5.** Why is logical data independence harder to achieve than physical data independence?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Logical changes (adding/removing columns, splitting tables) can break views and application programs that reference the changed structures. Physical changes (indexing, file organization) are transparent to users.
 </details>

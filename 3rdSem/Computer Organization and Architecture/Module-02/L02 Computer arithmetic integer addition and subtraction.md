@@ -210,7 +210,8 @@ The XOR gates act as programmable inverters. When Subtract = 1, each bit of B is
 ## Practice Problems
 
 1. **Binary addition**: Add 101101 (45) and 011011 (27) using 6-bit binary addition.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      ```
      1111
      101101
@@ -218,12 +219,17 @@ The XOR gates act as programmable inverters. When Subtract = 1, each bit of B is
      -------
     1001000  -> Discard carry = 001000 (8). Wait: 45+27=72, 6-bit max 63, so overflow. 001000=8 but real sum 72. Overflow detected.
      ```
+</details>
 
 2. **Subtraction**: Compute 12 - 19 using 6-bit twos complement. Check for overflow.
-   - **Answer**: 12=001100, 19=001100, complement of 19=110101. Add: 001100+110101=000001 (discard carry). 12-19=-7, result 000001+? Let me recalc: -19 in 6-bit twos complement = 101101. 001100+101101=111001 = -7. No overflow (Cin=Cout=0).
+<details>
+<summary>Show Answer</summary>
+12=001100, 19=001100, complement of 19=110101. Add: 001100+110101=000001 (discard carry). 12-19=-7, result 000001+? Let me recalc: -19 in 6-bit twos complement = 101101. 001100+101101=111001 = -7. No overflow (Cin=Cout=0).
+</details>
 
 3. **Overflow detection**: Add 1001 (-7) and 1010 (-6) in 4-bit twos complement. Detect overflow.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      ```
      1 001
      1001
@@ -232,9 +238,16 @@ The XOR gates act as programmable inverters. When Subtract = 1, each bit of B is
     10011
      ```
      Cin=1, Cout=1 => No overflow. Result 0011 = +3? -7 + -6 = -13, out of range for 4 bits (-8 to +7). Wait, Cin into sign bit = 1 (carry from bit 2 to bit 3), Cout from sign bit = 1. 1 XOR 1 = 0 => no overflow detected? But this is wrong because -13 is out of range. Actually, -13 cannot be represented in 4 bits. The carry discard gives 0011 = 3. Let me check: Cin=Cout=1 is the correct overflow condition. Wait, the rule is Cin XOR Cout, which gives 0 (no overflow detected). However, this result is wrong. The correct answer: in 4-bit twos complement, -8 to +7. -7 + -6 = -13 is not representable. But Cin=Cout=1 means no overflow according to the textbook. Actually, I need to re-examine: 1001+1010 = 10011. The MSB (sign bit) addition: 1+1+carry_in=1+1+1=3 = 11, so carry_out=1, sum bit=1. So result is 0011. Cin XOR Cout = 1 XOR 1 = 0 -> no overflow flag. But -13 truly is out of range. The issue: note that -7 and -6 are both negative, and result should be negative, but 0011 is positive. The rule works: when two negative numbers add to a positive, overflow detected by examining sign bits. Cin XOR Cout says no overflow, but we can also check sign(A)=sign(B)=1, sign(result)=0 => overflow. The overflow flag is often set using both rules. Let me verify with standard textbook: In twos complement, overflow = (carry_in_to_MSB XOR carry_out_from_MSB). For 1001+1010: carry bits are: 1+0=1 (bit0), 0+1+carry1=10 (bit1 carry1), 0+0+carry1=01 (bit2 carry0), 1+1+carry0=10 (bit3 carry1). So carry_in_to_MSB = 0, carry_out_from_MSB = 1. Cin XOR Cout = 1 => OVERFLOW. I made an error earlier. Cin (bit2 to bit3) = 0, Cout (bit3 out) = 1. So cin XOR cout = 1 => overflow detected. Correct!
+</details>
 
 4. **Twos complement subtraction**: Show step-by-step: 0101 - 0011 using twos complement.
-   - **Answer**: 0101 - 0011 = 0101 + (1100+1) = 0101 + 1101 = 0010 (carry 1 discarded) = 2. Correct.
+<details>
+<summary>Show Answer</summary>
+0101 - 0011 = 0101 + (1100+1) = 0101 + 1101 = 0010 (carry 1 discarded) = 2. Correct.
+</details>
 
 5. **Hardware**: In the adder/subtractor circuit, why are XOR gates used on the B input?
-   - **Answer**: XOR gates act as controlled inverters. When Subtract=1, each XOR outputs NOT B. Combined with carry-in=1 to the LSB, this produces the twos complement of B, enabling A + (-B) = A - B with the same adder hardware.
+<details>
+<summary>Show Answer</summary>
+XOR gates act as controlled inverters. When Subtract=1, each XOR outputs NOT B. Combined with carry-in=1 to the LSB, this produces the twos complement of B, enabling A + (-B) = A - B with the same adder hardware.
+</details>

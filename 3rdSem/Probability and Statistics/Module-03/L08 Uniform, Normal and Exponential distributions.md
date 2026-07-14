@@ -211,17 +211,34 @@ Solution:
 
 1. X ~ U(0, 20). Find P(X > 15 | X > 10).
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `P(X>15|X>10) = P(X>15)/P(X>10) = (5/20)/(10/20) = 5/10 = 0.5`.
+   </details>
+
 2. IQ scores are normally distributed with mean 100 and standard deviation 15. Find the probability that a randomly selected person has IQ between 85 and 115.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. Z-scores: (85-100)/15 = -1, (115-100)/15 = 1. So 68.27% (by empirical rule).
+   </details>
 
 3. The lifetime of a light bulb follows Exp(lambda) with mean 2000 hours. Find the probability it lasts more than 3000 hours, and the probability it lasts more than 3000 hours given it has already lasted 1000 hours.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. l = 1/2000. `P(X>3000) = e^{-1.5} = 0.2231`. By memoryless: same as P(X>2000) = e^{-1} = 0.3679.
+   </details>
+
 4. If Z ~ N(0, 1), find P(Z < -1.5) and P(-0.5 < Z < 1.5) using the standard normal table.
 
-5. A random variable X is uniformly distributed on [5, 10]. Find its mean, variance, and P(6 < X < 9).
+   <details>
+   <summary>Show Answer</summary>
+   4. `P(Z<-1.5) = 0.0668`. `P(-0.5<Z<1.5) = Phi(1.5) - Phi(-0.5) = 0.9332 - 0.3085 = 0.6247`.
+   </details>
 
-**Answers / Hints:**
-1. `P(X>15|X>10) = P(X>15)/P(X>10) = (5/20)/(10/20) = 5/10 = 0.5`.
-2. Z-scores: (85-100)/15 = -1, (115-100)/15 = 1. So 68.27% (by empirical rule).
-3. l = 1/2000. `P(X>3000) = e^{-1.5} = 0.2231`. By memoryless: same as P(X>2000) = e^{-1} = 0.3679.
-4. `P(Z<-1.5) = 0.0668`. `P(-0.5<Z<1.5) = Phi(1.5) - Phi(-0.5) = 0.9332 - 0.3085 = 0.6247`.
-5. E[X] = 7.5. Var = (10-5)^2/12 = 25/12. P(6<X<9) = (9-6)/(10-5) = 3/5 = 0.6.
+5. A random variable X is uniformly distributed on [5, 10]. Find its mean, variance, and P(6 < X < 9).
+   <details>
+   <summary>Show Answer</summary>
+   5. E[X] = 7.5. Var = (10-5)^2/12 = 25/12. P(6<X<9) = (9-6)/(10-5) = 3/5 = 0.6.
+   </details>

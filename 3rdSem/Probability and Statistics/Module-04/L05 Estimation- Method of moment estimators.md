@@ -314,24 +314,34 @@ So: `tilde{sigma}^2 = (1/n) * sum X_i^2`
 
 **Problem 1:** A random sample of 8 observations from a Poisson distribution gives: 2, 4, 1, 3, 5, 2, 3, 4. Find the MOM estimate of `lambda`.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `tilde{lambda} = bar{x} = (2+4+1+3+5+2+3+4)/8 = 24/8 = 3`.
+   </details>
+
 **Problem 2:** A sample of size `n` from a distribution with mean `mu` and variance `sigma^2` yields `bar{x} = 50` and sample variance (with denominator `n`) `tilde{sigma}^2 = 16`. What are the MOM estimates of `mu` and `sigma^2`?
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `tilde{mu} = 50`, `tilde{sigma}^2 = 16`.
+   </details>
 
 **Problem 3:** For the Uniform distribution `U(0, theta)`, we have `E[X] = theta/2`. Find the MOM estimator of `theta`.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** Set `bar{X} = theta/2`, so `tilde{theta} = 2 * bar{X}`.
+   </details>
+
 **Problem 4:** Compare MLE and MOM. Give one advantage of each method.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** Advantage of MLE: Asymptotically efficient (smallest possible variance among consistent estimators). Advantage of MOM: Simpler to compute, often gives closed-form solutions.
+   </details>
+
 **Problem 5:** A sample from an exponential distribution (`f(x; lambda) = lambda * e^{-lambda*x}` for `x >= 0`) has mean `E[X] = 1/lambda`. A sample of size 10 gives `sum x_i = 25`. Find the MOM estimate of `lambda`.
-
----
-
-### Answers / Hints
-
-**Problem 1:** `tilde{lambda} = bar{x} = (2+4+1+3+5+2+3+4)/8 = 24/8 = 3`.
-
-**Problem 2:** `tilde{mu} = 50`, `tilde{sigma}^2 = 16`.
-
-**Problem 3:** Set `bar{X} = theta/2`, so `tilde{theta} = 2 * bar{X}`.
-
-**Problem 4:** Advantage of MLE: Asymptotically efficient (smallest possible variance among consistent estimators). Advantage of MOM: Simpler to compute, often gives closed-form solutions.
-
-**Problem 5:** `E[X] = 1/lambda`. Set `bar{x} = 25/10 = 2.5 = 1/lambda`. So `tilde{lambda} = 1/2.5 = 0.4`.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** `E[X] = 1/lambda`. Set `bar{x} = 25/10 = 2.5 = 1/lambda`. So `tilde{lambda} = 1/2.5 = 0.4`.
+   </details>

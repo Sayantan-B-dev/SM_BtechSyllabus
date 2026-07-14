@@ -637,6 +637,18 @@ if result is not None:
    - "Between 10 and 20" if 10 <= x <= 20
    - "Greater than 20" if x > 20
    Use chained comparisons where appropriate.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   x = float(input("Enter a number: "))
+   if x < 10:
+       print("Less than 10")
+   elif 10 <= x <= 20:
+       print("Between 10 and 20")
+   else:
+       print("Greater than 20")
+   ```
+   </details>
 
 2. **Season Finder:** Write a program that takes a month name (e.g., "January") and prints the season:
    - Spring: March, April, May
@@ -644,8 +656,41 @@ if result is not None:
    - Autumn: September, October, November
    - Winter: December, January, February
    Use match-case with the OR pattern (`|`).
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   month = input("Enter month: ").capitalize()
+   match month:
+       case "March" | "April" | "May":
+           print("Spring")
+       case "June" | "July" | "August":
+           print("Summer")
+       case "September" | "October" | "November":
+           print("Autumn")
+       case "December" | "January" | "February":
+           print("Winter")
+       case _:
+           print("Invalid month")
+   ```
+   </details>
 
 3. **Short-Circuit Investigation:** Write a program that demonstrates short-circuit evaluation. Define a function `check()` that prints "checked" and returns True. Use it with `and` and `or` operators to show when it is and is not called.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   def check():
+       print("checked")
+       return True
+   
+   print("Using and:")
+   result = False and check()  # check() is NOT called (short-circuit)
+   print("Using or:")
+   result = True or check()    # check() is NOT called (short-circuit)
+   print("Using or with False:")
+   result = False or check()   # check() IS called
+   ```
+   Output: `and` and `or` short-circuit when the left operand already determines the result.
+   </details>
 
 4. **Tax Calculator:** Write a program to calculate income tax:
    - Income up to Rs. 2,50,000: No tax
@@ -653,5 +698,39 @@ if result is not None:
    - Rs. 5,00,001 to Rs. 10,00,000: 20%
    - Above Rs. 10,00,000: 30%
    Show the tax amount and the income after tax.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   income = float(input("Enter your income: "))
+   if income <= 250000:
+       tax = 0
+   elif income <= 500000:
+       tax = (income - 250000) * 0.05
+   elif income <= 1000000:
+       tax = 250000 * 0.05 + (income - 500000) * 0.20
+   else:
+       tax = 250000 * 0.05 + 500000 * 0.20 + (income - 1000000) * 0.30
+   print(f"Tax: Rs. {tax:.2f}")
+   print(f"Income after tax: Rs. {income - tax:.2f}")
+   ```
+   </details>
 
 5. **Rock-Paper-Scissors:** Write a simple two-player Rock-Paper-Scissors game. Take input from two players, determine the winner, and display the result. Handle invalid inputs.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   p1 = input("Player 1 (rock/paper/scissors): ").lower()
+   p2 = input("Player 2 (rock/paper/scissors): ").lower()
+   valid = {"rock", "paper", "scissors"}
+   if p1 not in valid or p2 not in valid:
+       print("Invalid input! Use rock, paper, or scissors.")
+   elif p1 == p2:
+       print("It's a tie!")
+   elif (p1 == "rock" and p2 == "scissors") or \
+        (p1 == "scissors" and p2 == "paper") or \
+        (p1 == "paper" and p2 == "rock"):
+       print("Player 1 wins!")
+   else:
+       print("Player 2 wins!")
+   ```
+   </details>

@@ -354,7 +354,7 @@ T1 never gets the exclusive lock because shared lock requests keep being granted
 **Problem 1:** Two transactions T1 and T2 both want to update data items A and B. T1 locks A, T2 locks B. Then T1 requests B, T2 requests A. What is this situation called? Draw the wait-for graph.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 This is a **deadlock**.
 
@@ -383,7 +383,7 @@ T1 -> T2 -> T1 (cycle)
 **Problem 2:** In the wait-die scheme, T1 (timestamp = 100) holds a lock on X. T2 (timestamp = 200) requests the same lock. What happens?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 T1 is older (smaller timestamp = 100). T2 is younger (timestamp = 200). The rule is: younger requesting from older -> die. T2 aborts (dies) and restarts with its original timestamp (200).
 </details>
@@ -391,7 +391,7 @@ T1 is older (smaller timestamp = 100). T2 is younger (timestamp = 200). The rule
 **Problem 3:** What is the key difference between Strict 2PL and Rigorous 2PL?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 In Strict 2PL, only exclusive (write) locks are held until commit; shared locks can be released earlier. In Rigorous 2PL, ALL locks (both shared and exclusive) are held until commit or abort. Rigorous 2PL simplifies recovery but reduces concurrency slightly more than Strict 2PL.
 </details>
@@ -399,7 +399,7 @@ In Strict 2PL, only exclusive (write) locks are held until commit; shared locks 
 **Problem 4:** Consider the schedule: `r1(A) w2(A) r2(B) w1(B)`. Assume 2PL is used with lock requests before each operation. Would this schedule be possible under 2PL? Explain.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Under 2PL:
 - T1: lock-S(A) for read, then later lock-X(B) for write.
@@ -416,7 +416,7 @@ This schedule is NOT possible under 2PL because T2 would be blocked waiting for 
 **Problem 5:** Is it possible to have a deadlock under Strict 2PL? If yes, provide an example.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Yes, Strict 2PL does not prevent deadlocks. Example:
 

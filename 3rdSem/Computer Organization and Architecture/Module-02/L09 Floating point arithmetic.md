@@ -400,30 +400,43 @@ IEEE 754 defines four rounding modes:
 ## Practice Problems
 
 1. **Floating-point addition**: Add 6.75 and 2.5 in IEEE 754 single precision. Show all steps.
-   - **Answer**:
+<details>
+<summary>Show Answer</summary>
      6.75 = 110.11 = 1.1011 x 2^2. IEEE: S=0, E=129, M=10110000000000000000000.
      2.5 = 10.1 = 1.01 x 2^1. IEEE: S=0, E=128, M=01000000000000000000000.
      Align: shift 2.5 right by 1: 0.101 x 2^2.
      Add: 1.1011 + 0.101 = 10.0101. Normalize: 1.00101 x 2^3.
      Result: S=0, E=130, M=00101000000000000000000 = 0x41140000.
      Check: 6.75+2.5=9.25. 1.00101 x 2^3 = 1001.01 = 9.25. Correct.
+</details>
 
 2. **Floating-point multiplication**: Multiply 1.5 x 3.5 using IEEE 754 single precision.
-   - **Answer**:
+<details>
+<summary>Show Answer</summary>
      1.5 = 1.1 x 2^0. S=0, E=127, M=10000000000000000000000.
      3.5 = 11.1 = 1.11 x 2^1. S=0, E=128, M=11000000000000000000000.
      E_result = 127+128-127 = 128.
      M_prod = 1.1 x 1.11 = 10.101. Normalize: 1.0101 x 2^1.
      E = 128+1 = 129. M = 01010000000000000000000.
      Result: 0x404A0000. Check: 1.0101 x 2^(129-127) = 1.0101 x 2^2 = 101.01 = 5.25. 1.5x3.5=5.25. Correct.
+</details>
 
 3. **Special values**: What is the result of 0.0 / 0.0 in IEEE 754?
-   - **Answer**: NaN (Not a Number). The operation is indeterminate (0/0 has no well-defined value), so IEEE 754 returns NaN with exponent all 1s and non-zero mantissa. This propagates through subsequent operations.
+<details>
+<summary>Show Answer</summary>
+NaN (Not a Number). The operation is indeterminate (0/0 has no well-defined value), so IEEE 754 returns NaN with exponent all 1s and non-zero mantissa. This propagates through subsequent operations.
+</details>
 
 4. **Denormalized numbers**: What is the value of the IEEE 754 single-precision number 0x00300000?
-   - **Answer**: 0x00300000 = 0 00000000 01100000000000000000000.
+<details>
+<summary>Show Answer</summary>
+0x00300000 = 0 00000000 01100000000000000000000.
      Exponent = 0 (denormalized), so hidden bit = 0.
      Mantissa = 0.011 x 2^(-126) = 0.375 x 2^(-126) = 3 x 2^(-128) ~ 8.82 x 10^(-39).
+</details>
 
 5. **Guard and rounding**: Suppose a single-precision mantissa after alignment is 1.01010101010101010101011 1001 (23 fraction bits + guard=1, round=0, sticky=1). What is the rounded result using round-to-nearest (ties to even)?
-   - **Answer**: The guard bits are 101 (G=1, R=0, S=1). Since G=1 and (R OR S) = 1, we round up (add 1 to LSB). The mantissa becomes 1.01010101010101010101100.
+<details>
+<summary>Show Answer</summary>
+The guard bits are 101 (G=1, R=0, S=1). Since G=1 and (R OR S) = 1, we round up (add 1 to LSB). The mantissa becomes 1.01010101010101010101100.
+</details>

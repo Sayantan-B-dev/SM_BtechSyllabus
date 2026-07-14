@@ -330,6 +330,8 @@ print(vowels)            # Output: ['e', 'o']
 
    **Hint**: Use a `for` loop with `enumerate()`. The negative index is `index - len(string)`.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    s = input("Enter a string: ")
@@ -337,20 +339,26 @@ print(vowels)            # Output: ['e', 'o']
        neg = i - len(s)
        print(f"Index {i} ({neg}): {ch}")
    ```
+   </details>
 
 2. **First and Last**: Write a program that prints the first and last character of a given string using both positive and negative indexing.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    s = input("Enter a string: ")
    print(f"First: {s[0]} (positive), {s[-len(s)]} (negative)")
    print(f"Last: {s[len(s)-1]} (positive), {s[-1]} (negative)")
    ```
+   </details>
 
 3. **Middle Character**: Given a string, print the middle character(s). If the string length is even, print the two middle characters.
 
    **Hint**: Use `len(s) // 2` to find the middle.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    s = input("Enter a string: ")
@@ -361,9 +369,12 @@ print(vowels)            # Output: ['e', 'o']
    else:
        print(s[mid])
    ```
+   </details>
 
 4. **String Immutability Demonstration**: Write code that shows strings are immutable by attempting to change a character and catching the error, then showing how to correctly "modify" by creating a new string.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    s = "Python"
@@ -375,11 +386,14 @@ print(vowels)            # Output: ['e', 'o']
    s = "J" + s[1:]
    print(s)   # Output: Jython
    ```
+   </details>
 
 5. **Extract Domain**: Given an email address like "user@example.com", use slicing to extract just the username and just the domain.
 
    **Hint**: Find the `@` position first.
 
+   <details>
+   <summary>Show Answer</summary>
    **Answer**:
    ```python
    email = "john.doe@university.edu"
@@ -389,3 +403,4 @@ print(vowels)            # Output: ['e', 'o']
    print(f"Username: {username}")
    print(f"Domain: {domain}")
    ```
+   </details>

@@ -294,7 +294,7 @@ Property Check:
 **Problem 1:** Which ACID property is violated by a dirty read?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Isolation is violated. Dirty read means transaction T2 reads data written by uncommitted transaction T1, violating the isolation principle that transactions should not see partial (uncommitted) changes of other transactions.
 </details>
@@ -302,7 +302,7 @@ Isolation is violated. Dirty read means transaction T2 reads data written by unc
 **Problem 2:** A transaction deducts $100 from account X and adds $100 to account Y. The constraint is total money (X + Y) is conserved. If the system crashes after deducting from X but before adding to Y, which ACID property must be enforced and how?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Atomicity must be enforced. The recovery manager must undo the debit to X (rollback) to restore the database to its state before the transaction began. Without atomicity, the database would lose $100.
 </details>
@@ -310,7 +310,7 @@ Atomicity must be enforced. The recovery manager must undo the debit to X (rollb
 **Problem 3:** Explain why isolation is necessary for consistency, even if each individual transaction is consistent when run alone.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Without isolation, concurrent transactions can interfere: one transaction may see partial results of another (dirty read), or two transactions may overwrite each other's updates (lost update). This can lead to a final state that no serial execution of the same transactions could produce, potentially violating consistency even though each transaction individually preserved consistency.
 </details>
@@ -318,7 +318,7 @@ Without isolation, concurrent transactions can interfere: one transaction may se
 **Problem 4:** A DBMS writes a COMMIT log record to stable storage, then immediately crashes before flushing the modified data pages to disk. When the system restarts, which ACID property ensures the changes are not lost, and how does the DBMS restore them?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Durability ensures the committed changes survive the crash. The DBMS uses the log: during recovery (after restart), it finds the COMMIT record and redoes the transaction's updates on the data pages, bringing them up to date.
 </details>
@@ -326,7 +326,7 @@ Durability ensures the committed changes survive the crash. The DBMS uses the lo
 **Problem 5:** Can a transaction be atomic and durable but not consistent? Provide an example.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Yes. Suppose a transaction transfers $500 from A to B but accidentally writes $500 to B without debiting A. The transaction is atomic (both writes happen or neither) and durable (committed changes persist), but the database is inconsistent (money was created out of nowhere, violating the business rule that total money is conserved). This is a logical error in the transaction, not an ACID violation by the DBMS.
 </details>

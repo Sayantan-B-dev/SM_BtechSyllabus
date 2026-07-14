@@ -534,10 +534,9 @@ for ch in set(text):
    - Contains at least one lowercase letter
    - Contains at least one digit
    - Contains at least one special character (non-alphanumeric)
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Use `isupper()`, `islower()`, `isdigit()`, `isalnum()` methods.
-
-   **Answer**:
    ```python
    password = input("Enter password: ")
    has_upper = any(c.isupper() for c in password)
@@ -549,10 +548,12 @@ for ch in set(text):
    else:
        print("Weak password. Improve it.")
    ```
+   </details>
 
 2. **Word Frequency Counter**: Write a program that takes a sentence and counts how many times each word appears using `split()` and `count()`.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    sentence = input("Enter a sentence: ")
    words = sentence.split()
@@ -562,12 +563,12 @@ for ch in set(text):
            seen.append(word.lower())
            print(f"'{word}': {words.count(word)}")
    ```
+   </details>
 
 3. **Data Cleaner**: Write a program that takes a string with extra spaces, punctuation, and inconsistent casing, and normalizes it: lowercase, remove leading/trailing spaces, replace multiple spaces with one, and remove punctuation.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Use `strip()`, `lower()`, `replace()` for punctuation, and `split()`/`join()` for extra spaces.
-
-   **Answer**:
    ```python
    text = input("Enter messy text: ")
    text = text.strip().lower()
@@ -576,10 +577,12 @@ for ch in set(text):
    cleaned = " ".join(text.split())
    print("Cleaned:", cleaned)
    ```
+   </details>
 
 4. **File Extension Checker**: Write a program that takes a filename and determines its type (image, document, video, or unknown) using `endswith()`.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    filename = input("Enter filename: ").lower()
    if filename.endswith((".jpg", ".jpeg", ".png", ".gif", ".bmp")):
@@ -591,6 +594,7 @@ for ch in set(text):
    else:
        print("Unknown file type")
    ```
+   </details>
 
 5. **String Analyzer**: Write a program that analyzes a string and prints:
    - Number of uppercase letters
@@ -598,10 +602,9 @@ for ch in set(text):
    - Number of digits
    - Number of whitespace characters
    - Number of special characters
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Use `isupper()`, `islower()`, `isdigit()`, `isspace()` in a loop.
-
-   **Answer**:
    ```python
    text = input("Enter a string: ")
    upper = lower = digit = space = special = 0
@@ -622,3 +625,4 @@ for ch in set(text):
    print(f"Spaces: {space}")
    print(f"Special: {special}")
    ```
+   </details>

@@ -188,7 +188,7 @@ for i in range(len(fruits)):
 - The list in reverse order
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [5, 10, 15, 20, 25, 30, 35, 40]
@@ -202,7 +202,7 @@ print(nums[::-1])  # [40, 35, 30, 25, 20, 15, 10, 5]
 **Problem 2:** Write a program that takes two lists `a = [1, 2, 3]` and `b = [4, 5, 6]` and produces `[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]` using concatenation and repetition.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 a = [1, 2, 3]
@@ -215,7 +215,7 @@ print(result)  # [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]
 **Problem 3:** Use a `for` loop to iterate over `colors = ["red", "green", "blue"]` and print each color in uppercase.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 colors = ["red", "green", "blue"]
@@ -232,7 +232,7 @@ for color in colors:
 **Problem 4:** Check whether `"cherry"` is in the list `fruits = ["apple", "banana", "cherry", "date"]` using the `in` operator. Also check if `"grape"` is NOT in the list.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 fruits = ["apple", "banana", "cherry", "date"]
@@ -244,7 +244,7 @@ print("grape" not in fruits) # True
 **Problem 5:** Compare the lists `[1, 2, 100]` and `[1, 2, 3, 4]` using `<` and explain the result.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 print([1, 2, 100] < [1, 2, 3, 4])  # False

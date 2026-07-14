@@ -266,20 +266,35 @@ Observation: As associativity increases:
 
 **Problem 1:** A 64 KB direct-mapped cache has 32-byte blocks. The system uses 32-bit byte addresses. Determine the number of bits in each address field.
 
-**Answer:** Cache lines = 64 KB / 32 B = 65,536 / 32 = 2,048 lines. Offset bits = log2(32) = 5. Index bits = log2(2048) = 11. Tag bits = 32 - 11 - 5 = 16.
+<details>
+<summary>Show Answer</summary>
+Cache lines = 64 KB / 32 B = 65,536 / 32 = 2,048 lines. Offset bits = log2(32) = 5. Index bits = log2(2048) = 11. Tag bits = 32 - 11 - 5 = 16.
+</details>
 
 **Problem 2:** A 4-way set-associative cache has 8 KB capacity, 16-byte blocks, 32-bit addresses. Find tag, set, and offset bits.
 
-**Answer:** Cache lines = 8,192 / 16 = 512. Sets = 512 / 4 = 128. Offset bits = log2(16) = 4. Set bits = log2(128) = 7. Tag bits = 32 - 7 - 4 = 21.
+<details>
+<summary>Show Answer</summary>
+Cache lines = 8,192 / 16 = 512. Sets = 512 / 4 = 128. Offset bits = log2(16) = 4. Set bits = log2(128) = 7. Tag bits = 32 - 7 - 4 = 21.
+</details>
 
 **Problem 3:** A fully associative cache with 64 lines and 8-byte blocks uses 32-bit byte addresses. Find tag and offset bits.
 
-**Answer:** Offset bits = log2(8) = 3. Tag bits = 32 - 3 = 29.
+<details>
+<summary>Show Answer</summary>
+Offset bits = log2(8) = 3. Tag bits = 32 - 3 = 29.
+</details>
 
 **Problem 4:** In a direct-mapped cache with 8 lines and 4-word blocks, which cache line does memory word address 44 map to?
 
-**Answer:** Word address 44 = block address floor(44/4) = 11. Cache line = 11 mod 8 = 3. Address 44 maps to line 3.
+<details>
+<summary>Show Answer</summary>
+Word address 44 = block address floor(44/4) = 11. Cache line = 11 mod 8 = 3. Address 44 maps to line 3.
+</details>
 
 **Problem 5:** Compare the number of comparators needed for direct-mapped, 4-way set-associative, and fully associative caches, assuming a cache with 1,024 lines.
 
-**Answer:** Direct-mapped: 1 comparator. 4-way set-associative: 4 comparators (one per way, used by all sets sequentially, or 4 per set -- actually per access we compare all 4 ways in the selected set in parallel, so 4 comparators total). Fully associative: 1,024 comparators (one per line).
+<details>
+<summary>Show Answer</summary>
+Direct-mapped: 1 comparator. 4-way set-associative: 4 comparators (one per way, used by all sets sequentially, or 4 per set -- actually per access we compare all 4 ways in the selected set in parallel, so 4 comparators total). Fully associative: 1,024 comparators (one per line).
+</details>

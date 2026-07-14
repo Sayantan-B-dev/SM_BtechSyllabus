@@ -176,16 +176,31 @@ Step 6: There is sufficient evidence at the 0.05 level that the new training pro
 ## Practice Problems
 
 1. A sample of 25 students has a mean test score of 78 with a standard deviation of 8. Test whether the population mean is different from 75 at `alpha = 0.05` (use t-test).
-   - **Answer:** `t = (78 - 75) / (8/5) = 1.875`, `df = 24`, critical values `pm 2.064`. Fail to reject `H_0` since `1.875 < 2.064`.
+   <details>
+   <summary>Show Answer</summary>
+   `t = (78 - 75) / (8/5) = 1.875`, `df = 24`, critical values `pm 2.064`. Fail to reject `H_0` since `1.875 < 2.064`.
+   </details>
 
 2. A factory produces bolts with a known standard deviation of 2 mm. A sample of 36 bolts has a mean diameter of 12.5 mm. Test `H_0: mu = 12` against `H_1: mu > 12` at `alpha = 0.01`.
-   - **Answer:** `z = (12.5 - 12) / (2/6) = 1.5`, `z_{0.01} = 2.326`. Fail to reject `H_0` since `1.5 < 2.326`.
+   <details>
+   <summary>Show Answer</summary>
+   `z = (12.5 - 12) / (2/6) = 1.5`, `z_{0.01} = 2.326`. Fail to reject `H_0` since `1.5 < 2.326`.
+   </details>
 
 3. When would you use a t-test instead of a z-test?
-   - **Answer:** When the population standard deviation `sigma` is unknown and must be estimated using the sample standard deviation `s`.
+   <details>
+   <summary>Show Answer</summary>
+   When the population standard deviation `sigma` is unknown and must be estimated using the sample standard deviation `s`.
+   </details>
 
 4. A sample of 10 patients has mean cholesterol 190 mg/dL with `s = 20`. Test `H_0: mu = 200` against `H_1: mu < 200` at `alpha = 0.05`.
-   - **Answer:** `t = (190 - 200) / (20 / sqrt{10}) = -1.581`, `df = 9`, `t_{0.05,9} = 1.833`. Since `-1.581 > -1.833`, fail to reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   `t = (190 - 200) / (20 / sqrt{10}) = -1.581`, `df = 9`, `t_{0.05,9} = 1.833`. Since `-1.581 > -1.833`, fail to reject `H_0`.
+   </details>
 
 5. For which of the following would you use a z-test? (a) n=15, sigma known; (b) n=40, sigma unknown; (c) n=100, sigma known; (d) n=8, sigma unknown.
-   - **Answer:** (a) and (c) -- z-test is appropriate when sigma is known. For (b), use t-test. For (d), use t-test only if population is normal.
+   <details>
+   <summary>Show Answer</summary>
+   (a) and (c) -- z-test is appropriate when sigma is known. For (b), use t-test. For (d), use t-test only if population is normal.
+   </details>

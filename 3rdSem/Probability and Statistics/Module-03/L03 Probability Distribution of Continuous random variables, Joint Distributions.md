@@ -206,17 +206,34 @@ Check: `int_{0}^{1} (6x+2)/5 dx = [3x^2 + 2x]/5 |_{0}^{1} = (3+2)/5 = 1`. Valid.
 
 1. Let X have PDF `f(x) = 2e^{-2x}` for `x >= 0`. Find `P(X > 1)` and `P(0.5 < X < 1.5)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `P(X>1) = int_1^{infty} 2e^{-2x}dx = e^{-2} approx 0.1353`. `P(0.5<X<1.5) = e^{-1} - e^{-3} approx 0.318`.
+   </details>
+
 2. Find c such that `f(x) = c/sqrt(x)` for `0 < x < 4` is a valid PDF. Then compute `P(X < 1)`.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `c int_0^4 x^{-1/2} dx = c[2sqrt{x}]_0^4 = 4c = 1` => `c = 1/4`. `P(X<1) = 1/4 int_0^1 x^{-1/2} dx = 1/4 * 2 = 0.5`.
+   </details>
 
 3. The joint PMF of X and Y is: `p(0,0) = 0.1`, `p(0,1) = 0.2`, `p(1,0) = 0.3`, `p(1,1) = 0.4`. Find the marginal PMFs of X and Y.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `P(X=0)=0.3`, `P(X=1)=0.7`. `P(Y=0)=0.4`, `P(Y=1)=0.6`.
+   </details>
+
 4. Let `f(x, y) = 2x + 3y` for `0 <= x <= 1, 0 <= y <= 1`. Determine if this is a valid joint PDF. If not, find the normalizing constant k.
 
-5. For the joint PDF `f(x, y) = 2e^{-x}e^{-2y}` for `x >= 0, y >= 0`, find the marginal PDFs of X and Y.
+   <details>
+   <summary>Show Answer</summary>
+   4. `int_0^1 int_0^1 (2x+3y)dx dy = int_0^1 [x^2+3xy]_0^1 dy = int_0^1 (1+3y)dy = [y+3y^2/2]_0^1 = 2.5`. Not valid. k=2/5.
+   </details>
 
-**Answers / Hints:**
-1. `P(X>1) = int_1^{infty} 2e^{-2x}dx = e^{-2} approx 0.1353`. `P(0.5<X<1.5) = e^{-1} - e^{-3} approx 0.318`.
-2. `c int_0^4 x^{-1/2} dx = c[2sqrt{x}]_0^4 = 4c = 1` => `c = 1/4`. `P(X<1) = 1/4 int_0^1 x^{-1/2} dx = 1/4 * 2 = 0.5`.
-3. `P(X=0)=0.3`, `P(X=1)=0.7`. `P(Y=0)=0.4`, `P(Y=1)=0.6`.
-4. `int_0^1 int_0^1 (2x+3y)dx dy = int_0^1 [x^2+3xy]_0^1 dy = int_0^1 (1+3y)dy = [y+3y^2/2]_0^1 = 2.5`. Not valid. k=2/5.
-5. `f_X(x) = int_0^{infty} 2e^{-x}e^{-2y} dy = 2e^{-x} * 1/2 = e^{-x}` for x>=0. `f_Y(y) = int_0^{infty} 2e^{-x}e^{-2y} dx = 2e^{-2y}` for y>=0.
+5. For the joint PDF `f(x, y) = 2e^{-x}e^{-2y}` for `x >= 0, y >= 0`, find the marginal PDFs of X and Y.
+   <details>
+   <summary>Show Answer</summary>
+   5. `f_X(x) = int_0^{infty} 2e^{-x}e^{-2y} dy = 2e^{-x} * 1/2 = e^{-x}` for x>=0. `f_Y(y) = int_0^{infty} 2e^{-x}e^{-2y} dx = 2e^{-2y}` for y>=0.
+   </details>

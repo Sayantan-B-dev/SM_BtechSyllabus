@@ -837,7 +837,8 @@ Clock_Enable <- 0    ; Stop the instruction cycle
 ## Practice Problems
 
 1. **Problem**: Write the complete RTL for the instruction `XOR R3, R4` including fetch, decode, and execute phases.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    ; Fetch
    MAR <- PC
@@ -854,6 +855,7 @@ Clock_Enable <- 0    ; Stop the instruction cycle
    PSW.Z <- (R3 == 0)
    PSW.S <- R3(MSB)
    ```
+</details>
 
 2. **Problem**: Translate the following assembly code into compact RTL:
    ```asm
@@ -867,7 +869,8 @@ Clock_Enable <- 0    ; Stop the instruction cycle
    DEC R5
    JNZ LOOP
    ```
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    R1 <- 100
    R2 <- 200
@@ -879,9 +882,11 @@ Clock_Enable <- 0    ; Stop the instruction cycle
    R5 <- R5 - 1
    IF (Z == 0) THEN PC <- LOOP
    ```
+</details>
 
 3. **Problem**: Write the micro-operation sequence for `SAR R1, #3` (arithmetic shift right by 3 positions). Assume a 32-bit register.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    uop1: Temp <- R1(31)     ; Save sign bit
    uop2: C <- R1(0)         ; LSB 0 shifted out
@@ -898,9 +903,11 @@ Clock_Enable <- 0    ; Stop the instruction cycle
    R1 <- R1 >>> 3   ; combinational barrel shifter
    C <- R1_original(2)  ; bit 2 of original R1
    ```
+</details>
 
 4. **Problem**: Show the RTL for executing `CALL 500` when the current PC = 200 and SP = 1000. Show the state of stack, PC, and SP after execution.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    ; Fetch (PC=200)
    MAR <- 200
@@ -913,9 +920,11 @@ Clock_Enable <- 0    ; Stop the instruction cycle
    PC <- 500         ; Jump to subroutine
    ```
    **Final state:** PC=500, SP=999, Stack[999] = 204
+</details>
 
 5. **Problem**: Write RTL for a `MULTIPLY-AND-ACCUMULATE` instruction: `MAC Rd, Rs, Rt` which computes `Rd <- Rd + (Rs * Rt)` in a single step.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
    ; Execute
    Temp <- Rs * Rt
@@ -924,3 +933,4 @@ Clock_Enable <- 0    ; Stop the instruction cycle
    ; Note: This requires both a multiplier and an adder in the ALU,
    ; and typically takes multiple clock cycles in practice.
    ```
+</details>

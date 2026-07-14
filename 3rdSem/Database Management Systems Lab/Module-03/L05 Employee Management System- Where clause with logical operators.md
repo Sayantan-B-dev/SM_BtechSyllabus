@@ -127,5 +127,19 @@ FROM Employee WHERE manager_id IS NULL;
 ## Homework / Practice
 
 1. Find all employees whose salary is NOT between 40000 and 70000 (use NOT BETWEEN).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE salary NOT BETWEEN 40000 AND 70000;
+   </details>
+
 2. Find employees whose job_role is in ('Developer', 'Manager', 'Analyst') but not in the HR department.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE job_role IN ('Developer', 'Manager', 'Analyst') AND department != 'HR';
+   </details>
+
 3. List all employees who have a manager (manager_id IS NOT NULL) and earn more than 75000.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE manager_id IS NOT NULL AND salary > 75000;
+   </details>

@@ -742,245 +742,246 @@ notify_all("New message from Bob", [users[2]], push)
 ## Practice Problems
 
 1. **Shape Hierarchy with ABC** -- Create an abstract `Shape` class with abstract methods `area()` and `perimeter()`. Implement `Circle`, `Rectangle`, `Triangle` subclasses. Create a function `print_shape_info(shape)` that uses polymorphism to print details.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   from abc import ABC, abstractmethod
+   import math
+
+   class Shape(ABC):
+       @abstractmethod
+       def area(self): pass
+
+       @abstractmethod
+       def perimeter(self): pass
+
+   class Circle(Shape):
+       def __init__(self, radius): self.radius = radius
+       def area(self): return math.pi * self.radius ** 2
+       def perimeter(self): return 2 * math.pi * self.radius
+
+   class Rectangle(Shape):
+       def __init__(self, w, h): self.w, self.h = w, h
+       def area(self): return self.w * self.h
+       def perimeter(self): return 2 * (self.w + self.h)
+
+   class Triangle(Shape):
+       def __init__(self, a, b, c): self.a, self.b, self.c = a, b, c
+       def area(self):
+           s = (self.a + self.b + self.c) / 2
+           return math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))
+       def perimeter(self): return self.a + self.b + self.c
+
+   def print_shape_info(shape):
+       print(f"{type(shape).__name__}: area={shape.area():.2f}, "
+             f"perimeter={shape.perimeter():.2f}")
+
+   for s in [Circle(5), Rectangle(4, 6), Triangle(3, 4, 5)]:
+       print_shape_info(s)
+   ```
+   </details>
 
 2. **Duck Typing: Media Player** -- Create classes `MP3Player`, `VideoPlayer`, `StreamingPlayer`. Each must have `play()`, `pause()`, `stop()`, `get_info()` methods. Write a duck-typed function `operate_player(player)` that calls all four methods.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class MP3Player:
+       def __init__(self, file): self.file = file
+       def play(self): print(f"MP3 playing '{self.file}'")
+       def pause(self): print("MP3 paused")
+       def stop(self): print("MP3 stopped")
+       def get_info(self): return f"MP3: {self.file}"
+
+   class VideoPlayer:
+       def __init__(self, file): self.file = file
+       def play(self): print(f"Video playing '{self.file}'")
+       def pause(self): print("Video paused")
+       def stop(self): print("Video stopped")
+       def get_info(self): return f"Video: {self.file}"
+
+   class StreamingPlayer:
+       def __init__(self, url): self.url = url
+       def play(self): print(f"Streaming from '{self.url}'")
+       def pause(self): print("Stream paused")
+       def stop(self): print("Stream stopped")
+       def get_info(self): return f"Stream: {self.url}"
+
+   def operate_player(player):
+       print(f"Info: {player.get_info()}")
+       player.play()
+       player.pause()
+       player.stop()
+       print()
+
+   for p in [MP3Player("song.mp3"), VideoPlayer("movie.mp4"),
+             StreamingPlayer("https://stream.example.com/live")]:
+       operate_player(p)
+   ```
+   </details>
 
 3. **Operator Overloading: Fraction** -- Create a `Fraction` class with numerator and denominator. Overload `+`, `-`, `*`, `/`, `==`, `<`, `__str__`. Implement `__float__` to convert to float. Ensure fractions are reduced.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   from math import gcd
+
+   class Fraction:
+       def __init__(self, num, den=1):
+           if den == 0:
+               raise ValueError("Denominator cannot be zero.")
+           if den < 0:
+               num, den = -num, -den
+           g = gcd(abs(num), abs(den))
+           self.num = num // g
+           self.den = den // g
+
+       def __add__(self, other):
+           if not isinstance(other, Fraction):
+               other = Fraction(other)
+           return Fraction(
+               self.num * other.den + other.num * self.den,
+               self.den * other.den
+           )
+
+       def __sub__(self, other):
+           if not isinstance(other, Fraction):
+               other = Fraction(other)
+           return Fraction(
+               self.num * other.den - other.num * self.den,
+               self.den * other.den
+           )
+
+       def __mul__(self, other):
+           if not isinstance(other, Fraction):
+               other = Fraction(other)
+           return Fraction(self.num * other.num, self.den * other.den)
+
+       def __truediv__(self, other):
+           if not isinstance(other, Fraction):
+               other = Fraction(other)
+           return Fraction(self.num * other.den, self.den * other.num)
+
+       def __eq__(self, other):
+           if not isinstance(other, Fraction):
+               other = Fraction(other)
+           return self.num == other.num and self.den == other.den
+
+       def __lt__(self, other):
+           if not isinstance(other, Fraction):
+               other = Fraction(other)
+           return self.num * other.den < other.num * self.den
+
+       def __float__(self):
+           return self.num / self.den
+
+       def __str__(self):
+           return f"{self.num}/{self.den}" if self.den != 1 else str(self.num)
+
+   f1 = Fraction(1, 2)
+   f2 = Fraction(1, 3)
+   print(f"{f1} + {f2} = {f1 + f2}")
+   print(f"{f1} - {f2} = {f1 - f2}")
+   print(f"{f1} * {f2} = {f1 * f2}")
+   print(f"{f1} / {f2} = {f1 / f2}")
+   print(f"{f1} == {Fraction(2, 4)}: {f1 == Fraction(2, 4)}")
+   print(f"{f1} < {f2}: {f1 < f2}")
+   print(f"float({f1}) = {float(f1)}")
+   ```
+   </details>
 
 4. **Notification System with ABC** -- Create abstract `Notifier` class with `send(message)`. Implement `EmailNotifier`, `SMSNotifier`, `SlackNotifier`. Create a `NotificationManager` that holds multiple notifiers and broadcasts messages to all.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   from abc import ABC, abstractmethod
+
+   class Notifier(ABC):
+       @abstractmethod
+       def send(self, message): pass
+
+   class EmailNotifier(Notifier):
+       def __init__(self, email): self.email = email
+       def send(self, message):
+           print(f"[Email] To {self.email}: {message}")
+
+   class SMSNotifier(Notifier):
+       def __init__(self, phone): self.phone = phone
+       def send(self, message):
+           print(f"[SMS] To {self.phone}: {message[:40]}...")
+
+   class SlackNotifier(Notifier):
+       def __init__(self, channel): self.channel = channel
+       def send(self, message):
+           print(f"[Slack] #{self.channel}: {message}")
+
+   class NotificationManager:
+       def __init__(self):
+           self.notifiers = []
+
+       def add(self, notifier):
+           self.notifiers.append(notifier)
+
+       def broadcast(self, message):
+           print(f"\nBroadcasting: '{message}'")
+           for n in self.notifiers:
+               n.send(message)
+
+   manager = NotificationManager()
+   manager.add(EmailNotifier("alice@example.com"))
+   manager.add(SMSNotifier("+1234567890"))
+   manager.add(SlackNotifier("general"))
+   manager.broadcast("System will be down for maintenance at 2 AM.")
+   ```
+   </details>
 
 5. **Polymorphic Database Connection** -- Create abstract `Database` class with `connect()`, `query(sql)`, `close()`. Implement `MySQLDatabase`, `PostgreSQLDatabase`, `SQLiteDatabase`. Write a function `run_migration(db)` that works with any database type.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   from abc import ABC, abstractmethod
 
-## Practice Problems
+   class Database(ABC):
+       def __init__(self, name): self.name = name
 
-1. **Shape Hierarchy with ABC**
+       @abstractmethod
+       def connect(self): pass
 
-```python
-from abc import ABC, abstractmethod
-import math
+       @abstractmethod
+       def query(self, sql): pass
 
-class Shape(ABC):
-    @abstractmethod
-    def area(self): pass
+       @abstractmethod
+       def close(self): pass
 
-    @abstractmethod
-    def perimeter(self): pass
+   class MySQLDatabase(Database):
+       def connect(self): print(f"MySQL: Connecting to {self.name}... (port 3306)")
+       def query(self, sql): print(f"MySQL: Executing '{sql}' -> 3 rows returned")
+       def close(self): print(f"MySQL: Closing connection.")
 
-class Circle(Shape):
-    def __init__(self, radius): self.radius = radius
-    def area(self): return math.pi * self.radius ** 2
-    def perimeter(self): return 2 * math.pi * self.radius
+   class PostgreSQLDatabase(Database):
+       def connect(self): print(f"PostgreSQL: Connecting to {self.name}... (port 5432)")
+       def query(self, sql): print(f"PostgreSQL: Executing '{sql}' -> 5 rows returned")
+       def close(self): print(f"PostgreSQL: Closing connection.")
 
-class Rectangle(Shape):
-    def __init__(self, w, h): self.w, self.h = w, h
-    def area(self): return self.w * self.h
-    def perimeter(self): return 2 * (self.w + self.h)
+   class SQLiteDatabase(Database):
+       def connect(self): print(f"SQLite: Opening {self.name}.db")
+       def query(self, sql): print(f"SQLite: Executing '{sql}' -> 2 rows returned")
+       def close(self): print(f"SQLite: Closing database file.")
 
-class Triangle(Shape):
-    def __init__(self, a, b, c): self.a, self.b, self.c = a, b, c
-    def area(self):
-        s = (self.a + self.b + self.c) / 2
-        return math.sqrt(s * (s - self.a) * (s - self.b) * (s - self.c))
-    def perimeter(self): return self.a + self.b + self.c
+   def run_migration(db):
+       print(f"\nRunning migration on {db.name}...")
+       db.connect()
+       db.query("CREATE TABLE users (id INT, name TEXT)")
+       db.query("INSERT INTO users VALUES (1, 'Alice')")
+       db.close()
+       print("Migration complete.")
 
-def print_shape_info(shape):
-    print(f"{type(shape).__name__}: area={shape.area():.2f}, "
-          f"perimeter={shape.perimeter():.2f}")
-
-for s in [Circle(5), Rectangle(4, 6), Triangle(3, 4, 5)]:
-    print_shape_info(s)
-```
-
-2. **Duck Typing: Media Player**
-
-```python
-class MP3Player:
-    def __init__(self, file): self.file = file
-    def play(self): print(f"MP3 playing '{self.file}'")
-    def pause(self): print("MP3 paused")
-    def stop(self): print("MP3 stopped")
-    def get_info(self): return f"MP3: {self.file}"
-
-class VideoPlayer:
-    def __init__(self, file): self.file = file
-    def play(self): print(f"Video playing '{self.file}'")
-    def pause(self): print("Video paused")
-    def stop(self): print("Video stopped")
-    def get_info(self): return f"Video: {self.file}"
-
-class StreamingPlayer:
-    def __init__(self, url): self.url = url
-    def play(self): print(f"Streaming from '{self.url}'")
-    def pause(self): print("Stream paused")
-    def stop(self): print("Stream stopped")
-    def get_info(self): return f"Stream: {self.url}"
-
-def operate_player(player):
-    print(f"Info: {player.get_info()}")
-    player.play()
-    player.pause()
-    player.stop()
-    print()
-
-for p in [MP3Player("song.mp3"), VideoPlayer("movie.mp4"),
-          StreamingPlayer("https://stream.example.com/live")]:
-    operate_player(p)
-```
-
-3. **Operator Overloading: Fraction**
-
-```python
-from math import gcd
-
-class Fraction:
-    def __init__(self, num, den=1):
-        if den == 0:
-            raise ValueError("Denominator cannot be zero.")
-        if den < 0:
-            num, den = -num, -den
-        g = gcd(abs(num), abs(den))
-        self.num = num // g
-        self.den = den // g
-
-    def __add__(self, other):
-        if not isinstance(other, Fraction):
-            other = Fraction(other)
-        return Fraction(
-            self.num * other.den + other.num * self.den,
-            self.den * other.den
-        )
-
-    def __sub__(self, other):
-        if not isinstance(other, Fraction):
-            other = Fraction(other)
-        return Fraction(
-            self.num * other.den - other.num * self.den,
-            self.den * other.den
-        )
-
-    def __mul__(self, other):
-        if not isinstance(other, Fraction):
-            other = Fraction(other)
-        return Fraction(self.num * other.num, self.den * other.den)
-
-    def __truediv__(self, other):
-        if not isinstance(other, Fraction):
-            other = Fraction(other)
-        return Fraction(self.num * other.den, self.den * other.num)
-
-    def __eq__(self, other):
-        if not isinstance(other, Fraction):
-            other = Fraction(other)
-        return self.num == other.num and self.den == other.den
-
-    def __lt__(self, other):
-        if not isinstance(other, Fraction):
-            other = Fraction(other)
-        return self.num * other.den < other.num * self.den
-
-    def __float__(self):
-        return self.num / self.den
-
-    def __str__(self):
-        return f"{self.num}/{self.den}" if self.den != 1 else str(self.num)
-
-f1 = Fraction(1, 2)
-f2 = Fraction(1, 3)
-print(f"{f1} + {f2} = {f1 + f2}")
-print(f"{f1} - {f2} = {f1 - f2}")
-print(f"{f1} * {f2} = {f1 * f2}")
-print(f"{f1} / {f2} = {f1 / f2}")
-print(f"{f1} == {Fraction(2, 4)}: {f1 == Fraction(2, 4)}")
-print(f"{f1} < {f2}: {f1 < f2}")
-print(f"float({f1}) = {float(f1)}")
-```
-
-4. **Notification System with ABC**
-
-```python
-from abc import ABC, abstractmethod
-
-class Notifier(ABC):
-    @abstractmethod
-    def send(self, message): pass
-
-class EmailNotifier(Notifier):
-    def __init__(self, email): self.email = email
-    def send(self, message):
-        print(f"[Email] To {self.email}: {message}")
-
-class SMSNotifier(Notifier):
-    def __init__(self, phone): self.phone = phone
-    def send(self, message):
-        print(f"[SMS] To {self.phone}: {message[:40]}...")
-
-class SlackNotifier(Notifier):
-    def __init__(self, channel): self.channel = channel
-    def send(self, message):
-        print(f"[Slack] #{self.channel}: {message}")
-
-class NotificationManager:
-    def __init__(self):
-        self.notifiers = []
-
-    def add(self, notifier):
-        self.notifiers.append(notifier)
-
-    def broadcast(self, message):
-        print(f"\nBroadcasting: '{message}'")
-        for n in self.notifiers:
-            n.send(message)
-
-manager = NotificationManager()
-manager.add(EmailNotifier("alice@example.com"))
-manager.add(SMSNotifier("+1234567890"))
-manager.add(SlackNotifier("general"))
-manager.broadcast("System will be down for maintenance at 2 AM.")
-```
-
-5. **Polymorphic Database Connection**
-
-```python
-from abc import ABC, abstractmethod
-
-class Database(ABC):
-    def __init__(self, name): self.name = name
-
-    @abstractmethod
-    def connect(self): pass
-
-    @abstractmethod
-    def query(self, sql): pass
-
-    @abstractmethod
-    def close(self): pass
-
-class MySQLDatabase(Database):
-    def connect(self): print(f"MySQL: Connecting to {self.name}... (port 3306)")
-    def query(self, sql): print(f"MySQL: Executing '{sql}' -> 3 rows returned")
-    def close(self): print(f"MySQL: Closing connection.")
-
-class PostgreSQLDatabase(Database):
-    def connect(self): print(f"PostgreSQL: Connecting to {self.name}... (port 5432)")
-    def query(self, sql): print(f"PostgreSQL: Executing '{sql}' -> 5 rows returned")
-    def close(self): print(f"PostgreSQL: Closing connection.")
-
-class SQLiteDatabase(Database):
-    def connect(self): print(f"SQLite: Opening {self.name}.db")
-    def query(self, sql): print(f"SQLite: Executing '{sql}' -> 2 rows returned")
-    def close(self): print(f"SQLite: Closing database file.")
-
-def run_migration(db):
-    print(f"\nRunning migration on {db.name}...")
-    db.connect()
-    db.query("CREATE TABLE users (id INT, name TEXT)")
-    db.query("INSERT INTO users VALUES (1, 'Alice')")
-    db.close()
-    print("Migration complete.")
-
-for db in [MySQLDatabase("app_db"), PostgreSQLDatabase("app_db"),
-           SQLiteDatabase("app_db")]:
-    run_migration(db)
-```
+   for db in [MySQLDatabase("app_db"), PostgreSQLDatabase("app_db"),
+              SQLiteDatabase("app_db")]:
+       run_migration(db)
+   ```
+   </details>

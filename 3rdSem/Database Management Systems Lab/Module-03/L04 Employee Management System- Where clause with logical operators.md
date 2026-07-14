@@ -117,5 +117,19 @@ FROM Employee WHERE NOT (department = 'HR' OR department = 'Finance');
 ## Homework / Practice
 
 1. Find all employees who are in the IT department OR have a salary greater than 80000.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE department = 'IT' OR salary > 80000;
+   </details>
+
 2. Find employees who are NOT in Sales and have a salary less than 70000.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE department != 'Sales' AND salary < 70000;
+   </details>
+
 3. Write a query to find all employees who are in IT or Finance, AND were hired after 2020-01-01.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE (department = 'IT' OR department = 'Finance') AND hire_date > '2020-01-01';
+   </details>

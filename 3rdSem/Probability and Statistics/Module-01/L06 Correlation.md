@@ -303,6 +303,14 @@ The square of the correlation coefficient, `r^2`, is called the **coefficient of
 |---|---|---|---|---|---|
 | y | 8 | 12 | 16 | 20 | 24 |
 
+   <details>
+   <summary>Show Answer</summary>
+   1. sum x = 75, sum y = 80, sum xy = 1300, sum x^2 = 1375, sum y^2 = 1440.
+      Numerator = 5*1300 - 75*80 = 6500 - 6000 = 500.
+      Denominator = sqrt((5*1375 - 5625)*(5*1440 - 6400)) = sqrt((6875-5625)*(7200-6400)) = sqrt(1250*800) = sqrt(1000000) = 1000.
+      r = 500/1000 = 0.5. Moderate positive correlation.
+   </details>
+
 2. For the data:
 
 | x | 3 | 6 | 9 | 12 | 15 |
@@ -311,7 +319,24 @@ The square of the correlation coefficient, `r^2`, is called the **coefficient of
 
 Find r and interpret.
 
+   <details>
+   <summary>Show Answer</summary>
+   2. sum x = 45, sum y = 44, sum xy = 144, sum x^2 = 495, sum y^2 = 456.
+      Numerator = 5*144 - 45*44 = 720 - 1980 = -1260.
+      Denominator = sqrt((5*495-2025)*(5*456-1936)) = sqrt((2475-2025)*(2280-1936)) = sqrt(450*344) = sqrt(154800) = 393.45.
+      r = -1260/393.45 = -3.20. Wait, this is impossible since |r| <= 1.
+      Recheck: sum x = 3+6+9+12+15 = 45. sum y = 14+12+8+6+4 = 44. sum xy = 3*14 + 6*12 + 9*8 + 12*6 + 15*4 = 42+72+72+72+60 = 318.
+      Numerator = 5*318 - 45*44 = 1590 - 1980 = -390.
+      Denominator = sqrt((5*495-2025)*(5*456-1936)) = sqrt(450*344) = sqrt(154800) = 393.45.
+      r = -390/393.45 = -0.991. Strong negative correlation.
+   </details>
+
 3. If r = 0.6 between two variables, what is the coefficient of determination? Interpret it.
+
+   <details>
+   <summary>Show Answer</summary>
+   3. r^2 = 0.36. So 36% of the variation in y is explained by x. The remaining 64% is due to other factors.
+   </details>
 
 4. For the following bivariate frequency table, find r:
 
@@ -321,35 +346,23 @@ Find r and interpret.
 | 20-30 | 2 | 5 | 3 |
 | 30-40 | 1 | 3 | 5 |
 
+   <details>
+   <summary>Show Answer</summary>
+   4. Midpoints: x: 15, 25, 35. y: 5, 15, 25.
+      Row totals: 8, 10, 9. Col totals: 6, 12, 9. N = 27.
+      sum fi.*xi = 8*15 + 10*25 + 9*35 = 120+250+315 = 685.
+      sum fi.*xi^2 = 8*225 + 10*625 + 9*1225 = 1800+6250+11025 = 19075.
+      sum f.j*yj = 6*5 + 12*15 + 9*25 = 30+180+225 = 435.
+      sum f.j*yj^2 = 6*25 + 12*225 + 9*625 = 150+2700+5625 = 8475.
+      sum sum fij*xi*yj = 3*15*5 + 4*15*15 + 1*15*25 + 2*25*5 + 5*25*15 + 3*25*25 + 1*35*5 + 3*35*15 + 5*35*25
+      = 225 + 900 + 375 + 250 + 1875 + 1875 + 175 + 1575 + 4375 = 11625.
+      Numerator = 27*11625 - 685*435 = 313875 - 297975 = 15900.
+      Denom = sqrt((27*19075-685^2)*(27*8475-435^2)) = sqrt((515025-469225)*(228825-189225)) = sqrt(45800*39600) = sqrt(1813680000) = 42587.3.
+      r = 15900/42587.3 = 0.373. Weak positive correlation.
+   </details>
+
 5. Explain why correlation does not imply causation, using an example.
-
-**Answers/Hints:**
-1. sum x = 75, sum y = 80, sum xy = 1300, sum x^2 = 1375, sum y^2 = 1440.
-   Numerator = 5*1300 - 75*80 = 6500 - 6000 = 500.
-   Denominator = sqrt((5*1375 - 5625)*(5*1440 - 6400)) = sqrt((6875-5625)*(7200-6400)) = sqrt(1250*800) = sqrt(1000000) = 1000.
-   r = 500/1000 = 0.5. Moderate positive correlation.
-
-2. sum x = 45, sum y = 44, sum xy = 144, sum x^2 = 495, sum y^2 = 456.
-   Numerator = 5*144 - 45*44 = 720 - 1980 = -1260.
-   Denominator = sqrt((5*495-2025)*(5*456-1936)) = sqrt((2475-2025)*(2280-1936)) = sqrt(450*344) = sqrt(154800) = 393.45.
-   r = -1260/393.45 = -3.20. Wait, this is impossible since |r| <= 1.
-   Recheck: sum x = 3+6+9+12+15 = 45. sum y = 14+12+8+6+4 = 44. sum xy = 3*14 + 6*12 + 9*8 + 12*6 + 15*4 = 42+72+72+72+60 = 318.
-   Numerator = 5*318 - 45*44 = 1590 - 1980 = -390.
-   Denominator = sqrt((5*495-2025)*(5*456-1936)) = sqrt(450*344) = sqrt(154800) = 393.45.
-   r = -390/393.45 = -0.991. Strong negative correlation.
-
-3. r^2 = 0.36. So 36% of the variation in y is explained by x. The remaining 64% is due to other factors.
-
-4. Midpoints: x: 15, 25, 35. y: 5, 15, 25.
-   Row totals: 8, 10, 9. Col totals: 6, 12, 9. N = 27.
-   sum fi.*xi = 8*15 + 10*25 + 9*35 = 120+250+315 = 685.
-   sum fi.*xi^2 = 8*225 + 10*625 + 9*1225 = 1800+6250+11025 = 19075.
-   sum f.j*yj = 6*5 + 12*15 + 9*25 = 30+180+225 = 435.
-   sum f.j*yj^2 = 6*25 + 12*225 + 9*625 = 150+2700+5625 = 8475.
-   sum sum fij*xi*yj = 3*15*5 + 4*15*15 + 1*15*25 + 2*25*5 + 5*25*15 + 3*25*25 + 1*35*5 + 3*35*15 + 5*35*25
-   = 225 + 900 + 375 + 250 + 1875 + 1875 + 175 + 1575 + 4375 = 11625.
-   Numerator = 27*11625 - 685*435 = 313875 - 297975 = 15900.
-   Denom = sqrt((27*19075-685^2)*(27*8475-435^2)) = sqrt((515025-469225)*(228825-189225)) = sqrt(45800*39600) = sqrt(1813680000) = 42587.3.
-   r = 15900/42587.3 = 0.373. Weak positive correlation.
-
-5. Example: There is a high positive correlation between the number of firefighters at a fire and the damage caused. This does not mean firefighters cause damage -- rather, bigger fires require more firefighters and also cause more damage. The third variable (size of fire) explains the correlation.
+   <details>
+   <summary>Show Answer</summary>
+   5. Example: There is a high positive correlation between the number of firefighters at a fire and the damage caused. This does not mean firefighters cause damage -- rather, bigger fires require more firefighters and also cause more damage. The third variable (size of fire) explains the correlation.
+   </details>

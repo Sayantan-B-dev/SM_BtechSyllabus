@@ -221,7 +221,55 @@ If a new student `dave` joins, simply execute `GRANT student TO dave;` -- all st
 ## Practice Problems
 
 1. Explain the Bell-LaPadula model. What do "no read up" and "no write down" mean? Why is "no write down" necessary?
+   <details>
+   <summary>Show Answer</summary>
+   Bell-LaPadula is a MAC model enforcing confidentiality. **No read up:** A subject cannot read data at a higher classification level (prevents access to secrets). **No write down:** A subject cannot write data to a lower classification level (prevents leaking high-classification data to low-classification users). "No write down" is necessary to prevent a high-level user from accidentally or maliciously declassifying sensitive information by writing it to a lower-level object.
+   </details>
 2. Create an RBAC setup for a hospital with roles: doctor, nurse, pharmacist, and administrator. Write SQL to create the roles and grant appropriate permissions.
+   <details>
+   <summary>Show Answer</summary>
+   ```sql
+   CREATE ROLE doctor;
+   CREATE ROLE nurse;
+   CREATE ROLE pharmacist;
+   CREATE ROLE admin;
+
+   GRANT SELECT, INSERT, UPDATE ON patients TO doctor;
+   GRANT SELECT, UPDATE ON patients TO nurse;
+   GRANT SELECT ON prescriptions TO pharmacist;
+   GRANT ALL PRIVILEGES ON ALL TABLES TO admin;
+
+   GRANT doctor TO alice;
+   GRANT nurse TO bob;
+   GRANT pharmacist TO charlie;
+   GRANT admin TO diana;
+   ```
+   </details>
 3. Compare DAC, MAC, and RBAC in a table. Which model would you recommend for a bank's transaction database and why?
+   <details>
+   <summary>Show Answer</summary>
+   | Feature | DAC | MAC | RBAC |
+   |---------|-----|-----|------|
+   | Policy control | Data owner | Central authority | Role-based |
+   | Flexibility | High | Low | Medium |
+   | Security level | Low | High | Medium-High |
+   | Admin overhead | Low | High | Medium |
+   | Use case | Personal files | Military | Enterprise |
+
+   **Recommendation:** RBAC — banks have well-defined roles (teller, manager, auditor) and need a balance of security and manageability.
+   </details>
 4. What is a Trojan horse attack in the context of DAC? How does MAC prevent it?
+   <details>
+   <summary>Show Answer</summary>
+   In DAC, a Trojan horse is a malicious program running with a user's privileges that reads sensitive files and writes the data to a publicly accessible file accessible to the attacker. MAC prevents this because even if the user runs the Trojan, the "no write down" rule stops the program from writing high-classification data to a low-classification file, regardless of the user's intentions.
+   </details>
 5. Write SQL statements to create a role `sales_team`, grant it SELECT and INSERT on the `customers` table and SELECT on `products`, and assign it to users `kumar` and `priya`.
+   <details>
+   <summary>Show Answer</summary>
+   ```sql
+   CREATE ROLE sales_team;
+   GRANT SELECT, INSERT ON customers TO sales_team;
+   GRANT SELECT ON products TO sales_team;
+   GRANT sales_team TO kumar, priya;
+   ```
+   </details>

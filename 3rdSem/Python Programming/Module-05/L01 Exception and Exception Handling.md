@@ -268,91 +268,92 @@ print(read_safe("nonexistent.txt"))
 ## Practice Problems
 
 1. **Safe Division Calculator** -- Write a program that asks the user for two numbers and divides them. Handle `ZeroDivisionError`, `ValueError`, and any other unexpected errors. The program should keep asking until the user types "quit".
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   while True:
+       user_input = input("Enter two numbers separated by space (or 'quit'): ")
+       if user_input.lower() == "quit":
+           break
+       try:
+           a, b = map(int, user_input.split())
+           print(f"{a} / {b} = {a / b}")
+       except ValueError:
+           print("Enter two integers separated by a space.")
+       except ZeroDivisionError:
+           print("Cannot divide by zero.")
+       except Exception as e:
+           print(f"Unexpected error: {e}")
+   ```
+   </details>
 
 2. **List Access with Error Handling** -- Create a list of 5 fruits. Ask the user for an index and print the fruit at that index. Catch `IndexError` and `ValueError`. If the index is out of range, show available indices.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   fruits = ["apple", "banana", "cherry", "date", "elderberry"]
+   try:
+       idx = int(input(f"Enter index (0 to {len(fruits)-1}): "))
+       print(f"Fruit at index {idx}: {fruits[idx]}")
+   except IndexError:
+       print(f"Index out of range. Valid indices: 0 to {len(fruits)-1}")
+   except ValueError:
+       print("Please enter a valid integer.")
+   ```
+   </details>
 
 3. **Dictionary Lookup** -- Create a dictionary of student names and grades. Ask the user for a name and print the grade. Handle `KeyError` gracefully. Also handle the case where the user enters a non-string value.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   grades = {"Alice": 85, "Bob": 92, "Charlie": 78}
+   name = input("Enter student name: ")
+   try:
+       print(f"{name}'s grade: {grades[name]}")
+   except KeyError:
+       print(f"Student '{name}' not found.")
+       print(f"Available students: {', '.join(grades.keys())}")
+   ```
+   </details>
 
 4. **Multiple Exception Catcher** -- Write a function `process_input(data, index, divisor)` that takes a list, an index, and a divisor. It returns `data[index] / divisor`. Catch `IndexError`, `ZeroDivisionError`, and `TypeError` in separate blocks. Test with various inputs.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   def process_input(data, index, divisor):
+       try:
+           return data[index] / divisor
+       except IndexError:
+           return f"Index {index} out of range (max {len(data)-1})"
+       except ZeroDivisionError:
+           return "Cannot divide by zero"
+       except TypeError:
+           return "Invalid type for division"
+
+   print(process_input([10, 20, 30], 1, 5))   # 4.0
+   print(process_input([10, 20, 30], 5, 2))   # Index error
+   print(process_input([10, 20, 30], 1, 0))   # Zero division
+   print(process_input([10, 20, 30], 1, "a")) # TypeError
+   ```
+   </details>
 
 5. **File Read with Fallback** -- Write a program that tries to read from `config.txt`. If the file is not found, create it with default content `{"theme": "dark", "language": "en"}` and then read it again. Use appropriate exception handling.
+   <details>
+   <summary>Show Answer</summary>
 
----
-
-## Practice Problems
-
-1. **Safe Division Calculator**
-
-```python
-while True:
-    user_input = input("Enter two numbers separated by space (or 'quit'): ")
-    if user_input.lower() == "quit":
-        break
-    try:
-        a, b = map(int, user_input.split())
-        print(f"{a} / {b} = {a / b}")
-    except ValueError:
-        print("Enter two integers separated by a space.")
-    except ZeroDivisionError:
-        print("Cannot divide by zero.")
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-```
-
-2. **List Access with Error Handling**
-
-```python
-fruits = ["apple", "banana", "cherry", "date", "elderberry"]
-try:
-    idx = int(input(f"Enter index (0 to {len(fruits)-1}): "))
-    print(f"Fruit at index {idx}: {fruits[idx]}")
-except IndexError:
-    print(f"Index out of range. Valid indices: 0 to {len(fruits)-1}")
-except ValueError:
-    print("Please enter a valid integer.")
-```
-
-3. **Dictionary Lookup**
-
-```python
-grades = {"Alice": 85, "Bob": 92, "Charlie": 78}
-name = input("Enter student name: ")
-try:
-    print(f"{name}'s grade: {grades[name]}")
-except KeyError:
-    print(f"Student '{name}' not found.")
-    print(f"Available students: {', '.join(grades.keys())}")
-```
-
-4. **Multiple Exception Catcher**
-
-```python
-def process_input(data, index, divisor):
-    try:
-        return data[index] / divisor
-    except IndexError:
-        return f"Index {index} out of range (max {len(data)-1})"
-    except ZeroDivisionError:
-        return "Cannot divide by zero"
-    except TypeError:
-        return "Invalid type for division"
-
-print(process_input([10, 20, 30], 1, 5))   # 4.0
-print(process_input([10, 20, 30], 5, 2))   # Index error
-print(process_input([10, 20, 30], 1, 0))   # Zero division
-print(process_input([10, 20, 30], 1, "a")) # TypeError
-```
-
-5. **File Read with Fallback**
-
-```python
-try:
-    with open("config.txt", "r") as f:
-        print("Config:", f.read())
-except FileNotFoundError:
-    print("Config file not found. Creating default config...")
-    with open("config.txt", "w") as f:
-        f.write('{"theme": "dark", "language": "en"}')
-    with open("config.txt", "r") as f:
-        print("New config:", f.read())
-```
+   ```python
+   try:
+       with open("config.txt", "r") as f:
+           print("Config:", f.read())
+   except FileNotFoundError:
+       print("Config file not found. Creating default config...")
+       with open("config.txt", "w") as f:
+           f.write('{"theme": "dark", "language": "en"}')
+       with open("config.txt", "r") as f:
+           print("New config:", f.read())
+   ```
+   </details>

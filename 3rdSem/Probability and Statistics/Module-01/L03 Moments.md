@@ -303,14 +303,31 @@ mu_4 = mu_4' - 4*mu_3'*mu_1' + 6*mu_2'*(mu_1')^2 - 3*(mu_1')^4
 ## Practice Problems
 
 1. For the data: 5, 7, 9, 11, 13, compute the first four raw moments and the first four central moments.
-2. For the data: 3, 6, 9, 12, 15, 18, compute `mu_2` and `mu_3`. Is the distribution symmetric?
-3. The first two raw moments of a distribution are `mu_1' = 10` and `mu_2' = 125`. Find the variance `mu_2`.
-4. Show that `mu_3` can be expressed as `mu_3 = mu_3' - 3*mu_2'*mu_1' + 2*(mu_1')^3` by expanding `(x - mu)^3`.
-5. For a grouped data set with `N = 50`, `sum fi*xi = 600`, `sum fi*xi^2 = 9000`, `sum fi*xi^3 = 150000`, and `sum fi*xi^4 = 2700000`, compute all four central moments.
+   <details>
+   <summary>Show Answer</summary>
+   1. `mu_1' = 9`, `mu_2' = 89`, `mu_3' = 945`, `mu_4' = 10505`. Central: `mu_1 = 0`, `mu_2 = 8`, `mu_3 = 0`, `mu_4 = 97.6`. (Check: mean = 9; deviations sum to 0, symmetric.)
+   </details>
 
-**Answers/Hints:**
-1. `mu_1' = 9`, `mu_2' = 89`, `mu_3' = 945`, `mu_4' = 10505`. Central: `mu_1 = 0`, `mu_2 = 8`, `mu_3 = 0`, `mu_4 = 97.6`. (Check: mean = 9; deviations sum to 0, symmetric.)
-2. `mu_1' = 10.5`, `mu_2' = 124.5`, `mu_3' = 1606.5`. `mu_2 = 124.5 - 10.5^2 = 14.25`. `mu_3 = 1606.5 - 3*124.5*10.5 + 2*10.5^3 = 1606.5 - 3921.75 + 2315.25 = 0`. Yes, symmetric.
-3. `mu_2 = 125 - 10^2 = 25`.
-4. Expand `(x - mu)^3 = x^3 - 3x^2*mu + 3x*mu^2 - mu^3`. Take expectation (average) of both sides: `E[(x-mu)^3] = E[x^3] - 3*mu*E[x^2] + 3*mu^2*E[x] - mu^3 = mu_3' - 3*mu*mu_2' + 3*mu^2*mu_1' - mu^3`. Since `mu_1' = mu`, this gives `mu_3 = mu_3' - 3*mu_2'*mu + 2*mu^3`.
-5. `mu_1' = 12`, `mu_2' = 180`, `mu_3' = 3000`, `mu_4' = 54000`. `mu_2 = 180 - 144 = 36`. `mu_3 = 3000 - 3*180*12 + 2*12^3 = 3000 - 6480 + 3456 = -24`. `mu_4 = 54000 - 4*3000*12 + 6*180*12^2 - 3*12^4 = 54000 - 144000 + 155520 - 62208 = 3312`.
+2. For the data: 3, 6, 9, 12, 15, 18, compute `mu_2` and `mu_3`. Is the distribution symmetric?
+   <details>
+   <summary>Show Answer</summary>
+   2. `mu_1' = 10.5`, `mu_2' = 124.5`, `mu_3' = 1606.5`. `mu_2 = 124.5 - 10.5^2 = 14.25`. `mu_3 = 1606.5 - 3*124.5*10.5 + 2*10.5^3 = 1606.5 - 3921.75 + 2315.25 = 0`. Yes, symmetric.
+   </details>
+
+3. The first two raw moments of a distribution are `mu_1' = 10` and `mu_2' = 125`. Find the variance `mu_2`.
+   <details>
+   <summary>Show Answer</summary>
+   3. `mu_2 = 125 - 10^2 = 25`.
+   </details>
+
+4. Show that `mu_3` can be expressed as `mu_3 = mu_3' - 3*mu_2'*mu_1' + 2*(mu_1')^3` by expanding `(x - mu)^3`.
+   <details>
+   <summary>Show Answer</summary>
+   4. Expand `(x - mu)^3 = x^3 - 3x^2*mu + 3x*mu^2 - mu^3`. Take expectation (average) of both sides: `E[(x-mu)^3] = E[x^3] - 3*mu*E[x^2] + 3*mu^2*E[x] - mu^3 = mu_3' - 3*mu*mu_2' + 3*mu^2*mu_1' - mu^3`. Since `mu_1' = mu`, this gives `mu_3 = mu_3' - 3*mu_2'*mu + 2*mu^3`.
+   </details>
+
+5. For a grouped data set with `N = 50`, `sum fi*xi = 600`, `sum fi*xi^2 = 9000`, `sum fi*xi^3 = 150000`, and `sum fi*xi^4 = 2700000`, compute all four central moments.
+   <details>
+   <summary>Show Answer</summary>
+   5. `mu_1' = 12`, `mu_2' = 180`, `mu_3' = 3000`, `mu_4' = 54000`. `mu_2 = 180 - 144 = 36`. `mu_3 = 3000 - 3*180*12 + 2*12^3 = 3000 - 6480 + 3456 = -24`. `mu_4 = 54000 - 4*3000*12 + 6*180*12^2 - 3*12^4 = 54000 - 144000 + 155520 - 62208 = 3312`.
+   </details>

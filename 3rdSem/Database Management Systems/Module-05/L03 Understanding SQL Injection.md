@@ -335,8 +335,58 @@ Object-Relational Mapping frameworks (Hibernate, Entity Framework, Django ORM, S
 ## Practice Problems
 
 1. What is SQL injection and why does it occur? Provide a vulnerable SQL query and the resulting query when an attacker inputs `' OR '1'='1`.
+   <details>
+   <summary>Show Answer</summary>
+   SQL injection is a code injection technique where an attacker inserts malicious SQL statements into application queries. It occurs when user input is directly concatenated into SQL queries without proper sanitization or parameterization. **Vulnerable query:** `SELECT * FROM users WHERE username = '` + user_input + `';` **Resulting query with input `' OR '1'='1`:** `SELECT * FROM users WHERE username = '' OR '1'='1';` — this returns all users because `'1'='1'` is always true.
+   </details>
 2. Write parameterized (safe) versions of the following vulnerable query in Java, Python, and PHP:
    `SELECT * FROM products WHERE category = '` + category + `' AND price < ` + max_price
+   <details>
+   <summary>Show Answer</summary>
+   **Java (JDBC):**
+   ```java
+   PreparedStatement pstmt = conn.prepareStatement(
+       "SELECT * FROM products WHERE category = ? AND price < ?");
+   pstmt.setString(1, category);
+   pstmt.setDouble(2, max_price);
+   ResultSet rs = pstmt.executeQuery();
+   ```
+   **Python (sqlite3):**
+   ```python
+   cursor.execute(
+       "SELECT * FROM products WHERE category = ? AND price < ?",
+       (category, max_price))
+   ```
+   **PHP (PDO):**
+   ```php
+   $stmt = $pdo->prepare(
+       "SELECT * FROM products WHERE category = :cat AND price < :price");
+   $stmt->execute(['cat' => $category, 'price' => $max_price]);
+   ```
+   </details>
 3. Explain the difference between whitelist validation and blacklist validation. Which one is more secure and why?
+   <details>
+   <summary>Show Answer</summary>
+   **Whitelist validation** allows only a predefined set of acceptable values (e.g., allowing only [A-Za-z0-9] in a username). **Blacklist validation** blocks known malicious patterns (e.g., blocking `'`, `--`, `DROP`, `OR`). Whitelist validation is more secure because it defines what is permitted rather than trying to anticipate every possible attack pattern — blacklists are easily bypassed by encoding variations, alternative syntax, or novel payloads.
+   </details>
 4. How does the principle of least privilege help prevent SQL injection damage? Give a specific example with SQL statements.
+   <details>
+   <summary>Show Answer</summary>
+   If the application database user has only the minimum necessary privileges (e.g., SELECT, INSERT on specific tables), then even a successful SQL injection attack is limited in what it can do. **Example:** Instead of connecting as the database owner, create a restricted user:
+   ```sql
+   CREATE USER 'webapp'@'localhost' IDENTIFIED BY 'password';
+   GRANT SELECT, INSERT ON mydb.orders TO 'webapp'@'localhost';
+   -- No DROP, DELETE, or ALTER privileges
+   ```
+   If an attacker injects `'; DROP TABLE orders; --`, the query fails because `webapp` lacks DROP privilege.
+   </details>
 5. A developer says: "I use stored procedures, so my application is safe from SQL injection." Is this statement always true? Explain.
+   <details>
+   <summary>Show Answer</summary>
+   No, this is not always true. Stored procedures prevent SQL injection **only if** they use parameterized input internally. If the stored procedure itself concatenates user input into dynamic SQL (e.g., using `EXEC()` or `sp_executesql` with string concatenation), it remains vulnerable. Example of **vulnerable** stored procedure:
+   ```sql
+   CREATE PROCEDURE GetProduct (@category VARCHAR(50)) AS
+   EXEC('SELECT * FROM products WHERE category = ''' + @category + '''');
+   ```
+   Safe version uses parameterized queries inside the procedure.
+   </details>

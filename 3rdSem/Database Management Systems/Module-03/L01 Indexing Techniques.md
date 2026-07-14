@@ -324,7 +324,7 @@ EXPLAIN SELECT * FROM Employee WHERE salary = 50000;
 **Problem 1:** A table `Student(roll_no, name, age)` has 10,000 records stored in 500 blocks. You create a sparse primary index on `roll_no` with one entry per block. How many index entries are there? If each index entry is 10 bytes, what is the size of the index?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - Number of index entries = number of data blocks = 500.
 - Index size = 500 * 10 bytes = 5000 bytes (approx 5 KB).
@@ -333,7 +333,7 @@ EXPLAIN SELECT * FROM Employee WHERE salary = 50000;
 **Problem 2:** Consider the query `SELECT * FROM Orders WHERE order_date BETWEEN '2024-01-01' AND '2024-01-31'`. Would a hash index on `order_date` help? Explain.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 No. A hash index supports only equality lookups, not range queries. For range queries, an ordered (B+ tree) index on `order_date` is required.
 </details>
@@ -341,7 +341,7 @@ No. A hash index supports only equality lookups, not range queries. For range qu
 **Problem 3:** Why can a table have only one clustered (primary) index but multiple secondary indexes?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 A clustered index determines the physical order of data records on disk. Since the data can be sorted in only one physical order at a time, only one clustered index is possible. Secondary indexes are separate data structures that point to records independently of the physical order, so any number can exist.
 </details>
@@ -349,7 +349,7 @@ A clustered index determines the physical order of data records on disk. Since t
 **Problem 4:** Given a dense index of size 2000 entries and a sparse index (one per 10 records) on the same table, which uses more storage? Which provides faster lookup for a single record?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - Dense index uses more storage (one entry per record).
 - Dense index provides faster lookup (direct pointer vs needing to scan a block).
@@ -358,7 +358,7 @@ A clustered index determines the physical order of data records on disk. Since t
 **Problem 5:** Write a SQL statement to create an index on the `email` column of a `Users` table such that duplicate emails are not allowed.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 CREATE UNIQUE INDEX idx_unique_email ON Users(email);

@@ -155,5 +155,19 @@ FROM Employee e WHERE e.salary = (
 ## Homework / Practice
 
 1. Write a correlated subquery to find employees who have worked more hours than the average hours of all employees on the same project.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT w1.emp_id, w1.project_id, w1.hours_worked FROM Works_On w1 WHERE w1.hours_worked > (SELECT AVG(w2.hours_worked) FROM Works_On w2 WHERE w2.project_id = w1.project_id);
+   </details>
+
 2. Use EXISTS to find all projects that have at least 2 employees assigned.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT p.project_id, p.project_name FROM Project p WHERE EXISTS (SELECT 1 FROM Works_On w WHERE w.project_id = p.project_id GROUP BY w.project_id HAVING COUNT(w.emp_id) >= 2);
+   </details>
+
 3. Write a correlated subquery to find employees whose salary is less than the average salary of employees in the same job_role.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e1.emp_name, e1.job_role, e1.salary FROM Employee e1 WHERE e1.salary < (SELECT AVG(e2.salary) FROM Employee e2 WHERE e2.job_role = e1.job_role);
+   </details>

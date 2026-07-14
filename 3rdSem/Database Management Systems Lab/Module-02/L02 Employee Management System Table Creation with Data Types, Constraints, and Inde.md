@@ -122,5 +122,19 @@ mysql> SELECT emp_id, emp_name, department, dept_id FROM Employee;
 ## Homework / Practice
 
 1. Create an index on the `hire_date` column of the Employee table and verify it using SHOW INDEX.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE INDEX idx_hire_date ON Employee(hire_date); SHOW INDEX FROM Employee;
+   </details>
+
 2. Add a foreign key constraint to ensure `manager_id` in Department references `emp_id` in Employee.
+   <details>
+   <summary>Show Answer</summary>
+   ALTER TABLE Department ADD CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES Employee(emp_id);
+   </details>
+
 3. Drop the `department` column from Employee since we now have `dept_id` referencing Department.
+   <details>
+   <summary>Show Answer</summary>
+   ALTER TABLE Employee DROP COLUMN department;
+   </details>

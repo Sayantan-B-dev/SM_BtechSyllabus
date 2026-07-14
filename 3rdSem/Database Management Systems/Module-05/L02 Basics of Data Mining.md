@@ -310,7 +310,46 @@ Example: Should we play tennis?
 ## Practice Problems
 
 1. Explain the KDD process. For each step, describe what happens using a concrete example.
+   <details>
+   <summary>Show Answer</summary>
+   Knowledge Discovery in Databases (KDD) process: (1) **Selection** — choose relevant data (e.g., select customer purchase history from the database). (2) **Preprocessing** — clean data (remove null values, fix inconsistencies). (3) **Transformation** — convert data into suitable format (e.g., normalize numeric values, create date parts). (4) **Data Mining** — apply algorithms (e.g., Apriori to find frequent itemsets). (5) **Interpretation/Evaluation** — validate patterns (e.g., "customers who buy milk also buy bread" has 70% confidence).
+   </details>
 2. What is the difference between supervised and unsupervised learning? Give two algorithms for each.
+   <details>
+   <summary>Show Answer</summary>
+   **Supervised learning** uses labeled training data to predict outcomes. Algorithms: Linear Regression, Decision Trees, Random Forest, SVM. **Unsupervised learning** finds patterns in unlabeled data without predefined outputs. Algorithms: k-Means Clustering, Apriori, Hierarchical Clustering, DBSCAN. Example: Predicting house prices (supervised) vs. segmenting customers into groups (unsupervised).
+   </details>
 3. Describe the Apriori algorithm. Given transactions [T1: {milk, bread, eggs}, T2: {bread, butter}, T3: {milk, bread, butter}, T4: {milk, eggs}], find all frequent itemsets with minimum support of 0.5.
+   <details>
+   <summary>Show Answer</summary>
+   Apriori finds frequent itemsets by iteratively generating candidate itemsets of size k+1 from frequent itemsets of size k, pruning those failing minimum support.
+   Support threshold: 0.5 × 4 = 2 transactions.
+   **Step 1:** Count single-item support: milk=3, bread=3, eggs=2, butter=2. All meet min support (≥2). **Step 2:** Generate size-2 candidates: {milk,bread}=2, {milk,butter}=1, {milk,eggs}=2, {bread,butter}=2, {bread,eggs}=1, {butter,eggs}=0. Frequent: {milk,bread}=2, {milk,eggs}=2, {bread,butter}=2. **Step 3:** Generate size-3 candidates from size-2: {milk,bread,eggs}=1 (fails support). **Frequent itemsets:** {milk}=3, {bread}=3, {eggs}=2, {butter}=2, {milk,bread}=2, {milk,eggs}=2, {bread,butter}=2.
+   </details>
 4. How does k-Means clustering work? What is the elbow method used for?
+   <details>
+   <summary>Show Answer</summary>
+   k-Means clustering: (1) Choose k initial centroids randomly. (2) Assign each data point to the nearest centroid. (3) Recompute centroids as the mean of all points in each cluster. (4) Repeat steps 2–3 until centroids stabilize (no change in assignments). The **elbow method** plots the within-cluster sum of squares (WCSS) against k values. The "elbow" point (where WCSS improvement slows) indicates the optimal number of clusters.
+   </details>
 5. Draw a decision tree for a loan approval system based on features: income, credit score, and employment status.
+   <details>
+   <summary>Show Answer</summary>
+   ```
+                     [Loan Application]
+                            |
+                    Income >= $50K?
+                    /              \
+                 Yes                 No
+                  |                   |
+          Credit Score >= 700?   Credit Score >= 750?
+           /          \             /           \
+         Yes          No          Yes            No
+          |            |           |              |
+       Employed?   Rejected   Employed?      Rejected
+       /      \               /      \
+    Yes       No            Yes       No
+     |         |             |         |
+  Approved  Rejected     Approved  Rejected
+   ```
+   The tree splits on the most discriminating feature first, creating decision rules at each node.
+   </details>

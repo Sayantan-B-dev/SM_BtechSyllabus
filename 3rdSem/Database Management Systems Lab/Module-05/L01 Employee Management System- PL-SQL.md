@@ -194,5 +194,19 @@ mysql> CALL CalculateAllBonuses();
 ## Homework / Practice
 
 1. Write a PL/SQL procedure that takes an employee ID as input and prints their name, department, and years of service.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE GetEmployeeDetails(IN p_emp_id INT) BEGIN DECLARE v_name VARCHAR(100); DECLARE v_dept VARCHAR(50); DECLARE v_hire_date DATE; DECLARE v_years DECIMAL(5,1); SELECT emp_name, department, hire_date INTO v_name, v_dept, v_hire_date FROM Employee WHERE emp_id = p_emp_id; SET v_years = DATEDIFF(CURDATE(), v_hire_date) / 365.25; SELECT CONCAT('Name: ', v_name) AS Info, CONCAT('Department: ', v_dept) AS Info, CONCAT('Years of Service: ', ROUND(v_years, 1)) AS Info; END // DELIMITER ;
+   </details>
+
 2. Write a WHILE loop that prints the first 10 Fibonacci numbers.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE Fibonacci() BEGIN DECLARE a INT DEFAULT 0; DECLARE b INT DEFAULT 1; DECLARE temp INT; DECLARE counter INT DEFAULT 1; CREATE TEMPORARY TABLE IF NOT EXISTS fib_results (num INT, fib_value INT); TRUNCATE TABLE fib_results; WHILE counter <= 10 DO INSERT INTO fib_results VALUES (counter, a); SET temp = a + b; SET a = b; SET b = temp; SET counter = counter + 1; END WHILE; SELECT * FROM fib_results; DROP TEMPORARY TABLE fib_results; END // DELIMITER ;
+   </details>
+
 3. Modify `CalculateAllBonuses` to give a 20% bonus to employees with salary > 90000 and 10% to others.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE CalculateAllBonusesV2() BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_emp_id INT; DECLARE v_emp_name VARCHAR(100); DECLARE v_salary DECIMAL(10,2); DECLARE v_bonus DECIMAL(10,2); DECLARE emp_cursor CURSOR FOR SELECT emp_id, emp_name, salary FROM Employee; DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE; CREATE TEMPORARY TABLE IF NOT EXISTS bonus_results (emp_name VARCHAR(100), salary DECIMAL(10,2), bonus DECIMAL(10,2)); TRUNCATE TABLE bonus_results; OPEN emp_cursor; read_loop: LOOP FETCH emp_cursor INTO v_emp_id, v_emp_name, v_salary; IF v_done THEN LEAVE read_loop; END IF; IF v_salary > 90000 THEN SET v_bonus = v_salary * 0.20; ELSE SET v_bonus = v_salary * 0.10; END IF; INSERT INTO bonus_results VALUES (v_emp_name, v_salary, v_bonus); END LOOP; CLOSE emp_cursor; SELECT * FROM bonus_results; DROP TEMPORARY TABLE bonus_results; END // DELIMITER ;
+   </details>

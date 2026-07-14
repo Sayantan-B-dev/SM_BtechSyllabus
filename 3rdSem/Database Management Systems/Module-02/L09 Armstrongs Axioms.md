@@ -185,33 +185,40 @@ Let's use concrete attributes: `EmpID -> DeptID` and `DeptID, Location -> Budget
 ## Practice Problems
 
 1. Given `F = {A -> B, B -> C, C -> D}`, prove `A -> D` using Armstrong's axioms. State each rule used.
-
-2. Given `F = {AB -> C, B -> D, C -> E}`, can we derive `AB -> E`? Show the steps.
-
-3. Using Armstrong's axioms, prove the union rule (if `X -> Y` and `X -> Z` then `X -> YZ`).
-
-4. Given `R(A, B, C, D)` with `F = {A -> BC, CD -> B}`, prove `A -> B`.
-
-5. What does it mean for Armstrong's axioms to be "complete"?
-
-**Answers:**
-1. 
+<details>
+<summary>Show Answer</summary>
 - `A -> B` (given)
 - `B -> C` (given)
 - `A -> C` (transitivity: A->B, B->C)
 - `C -> D` (given)
 - `A -> D` (transitivity: A->C, C->D)
+</details>
 
-2. 
+2. Given `F = {AB -> C, B -> D, C -> E}`, can we derive `AB -> E`? Show the steps.
+<details>
+<summary>Show Answer</summary>
 - `AB -> C` (given)
 - `C -> E` (given)
 - `AB -> E` (transitivity: AB->C, C->E)
+</details>
 
-3. See the detailed proof above.
+3. Using Armstrong's axioms, prove the union rule (if `X -> Y` and `X -> Z` then `X -> YZ`).
+<details>
+<summary>Show Answer</summary>
+See the detailed proof above.
+</details>
 
-4. 
+4. Given `R(A, B, C, D)` with `F = {A -> BC, CD -> B}`, prove `A -> B`.
+<details>
+<summary>Show Answer</summary>
 - `A -> BC` (given)
 - `A -> B` (decomposition)
 Direct! No need for CD -> B.
+</details>
 
-5. Completeness means that every FD that is logically implied by a set F can be derived using Armstrong's axioms. There is no implied FD that the axioms miss.
+5. What does it mean for Armstrong's axioms to be "complete"?
+<details>
+<summary>Show Answer</summary>
+Completeness means that every FD that is logically implied by a set F can be derived using Armstrong's axioms. There is no implied FD that the axioms miss.
+</details>
+

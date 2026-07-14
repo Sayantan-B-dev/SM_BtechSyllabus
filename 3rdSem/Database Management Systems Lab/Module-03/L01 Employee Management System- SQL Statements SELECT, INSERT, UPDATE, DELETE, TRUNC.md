@@ -126,5 +126,19 @@ mysql> SELECT department, COUNT(*) AS emp_count FROM Employee GROUP BY departmen
 ## Homework / Practice
 
 1. Find the total salary paid to employees in the Sales department.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT SUM(salary) AS total_salary FROM Employee WHERE department = 'Sales';
+   </details>
+
 2. List departments where the total salary expense exceeds 150000.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT department, SUM(salary) AS total_salary FROM Employee GROUP BY department HAVING SUM(salary) > 150000;
+   </details>
+
 3. Group employees by job_role and count how many employees hold each role.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT job_role, COUNT(*) AS employee_count FROM Employee GROUP BY job_role;
+   </details>

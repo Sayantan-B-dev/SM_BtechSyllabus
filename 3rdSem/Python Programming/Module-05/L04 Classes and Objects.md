@@ -416,175 +416,176 @@ All cars have 4 wheels.
 ## Practice Problems
 
 1. **Rectangle Class** -- Create a `Rectangle` class with attributes `length` and `width`. Include methods: `area()` returns length * width; `perimeter()` returns 2*(l+w); `is_square()` returns True if l==w. Add `__str__` to display "Rectangle(l, w)".
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Rectangle:
+       def __init__(self, length, width):
+           self.length = length
+           self.width = width
+
+       def area(self):
+           return self.length * self.width
+
+       def perimeter(self):
+           return 2 * (self.length + self.width)
+
+       def is_square(self):
+           return self.length == self.width
+
+       def __str__(self):
+           return f"Rectangle({self.length}, {self.width})"
+
+   r = Rectangle(5, 5)
+   print(r)
+   print(f"Area: {r.area()}, Perimeter: {r.perimeter()}")
+   print(f"Is square? {r.is_square()}")
+   ```
+   </details>
 
 2. **BankAccount Class** -- Create a `BankAccount` class with attributes `account_holder`, `account_number`, `balance`. Include methods: `deposit(amount)`, `withdraw(amount)`, and `__str__` showing masked account number and balance.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   import random
+
+   class BankAccount:
+       def __init__(self, holder, initial_balance=0):
+           self.account_holder = holder
+           self.account_number = str(random.randint(10000000, 99999999))
+           self.balance = initial_balance
+
+       def deposit(self, amount):
+           if amount > 0:
+               self.balance += amount
+               print(f"Deposited ${amount}. Balance: ${self.balance}")
+           else:
+               print("Amount must be positive.")
+
+       def withdraw(self, amount):
+           if 0 < amount <= self.balance:
+               self.balance -= amount
+               print(f"Withdrew ${amount}. Balance: ${self.balance}")
+           else:
+               print("Insufficient funds or invalid amount.")
+
+       def __str__(self):
+           masked = "XXXX" + self.account_number[-4:]
+           return f"Account[{masked}] Holder: {self.account_holder}, Balance: ${self.balance:.2f}"
+
+   acc = BankAccount("Alice", 1000)
+   print(acc)
+   acc.deposit(500)
+   acc.withdraw(200)
+   ```
+   </details>
 
 3. **Employee Class with Class Counter** -- Create an `Employee` class with instance attributes `name` and `salary`. Use a class attribute `employee_count` to track total employees. Create a class method `display_count()`.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Employee:
+       employee_count = 0
+
+       def __init__(self, name, salary):
+           self.name = name
+           self.salary = salary
+           Employee.employee_count += 1
+
+       @classmethod
+       def display_count(cls):
+           print(f"Total employees: {cls.employee_count}")
+
+       def __str__(self):
+           return f"{self.name}: ${self.salary}"
+
+   e1 = Employee("Alice", 50000)
+   e2 = Employee("Bob", 60000)
+   e3 = Employee("Charlie", 55000)
+   Employee.display_count()
+   print(e1)
+   print(e3)
+   ```
+   </details>
 
 4. **LibraryBook Class** -- Create a `LibraryBook` class with title, author, isbn, is_borrowed (default False). Methods: `borrow()` (marks as borrowed), `return_book()` (marks as returned). Prevent borrowing an already-borrowed book.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class LibraryBook:
+       def __init__(self, title, author, isbn):
+           self.title = title
+           self.author = author
+           self.isbn = isbn
+           self.is_borrowed = False
+
+       def borrow(self):
+           if self.is_borrowed:
+               print(f"'{self.title}' is already borrowed.")
+               return False
+           self.is_borrowed = True
+           print(f"'{self.title}' borrowed successfully.")
+           return True
+
+       def return_book(self):
+           if not self.is_borrowed:
+               print(f"'{self.title}' was not borrowed.")
+               return False
+           self.is_borrowed = False
+           print(f"'{self.title}' returned.")
+           return True
+
+       def __str__(self):
+           status = "Available" if not self.is_borrowed else "Borrowed"
+           return f"{self.title} by {self.author} [{status}]"
+
+   book = LibraryBook("1984", "George Orwell", "9780451524935")
+   print(book)
+   book.borrow()
+   book.borrow()
+   book.return_book()
+   print(book)
+   ```
+   </details>
 
 5. **Student Class with Methods** -- Create a `Student` class with name, marks (list of 3 subjects). Methods: `total()` returns sum; `average()` returns mean; `grade()` returns 'A' if avg>=85, 'B' if avg>=70, 'C' if avg>=50, else 'F'. Use `__str__`.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   class Student:
+       def __init__(self, name, marks):
+           self.name = name
+           self.marks = marks  # list of 3 marks
 
-## Practice Problems
+       def total(self):
+           return sum(self.marks)
 
-1. **Rectangle Class**
+       def average(self):
+           return self.total() / len(self.marks)
 
-```python
-class Rectangle:
-    def __init__(self, length, width):
-        self.length = length
-        self.width = width
+       def grade(self):
+           avg = self.average()
+           if avg >= 85:
+               return "A"
+           elif avg >= 70:
+               return "B"
+           elif avg >= 50:
+               return "C"
+           else:
+               return "F"
 
-    def area(self):
-        return self.length * self.width
+       def __str__(self):
+           return (f"Student: {self.name}\n"
+                   f"Marks: {self.marks}\n"
+                   f"Total: {self.total()}, Avg: {self.average():.1f}, "
+                   f"Grade: {self.grade()}")
 
-    def perimeter(self):
-        return 2 * (self.length + self.width)
-
-    def is_square(self):
-        return self.length == self.width
-
-    def __str__(self):
-        return f"Rectangle({self.length}, {self.width})"
-
-r = Rectangle(5, 5)
-print(r)
-print(f"Area: {r.area()}, Perimeter: {r.perimeter()}")
-print(f"Is square? {r.is_square()}")
-```
-
-2. **BankAccount Class**
-
-```python
-import random
-
-class BankAccount:
-    def __init__(self, holder, initial_balance=0):
-        self.account_holder = holder
-        self.account_number = str(random.randint(10000000, 99999999))
-        self.balance = initial_balance
-
-    def deposit(self, amount):
-        if amount > 0:
-            self.balance += amount
-            print(f"Deposited ${amount}. Balance: ${self.balance}")
-        else:
-            print("Amount must be positive.")
-
-    def withdraw(self, amount):
-        if 0 < amount <= self.balance:
-            self.balance -= amount
-            print(f"Withdrew ${amount}. Balance: ${self.balance}")
-        else:
-            print("Insufficient funds or invalid amount.")
-
-    def __str__(self):
-        masked = "XXXX" + self.account_number[-4:]
-        return f"Account[{masked}] Holder: {self.account_holder}, Balance: ${self.balance:.2f}"
-
-acc = BankAccount("Alice", 1000)
-print(acc)
-acc.deposit(500)
-acc.withdraw(200)
-```
-
-3. **Employee Class with Class Counter**
-
-```python
-class Employee:
-    employee_count = 0
-
-    def __init__(self, name, salary):
-        self.name = name
-        self.salary = salary
-        Employee.employee_count += 1
-
-    @classmethod
-    def display_count(cls):
-        print(f"Total employees: {cls.employee_count}")
-
-    def __str__(self):
-        return f"{self.name}: ${self.salary}"
-
-e1 = Employee("Alice", 50000)
-e2 = Employee("Bob", 60000)
-e3 = Employee("Charlie", 55000)
-Employee.display_count()
-print(e1)
-print(e3)
-```
-
-4. **LibraryBook Class**
-
-```python
-class LibraryBook:
-    def __init__(self, title, author, isbn):
-        self.title = title
-        self.author = author
-        self.isbn = isbn
-        self.is_borrowed = False
-
-    def borrow(self):
-        if self.is_borrowed:
-            print(f"'{self.title}' is already borrowed.")
-            return False
-        self.is_borrowed = True
-        print(f"'{self.title}' borrowed successfully.")
-        return True
-
-    def return_book(self):
-        if not self.is_borrowed:
-            print(f"'{self.title}' was not borrowed.")
-            return False
-        self.is_borrowed = False
-        print(f"'{self.title}' returned.")
-        return True
-
-    def __str__(self):
-        status = "Available" if not self.is_borrowed else "Borrowed"
-        return f"{self.title} by {self.author} [{status}]"
-
-book = LibraryBook("1984", "George Orwell", "9780451524935")
-print(book)
-book.borrow()
-book.borrow()
-book.return_book()
-print(book)
-```
-
-5. **Student Class with Methods**
-
-```python
-class Student:
-    def __init__(self, name, marks):
-        self.name = name
-        self.marks = marks  # list of 3 marks
-
-    def total(self):
-        return sum(self.marks)
-
-    def average(self):
-        return self.total() / len(self.marks)
-
-    def grade(self):
-        avg = self.average()
-        if avg >= 85:
-            return "A"
-        elif avg >= 70:
-            return "B"
-        elif avg >= 50:
-            return "C"
-        else:
-            return "F"
-
-    def __str__(self):
-        return (f"Student: {self.name}\n"
-                f"Marks: {self.marks}\n"
-                f"Total: {self.total()}, Avg: {self.average():.1f}, "
-                f"Grade: {self.grade()}")
-
-s = Student("Alice", [85, 90, 78])
-print(s)
-```
+   s = Student("Alice", [85, 90, 78])
+   print(s)
+   ```
+   </details>

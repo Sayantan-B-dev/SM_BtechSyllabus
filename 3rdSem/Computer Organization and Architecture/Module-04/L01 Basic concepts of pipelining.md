@@ -145,32 +145,44 @@ Non-pipelined throughput at same clock rate:
 
 **Problem 1**: A 6-stage pipeline executes 500 instructions. Each stage takes 2 ns. Calculate the total execution time, speedup, and throughput.
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - T_np = 500 x 6 x 2 = 6000 ns
 - T_p = (6 + 500 - 1) x 2 = 505 x 2 = 1010 ns
 - S = 6000 / 1010 = 5.94
 - Throughput = 500 / 1010 ns = 495 MIPS
+</details>
 
 **Problem 2**: If a non-pipelined processor takes 12 ns per instruction and a pipelined version (5 stages) at the same clock rate achieves 0.9 instructions/ns, find speedup.
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - Non-pipelined throughput = 1/12 = 0.0833 instr/ns
 - Pipelined throughput = 0.9 instr/ns
 - S = 0.9 / 0.0833 = 10.8
+</details>
 
 **Problem 3**: A 4-stage pipeline has 1 ns per stage. How many instructions are needed to achieve at least 95% of ideal speedup?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - S = (n x 4) / (4 + n - 1) >= 0.95 x 4
 - 4n / (n + 3) >= 3.8
 - 4n >= 3.8n + 11.4
 - 0.2n >= 11.4
 - n >= 57 instructions
+</details>
 
 **Problem 4**: What happens to speedup if pipeline stages are unequal in duration?
 
-**Answer**: The clock cycle must be set to the longest stage time. If stages are unbalanced, the pipeline is only as fast as the slowest stage. The ideal speedup is reduced because the clock period is longer than the average stage time.
+<details>
+<summary>Show Answer</summary>
+The clock cycle must be set to the longest stage time. If stages are unbalanced, the pipeline is only as fast as the slowest stage. The ideal speedup is reduced because the clock period is longer than the average stage time.
+</details>
 
 **Problem 5**: Explain why pipelining does not reduce latency of a single instruction.
 
-**Answer**: A single instruction still goes through all k stages, taking the same total time (k cycles). Pipelining overlaps multiple instructions, improving throughput, but the latency from start to completion of any single instruction remains k cycles.
+<details>
+<summary>Show Answer</summary>
+A single instruction still goes through all k stages, taking the same total time (k cycles). Pipelining overlaps multiple instructions, improving throughput, but the latency from start to completion of any single instruction remains k cycles.
+</details>

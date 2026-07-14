@@ -216,5 +216,19 @@ mysql> CALL DepartmentSalaryStats();
 ## Homework / Practice
 
 1. Write a cursor that displays employees who have been with the company for more than 5 years (based on hire_date).
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE EmployeesMoreThan5Years() BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_emp_name VARCHAR(100); DECLARE v_dept VARCHAR(50); DECLARE v_hire_date DATE; DECLARE v_years DECIMAL(5,1); DECLARE emp_cursor CURSOR FOR SELECT emp_name, department, hire_date FROM Employee; DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE; CREATE TEMPORARY TABLE IF NOT EXISTS senior_employees (emp_name VARCHAR(100), department VARCHAR(50), years_of_service DECIMAL(5,1)); TRUNCATE TABLE senior_employees; OPEN emp_cursor; read_loop: LOOP FETCH emp_cursor INTO v_emp_name, v_dept, v_hire_date; IF v_done THEN LEAVE read_loop; END IF; SET v_years = DATEDIFF(CURDATE(), v_hire_date) / 365.25; IF v_years > 5 THEN INSERT INTO senior_employees VALUES (v_emp_name, v_dept, ROUND(v_years, 1)); END IF; END LOOP; CLOSE emp_cursor; SELECT * FROM senior_employees; DROP TEMPORARY TABLE senior_employees; END // DELIMITER ;
+   </details>
+
 2. Create a procedure that uses a cursor to update the salary of all employees in a given department by a given percentage.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE UpdateDeptSalaries(IN p_dept_name VARCHAR(50), IN p_pct DECIMAL(5,2)) BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_emp_id INT; DECLARE dept_cursor CURSOR FOR SELECT emp_id FROM Employee WHERE department = p_dept_name; DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE; OPEN dept_cursor; update_loop: LOOP FETCH dept_cursor INTO v_emp_id; IF v_done THEN LEAVE update_loop; END IF; UPDATE Employee SET salary = salary + (salary * p_pct / 100) WHERE emp_id = v_emp_id; END LOOP; CLOSE dept_cursor; END // DELIMITER ;
+   </details>
+
 3. Write a cursor that finds employees earning less than the average salary of their department and prints their names with the difference.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE EmployeesBelowDeptAvg() BEGIN DECLARE v_done INT DEFAULT FALSE; DECLARE v_emp_name VARCHAR(100); DECLARE v_dept VARCHAR(50); DECLARE v_salary DECIMAL(10,2); DECLARE v_dept_avg DECIMAL(10,2); DECLARE emp_cursor CURSOR FOR SELECT emp_name, department, salary FROM Employee; DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_done = TRUE; CREATE TEMPORARY TABLE IF NOT EXISTS below_avg (emp_name VARCHAR(100), department VARCHAR(50), salary DECIMAL(10,2), dept_avg DECIMAL(10,2), diff DECIMAL(10,2)); TRUNCATE TABLE below_avg; OPEN emp_cursor; read_loop: LOOP FETCH emp_cursor INTO v_emp_name, v_dept, v_salary; IF v_done THEN LEAVE read_loop; END IF; SELECT AVG(salary) INTO v_dept_avg FROM Employee WHERE department = v_dept; IF v_salary < v_dept_avg THEN INSERT INTO below_avg VALUES (v_emp_name, v_dept, v_salary, v_dept_avg, v_dept_avg - v_salary); END IF; END LOOP; CLOSE emp_cursor; SELECT * FROM below_avg; DROP TEMPORARY TABLE below_avg; END // DELIMITER ;
+   </details>

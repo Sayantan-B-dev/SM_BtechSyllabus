@@ -444,22 +444,34 @@ Total: 5 cycles for 3 instructions (1.67 cycles/instruction)
 ## Practice Problems
 
 1. **Problem**: Assume a CPU with a 4-cycle fetch phase. If memory access takes 3 clock cycles (one wait state), what is the total time to fetch an instruction, assuming a 2 GHz clock?
-   **Answer**: Fetch = 4 cycles + 3 cycles (wait for memory) = 7 cycles. At 2 GHz, one cycle = 0.5 ns. Total fetch time = 7 x 0.5 = 3.5 ns.
+<details>
+<summary>Show Answer</summary>
+Fetch = 4 cycles + 3 cycles (wait for memory) = 7 cycles. At 2 GHz, one cycle = 0.5 ns. Total fetch time = 7 x 0.5 = 3.5 ns.
+</details>
 
 2. **Problem**: During the execute phase of a `JZ 2000` instruction, the Zero flag (Z) in the PSW is 0. What happens to the PC?
-   **Answer**: Since Z = 0, the condition is false (not zero). The PC is not modified and continues to point to the next sequential instruction (it was already incremented during the fetch phase). Execution continues with the next instruction in sequence.
+<details>
+<summary>Show Answer</summary>
+Since Z = 0, the condition is false (not zero). The PC is not modified and continues to point to the next sequential instruction (it was already incremented during the fetch phase). Execution continues with the next instruction in sequence.
+</details>
 
 3. **Problem**: List the differences between the execute phase of a LOAD instruction and a STORE instruction.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    - LOAD: MAR <- IR[address]; MBR <- M[MAR]; register <- MBR (memory to register).
    - STORE: MAR <- IR[address]; MBR <- register; M[MAR] <- MBR (register to memory).
    The key difference: LOAD reads from memory into MBR then into a register; STORE reads from a register into MBR then writes MBR to memory. LOAD uses MemRead; STORE uses MemWrite.
+</details>
 
 4. **Problem**: During the interrupt cycle, the PC is saved on the stack. Why must the PC be saved rather than just continuing from the current PC value after the ISR returns?
-   **Answer**: When the interrupt is acknowledged, the PC has already been incremented during the fetch phase and now points to the next instruction to be executed, not the instruction that was just executed. After the ISR completes, the CPU must resume the interrupted program at the correct point -- the instruction following the one that was interrupted. The saved PC provides this return address.
+<details>
+<summary>Show Answer</summary>
+When the interrupt is acknowledged, the PC has already been incremented during the fetch phase and now points to the next instruction to be executed, not the instruction that was just executed. After the ISR completes, the CPU must resume the interrupted program at the correct point -- the instruction following the one that was interrupted. The saved PC provides this return address.
+</details>
 
 5. **Problem**: Draw the state diagram for a basic instruction cycle with four states: Fetch, Decode, Execute, Interrupt. Label the transitions.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    ```
            +-----------+
            |  FETCH    |
@@ -490,3 +502,4 @@ Total: 5 cycles for 3 instructions (1.67 cycles/instruction)
                      |  Fetch)   |
                      +-----------+
    ```
+</details>

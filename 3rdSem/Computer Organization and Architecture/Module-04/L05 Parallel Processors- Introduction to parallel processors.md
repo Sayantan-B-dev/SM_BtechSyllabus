@@ -328,31 +328,42 @@ In multicore design, Amdahl's Law guides the number of cores:
 
 **Problem 1**: A program takes 100 seconds on a single processor. The parallelizable portion takes 80 seconds. What is the speedup on 5 processors?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - P = 80/100 = 0.8, 1-P = 0.2
 - S = 1 / (0.2 + 0.8/5) = 1 / (0.2 + 0.16) = 1 / 0.36 = 2.78
+</details>
 
 **Problem 2**: What is the maximum possible speedup for a program that is 95% parallelizable?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - S_max = 1 / (1 - 0.95) = 1 / 0.05 = 20
+</details>
 
 **Problem 3**: If 5% of a program is inherently sequential, what is the minimum number of processors needed to achieve a speedup of at least 10?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - 1-P = 0.05, P = 0.95
 - 10 = 1 / (0.05 + 0.95/N)
 - 0.05 + 0.95/N = 0.1
 - 0.95/N = 0.05
 - N = 0.95 / 0.05 = 19 processors
+</details>
 
 **Problem 4**: Classify these architectures using Flynn's taxonomy: (a) A vector supercomputer, (b) A dual-core laptop, (c) An FPGA configured to run 3 different algorithms on 1 data stream.
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - (a) SIMD: Single instruction operates on vector elements.
 - (b) MIMD: Each core runs its own instruction stream on its own data.
 - (c) MISD: Multiple instructions on single data stream.
+</details>
 
 **Problem 5**: Compare shared memory (UMA) and message passing for a system with 64 processors.
 
-**Answer**: UMA with 64 processors is impractical due to bus/network contention. NUMA (ccNUMA) or message passing is preferred. NUMA offers shared address space (easier programming) but requires cache coherence hardware. Message passing scales better but requires explicit data management.
+<details>
+<summary>Show Answer</summary>
+UMA with 64 processors is impractical due to bus/network contention. NUMA (ccNUMA) or message passing is preferred. NUMA offers shared address space (easier programming) but requires cache coherence hardware. Message passing scales better but requires explicit data management.
+</details>

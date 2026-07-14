@@ -187,7 +187,7 @@ print(len(nested))  # 3 (the outer list has 3 elements)
 **Problem 1:** Create a list called `mixed` that contains an integer, a float, a string, a boolean, and another list. Print the list and its length.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 ```python
 mixed = [10, 3.14, "hello", True, [1, 2]]
@@ -203,7 +203,7 @@ print(len(mixed))
 - The list in reverse order
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
@@ -223,7 +223,7 @@ print(nums[::-1])    # [100, 90, 80, 70, 60, 50, 40, 30, 20, 10]
 Access and print the element `5`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 matrix = [
@@ -238,7 +238,7 @@ print(matrix[1][1])  # 5
 **Problem 4:** Explain with a code example why strings are immutable but lists are mutable.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 # List: mutable
@@ -258,7 +258,7 @@ print(s)  # Xbc
 **Problem 5:** Use the `list()` constructor to create a list from the string "Python". Then print the length of the resulting list.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 chars = list("Python")

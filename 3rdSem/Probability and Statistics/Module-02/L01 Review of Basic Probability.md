@@ -275,29 +275,44 @@ Let M = event that student takes Mathematics, P = event that student takes Physi
    (c) at most one head
    (d) no heads
 
+   <details>
+   <summary>Show Answer</summary>
+   1. (a) 3/8 (b) 1/2 (c) 1/2 (d) 1/8
+   </details>
+
 2. Two dice are thrown. Find the probability of getting:
    (a) a doublet (same number on both dice)
    (b) a sum of 8
    (c) a sum greater than 9
    (d) a product that is a multiple of 6
 
+   <details>
+   <summary>Show Answer</summary>
+   2. (a) 1/6 (b) 5/36 (c) 1/6 (d) Hint: Count favorable pairs systematically.
+   </details>
+
 3. A bag contains 3 red balls, 5 white balls, and 2 blue balls. A ball is drawn at random. Find the probability that it is:
    (a) red or white
    (b) not blue
    (c) neither red nor blue
 
+   <details>
+   <summary>Show Answer</summary>
+   3. (a) 8/10 = 4/5 (b) 8/10 = 4/5 (c) 5/10 = 1/2
+   </details>
+
 4. In a group of 200 people, 120 like tea, 80 like coffee, and 50 like both. Find the probability that a randomly selected person likes at least one of the two beverages.
+
+   <details>
+   <summary>Show Answer</summary>
+   4. 120/200 + 80/200 - 50/200 = 150/200 = 3/4
+   </details>
 
 5. Let A, B, C be three events such that `P(A)=0.4`, `P(B)=0.3`, `P(C)=0.5`, `P(A cap B)=0.1`, `P(B cap C)=0.15`, `P(A cap C)=0.2`, and `P(A cap B cap C)=0.05`. Find:
    (a) `P(A cup B)`
    (b) `P(A cup B cup C)`
    (c) `P(A' cap B')`
-
----
-
-**Answers/Hints:**
-1. (a) 3/8 (b) 1/2 (c) 1/2 (d) 1/8
-2. (a) 1/6 (b) 5/36 (c) 1/6 (d) Hint: Count favorable pairs systematically.
-3. (a) 8/10 = 4/5 (b) 8/10 = 4/5 (c) 5/10 = 1/2
-4. 120/200 + 80/200 - 50/200 = 150/200 = 3/4
-5. (a) 0.6 (b) 0.8 (c) `P(A' cap B') = P((A cup B)') = 1 - P(A cup B) = 0.4`
+   <details>
+   <summary>Show Answer</summary>
+   5. (a) 0.6 (b) 0.8 (c) `P(A' cap B') = P((A cup B)') = 1 - P(A cup B) = 0.4`
+   </details>

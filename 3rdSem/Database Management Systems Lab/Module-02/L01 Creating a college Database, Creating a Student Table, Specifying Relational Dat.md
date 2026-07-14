@@ -100,5 +100,19 @@ mysql> SELECT * FROM Employee;
 ## Homework / Practice
 
 1. Add a CHECK constraint to ensure salary is between 30000 and 200000 using ALTER TABLE.
+   <details>
+   <summary>Show Answer</summary>
+   ALTER TABLE employee ADD CONSTRAINT chk_salary CHECK (salary BETWEEN 30000 AND 200000);
+   </details>
+
 2. Insert 2 more employees in the 'Marketing' department with appropriate values.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO employee (emp_name, department, salary) VALUES ('Alice', 'Marketing', 55000), ('Bob', 'Marketing', 62000);
+   </details>
+
 3. Write a query to display only emp_name, department, and salary of all employees sorted by salary in descending order.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT emp_name, department, salary FROM employee ORDER BY salary DESC;
+   </details>

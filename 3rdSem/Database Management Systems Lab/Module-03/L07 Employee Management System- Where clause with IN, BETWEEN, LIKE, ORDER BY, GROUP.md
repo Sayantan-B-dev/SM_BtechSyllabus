@@ -149,5 +149,19 @@ SELECT dept_name FROM Department d WHERE NOT EXISTS (SELECT 1 FROM Employee e WH
 ## Homework / Practice
 
 1. Write a subquery to find employees who work on projects with a budget greater than 100000 (use the Works_On and Project tables).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.* FROM Employee e WHERE e.emp_id IN (SELECT w.emp_id FROM Works_On w INNER JOIN Project p ON w.project_id = p.project_id WHERE p.budget > 100000);
+   </details>
+
 2. Use EXISTS to find all departments that have at least one project with 'Active' status.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT d.* FROM Department d WHERE EXISTS (SELECT 1 FROM Project p WHERE p.dept_id = d.dept_id AND p.status = 'Active');
+   </details>
+
 3. Find employees whose salary is higher than the average salary of their own department (correlated subquery).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e1.* FROM Employee e1 WHERE e1.salary > (SELECT AVG(e2.salary) FROM Employee e2 WHERE e2.department = e1.department);
+   </details>

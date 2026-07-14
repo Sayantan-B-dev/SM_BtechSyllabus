@@ -294,20 +294,35 @@ Step | Operation       | P1 State | P2 State | Bus Traffic       | Notes
 
 **Problem 1:** In the MESI protocol, why is there a separate Exclusive (E) state instead of directly putting a fetched block in Shared (S) state?
 
-**Answer:** The E state allows a processor to write to a cache line without any bus transaction. If the line were always in S on a read miss, then the first write would require a BusUpgr (invalidate) transaction. The E state saves this bus transaction when no other cache has the block, significantly reducing bus traffic for private data.
+<details>
+<summary>Show Answer</summary>
+The E state allows a processor to write to a cache line without any bus transaction. If the line were always in S on a read miss, then the first write would require a BusUpgr (invalidate) transaction. The E state saves this bus transaction when no other cache has the block, significantly reducing bus traffic for private data.
+</details>
 
 **Problem 2:** Differentiate between write-invalidate and write-update protocols.
 
-**Answer:** Write-invalidate: on a write, other caches' copies are invalidated (marked as unusable). Write-update: on a write, other caches' copies are updated with the new data. Invalidate generates less bus traffic for repeated writes but causes read misses; update avoids read misses but generates bus traffic on every write.
+<details>
+<summary>Show Answer</summary>
+Write-invalidate: on a write, other caches' copies are invalidated (marked as unusable). Write-update: on a write, other caches' copies are updated with the new data. Invalidate generates less bus traffic for repeated writes but causes read misses; update avoids read misses but generates bus traffic on every write.
+</details>
 
 **Problem 3:** A write buffer has 4 entries. The CPU performs writes to addresses 0x100, 0x104, 0x108, 0x10C (all in the same 16-byte block). Without write merging, how many bus transactions? With write merging?
 
-**Answer:** Without merging: 4 bus transactions (one per write). With merging: the write buffer combines all 4 writes into a single bus transaction writing the full 16-byte block. Only 1 bus transaction.
+<details>
+<summary>Show Answer</summary>
+Without merging: 4 bus transactions (one per write). With merging: the write buffer combines all 4 writes into a single bus transaction writing the full 16-byte block. Only 1 bus transaction.
+</details>
 
 **Problem 4:** Explain write-combining and why it is useful for graphics memory.
 
-**Answer:** Write-combining merges multiple writes to the same cache block into a single burst write to memory. It is useful for graphics frame buffers because pixel writes are sequential and write-only (never read back). Without write-combining, each pixel write would generate a separate bus transaction; combining them into bursts of 64 bytes dramatically reduces bus traffic and improves performance.
+<details>
+<summary>Show Answer</summary>
+Write-combining merges multiple writes to the same cache block into a single burst write to memory. It is useful for graphics frame buffers because pixel writes are sequential and write-only (never read back). Without write-combining, each pixel write would generate a separate bus transaction; combining them into bursts of 64 bytes dramatically reduces bus traffic and improves performance.
+</details>
 
 **Problem 5:** In a MESI protocol, P1 has block X in M state. P2 does a BusRd for X. What happens? What are the final states?
 
-**Answer:** P1 snoops the BusRd, recognizes it has the modified (dirty) data, writes the block back to memory (so memory is updated), and also supplies the data directly to P2 on the bus. P1 transitions from M to S (shared). P2 gets the data and transitions from I to S (shared). Both now have clean, shared copies.
+<details>
+<summary>Show Answer</summary>
+P1 snoops the BusRd, recognizes it has the modified (dirty) data, writes the block back to memory (so memory is updated), and also supplies the data directly to P2 on the bus. P1 transitions from M to S (shared). P2 gets the data and transitions from I to S (shared). Both now have clean, shared copies.
+</details>

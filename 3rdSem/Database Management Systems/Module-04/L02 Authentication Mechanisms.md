@@ -180,7 +180,31 @@ ALTER USER alice PROFILE secure_profile;
 ## Practice Problems
 
 1. Write SQL statements to create a user `dbadmin` with password `Admin@2026` that can connect from any host, then lock the account and finally drop it.
+   <details>
+   <summary>Show Answer</summary>
+   ```sql
+   CREATE USER 'dbadmin'@'%' IDENTIFIED BY 'Admin@2026';
+   ALTER USER 'dbadmin'@'%' ACCOUNT LOCK;
+   DROP USER 'dbadmin'@'%';
+   ```
+   </details>
 2. What is multi-factor authentication? Give an example involving all three authentication factors.
+   <details>
+   <summary>Show Answer</summary>
+   Multi-factor authentication (MFA) requires two or more independent credentials from different categories: **Something you know** (password), **something you have** (smartphone/security token), and **something you are** (fingerprint). Example: Logging into a database console with a password (knowledge), a one-time code sent to your phone (possession), and a fingerprint scan (inherence).
+   </details>
 3. Compare database-level authentication with OS-level authentication. List one advantage and one disadvantage of each.
+   <details>
+   <summary>Show Answer</summary>
+   **Database-level authentication:** Users are created and managed entirely inside the DBMS. *Advantage:* Portable across operating systems. *Disadvantage:* Passwords are stored in the database and must be managed separately. **OS-level authentication:** The DBMS trusts the OS to authenticate users (e.g., Windows integrated authentication). *Advantage:* Centralized user management via OS domain policies. *Disadvantage:* Ties the database to a specific OS authentication infrastructure.
+   </details>
 4. Explain why password policies such as minimum length and account lockout are important. What attack do they prevent?
+   <details>
+   <summary>Show Answer</summary>
+   Minimum length requirements make brute-force and dictionary attacks exponentially harder by increasing the search space. Account lockout after a few failed attempts prevents automated guessing (online brute-force) by temporarily or permanently disabling the account. Together they defend primarily against **brute-force attacks** and **credential stuffing**.
+   </details>
 5. How does certificate-based authentication work in a DBMS context?
+   <details>
+   <summary>Show Answer</summary>
+   A client presents an X.509 digital certificate issued by a trusted Certificate Authority (CA). The DBMS verifies the certificate's signature against the CA's root certificate, checks the expiration date, and optionally maps the certificate's Common Name (CN) to a database user. This eliminates the need for password-based login and provides strong, non-repudiable authentication.
+   </details>

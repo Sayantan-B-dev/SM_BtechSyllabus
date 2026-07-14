@@ -173,17 +173,34 @@ To compute the mean and variance of any discrete distribution:
 
 1. X has PMF: `P(X=1) = 0.2`, `P(X=2) = 0.3`, `P(X=3) = 0.4`, `P(X=4) = 0.1`. Find `E[X]`, `E[X^2]`, and `Var(X)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `E[X] = 1(0.2)+2(0.3)+3(0.4)+4(0.1) = 2.4`. `E[X^2] = 1(0.2)+4(0.3)+9(0.4)+16(0.1) = 6.6`. `Var = 6.6 - 5.76 = 0.84`.
+   </details>
+
 2. If `E[X] = 2` and `E[X^2] = 6`, find `Var(X)` and `E[3X - 4]`.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `Var(X) = 6 - 4 = 2`. `E[3X - 4] = 3(2) - 4 = 2`.
+   </details>
 
 3. A random variable X takes values -1, 0, 2, 5 with probabilities 0.1, 0.3, 0.4, 0.2. Find `E[X]` and `Var(X)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `E[X] = -0.1+0+0.8+1.0 = 1.7`. `E[X^2] = 0.1+0+1.6+5.0 = 6.7`. `Var = 6.7 - 2.89 = 3.81`.
+   </details>
+
 4. For a fair die, let `Y = 3X + 1` where X is the number rolled. Find `E[Y]` and `Var(Y)` using properties (use known E[X] and Var(X) from earlier examples).
 
-5. If `Var(X) = 9` and `Var(Y) = 16` and X, Y are independent, find `Var(2X - 3Y + 5)`.
+   <details>
+   <summary>Show Answer</summary>
+   4. `E[Y] = 3(3.5)+1 = 11.5`. `Var(Y) = 9 * Var(X) = 9 * (35/12) = 105/4 = 26.25`.
+   </details>
 
-**Answers / Hints:**
-1. `E[X] = 1(0.2)+2(0.3)+3(0.4)+4(0.1) = 2.4`. `E[X^2] = 1(0.2)+4(0.3)+9(0.4)+16(0.1) = 6.6`. `Var = 6.6 - 5.76 = 0.84`.
-2. `Var(X) = 6 - 4 = 2`. `E[3X - 4] = 3(2) - 4 = 2`.
-3. `E[X] = -0.1+0+0.8+1.0 = 1.7`. `E[X^2] = 0.1+0+1.6+5.0 = 6.7`. `Var = 6.7 - 2.89 = 3.81`.
-4. `E[Y] = 3(3.5)+1 = 11.5`. `Var(Y) = 9 * Var(X) = 9 * (35/12) = 105/4 = 26.25`.
-5. `Var(2X - 3Y + 5) = 4 Var(X) + 9 Var(Y) = 4(9) + 9(16) = 36 + 144 = 180`.
+5. If `Var(X) = 9` and `Var(Y) = 16` and X, Y are independent, find `Var(2X - 3Y + 5)`.
+   <details>
+   <summary>Show Answer</summary>
+   5. `Var(2X - 3Y + 5) = 4 Var(X) + 9 Var(Y) = 4(9) + 9(16) = 36 + 144 = 180`.
+   </details>

@@ -354,7 +354,7 @@ Most major databases use B+ trees:
 **Problem 1:** A B+ tree with order m=100 (max children = 100) is used to index a table of 5,000,000 records. Each leaf block can hold 50 key-pointer pairs. Estimate the tree height.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 - Number of leaf blocks needed = 5,000,000 / 50 = 100,000.
 - Internal fan-out = ~100 (worst case 50% full, but for estimation use 100).
@@ -366,7 +366,7 @@ So at most 4 disk I/Os for any lookup.
 **Problem 2:** Draw the B+ tree of order 3 (max keys = 2) after inserting: 1, 2, 3, 4, 5, 6.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Order 3: max children = 3, max keys = 2, min keys = ceil(3/2)-1 = 1.
 
@@ -404,7 +404,7 @@ Insert 6:
 **Problem 3:** What is the main reason B+ trees have higher fan-out than B-trees for the same block size?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 In a B+ tree, internal nodes store only keys and child pointers (no data pointers). For a block size of 4 KB, this means ~250 key-pointer entries. In a B-tree, internal nodes also store data pointers, reducing the number of entries per block to ~125. Higher fan-out = shorter tree = fewer I/Os.
 </details>
@@ -412,7 +412,7 @@ In a B+ tree, internal nodes store only keys and child pointers (no data pointer
 **Problem 4:** When a leaf node in a B+ tree splits, the smallest key of the right node is COPIED up to the parent. When an internal node splits, the middle key is MOVED up. Explain why the difference matters.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 In leaf splits, the key that is copied up remains in the right leaf node because all keys must appear in the leaf level (all data pointers must be accessible from leaves). In internal node splits, the moved key is removed from the internal node because internal keys serve only as separators; they do not need to appear at the internal level again. If we copied the key, it would appear twice in the internal nodes, wasting space and potentially causing incorrect routing.
 </details>
@@ -420,7 +420,7 @@ In leaf splits, the key that is copied up remains in the right leaf node because
 **Problem 5:** Explain how the leaf linked list in a B+ tree enables efficient range queries. What is the time complexity?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 For a range query `WHERE key BETWEEN a AND b`, the DBMS traverses the tree from root to leaf (O(log n) I/Os) to find the first leaf containing `a`. Then it scans the leaf's key list sequentially. When reaching the end of the leaf block, it follows the linked list pointer to the next leaf block. This continues until encountering a key > `b`. Total I/O = O(log n + k) where k is the number of leaf blocks covering the range. In a B-tree without leaf links, each step to the next key could require a parent traversal, making range queries O(k log n).
 </details>

@@ -152,5 +152,19 @@ FROM Loan l JOIN Book b ... WHERE l.return_date IS NULL AND l.due_date < CURDATE
 ## Homework / Practice
 
 1. Find all books that were published after the year 2000 and belong to the 'Programming' category.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Book WHERE publication_year > 2000 AND category = 'Programming';
+   </details>
+
 2. List all members who have not returned a book (i.e., have an active loan with return_date IS NULL).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT DISTINCT m.* FROM Member m INNER JOIN Loan l ON m.member_id = l.member_id WHERE l.return_date IS NULL;
+   </details>
+
 3. Write a query to show each member and the count of books they have currently issued (not returned).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT m.member_id, m.member_name, COUNT(l.book_id) AS books_issued FROM Member m INNER JOIN Loan l ON m.member_id = l.member_id WHERE l.return_date IS NULL GROUP BY m.member_id;
+   </details>

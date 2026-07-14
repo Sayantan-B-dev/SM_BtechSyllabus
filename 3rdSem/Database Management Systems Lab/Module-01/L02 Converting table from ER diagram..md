@@ -128,5 +128,19 @@ mysql> SELECT * FROM Loan;
 ## Homework / Practice
 
 1. Add a CHECK constraint to ensure `return_date` is not earlier than `issue_date` (already done; write a similar constraint for `fine_amount` to cap it at 500).
+   <details>
+   <summary>Show Answer</summary>
+   ALTER TABLE Loan ADD CONSTRAINT chk_fine CHECK (fine_amount <= 500);
+   </details>
+
 2. Insert a new member of type 'Premium' with max_books_allowed = 7. Then insert a loan for that member.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO Member VALUES (4, 'John Doe', 'Premium', 7); INSERT INTO Loan VALUES (1, 4, 1, '2024-03-01', NULL, NULL);
+   </details>
+
 3. Write a query to list all books that have available_copies > 0 and are of category 'Programming'.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Book WHERE available_copies > 0 AND category = 'Programming';
+   </details>

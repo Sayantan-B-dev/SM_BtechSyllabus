@@ -149,5 +149,19 @@ SELECT * FROM DeptSummaryMV;
 ## Homework / Practice
 
 1. Create an updatable view for the IT department and successfully insert a new IT employee through it.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE VIEW ITEmployeesView AS SELECT emp_id, emp_name, job_role, salary, dept_id FROM Employee WHERE department = 'IT' WITH CHECK OPTION; INSERT INTO ITEmployeesView (emp_name, job_role, salary, dept_id) VALUES ('Suresh Kumar', 'Software Engineer', 82000.00, 1);
+   </details>
+
 2. Try to insert a non-IT employee through the same view with WITH CHECK OPTION. Explain the error.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO ITEmployeesView (emp_name, job_role, salary, dept_id) VALUES ('John Doe', 'Accountant', 60000.00, 2); This fails because WITH CHECK OPTION ensures that any INSERT/UPDATE through the view must satisfy the view's WHERE condition (department = 'IT'). Inserting a non-IT employee (dept_id = 2) violates the condition, so MySQL throws a CHECK OPTION FAILED error.
+   </details>
+
 3. Create a table that acts as a materialized view for project summary (project name, total hours, employee count). Write a script to refresh it.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE TABLE ProjectSummaryMV AS SELECT p.project_id, p.project_name, SUM(w.hours_worked) AS total_hours, COUNT(w.emp_id) AS employee_count FROM Project p LEFT JOIN Works_On w ON p.project_id = w.project_id GROUP BY p.project_id, p.project_name; -- Refresh script: TRUNCATE TABLE ProjectSummaryMV; INSERT INTO ProjectSummaryMV SELECT p.project_id, p.project_name, SUM(w.hours_worked), COUNT(w.emp_id) FROM Project p LEFT JOIN Works_On w ON p.project_id = w.project_id GROUP BY p.project_id, p.project_name;
+   </details>

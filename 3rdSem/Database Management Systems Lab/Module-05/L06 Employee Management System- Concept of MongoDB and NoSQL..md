@@ -208,5 +208,19 @@ db.employees.aggregate([
 ## Homework / Practice
 
 1. Write an aggregation pipeline to find the total salary expense for each job role, sorted by total expense descending.
+   <details>
+   <summary>Show Answer</summary>
+   db.employees.aggregate([{ $group: { _id: "$job_role", total_salary: { $sum: "$salary" } } }, { $sort: { total_salary: -1 } }]);
+   </details>
+
 2. Create a compound index on (department, status, salary) and verify it using getIndexes().
+   <details>
+   <summary>Show Answer</summary>
+   db.employees.createIndex({ department: 1, status: 1, salary: 1 }); db.employees.getIndexes();
+   </details>
+
 3. Convert the following MySQL query to a MongoDB aggregation pipeline: SELECT department, job_role, COUNT(*) FROM Employee GROUP BY department, job_role HAVING COUNT(*) > 1.
+   <details>
+   <summary>Show Answer</summary>
+   db.employees.aggregate([{ $group: { _id: { department: "$department", job_role: "$job_role" }, count: { $sum: 1 } } }, { $match: { count: { $gt: 1 } } }]);
+   </details>

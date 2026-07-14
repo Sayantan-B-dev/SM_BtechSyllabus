@@ -257,7 +257,10 @@ SW R1, 0(R3)
 ```
 How many stalls are needed with full forwarding?
 
-**Answer**: LW loads R1, available after MEM (cycle 4). SW uses R1 for data in MEM stage. SW reads register in ID (cycle 3), but the data is needed in MEM (cycle 4). With forwarding from MEM output to MEM data write port: zero stalls. The value is forwarded directly from LW's MEM stage to SW's MEM stage.
+<details>
+<summary>Show Answer</summary>
+LW loads R1, available after MEM (cycle 4). SW uses R1 for data in MEM stage. SW reads register in ID (cycle 3), but the data is needed in MEM (cycle 4). With forwarding from MEM output to MEM data write port: zero stalls. The value is forwarded directly from LW's MEM stage to SW's MEM stage.
+</details>
 
 **Problem 2**: The following code has no independent instructions between a load and its use. How many cycles does it take to execute 3 instructions with full forwarding?
 ```
@@ -266,10 +269,12 @@ ADD R3, R1, R4
 SUB R5, R3, R6
 ```
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - LW -> ADD: load-use hazard, 1 stall.
 - ADD -> SUB: ALU-ALU forwarding, 0 stalls.
 - Total cycles: (1+1+1) + (stall) = 5 cycles for 3 instructions. CPI = 5/3 = 1.67.
+</details>
 
 **Problem 3**: Show the pipeline diagram with forwarding for:
 ```
@@ -277,22 +282,30 @@ I1: ADD R1, R2, R3
 I2: SW R1, 0(R4)
 ```
 
-**Answer**: SW uses R1 as store data in MEM stage, which occurs at cycle 4. I1 produces R1 in EX (cycle 3). Forwarding from I1's EX output to SW's MEM stage works with 0 stalls.
+<details>
+<summary>Show Answer</summary>
+SW uses R1 as store data in MEM stage, which occurs at cycle 4. I1 produces R1 in EX (cycle 3). Forwarding from I1's EX output to SW's MEM stage works with 0 stalls.
 ```
 Cycle:     1    2    3    4    5
 I1:     [ IF][ ID][ EX][MEM][WB]
 I2:        [ IF][ ID][ EX][MEM]
 ```
+</details>
 
 **Problem 4**: What is the difference between a pipeline interlock and forwarding?
 
-**Answer**: Forwarding adds additional data paths to route results directly to dependent instructions without using the register file. An interlock detects hazards that cannot be forwarded and stalls the pipeline by freezing the earlier stages and inserting bubbles. They work together: forwarding resolves most ALU hazards, interlock handles the remaining cases (e.g., load-use, complex structural conflicts).
+<details>
+<summary>Show Answer</summary>
+Forwarding adds additional data paths to route results directly to dependent instructions without using the register file. An interlock detects hazards that cannot be forwarded and stalls the pipeline by freezing the earlier stages and inserting bubbles. They work together: forwarding resolves most ALU hazards, interlock handles the remaining cases (e.g., load-use, complex structural conflicts).
+</details>
 
 **Problem 5**: A compiler schedules 200 instructions such that 10 load-use hazards remain, each requiring 1 stall. The rest are handled by forwarding. What is the total execution time on a 5-stage pipeline at 2 GHz?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - Base cycles = 5 + 200 - 1 = 204 cycles (ideal)
 - Stall cycles = 10 x 1 = 10
 - Total cycles = 214
 - Cycle time = 1/2 GHz = 0.5 ns
 - Total time = 214 x 0.5 = 107 ns
+</details>

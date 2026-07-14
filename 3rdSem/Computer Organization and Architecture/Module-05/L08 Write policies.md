@@ -237,20 +237,35 @@ Typical use                | L1 caches (some systems)          | L2/L3 caches, s
 
 **Problem 1:** Distinguish between write-through and write-back policies.
 
-**Answer:** Write-through: every write goes to both cache and main memory; memory is always consistent. Write-back: writes go only to cache; memory is updated only when the dirty block is evicted. Write-through is simpler but slower; write-back is faster but more complex.
+<details>
+<summary>Show Answer</summary>
+Write-through: every write goes to both cache and main memory; memory is always consistent. Write-back: writes go only to cache; memory is updated only when the dirty block is evicted. Write-through is simpler but slower; write-back is faster but more complex.
+</details>
 
 **Problem 2:** In a write-back cache, what is the purpose of the dirty bit?
 
-**Answer:** The dirty bit indicates whether the cache line has been modified (written to) since it was loaded from memory. If dirty (1), the block must be written back to memory on eviction. If clean (0), the block can be discarded without writing back because memory already has the current data.
+<details>
+<summary>Show Answer</summary>
+The dirty bit indicates whether the cache line has been modified (written to) since it was loaded from memory. If dirty (1), the block must be written back to memory on eviction. If clean (0), the block can be discarded without writing back because memory already has the current data.
+</details>
 
 **Problem 3:** A program writes to addresses 0x1000, 0x1004, 0x1008, and 0x100C (all in the same 16-byte block). Compare the number of memory bus transactions for write-through (no-allocate) vs. write-back (allocate).
 
-**Answer:** Write-through: 4 write transactions (one for each write to memory). Write-back (allocate): 1 read transaction (fetch block on first write miss) + 1 write transaction (write-back on eviction) = 2 memory transactions. Write-back uses fewer bus transactions.
+<details>
+<summary>Show Answer</summary>
+Write-through: 4 write transactions (one for each write to memory). Write-back (allocate): 1 read transaction (fetch block on first write miss) + 1 write transaction (write-back on eviction) = 2 memory transactions. Write-back uses fewer bus transactions.
+</details>
 
 **Problem 4:** Explain why write-allocate is typically paired with write-back, and write-no-allocate with write-through.
 
-**Answer:** Write-allocate fetches the block on a write miss, which pairs well with write-back because subsequent writes hit the cache and set dirty bits, reducing memory traffic. Write-no-allocate skips the cache on writes, which pairs well with write-through because the data is written directly to memory anyway -- no benefit from caching it. Write-allocate with write-through would cause unnecessary read traffic (fetch block just to write to it and memory).
+<details>
+<summary>Show Answer</summary>
+Write-allocate fetches the block on a write miss, which pairs well with write-back because subsequent writes hit the cache and set dirty bits, reducing memory traffic. Write-no-allocate skips the cache on writes, which pairs well with write-through because the data is written directly to memory anyway -- no benefit from caching it. Write-allocate with write-through would cause unnecessary read traffic (fetch block just to write to it and memory).
+</details>
 
 **Problem 5:** A write-through cache has a write buffer with 4 entries. The CPU does 10 consecutive writes followed by a read that misses. The write buffer drains at 1 entry per 10 ns. The read miss takes 100 ns to fetch from memory. How long does the CPU stall, assuming the CPU can proceed while writes are buffered but must wait for the write buffer to drain before the read can proceed?
 
-**Answer:** After 10 writes, write buffer has 10 entries but only 4 slots. So after 4 writes (buffer full), the 5th write stalls until at least 1 slot opens. Minimum stall: 10 writes need 10 drain cycles at 10 ns = 100 ns. The last write completes at the drain end. Actually, CPU does writes at cache speed (instant). After all 10 writes, buffer has 10 entries. Next read miss: the read must wait for the write buffer to empty (to avoid reading stale data from memory). Drain 10 entries at 10 ns each = 100 ns stall. Then read miss takes 100 ns. Total stall = 100 (drain) + 100 (read) = 200 ns.
+<details>
+<summary>Show Answer</summary>
+After 10 writes, write buffer has 10 entries but only 4 slots. So after 4 writes (buffer full), the 5th write stalls until at least 1 slot opens. Minimum stall: 10 writes need 10 drain cycles at 10 ns = 100 ns. The last write completes at the drain end. Actually, CPU does writes at cache speed (instant). After all 10 writes, buffer has 10 entries. Next read miss: the read must wait for the write buffer to empty (to avoid reading stale data from memory). Drain 10 entries at 10 ns each = 100 ns stall. Then read miss takes 100 ns. Total stall = 100 (drain) + 100 (read) = 200 ns.
+</details>

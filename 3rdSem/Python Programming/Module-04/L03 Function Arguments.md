@@ -345,13 +345,13 @@ Extra keyword(kwargs): {'g': 9, 'h': 10}
 **Problem 1:** Write a function `calculate_average(*args)` that computes the average of any number of numeric arguments. Return `None` if no arguments are passed.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `len(args)` to check for zero arguments. Use `sum(args) / len(args)` for the average.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def calculate_average(*args):
@@ -368,13 +368,13 @@ print(calculate_average())            # None
 **Problem 2:** Write a function `create_student_report(name, *scores, grade_scale="A-F")` that prints a student's name, their scores, average, and the grading scale used.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `*scores` for variable-length scores. The `grade_scale` is a keyword-only argument (place it after `*scores`).
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def create_student_report(name, *scores, grade_scale="A-F"):
@@ -391,13 +391,13 @@ create_student_report("Alice", 85, 90, 78, grade_scale="A-F")
 **Problem 3:** Write a function `tag_builder(tag, /, content, **attributes)` where `tag` is positional-only, `content` is positional-or-keyword, and `attributes` are variable keyword arguments. The function returns an HTML-style string like `<a href="link" class="btn">Click</a>`.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Iterate over `attributes.items()` and build the attribute string. Format: `<{tag} {attrs}>{content}</{tag}>`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def tag_builder(tag, /, content, **attributes):
@@ -417,13 +417,13 @@ print(tag_builder("img", "", src="photo.jpg", alt="Photo", width="300"))
 **Problem 4:** Write a function `safe_divide(a, b, /, precision=2)` that divides `a` by `b` and returns the result rounded to `precision` decimal places. If `b` is zero, return `"Error: Division by zero"`. Both `a` and `b` must be positional-only.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use a `try-except` block or check `if b == 0` before dividing. Use `round(result, precision)`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def safe_divide(a, b, /, precision=2):

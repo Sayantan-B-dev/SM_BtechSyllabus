@@ -211,18 +211,32 @@ This is exactly the TRC query from Query 3.
 ## Practice Problems
 
 1. Write a TRC query to find the names of all employees who work in the HR department.
+<details>
+<summary>Show Answer</summary>
+`{ e.Name | EMPLOYEE(e) AND e.Dept = 'HR' }`
+</details>
 
 2. Write a TRC query to find departments that have at least one employee earning more than 60000.
+<details>
+<summary>Show Answer</summary>
+`{ d.Dept | DEPARTMENT(d) AND EXISTS e (EMPLOYEE(e) AND e.Dept = d.Dept AND e.Salary > 60000) }`
+</details>
 
 3. Write a TRC query to find employees who do NOT work in the IT department.
+<details>
+<summary>Show Answer</summary>
+`{ e | EMPLOYEE(e) AND NOT (e.Dept = 'IT') }` or `{ e | EMPLOYEE(e) AND e.Dept != 'IT' }`
+</details>
 
 4. What makes a TRC expression unsafe? Give an example.
+<details>
+<summary>Show Answer</summary>
+An expression is unsafe if it can produce infinite results, e.g., `{ t | NOT R(t) }` would try to enumerate all tuples not in R, which is infinite.
+</details>
 
 5. Convert the following RA expression to TRC: `pi_Name(sigma_Salary > 50000(EMPLOYEE))`
+<details>
+<summary>Show Answer</summary>
+`{ e.Name | EMPLOYEE(e) AND e.Salary > 50000 }`
+</details>
 
-**Answers:**
-1. `{ e.Name | EMPLOYEE(e) AND e.Dept = 'HR' }`
-2. `{ d.Dept | DEPARTMENT(d) AND EXISTS e (EMPLOYEE(e) AND e.Dept = d.Dept AND e.Salary > 60000) }`
-3. `{ e | EMPLOYEE(e) AND NOT (e.Dept = 'IT') }` or `{ e | EMPLOYEE(e) AND e.Dept != 'IT' }`
-4. An expression is unsafe if it can produce infinite results, e.g., `{ t | NOT R(t) }` would try to enumerate all tuples not in R, which is infinite.
-5. `{ e.Name | EMPLOYEE(e) AND e.Salary > 50000 }`

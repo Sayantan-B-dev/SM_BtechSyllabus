@@ -435,13 +435,13 @@ sys.exit(0)  # terminates the script
 **Problem 1:** Write a program that generates a random multiplication table question (e.g., "What is 7 x 8?"), takes the user's answer, and tells them if they are correct. Use `random.randint()`.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Generate two random numbers between 1 and 12. Compare the user's input to the product.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 import random
@@ -461,13 +461,13 @@ else:
 **Problem 2:** Write a function `circle_properties(radius)` that uses the `math` module to return the circumference and area of a circle. Round both to 2 decimal places.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Circumference = 2 * pi * radius. Area = pi * radius^2.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 import math
@@ -486,13 +486,13 @@ print(f"Circumference: {c}, Area: {a}")
 **Problem 3:** Write a script that generates a list of 10 random integers between 1 and 100, then uses `math` functions to print the maximum, minimum, average (floor), and standard deviation of the list.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `random.randint(1, 100)` for each number. For standard deviation, use: sqrt(sum((x - mean)^2) / n).
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 import random
@@ -515,13 +515,13 @@ print(f"Std Dev: {round(std_dev, 2)}")
 **Problem 4:** Create a custom module `temperature.py` that has functions `c_to_f(c)` and `f_to_c(f)`. Then, in a separate script file, import and use this module to convert 100 degrees Celsius to Fahrenheit and 212 degrees Fahrenheit to Celsius.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Save `temperature.py` in the same directory as your script.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 **File: `temperature.py`**
 

@@ -172,20 +172,35 @@ For a program with good spatial locality (e.g., array traversal), 64-byte blocks
 
 **Problem 1:** A 32 KB direct-mapped cache has 64-byte blocks. How many blocks does the cache hold? How many index bits are needed?
 
-**Answer:** Number of blocks = 32 KB / 64 B = 32,768 / 64 = 512 blocks. Index bits = log2(512) = 9 bits.
+<details>
+<summary>Show Answer</summary>
+Number of blocks = 32 KB / 64 B = 32,768 / 64 = 512 blocks. Index bits = log2(512) = 9 bits.
+</details>
 
 **Problem 2:** A program's working set is 512 KB. If you have a 256 KB cache, which type of miss will dominate? Why?
 
-**Answer:** Capacity misses will dominate because the working set (512 KB) is twice the cache size (256 KB). The cache cannot hold the entire working set, so blocks will be evicted and later re-fetched.
+<details>
+<summary>Show Answer</summary>
+Capacity misses will dominate because the working set (512 KB) is twice the cache size (256 KB). The cache cannot hold the entire working set, so blocks will be evicted and later re-fetched.
+</details>
 
 **Problem 3:** A direct-mapped cache has a 5% miss rate. Converting it to 4-way set-associative (same size) reduces the miss rate to 3%. What percentage of the original misses were conflict misses?
 
-**Answer:** Original miss rate = 5%. After removing conflicts (associative), miss rate = 3%. Remaining misses are compulsory + capacity = 3%. So conflict misses = 5% - 3% = 2% of total accesses. As a fraction of original misses: 2/5 = 40% of misses were conflict misses.
+<details>
+<summary>Show Answer</summary>
+Original miss rate = 5%. After removing conflicts (associative), miss rate = 3%. Remaining misses are compulsory + capacity = 3%. So conflict misses = 5% - 3% = 2% of total accesses. As a fraction of original misses: 2/5 = 40% of misses were conflict misses.
+</details>
 
 **Problem 4:** Explain in one sentence each: compulsory miss, capacity miss, conflict miss.
 
-**Answer:** Compulsory miss: first-ever access to a block. Capacity miss: cache too small for the program's working set. Conflict miss: multiple blocks compete for the same cache location due to limited associativity.
+<details>
+<summary>Show Answer</summary>
+Compulsory miss: first-ever access to a block. Capacity miss: cache too small for the program's working set. Conflict miss: multiple blocks compete for the same cache location due to limited associativity.
+</details>
 
 **Problem 5:** If you increase block size from 32 bytes to 128 bytes in a fixed-size cache, the number of blocks decreases by what factor? How does this affect conflict misses?
 
-**Answer:** Number of blocks decreases by a factor of 4 (128/32 = 4). Fewer blocks means fewer unique cache lines, so more main memory blocks compete for each cache line (higher conflict probability). Conflict misses increase. However, compulsory misses may decrease because each block fetch brings in more data (better spatial locality).
+<details>
+<summary>Show Answer</summary>
+Number of blocks decreases by a factor of 4 (128/32 = 4). Fewer blocks means fewer unique cache lines, so more main memory blocks compete for each cache line (higher conflict probability). Conflict misses increase. However, compulsory misses may decrease because each block fetch brings in more data (better spatial locality).
+</details>

@@ -190,16 +190,31 @@ For a two-tailed z-test at `alpha = 0.05`:
 ## Practice Problems
 
 1. Find the critical region for a two-tailed z-test at `alpha = 0.01`.
-   - **Answer:** Critical values `pm 2.576`. Reject if `|z| > 2.576`.
+   <details>
+   <summary>Show Answer</summary>
+   Critical values `pm 2.576`. Reject if `|z| > 2.576`.
+   </details>
 
 2. Find the critical region for a left-tailed t-test with `n = 20` at `alpha = 0.05`.
-   - **Answer:** `df = 19`, `t_{0.05,19} = 1.729`. Critical region: `t < -1.729`.
+   <details>
+   <summary>Show Answer</summary>
+   `df = 19`, `t_{0.05,19} = 1.729`. Critical region: `t < -1.729`.
+   </details>
 
 3. Find the critical region for a right-tailed z-test at `alpha = 0.05`.
-   - **Answer:** `z_{0.05} = 1.645`. Critical region: `z > 1.645`.
+   <details>
+   <summary>Show Answer</summary>
+   `z_{0.05} = 1.645`. Critical region: `z > 1.645`.
+   </details>
 
 4. Find the critical region for a two-tailed t-test with `n = 12` at `alpha = 0.10`.
-   - **Answer:** `df = 11`, `t_{0.05,11} = 1.796`. Critical region: `t < -1.796` or `t > 1.796`.
+   <details>
+   <summary>Show Answer</summary>
+   `df = 11`, `t_{0.05,11} = 1.796`. Critical region: `t < -1.796` or `t > 1.796`.
+   </details>
 
 5. Explain why the critical region for a two-tailed test at `alpha = 0.05` is NOT the same as `|z| > 1.645`.
-   - **Answer:** `z = 1.645` corresponds to `alpha = 0.05` for a one-tailed test. For a two-tailed test, we need `alpha/2 = 0.025` in each tail, which gives `z_{0.025} = 1.96`. The two-tailed region must be wider to keep the total area at 0.05.
+   <details>
+   <summary>Show Answer</summary>
+   `z = 1.645` corresponds to `alpha = 0.05` for a one-tailed test. For a two-tailed test, we need `alpha/2 = 0.025` in each tail, which gives `z_{0.025} = 1.96`. The two-tailed region must be wider to keep the total area at 0.05.
+   </details>

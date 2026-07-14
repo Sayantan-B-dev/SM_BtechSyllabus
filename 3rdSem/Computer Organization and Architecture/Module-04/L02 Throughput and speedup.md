@@ -199,36 +199,46 @@ The shaded region shows the overlap of instructions, which is the source of spee
 
 **Problem 1**: A 4-stage pipeline (k=4) runs at 1.5 GHz. Execute 1000 instructions with an average of 0.3 stall cycles per instruction. Find execution time, throughput, and speedup.
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - Cycle time = 1 / 1.5 GHz = 0.667 ns
 - CPI_p = 1 + 0.3 = 1.3
 - T_p = (k - 1 + N x CPI_p) x t = (3 + 1000 x 1.3) x 0.667 = (3 + 1300) x 0.667 = 869.4 ns
 - Throughput = 1000 / 869.4 ns = 1.15 instr/ns = 1150 MIPS
 - Non-pipelined: T_np = N x k x t = 1000 x 4 x 0.667 = 2668 ns
 - S = 2668 / 869.4 = 3.07
+</details>
 
 **Problem 2**: A 6-stage pipeline achieves speedup of 4.5 for a large program. What is the average number of stall cycles per instruction?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - S = k / (1 + s) => 4.5 = 6 / (1 + s) => 1 + s = 6 / 4.5 = 1.333 => s = 0.333 stalls per instruction
+</details>
 
 **Problem 3**: Compare the throughput of a 5-stage pipeline at 3 GHz with a non-pipelined processor at 5 GHz (same technology). Which is faster?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - Pipelined: Throughput = 3 G instructions/sec = 3000 MIPS (ideal, no hazards)
 - Non-pipelined: Throughput = 5 GHz / 5 = 1 G instructions/sec = 1000 MIPS
 - The pipelined processor (3 GHz) is 3x faster even at a lower clock frequency.
+</details>
 
 **Problem 4**: For a 5-stage pipeline, what percentage of maximum throughput is achieved when executing 50 instructions?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - Maximum throughput = f (one instruction per cycle)
 - Actual throughput = N / (k + N - 1) x f = 50 / (5 + 50 - 1) x f = 50/54 x f = 0.926f
 - Percentage = 92.6%
+</details>
 
 **Problem 5**: If a pipeline has 8 stages but stalls add 0.5 cycles/instruction on average, what is the speedup? How does this compare to a 4-stage pipeline with 0.1 stalls/instruction?
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 - 8-stage: S = 8 / (1 + 0.5) = 8 / 1.5 = 5.33
 - 4-stage: S = 4 / (1 + 0.1) = 4 / 1.1 = 3.64
 - The 8-stage pipeline is still faster (5.33 > 3.64), despite more stalls, because more stages give higher potential speedup.
+</details>

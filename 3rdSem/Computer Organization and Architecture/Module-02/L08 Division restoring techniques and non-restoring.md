@@ -575,32 +575,46 @@ The magnitude of the quotient and remainder are computed by dividing absolute va
 ## Practice Problems
 
 1. **Restoring division**: Divide 9 (1001) by 4 (0100) using 4-bit restoring division.
-   - **Answer**: D=1001, V=0100, n=4. 
+<details>
+<summary>Show Answer</summary>
+D=1001, V=0100, n=4.
      Initial: A=0000, Q=1001.
      Iter1: Shift=0001|0010, A-M=1101(neg), restore A=0001. Q=0010.
      Iter2: Shift=0010|0100, A-M=1110(neg), restore A=0010. Q=0100.
      Iter3: Shift=0100|1000, A-M=0000(nonneg), Q=1001.
      Iter4: Shift=0001|0010, A-M=1101(neg), restore A=0001. Q=0010.
      Q=0010=2, A=0001=1. 9/4=2 rem 1. Correct.
+</details>
 
 2. **Non-restoring division**: Divide 14 (1110) by 3 (0011) using 4-bit non-restoring division.
-   - **Answer**: D=1110, V=0011, n=4.
+<details>
+<summary>Show Answer</summary>
+D=1110, V=0011, n=4.
      Initial: A=0000, Q=1110.
      Iter1: A>=0, shift=0001|1100, A=0001-0011=1110(neg), Q=1100.
      Iter2: A<0, shift=1101|1000, A=1101+0011=0000(nonneg), Q=1001.
      Iter3: A>=0, shift=0001|0010, A=0001-0011=1110(neg), Q=0010.
      Iter4: A<0, shift=1101|0100, A=1101+0011=0000(nonneg), Q=0101.
      End: Q=0101=5, A=0000, but A>=0 so no final restore. 14/3=4 rem 2. Hmm, Q=5 is wrong. Let me recheck...
+</details>
 
 3. **Flowchart**: Draw the flowchart for non-restoring division and explain how it avoids the restore step.
-   - **Answer**: The flowchart for non-restoring uses a single branch: if A>=0, subtract M; if A<0, add M. No restoration needed because the algorithm keeps track of the correct partial remainder through the alternating add/subtract operations. Only a single final restore may be needed at the end if A is negative.
+<details>
+<summary>Show Answer</summary>
+The flowchart for non-restoring uses a single branch: if A>=0, subtract M; if A<0, add M. No restoration needed because the algorithm keeps track of the correct partial remainder through the alternating add/subtract operations. Only a single final restore may be needed at the end if A is negative.
+</details>
 
 4. **Compare**: A 16-bit restoring division takes at most 32 cycles (16 subtract + 16 restore). How many cycles does non-restoring take?
-   - **Answer**: Non-restoring takes 16 cycles (one add or subtract per iteration) plus up to 1 final restore cycle = 17 cycles maximum. This is nearly a 50% speedup over restoring division.
+<details>
+<summary>Show Answer</summary>
+Non-restoring takes 16 cycles (one add or subtract per iteration) plus up to 1 final restore cycle = 17 cycles maximum. This is nearly a 50% speedup over restoring division.
+</details>
 
 5. **Signed division**: What is the quotient and remainder for -7 / 3?
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      - Sign handling: |7|/|3| = 2 rem 1.
      - Quotient sign = negative/positive = negative => Q = -2.
      - Remainder sign = sign of dividend = negative => R = -1.
      - Check: (-2) * 3 + (-1) = -6 - 1 = -7. Correct.
+</details>

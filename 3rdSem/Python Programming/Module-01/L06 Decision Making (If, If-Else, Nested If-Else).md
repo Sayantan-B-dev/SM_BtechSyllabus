@@ -512,23 +512,94 @@ The largest number is 25.0
 ## Practice Problems
 
 1. **Positive, Negative, or Zero:** Write a program that takes a number as input and prints whether it is positive, negative, or zero.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   num = float(input("Enter a number: "))
+   if num > 0:
+       print("Positive")
+   elif num < 0:
+       print("Negative")
+   else:
+       print("Zero")
+   ```
+   </details>
 
 2. **Vowel or Consonant:** Write a program that takes a single character as input and determines if it is a vowel (a, e, i, o, u) or a consonant. Handle both uppercase and lowercase.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   ch = input("Enter a character: ").lower()
+   if len(ch) != 1 or not ch.isalpha():
+       print("Invalid input")
+   elif ch in "aeiou":
+       print("Vowel")
+   else:
+       print("Consonant")
+   ```
+   </details>
 
 3. **Ticket Price Calculator:** Write a program that calculates movie ticket price based on age:
    - Age < 5: Free (Rs. 0)
    - Age 5-12: Rs. 50
    - Age 13-59: Rs. 100
    - Age 60+: Rs. 60
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   age = int(input("Enter age: "))
+   if age < 5:
+       price = 0
+   elif age <= 12:
+       price = 50
+   elif age <= 59:
+       price = 100
+   else:
+       price = 60
+   print(f"Ticket price: Rs. {price}")
+   ```
+   </details>
 
 4. **Triangle Type:** Write a program that takes three side lengths and determines if they form:
    - An equilateral triangle (all sides equal)
    - An isosceles triangle (two sides equal)
    - A scalene triangle (all sides different)
    - Or no triangle (sum of any two sides <= third)
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   a = float(input("Side 1: "))
+   b = float(input("Side 2: "))
+   c = float(input("Side 3: "))
+   if a + b <= c or a + c <= b or b + c <= a:
+       print("No triangle")
+   elif a == b == c:
+       print("Equilateral")
+   elif a == b or a == c or b == c:
+       print("Isosceles")
+   else:
+       print("Scalene")
+   ```
+   </details>
 
 5. **ATM Withdrawal:** Write a program that asks for account balance and withdrawal amount. Check:
    - If withdrawal amount is positive
    - If account has sufficient balance
    - If withdrawal amount is a multiple of 100 (ATMs typically only dispense 100s)
    Display appropriate messages for each condition.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   balance = float(input("Enter account balance: "))
+   amount = float(input("Enter withdrawal amount: "))
+   if amount <= 0:
+       print("Withdrawal amount must be positive.")
+   elif amount > balance:
+       print("Insufficient balance.")
+   elif amount % 100 != 0:
+       print("Amount must be a multiple of 100.")
+   else:
+       balance -= amount
+       print(f"Withdrawal successful! Remaining balance: Rs. {balance:.2f}")
+   ```
+   </details>

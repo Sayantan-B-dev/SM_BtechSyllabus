@@ -181,18 +181,15 @@ For each FD X -> Y in Fc:
 ## Practice Problems
 
 1. Given `R(A, B, C, D)` and `F = {A -> B, B -> C, C -> D}`, compute `A+`.
+<details>
+<summary>Show Answer</summary>
+`A+ = {A, B, C, D}` (A -> B, B -> C, C -> D)
+</details>
 
 2. Identify prime and non-prime attributes given `F = {AB -> C, C -> B}`.
-
-3. Compute the canonical cover of `F = {A -> BC, B -> C, A -> B, AB -> C}`.
-
-4. Given `R(A, B, C, D, E)` and `F = {AB -> C, C -> D, D -> E}`, is `AB` a candidate key? Is `A` a superkey?
-
-5. What does it mean for `X -> Y` to NOT hold in a relation instance? Give an example.
-
-**Answers:**
-1. `A+ = {A, B, C, D}` (A -> B, B -> C, C -> D)
-2. Candidate keys: `{A}` (A+ = A). Also check `{B}`: B+ = {B} (doesn't get A). Check `{C}`: C+ = {B, C} (missing A). Check `{AB}`: AB+ = {A,B,C} but AB is not minimal. So the only candidate key is `{A}`. Prime = {A}. Non-prime = {B,C,D}.
+<details>
+<summary>Show Answer</summary>
+Candidate keys: `{A}` (A+ = A). Also check `{B}`: B+ = {B} (doesn't get A). Check `{C}`: C+ = {B, C} (missing A). Check `{AB}`: AB+ = {A,B,C} but AB is not minimal. So the only candidate key is `{A}`. Prime = {A}. Non-prime = {B,C,D}.
    Wait, let me redo. F = {AB -> C, C -> B}.
    - Compute AB+: AB+ = {A,B,C}. 
    - Compute A+: A+ = {A}.
@@ -211,7 +208,23 @@ For each FD X -> Y in Fc:
    Non-prime = {C}
    
    (Note: The question was added in an older version; I realize my initial answer in the file will need to be consistent. Let me make sure.)
+</details>
 
-3. Canonical cover: `Fc = {A -> B, B -> C}`
-4. AB+ = {A,B,C,D,E} (AB->C, C->D, D->E). So AB is a superkey. Is it candidate? Check A+: A+ = {A}. B+: B+ = {B}. So AB is minimal. Yes, AB is a candidate key. A is not a superkey (A+ = {A}).
-5. `X -> Y` fails if there exist two tuples with same X values but different Y values. Example: In our EMPLOYEE table, `Dept -> Salary` fails because two IT employees (Alice and Charlie) have different salaries but the same Dept.
+3. Compute the canonical cover of `F = {A -> BC, B -> C, A -> B, AB -> C}`.
+<details>
+<summary>Show Answer</summary>
+Canonical cover: `Fc = {A -> B, B -> C}`
+</details>
+
+4. Given `R(A, B, C, D, E)` and `F = {AB -> C, C -> D, D -> E}`, is `AB` a candidate key? Is `A` a superkey?
+<details>
+<summary>Show Answer</summary>
+AB+ = {A,B,C,D,E} (AB->C, C->D, D->E). So AB is a superkey. Is it candidate? Check A+: A+ = {A}. B+: B+ = {B}. So AB is minimal. Yes, AB is a candidate key. A is not a superkey (A+ = {A}).
+</details>
+
+5. What does it mean for `X -> Y` to NOT hold in a relation instance? Give an example.
+<details>
+<summary>Show Answer</summary>
+`X -> Y` fails if there exist two tuples with same X values but different Y values. Example: In our EMPLOYEE table, `Dept -> Salary` fails because two IT employees (Alice and Charlie) have different salaries but the same Dept.
+</details>
+

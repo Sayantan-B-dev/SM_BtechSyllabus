@@ -577,10 +577,43 @@ If you are searching for something and you find it, stop the loop immediately wi
 ## Practice Problems
 
 1. **First Divisor:** Write a program that takes a number N and finds the smallest divisor of N greater than 1. Use `break` to stop once you find the divisor.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   N = int(input("Enter N: "))
+   for i in range(2, N + 1):
+       if N % i == 0:
+           print(f"Smallest divisor: {i}")
+           break
+   ```
+   </details>
 
 2. **Skip Vowels:** Write a program that takes a string and prints it with all vowels (a, e, i, o, u) removed. Use `continue` to skip vowels.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   s = input("Enter a string: ")
+   for ch in s:
+       if ch.lower() in "aeiou":
+           continue
+       print(ch, end="")
+   print()
+   ```
+   </details>
 
 3. **Class Skeleton:** Create a class called `DatabaseConnection` with methods `connect()`, `disconnect()`, and `execute_query()`. Use `pass` for all methods as placeholders for future implementation.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   class DatabaseConnection:
+       def connect(self):
+           pass
+       def disconnect(self):
+           pass
+       def execute_query(self, query):
+           pass
+   ```
+   </details>
 
 4. **Menu with Break/Continue:** Write a program with a menu that:
    - Option 1: Enter a number and print its square.
@@ -588,7 +621,58 @@ If you are searching for something and you find it, stop the loop immediately wi
    - Option 3: Exit.
    - If the user enters an invalid option, use `continue` to show the menu again.
    - If the user chooses to exit, use `break` to end the loop.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   while True:
+       print("\n1. Square\n2. Cube\n3. Exit")
+       opt = input("Choose option: ")
+       if opt == "1":
+           num = float(input("Enter number: "))
+           print(f"Square: {num ** 2}")
+       elif opt == "2":
+           num = float(input("Enter number: "))
+           print(f"Cube: {num ** 3}")
+       elif opt == "3":
+           print("Goodbye!")
+           break
+       else:
+           print("Invalid option, try again.")
+           continue
+   ```
+   </details>
 
 5. **Password Attempts:** Write a program that gives the user 3 attempts to enter the correct password ("python123"). Use `break` if the password is correct. Use `continue` to prompt again after a wrong attempt (if attempts remain). After 3 failed attempts, print "Account locked."
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   password = "python123"
+   for attempt in range(3, 0, -1):
+       guess = input("Enter password: ")
+       if guess == password:
+           print("Access granted!")
+           break
+       else:
+           print(f"Wrong. {attempt - 1} attempt(s) left.")
+           if attempt > 1:
+               continue
+   else:
+       print("Account locked.")
+   ```
+   </details>
 
 6. **Sum Until Zero (with break):** Write a program that keeps taking numbers from the user and adding them to a running total. If the user enters 0, break out of the loop and print the total. If the user enters a negative number, use `continue` to skip it (do not add it to the total).
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   total = 0
+   while True:
+       num = float(input("Enter a number (0 to stop): "))
+       if num == 0:
+           break
+       if num < 0:
+           continue
+       total += num
+   print(f"Total: {total}")
+   ```
+   </details>

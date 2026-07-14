@@ -580,231 +580,232 @@ print(f"Has '1984'? {b1 in lib}")
 ## Practice Problems
 
 1. **Employee Directory** -- Create an `Employee` class with name, emp_id, department, salary. Create multiple employees. Implement `__eq__` (same emp_id), `__lt__` (by salary). Use `hasattr`, `getattr`, `setattr`, `delattr` for dynamic attribute management.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Employee:
+       def __init__(self, name, emp_id, department, salary):
+           self.name = name
+           self.emp_id = emp_id
+           self.department = department
+           self.salary = salary
+
+       def __eq__(self, other):
+           if not isinstance(other, Employee):
+               return NotImplemented
+           return self.emp_id == other.emp_id
+
+       def __lt__(self, other):
+           if not isinstance(other, Employee):
+               return NotImplemented
+           return self.salary < other.salary
+
+       def __str__(self):
+           return f"{self.name} ({self.emp_id}) - {self.department}: ${self.salary}"
+
+   e1 = Employee("Alice", "E001", "Eng", 75000)
+   e2 = Employee("Bob", "E002", "Mkt", 65000)
+   e3 = Employee("Charlie", "E001", "Eng", 80000)
+
+   print(f"e1 == e3: {e1 == e3}")
+   print(f"e1 < e2: {e1 < e2}")
+
+   setattr(e1, "bonus", 5000)
+   print(f"Has bonus? {hasattr(e1, 'bonus')}: {getattr(e1, 'bonus')}")
+   delattr(e1, "bonus")
+   print(f"Has bonus? {hasattr(e1, 'bonus')}")
+   ```
+   </details>
 
 2. **Shopping Cart System** -- Create a `CartItem` class (product, price, quantity) and a `ShoppingCart` class that holds multiple items. Implement `add_item`, `remove_item`, `total`. Implement `__eq__` for CartItem (same product name). Allow sorting items by price.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class CartItem:
+       def __init__(self, product, price, quantity=1):
+           self.product = product
+           self.price = price
+           self.quantity = quantity
+
+       def total(self):
+           return self.price * self.quantity
+
+       def __eq__(self, other):
+           if not isinstance(other, CartItem):
+               return NotImplemented
+           return self.product == other.product
+
+       def __lt__(self, other):
+           if not isinstance(other, CartItem):
+               return NotImplemented
+           return self.price < other.price
+
+       def __str__(self):
+           return f"{self.product} x{self.quantity} @ ${self.price}"
+
+   class ShoppingCart:
+       def __init__(self):
+           self.items = []
+
+       def add_item(self, product, price, quantity=1):
+           item = CartItem(product, price, quantity)
+           if item in self.items:
+               idx = self.items.index(item)
+               self.items[idx].quantity += quantity
+           else:
+               self.items.append(item)
+
+       def remove_item(self, product):
+           self.items = [i for i in self.items if i.product != product]
+
+       def total(self):
+           return sum(item.total() for item in self.items)
+
+       def sort_by_price(self):
+           self.items.sort()
+
+       def __str__(self):
+           result = "\n".join(str(item) for item in self.items)
+           return f"{result}\nTotal: ${self.total():.2f}"
+
+   cart = ShoppingCart()
+   cart.add_item("Laptop", 1000, 1)
+   cart.add_item("Mouse", 25, 2)
+   cart.add_item("Laptop", 1000, 1)
+   print(cart)
+   ```
+   </details>
 
 3. **Student Grade Tracker** -- Create a `Student` class with name and marks (list). Implement `__eq__` (same average marks), `__lt__` (by average). Create a `Classroom` class that holds multiple students and can find top performer, sort by grade, etc.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Student:
+       def __init__(self, name, marks):
+           self.name = name
+           self.marks = marks
+
+       @property
+       def average(self):
+           return sum(self.marks) / len(self.marks) if self.marks else 0
+
+       def __eq__(self, other):
+           if not isinstance(other, Student):
+               return NotImplemented
+           return self.average == other.average
+
+       def __lt__(self, other):
+           if not isinstance(other, Student):
+               return NotImplemented
+           return self.average < other.average
+
+       def __str__(self):
+           return f"{self.name}: avg={self.average:.1f}"
+
+   class Classroom:
+       def __init__(self):
+           self.students = []
+
+       def add(self, student):
+           self.students.append(student)
+
+       def top_performer(self):
+           return max(self.students) if self.students else None
+
+       def sorted_by_grade(self):
+           return sorted(self.students, reverse=True)
+
+       def __len__(self):
+           return len(self.students)
+
+   room = Classroom()
+   room.add(Student("Alice", [85, 90, 78]))
+   room.add(Student("Bob", [92, 88, 95]))
+   room.add(Student("Charlie", [70, 75, 72]))
+   print(f"Top: {room.top_performer()}")
+   print("Sorted:")
+   for s in room.sorted_by_grade():
+       print(f"  {s}")
+   ```
+   </details>
 
 4. **Dynamic Form Builder** -- Create a `Form` class that uses `hasattr`, `getattr`, `setattr`, `delattr` to manage form fields dynamically. Allow adding fields like `add_field(name, value)`, `get_field(name)`, `remove_field(name)`, `has_field(name)`.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class DynamicForm:
+       def __init__(self, name):
+           self._form_name = name
+
+       def add_field(self, name, value):
+           setattr(self, name, value)
+           print(f"Added field '{name}' = {value!r}")
+
+       def get_field(self, name, default=None):
+           return getattr(self, name, default)
+
+       def has_field(self, name):
+           return hasattr(self, name)
+
+       def remove_field(self, name):
+           if self.has_field(name):
+               delattr(self, name)
+               print(f"Removed field '{name}'")
+               return True
+           return False
+
+       def list_fields(self):
+           fields = {k: v for k, v in self.__dict__.items()
+                     if not k.startswith("_")}
+           print(f"Form '{self._form_name}': {fields}")
+
+   form = DynamicForm("Registration")
+   form.add_field("username", "alice")
+   form.add_field("email", "alice@example.com")
+   form.add_field("age", 25)
+   form.list_fields()
+   print(f"Has 'email': {form.has_field('email')}")
+   form.remove_field("age")
+   form.list_fields()
+   ```
+   </details>
 
 5. **Object Counter with `__dict__`** -- Create a class `TrackedObject` that logs every attribute change in `__dict__`. Use `setattr` in `__init__` to store a history log. Track all attribute modifications.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   class TrackedObject:
+       def __init__(self, **kwargs):
+           self._changes = []
+           for key, value in kwargs.items():
+               setattr(self, key, value)
+               self._changes.append(f"INIT: {key} = {value!r}")
 
-## Practice Problems
+       def __setattr__(self, name, value):
+           if name != "_changes":
+               self._changes.append(f"SET: {name} = {value!r}")
+           super().__setattr__(name, value)
 
-1. **Employee Directory**
+       def __delattr__(self, name):
+           if name != "_changes":
+               self._changes.append(f"DEL: {name}")
+           super().__delattr__(name)
 
-```python
-class Employee:
-    def __init__(self, name, emp_id, department, salary):
-        self.name = name
-        self.emp_id = emp_id
-        self.department = department
-        self.salary = salary
+       def history(self):
+           return self._changes.copy()
 
-    def __eq__(self, other):
-        if not isinstance(other, Employee):
-            return NotImplemented
-        return self.emp_id == other.emp_id
+   obj = TrackedObject(name="Alice", age=25)
+   obj.city = "NYC"
+   obj.age = 26
+   del obj.city
 
-    def __lt__(self, other):
-        if not isinstance(other, Employee):
-            return NotImplemented
-        return self.salary < other.salary
-
-    def __str__(self):
-        return f"{self.name} ({self.emp_id}) - {self.department}: ${self.salary}"
-
-e1 = Employee("Alice", "E001", "Eng", 75000)
-e2 = Employee("Bob", "E002", "Mkt", 65000)
-e3 = Employee("Charlie", "E001", "Eng", 80000)
-
-print(f"e1 == e3: {e1 == e3}")  # True (same emp_id)
-print(f"e1 < e2: {e1 < e2}")    # False (75000 > 65000)
-
-setattr(e1, "bonus", 5000)
-print(f"Has bonus? {hasattr(e1, 'bonus')}: {getattr(e1, 'bonus')}")
-delattr(e1, "bonus")
-print(f"Has bonus? {hasattr(e1, 'bonus')}")
-```
-
-2. **Shopping Cart System**
-
-```python
-class CartItem:
-    def __init__(self, product, price, quantity=1):
-        self.product = product
-        self.price = price
-        self.quantity = quantity
-
-    def total(self):
-        return self.price * self.quantity
-
-    def __eq__(self, other):
-        if not isinstance(other, CartItem):
-            return NotImplemented
-        return self.product == other.product
-
-    def __lt__(self, other):
-        if not isinstance(other, CartItem):
-            return NotImplemented
-        return self.price < other.price
-
-    def __str__(self):
-        return f"{self.product} x{self.quantity} @ ${self.price}"
-
-class ShoppingCart:
-    def __init__(self):
-        self.items = []
-
-    def add_item(self, product, price, quantity=1):
-        item = CartItem(product, price, quantity)
-        if item in self.items:
-            idx = self.items.index(item)
-            self.items[idx].quantity += quantity
-        else:
-            self.items.append(item)
-
-    def remove_item(self, product):
-        self.items = [i for i in self.items if i.product != product]
-
-    def total(self):
-        return sum(item.total() for item in self.items)
-
-    def sort_by_price(self):
-        self.items.sort()
-
-    def __str__(self):
-        result = "\n".join(str(item) for item in self.items)
-        return f"{result}\nTotal: ${self.total():.2f}"
-
-cart = ShoppingCart()
-cart.add_item("Laptop", 1000, 1)
-cart.add_item("Mouse", 25, 2)
-cart.add_item("Laptop", 1000, 1)
-print(cart)
-```
-
-3. **Student Grade Tracker**
-
-```python
-class Student:
-    def __init__(self, name, marks):
-        self.name = name
-        self.marks = marks
-
-    @property
-    def average(self):
-        return sum(self.marks) / len(self.marks) if self.marks else 0
-
-    def __eq__(self, other):
-        if not isinstance(other, Student):
-            return NotImplemented
-        return self.average == other.average
-
-    def __lt__(self, other):
-        if not isinstance(other, Student):
-            return NotImplemented
-        return self.average < other.average
-
-    def __str__(self):
-        return f"{self.name}: avg={self.average:.1f}"
-
-class Classroom:
-    def __init__(self):
-        self.students = []
-
-    def add(self, student):
-        self.students.append(student)
-
-    def top_performer(self):
-        return max(self.students) if self.students else None
-
-    def sorted_by_grade(self):
-        return sorted(self.students, reverse=True)
-
-    def __len__(self):
-        return len(self.students)
-
-room = Classroom()
-room.add(Student("Alice", [85, 90, 78]))
-room.add(Student("Bob", [92, 88, 95]))
-room.add(Student("Charlie", [70, 75, 72]))
-print(f"Top: {room.top_performer()}")
-print("Sorted:")
-for s in room.sorted_by_grade():
-    print(f"  {s}")
-```
-
-4. **Dynamic Form Builder**
-
-```python
-class DynamicForm:
-    def __init__(self, name):
-        self._form_name = name
-
-    def add_field(self, name, value):
-        setattr(self, name, value)
-        print(f"Added field '{name}' = {value!r}")
-
-    def get_field(self, name, default=None):
-        return getattr(self, name, default)
-
-    def has_field(self, name):
-        return hasattr(self, name)
-
-    def remove_field(self, name):
-        if self.has_field(name):
-            delattr(self, name)
-            print(f"Removed field '{name}'")
-            return True
-        return False
-
-    def list_fields(self):
-        fields = {k: v for k, v in self.__dict__.items()
-                  if not k.startswith("_")}
-        print(f"Form '{self._form_name}': {fields}")
-
-form = DynamicForm("Registration")
-form.add_field("username", "alice")
-form.add_field("email", "alice@example.com")
-form.add_field("age", 25)
-form.list_fields()
-print(f"Has 'email': {form.has_field('email')}")
-form.remove_field("age")
-form.list_fields()
-```
-
-5. **Object Counter with `__dict__`**
-
-```python
-class TrackedObject:
-    def __init__(self, **kwargs):
-        self._changes = []
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-            self._changes.append(f"INIT: {key} = {value!r}")
-
-    def __setattr__(self, name, value):
-        if name != "_changes":
-            self._changes.append(f"SET: {name} = {value!r}")
-        super().__setattr__(name, value)
-
-    def __delattr__(self, name):
-        if name != "_changes":
-            self._changes.append(f"DEL: {name}")
-        super().__delattr__(name)
-
-    def history(self):
-        return self._changes.copy()
-
-obj = TrackedObject(name="Alice", age=25)
-obj.city = "NYC"
-obj.age = 26
-del obj.city
-
-for entry in obj.history():
-    print(entry)
-print(f"Final __dict__: {obj.__dict__}")
-```
+   for entry in obj.history():
+       print(entry)
+   print(f"Final __dict__: {obj.__dict__}")
+   ```
+   </details>

@@ -638,7 +638,7 @@ REFRESH MATERIALIZED VIEW DeptEnrollmentStats;
 
 **1.** Write SQL to insert three new departments in one statement: `HR` (Human Resources, Admin Block, budget 1,000,000), `IT` (Information Technology, Tech Park, budget 4,000,000), and `MGMT` (Management, Admin Block, budget 2,500,000).
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 INSERT INTO Department (dept_id, dept_name, building, budget) VALUES
@@ -650,7 +650,7 @@ INSERT INTO Department (dept_id, dept_name, building, budget) VALUES
 
 **2.** A student with ID 'CS2026001' has graduated. Write the SQL to delete this student and all their enrollment records, assuming the foreign key in Takes uses ON DELETE CASCADE.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 DELETE FROM Student WHERE student_id = 'CS2026001';
@@ -661,7 +661,7 @@ DELETE FROM Student WHERE student_id = 'CS2026001';
 
 **3.** Give a 10% salary raise to all instructors in the 'CS' department who earn less than 50,000.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 UPDATE Instructor
@@ -672,7 +672,7 @@ WHERE dept_id = 'CS' AND salary < 50000;
 
 **4.** Create a view `HighPerformers` that shows student_id, name, and GPA for students with GPA above 3.5.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 CREATE VIEW HighPerformers AS
@@ -697,6 +697,6 @@ HAVING AVG(...) > 3.5;
 
 **5.** What happens when you try to `UPDATE` a view that uses GROUP BY? Why?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 The UPDATE fails with an error. Views with GROUP BY, aggregation, or DISTINCT are non-updateable because the DBMS cannot uniquely map a view row back to a single base table row. The aggregate values are computed, not stored, so there is no physical row to update.
 </details>

@@ -220,16 +220,31 @@ Interpretation: 22.5% of the total variation in exam scores is explained by the 
 ## Practice Problems
 
 1. A one-way ANOVA comparing 4 groups (n=10 each) yields F = 4.50 with p-value = 0.008. At `alpha = 0.05`, what is the conclusion? Should post-hoc tests be done?
-   - **Answer:** Since `p = 0.008 < 0.05`, reject `H_0`. Significant ANOVA. Yes, perform post-hoc tests to find which groups differ.
+   <details>
+   <summary>Show Answer</summary>
+   Since `p = 0.008 < 0.05`, reject `H_0`. Significant ANOVA. Yes, perform post-hoc tests to find which groups differ.
+   </details>
 
 2. In Tukey's HSD, what does it mean if `|bar{x}_A - bar{x}_B| > HSD`?
-   - **Answer:** The difference between means of groups A and B is statistically significant at the chosen `alpha` level.
+   <details>
+   <summary>Show Answer</summary>
+   The difference between means of groups A and B is statistically significant at the chosen `alpha` level.
+   </details>
 
 3. Three groups with means 20, 24, and 28. MSE = 10, n = 8 per group, k = 3, error df = 21, `q_{0.05,3,21} = 3.57`. Compute HSD and determine which pairs are significantly different.
-   - **Answer:** `HSD = 3.57 * sqrt{10/8} = 3.57 * 1.118 = 3.992`. Differences: A-B: 4 (significant), A-C: 8 (significant), B-C: 4 (significant). All pairs differ.
+   <details>
+   <summary>Show Answer</summary>
+   `HSD = 3.57 * sqrt{10/8} = 3.57 * 1.118 = 3.992`. Differences: A-B: 4 (significant), A-C: 8 (significant), B-C: 4 (significant). All pairs differ.
+   </details>
 
 4. SST = 500, SSB = 150, k = 5, N = 40. Compute `eta^2` and interpret.
-   - **Answer:** `eta^2 = 150/500 = 0.30`. This is a large effect size: 30% of the total variability is explained by group differences.
+   <details>
+   <summary>Show Answer</summary>
+   `eta^2 = 150/500 = 0.30`. This is a large effect size: 30% of the total variability is explained by group differences.
+   </details>
 
 5. What is the difference between one-way and two-way ANOVA?
-   - **Answer:** One-way ANOVA compares groups based on one factor. Two-way ANOVA analyzes two factors simultaneously and can detect interaction effects between them.
+   <details>
+   <summary>Show Answer</summary>
+   One-way ANOVA compares groups based on one factor. Two-way ANOVA analyzes two factors simultaneously and can detect interaction effects between them.
+   </details>

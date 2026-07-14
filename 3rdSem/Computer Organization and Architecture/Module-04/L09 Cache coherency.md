@@ -341,7 +341,10 @@ Sequential consistency requires:
 
 **Problem 1**: Explain the difference between cache coherence and memory consistency in one sentence each.
 
-**Answer**: Coherence ensures that writes to the same memory location are seen in a consistent order by all processors. Consistency defines the order in which writes to different memory locations become visible to other processors relative to program order.
+<details>
+<summary>Show Answer</summary>
+Coherence ensures that writes to the same memory location are seen in a consistent order by all processors. Consistency defines the order in which writes to different memory locations become visible to other processors relative to program order.
+</details>
 
 **Problem 2**: Under SC, is the following outcome possible given the code below? Initially: X=0, Y=0.
 
@@ -351,7 +354,10 @@ P1: Y=1; R2=X;
 ```
 Outcome: R1=0, R2=0.
 
-**Answer**: No, because SC requires a total order. Either P0's X=1 is visible first (then R2 cannot be 0) or P1's Y=1 is visible first (then R1 cannot be 0). One of the two writes must be first in the total order.
+<details>
+<summary>Show Answer</summary>
+No, because SC requires a total order. Either P0's X=1 is visible first (then R2 cannot be 0) or P1's Y=1 is visible first (then R1 cannot be 0). One of the two writes must be first in the total order.
+</details>
 
 **Problem 3**: On a weakly consistent system, what is the minimum fix for the following code to ensure correct producer-consumer communication?
 
@@ -365,12 +371,21 @@ while (ready == 0);
 x = shared_data;
 ```
 
-**Answer**: Insert a release fence before ready=1 in P0 (or use store-release for ready) and an acquire fence after the while loop in P1 (or use load-acquire for ready). This ensures ready=1 is visible only after shared_data=42, and the read of shared_data occurs only after seeing ready=1.
+<details>
+<summary>Show Answer</summary>
+Insert a release fence before ready=1 in P0 (or use store-release for ready) and an acquire fence after the while loop in P1 (or use load-acquire for ready). This ensures ready=1 is visible only after shared_data=42, and the read of shared_data occurs only after seeing ready=1.
+</details>
 
 **Problem 4**: In x86-TSO, why is (R1=0, R2=0) possible in Dekker's algorithm without fences?
 
-**Answer**: Each processor's store buffer holds the writes (X=1 for P0, Y=1 for P1). The reads on each processor can bypass the store buffer and read stale values from memory. Both writes are still in the store buffers, and both reads go to memory (where X=0, Y=0). Result: (R1=0, R2=0).
+<details>
+<summary>Show Answer</summary>
+Each processor's store buffer holds the writes (X=1 for P0, Y=1 for P1). The reads on each processor can bypass the store buffer and read stale values from memory. Both writes are still in the store buffers, and both reads go to memory (where X=0, Y=0). Result: (R1=0, R2=0).
+</details>
 
 **Problem 5**: A program uses C++ atomics with memory_order_relaxed. The programmer observes unexpected results on a weakly-ordered ARM CPU that do not appear on x86. Why?
 
-**Answer**: memory_order_relaxed imposes no ordering constraints. The compiler and CPU can reorder these operations freely. On x86 (TSO), the hardware naturally preserves some ordering (e.g., store-store ordering is implicit). On ARM (weak consistency), the hardware reorders aggressively, exposing the relaxed semantics. The programmer must use stronger memory ordering to ensure correctness across architectures.
+<details>
+<summary>Show Answer</summary>
+memory_order_relaxed imposes no ordering constraints. The compiler and CPU can reorder these operations freely. On x86 (TSO), the hardware naturally preserves some ordering (e.g., store-store ordering is implicit). On ARM (weak consistency), the hardware reorders aggressively, exposing the relaxed semantics. The programmer must use stronger memory ordering to ensure correctness across architectures.
+</details>

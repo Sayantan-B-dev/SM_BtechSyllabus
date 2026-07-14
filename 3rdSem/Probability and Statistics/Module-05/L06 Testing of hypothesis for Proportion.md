@@ -191,16 +191,31 @@ The z-test for proportion is equivalent to checking whether the hypothesized pro
 ## Practice Problems
 
 1. A drug company claims that 95% of patients recover using their medication. In a trial of 300 patients, 276 recover. Test the claim at `alpha = 0.05`.
-   - **Answer:** `H_0: p = 0.95`, `H_1: p != 0.95`. `hat{p} = 0.92`. `z = (0.92 - 0.95) / sqrt{0.95*0.05/300} = -2.38`. `z_{0.025} = 1.96`. `|z| = 2.38 > 1.96`, reject `H_0`. The claim is not supported.
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: p = 0.95`, `H_1: p != 0.95`. `hat{p} = 0.92`. `z = (0.92 - 0.95) / sqrt{0.95*0.05/300} = -2.38`. `z_{0.025} = 1.96`. `|z| = 2.38 > 1.96`, reject `H_0`. The claim is not supported.
+   </details>
 
 2. A school claims that at least 80% of its students pass a proficiency test. A sample of 50 students shows 37 passing. Test at `alpha = 0.10`.
-   - **Answer:** `H_0: p >= 0.80`, `H_1: p < 0.80`. `hat{p} = 0.74`. `z = (0.74 - 0.80) / sqrt{0.80*0.20/50} = -1.061`. `z_{0.10} = 1.282`. Since `-1.061 > -1.282`, fail to reject `H_0`. Claim is supported.
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: p >= 0.80`, `H_1: p < 0.80`. `hat{p} = 0.74`. `z = (0.74 - 0.80) / sqrt{0.80*0.20/50} = -1.061`. `z_{0.10} = 1.282`. Since `-1.061 > -1.282`, fail to reject `H_0`. Claim is supported.
+   </details>
 
 3. A survey finds that 45 out of 200 people prefer a new brand. Test whether the preference rate differs from 25% at `alpha = 0.05`.
-   - **Answer:** `H_0: p = 0.25`, `H_1: p != 0.25`. `hat{p} = 0.225`. `z = (0.225 - 0.25) / sqrt{0.25*0.75/200} = -0.816`. `z_{0.025} = 1.96`. `|z| = 0.816 < 1.96`, fail to reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: p = 0.25`, `H_1: p != 0.25`. `hat{p} = 0.225`. `z = (0.225 - 0.25) / sqrt{0.25*0.75/200} = -0.816`. `z_{0.025} = 1.96`. `|z| = 0.816 < 1.96`, fail to reject `H_0`.
+   </details>
 
 4. What are the necessary conditions for using a one-sample z-test for proportion?
-   - **Answer:** Random sample, `n p_0 >= 10`, and `n (1 - p_0) >= 10`.
+   <details>
+   <summary>Show Answer</summary>
+   Random sample, `n p_0 >= 10`, and `n (1 - p_0) >= 10`.
+   </details>
 
 5. A researcher wants to test if a new teaching method improves the pass rate above the current 60%. She gets a sample of 80 students with 54 passing. Test at `alpha = 0.01`.
-   - **Answer:** `H_0: p <= 0.60`, `H_1: p > 0.60`. `hat{p} = 0.675`. `z = (0.675 - 0.60) / sqrt{0.60*0.40/80} = 1.369`. `z_{0.01} = 2.326`. Since `1.369 < 2.326`, fail to reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: p <= 0.60`, `H_1: p > 0.60`. `hat{p} = 0.675`. `z = (0.675 - 0.60) / sqrt{0.60*0.40/80} = 1.369`. `z_{0.01} = 2.326`. Since `1.369 < 2.326`, fail to reject `H_0`.
+   </details>

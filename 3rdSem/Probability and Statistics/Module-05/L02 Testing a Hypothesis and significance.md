@@ -201,16 +201,31 @@ The critical value approach and p-value approach always yield the same decision.
 ## Practice Problems
 
 1. In hypothesis testing, what is the relationship between Type I error and the significance level?
-   - **Answer:** The significance level `alpha` is exactly the probability of making a Type I error.
+   <details>
+   <summary>Show Answer</summary>
+   The significance level `alpha` is exactly the probability of making a Type I error.
+   </details>
 
 2. A test has `alpha = 0.01` and `p-value = 0.03`. Should you reject `H_0`?
-   - **Answer:** No, because `0.03 > 0.01`, so we fail to reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   No, because `0.03 > 0.01`, so we fail to reject `H_0`.
+   </details>
 
 3. A researcher obtains `z = 1.75` in a right-tailed test at `alpha = 0.05` (critical value `z_{0.05} = 1.645`). What is the decision?
-   - **Answer:** Reject `H_0` because `1.75 > 1.645`.
+   <details>
+   <summary>Show Answer</summary>
+   Reject `H_0` because `1.75 > 1.645`.
+   </details>
 
 4. Explain what it means to have a test with 80% power.
-   - **Answer:** If `H_0` is false, there is an 80% probability that the test will correctly reject it.
+   <details>
+   <summary>Show Answer</summary>
+   If `H_0` is false, there is an 80% probability that the test will correctly reject it.
+   </details>
 
 5. A two-tailed test yields a test statistic `z = 2.33`. Find the p-value and state the decision at `alpha = 0.05`.
-   - **Answer:** p-value = `2 times P(Z > 2.33) = 2 times 0.0099 = 0.0198`. Since `0.0198 < 0.05`, reject `H_0`.
+   <details>
+   <summary>Show Answer</summary>
+   p-value = `2 times P(Z > 2.33) = 2 times 0.0099 = 0.0198`. Since `0.0198 < 0.05`, reject `H_0`.
+   </details>

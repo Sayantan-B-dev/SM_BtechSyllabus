@@ -115,5 +115,19 @@ mysql> DESC Enrollment;
 ## Homework / Practice
 
 1. Draw an ER diagram for a Hospital system (Doctor, Patient, Appointment) and convert it to SQL tables.
+   <details>
+   <summary>Show Answer</summary>
+   ER Diagram: Doctor (doc_id PK, name, specialization, phone), Patient (pat_id PK, name, phone, address), Appointment (app_id PK, doc_id FK, pat_id FK, app_date, status). Doctor--Appointment (1:N), Patient--Appointment (1:N).
+   </details>
+
 2. Add a new table `Department` to the StudentCourseDB and link it to the Course table via a foreign key.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE TABLE Department (dept_id INT PRIMARY KEY, dept_name VARCHAR(100)); ALTER TABLE Course ADD COLUMN dept_id INT; ALTER TABLE Course ADD FOREIGN KEY (dept_id) REFERENCES Department(dept_id);
+   </details>
+
 3. Write INSERT statements to add 3 students, 2 courses, and enroll each student in at least one course.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO Student VALUES (1, 'Alice', 'CSE', 2022), (2, 'Bob', 'ECE', 2022), (3, 'Charlie', 'ME', 2022); INSERT INTO Course VALUES (101, 'DBMS', 4), (102, 'OS', 3); INSERT INTO Enrollment VALUES (1, 101, 'A'), (2, 101, 'B'), (3, 102, 'A'), (1, 102, 'B');
+   </details>

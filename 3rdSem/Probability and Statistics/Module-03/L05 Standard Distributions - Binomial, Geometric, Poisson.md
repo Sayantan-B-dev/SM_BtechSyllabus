@@ -196,17 +196,34 @@ Solution:
 
 1. A coin is biased with P(H) = 0.6. It is tossed 8 times. Find the probability of exactly 5 heads, and the mean number of heads.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `P(X=5) = C(8,5)(0.6)^5(0.4)^3 = 56 * 0.07776 * 0.064 ≈ 0.279`. Mean = 8(0.6) = 4.8.
+   </details>
+
 2. On average, 3 customers arrive at a store per hour. Find the probability that exactly 5 customers arrive in a 2-hour period.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. lambda = 3*2 = 6. `P(X=5) = e^{-6} * 6^5 / 5! = e^{-6} * 7776/120 ≈ 0.1606`.
+   </details>
 
 3. A player has a 15% chance of winning a game. Find the probability that the first win occurs on the 5th game, and the expected number of games to win.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `P(X=5) = (0.85)^4(0.15) ≈ 0.0783`. `E[X] = 1/0.15 ≈ 6.67`.
+   </details>
+
 4. In a class, 10% of students fail. If 15 students are selected at random, find P(at most 2 fail). Use both Binomial and Poisson approximation.
 
-5. A fair die is rolled until a 5 or 6 appears. Find the probability that it takes exactly 3 rolls, and the expected number of rolls.
+   <details>
+   <summary>Show Answer</summary>
+   4. Binomial: `P(X<=2) = C(15,0)(0.9)^15 + C(15,1)(0.1)(0.9)^14 + C(15,2)(0.1)^2(0.9)^13 ≈ 0.206 + 0.343 + 0.267 = 0.816`. Poisson: lambda = 1.5. `P(X<=2) = e^{-1.5}(1+1.5+1.125) = 3.625e^{-1.5} ≈ 0.809`.
+   </details>
 
-**Answers / Hints:**
-1. `P(X=5) = C(8,5)(0.6)^5(0.4)^3 = 56 * 0.07776 * 0.064 ≈ 0.279`. Mean = 8(0.6) = 4.8.
-2. lambda = 3*2 = 6. `P(X=5) = e^{-6} * 6^5 / 5! = e^{-6} * 7776/120 ≈ 0.1606`.
-3. `P(X=5) = (0.85)^4(0.15) ≈ 0.0783`. `E[X] = 1/0.15 ≈ 6.67`.
-4. Binomial: `P(X<=2) = C(15,0)(0.9)^15 + C(15,1)(0.1)(0.9)^14 + C(15,2)(0.1)^2(0.9)^13 ≈ 0.206 + 0.343 + 0.267 = 0.816`. Poisson: lambda = 1.5. `P(X<=2) = e^{-1.5}(1+1.5+1.125) = 3.625e^{-1.5} ≈ 0.809`.
-5. p = 2/6 = 1/3. `P(X=3) = (2/3)^2(1/3) = 4/27 ≈ 0.148`. `E[X] = 3`.
+5. A fair die is rolled until a 5 or 6 appears. Find the probability that it takes exactly 3 rolls, and the expected number of rolls.
+   <details>
+   <summary>Show Answer</summary>
+   5. p = 2/6 = 1/3. `P(X=3) = (2/3)^2(1/3) = 4/27 ≈ 0.148`. `E[X] = 3`.
+   </details>

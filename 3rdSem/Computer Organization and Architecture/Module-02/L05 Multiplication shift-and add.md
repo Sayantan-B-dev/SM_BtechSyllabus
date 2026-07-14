@@ -253,7 +253,8 @@ Hmm, this is getting complex. Let me just note the correct final result. 11 * 13
 ## Practice Problems
 
 1. **Binary multiplication**: Multiply 1011 (11) by 0011 (3) using the paper-and-pencil method.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      ```
      1011
    x 0011
@@ -264,21 +265,33 @@ Hmm, this is getting complex. Let me just note the correct final result. 11 * 13
    1000001
    ```
    Result = 1000001 (binary) = 33? Wait: 1011 x 0011 = 11 x 3 = 33. Binary: 100001 = 33. Yes.
+</details>
 
 2. **Shift-and-add steps**: Show the contents of the product register for each iteration of 5 x 3 (4-bit). M=0101, Q=0011.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      Initial: P=00000000, Q=0011
      Iter1: Q[0]=1, Add => 01010000, Shift => 00101000, Q>>=1 => 0001
      Iter2: Q[0]=1, Add => 01111000 (0010+0101), Shift => 00111100, Q>>=1 => 0000
      Iter3: Q[0]=0, No add, Shift => 00011110
      Iter4: Q[0]=0, No add, Shift => 00001111
      Result: 00001111 = 15. Check: 5x3 = 15. Correct.
+</details>
 
 3. **Product size**: Why is the product of two n-bit numbers stored in 2n bits?
-   - **Answer**: Multiplying two n-bit numbers can produce a result of up to 2n bits. For example, 2^4 - 1 = 15, 15 x 15 = 225 which requires 8 bits (2^8 = 256). In general, (2^n - 1) x (2^n - 1) < 2^(2n), so 2n bits suffice.
+<details>
+<summary>Show Answer</summary>
+Multiplying two n-bit numbers can produce a result of up to 2n bits. For example, 2^4 - 1 = 15, 15 x 15 = 225 which requires 8 bits (2^8 = 256). In general, (2^n - 1) x (2^n - 1) < 2^(2n), so 2n bits suffice.
+</details>
 
 4. **Hardware count**: How many full adders are needed for an n-bit shift-and-add multiplier?
-   - **Answer**: One n-bit adder (n full adders) is needed, since partial products are accumulated serially over n cycles. This is far less hardware than a parallel multiplier.
+<details>
+<summary>Show Answer</summary>
+One n-bit adder (n full adders) is needed, since partial products are accumulated serially over n cycles. This is far less hardware than a parallel multiplier.
+</details>
 
 5. **Comparison**: How many cycles does a 32-bit shift-and-add multiplier need? How could it be sped up?
-   - **Answer**: 32 cycles (one per multiplier bit). Speedup techniques: (a) Booth recoding reduces cycles for signed numbers, (b) radix-4 Booth halves cycles to 16, (c) array multipliers use O(n) hardware but compute in O(n) gate delays in parallel.
+<details>
+<summary>Show Answer</summary>
+32 cycles (one per multiplier bit). Speedup techniques: (a) Booth recoding reduces cycles for signed numbers, (b) radix-4 Booth halves cycles to 16, (c) array multipliers use O(n) hardware but compute in O(n) gate delays in parallel.
+</details>

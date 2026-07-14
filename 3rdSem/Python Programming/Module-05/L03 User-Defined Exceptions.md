@@ -613,193 +613,194 @@ Salary Error: Invalid salary $2000000: Salary exceeds maximum.
 ## Practice Problems
 
 1. **Withdrawal System** -- Create a custom exception `OverdraftError` with attributes `balance`, `withdrawal_amount`, and `overdraft_limit`. Create a `BankAccount` class with a configurable overdraft limit. Raise `OverdraftError` when withdrawal exceeds balance + overdraft limit.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class OverdraftError(Exception):
+       def __init__(self, balance, withdrawal_amount, overdraft_limit):
+           self.balance = balance
+           self.withdrawal_amount = withdrawal_amount
+           self.overdraft_limit = overdraft_limit
+           available = balance + overdraft_limit
+           deficit = withdrawal_amount - available
+           super().__init__(
+               f"Overdraft limit exceeded: balance={balance}, "
+               f"overdraft_limit={overdraft_limit}, "
+               f"available={available}, deficit={deficit}"
+           )
+
+   class BankAccount:
+       def __init__(self, owner, balance=0, overdraft_limit=100):
+           self.owner = owner
+           self.balance = balance
+           self.overdraft_limit = overdraft_limit
+
+       def withdraw(self, amount):
+           available = self.balance + self.overdraft_limit
+           if amount > available:
+               raise OverdraftError(self.balance, amount, self.overdraft_limit)
+           self.balance -= amount
+           print(f"Withdrew {amount}. Balance: {self.balance}")
+
+   acc = BankAccount("Alice", 500, 200)
+   try:
+       acc.withdraw(800)
+   except OverdraftError as e:
+       print(f"Overdraft denied: {e}")
+   ```
+   </details>
 
 2. **Grade Validator** -- Create a hierarchy of exceptions: `GradeError` (base), `InvalidGradeValueError` (grade not between 0-100), `InvalidGradeTypeError` (not a number). Write a function `process_grade(value)` that validates and returns a letter grade (A, B, C, D, F).
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class GradeError(Exception): pass
+   class InvalidGradeValueError(GradeError): pass
+   class InvalidGradeTypeError(GradeError): pass
+
+   def letter_grade(score):
+       if not isinstance(score, (int, float)):
+           raise InvalidGradeTypeError(f"Grade must be numeric, got {type(score)}")
+       if score < 0 or score > 100:
+           raise InvalidGradeValueError(f"Grade {score} not in range 0-100")
+       if score >= 90: return "A"
+       if score >= 80: return "B"
+       if score >= 70: return "C"
+       if score >= 60: return "D"
+       return "F"
+
+   def process_grade(value):
+       try:
+           grade = letter_grade(value)
+           print(f"Score {value} -> Grade {grade}")
+       except GradeError as e:
+           print(f"Error: {e}")
+
+   process_grade(85)
+   process_grade(105)
+   process_grade("hello")
+   ```
+   </details>
 
 3. **Shopping Cart** -- Create custom exceptions for an e-commerce cart: `CartError` (base), `ItemNotFoundError`, `OutOfStockError` (with `available` attribute), `CartFullError`. Implement a `ShoppingCart` class with `add_item`, `remove_item`, and `checkout` methods.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class CartError(Exception): pass
+   class ItemNotFoundError(CartError): pass
+   class OutOfStockError(CartError):
+       def __init__(self, item, available):
+           self.available = available
+           super().__init__(f"'{item}' out of stock. Available: {available}")
+   class CartFullError(CartError): pass
+
+   class ShoppingCart:
+       def __init__(self, max_items=5):
+           self.items = {}
+           self.max_items = max_items
+
+       def add_item(self, name, quantity=1, stock=10):
+           if len(self.items) >= self.max_items:
+               raise CartFullError(f"Cart full (max {self.max_items} items)")
+           if stock < quantity:
+               raise OutOfStockError(name, stock)
+           self.items[name] = self.items.get(name, 0) + quantity
+           print(f"Added {quantity}x {name}. Cart: {self.items}")
+
+       def remove_item(self, name):
+           if name not in self.items:
+               raise ItemNotFoundError(f"'{name}' not in cart")
+           del self.items[name]
+           print(f"Removed {name}. Cart: {self.items}")
+
+   cart = ShoppingCart()
+   cart.add_item("Laptop", 1, 5)
+   cart.add_item("Mouse", 2, 3)
+   cart.remove_item("Mouse")
+   try:
+       cart.remove_item("Keyboard")
+   except ItemNotFoundError as e:
+       print(f"Error: {e}")
+   ```
+   </details>
 
 4. **Configuration Parser** -- Write a config parser that raises custom exceptions: `ConfigError` (base), `ConfigKeyError` (missing key), `ConfigTypeError` (wrong type), `ConfigValueError` (invalid value). Parse a dictionary config and validate it.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class ConfigError(Exception): pass
+   class ConfigKeyError(ConfigError): pass
+   class ConfigTypeError(ConfigError): pass
+   class ConfigValueError(ConfigError): pass
+
+   expected_schema = {
+       "host": str,
+       "port": int,
+       "debug": bool,
+       "max_connections": int,
+   }
+
+   def validate_config(config):
+       for key, expected_type in expected_schema.items():
+           if key not in config:
+               raise ConfigKeyError(f"Missing required key: '{key}'")
+           if not isinstance(config[key], expected_type):
+               raise ConfigTypeError(
+                   f"'{key}' should be {expected_type.__name__}, "
+                   f"got {type(config[key]).__name__}"
+               )
+       port = config["port"]
+       if port < 1 or port > 65535:
+           raise ConfigValueError(f"Port {port} out of range (1-65535)")
+       if config.get("max_connections", 0) < 1:
+           raise ConfigValueError("max_connections must be >= 1")
+       print("Config is valid!")
+
+   validate_config({"host": "localhost", "port": 8080, "debug": True, "max_connections": 10})
+   try:
+       validate_config({"host": "localhost", "port": 99999, "debug": True, "max_connections": 10})
+   except ConfigValueError as e:
+       print(f"Config error: {e}")
+   ```
+   </details>
 
 5. **File Validation System** -- Create exceptions: `FileValidationError` (base), `FileSizeExceededError` (with `max_size`), `InvalidExtensionError` (with `allowed`), `FileEmptyError`. Write a function `validate_file(filename, max_mb=10, allowed_extensions=None)` that validates a file before processing.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   import os
 
-## Practice Problems
+   class FileValidationError(Exception): pass
+   class FileSizeExceededError(FileValidationError):
+       def __init__(self, filename, size_mb, max_size):
+           super().__init__(f"{filename} is {size_mb:.1f}MB (max {max_size}MB)")
+   class InvalidExtensionError(FileValidationError):
+       def __init__(self, filename, allowed):
+           super().__init__(f"{filename}: allowed extensions: {allowed}")
+   class FileEmptyError(FileValidationError): pass
 
-1. **Withdrawal System**
+   def validate_file(filename, max_mb=10, allowed_extensions=None):
+       if allowed_extensions is None:
+           allowed_extensions = [".txt", ".csv", ".json"]
+       ext = os.path.splitext(filename)[1].lower()
+       if ext not in allowed_extensions:
+           raise InvalidExtensionError(filename, allowed_extensions)
+       if not os.path.exists(filename):
+           raise FileValidationError(f"{filename} does not exist")
+       size_mb = os.path.getsize(filename) / (1024 * 1024)
+       if size_mb > max_mb:
+           raise FileSizeExceededError(filename, size_mb, max_mb)
+       if os.path.getsize(filename) == 0:
+           raise FileEmptyError(f"{filename} is empty")
+       print(f"{filename}: valid ({size_mb:.2f}MB)")
 
-```python
-class OverdraftError(Exception):
-    def __init__(self, balance, withdrawal_amount, overdraft_limit):
-        self.balance = balance
-        self.withdrawal_amount = withdrawal_amount
-        self.overdraft_limit = overdraft_limit
-        available = balance + overdraft_limit
-        deficit = withdrawal_amount - available
-        super().__init__(
-            f"Overdraft limit exceeded: balance={balance}, "
-            f"overdraft_limit={overdraft_limit}, "
-            f"available={available}, deficit={deficit}"
-        )
-
-class BankAccount:
-    def __init__(self, owner, balance=0, overdraft_limit=100):
-        self.owner = owner
-        self.balance = balance
-        self.overdraft_limit = overdraft_limit
-
-    def withdraw(self, amount):
-        available = self.balance + self.overdraft_limit
-        if amount > available:
-            raise OverdraftError(self.balance, amount, self.overdraft_limit)
-        self.balance -= amount
-        print(f"Withdrew {amount}. Balance: {self.balance}")
-
-acc = BankAccount("Alice", 500, 200)
-try:
-    acc.withdraw(800)
-except OverdraftError as e:
-    print(f"Overdraft denied: {e}")
-```
-
-2. **Grade Validator**
-
-```python
-class GradeError(Exception): pass
-class InvalidGradeValueError(GradeError): pass
-class InvalidGradeTypeError(GradeError): pass
-
-def letter_grade(score):
-    if not isinstance(score, (int, float)):
-        raise InvalidGradeTypeError(f"Grade must be numeric, got {type(score)}")
-    if score < 0 or score > 100:
-        raise InvalidGradeValueError(f"Grade {score} not in range 0-100")
-    if score >= 90: return "A"
-    if score >= 80: return "B"
-    if score >= 70: return "C"
-    if score >= 60: return "D"
-    return "F"
-
-def process_grade(value):
-    try:
-        grade = letter_grade(value)
-        print(f"Score {value} -> Grade {grade}")
-    except GradeError as e:
-        print(f"Error: {e}")
-
-process_grade(85)
-process_grade(105)
-process_grade("hello")
-```
-
-3. **Shopping Cart**
-
-```python
-class CartError(Exception): pass
-class ItemNotFoundError(CartError): pass
-class OutOfStockError(CartError):
-    def __init__(self, item, available):
-        self.available = available
-        super().__init__(f"'{item}' out of stock. Available: {available}")
-class CartFullError(CartError): pass
-
-class ShoppingCart:
-    def __init__(self, max_items=5):
-        self.items = {}
-        self.max_items = max_items
-
-    def add_item(self, name, quantity=1, stock=10):
-        if len(self.items) >= self.max_items:
-            raise CartFullError(f"Cart full (max {self.max_items} items)")
-        if stock < quantity:
-            raise OutOfStockError(name, stock)
-        self.items[name] = self.items.get(name, 0) + quantity
-        print(f"Added {quantity}x {name}. Cart: {self.items}")
-
-    def remove_item(self, name):
-        if name not in self.items:
-            raise ItemNotFoundError(f"'{name}' not in cart")
-        del self.items[name]
-        print(f"Removed {name}. Cart: {self.items}")
-
-cart = ShoppingCart()
-cart.add_item("Laptop", 1, 5)
-cart.add_item("Mouse", 2, 3)
-cart.remove_item("Mouse")
-try:
-    cart.remove_item("Keyboard")
-except ItemNotFoundError as e:
-    print(f"Error: {e}")
-```
-
-4. **Configuration Parser**
-
-```python
-class ConfigError(Exception): pass
-class ConfigKeyError(ConfigError): pass
-class ConfigTypeError(ConfigError): pass
-class ConfigValueError(ConfigError): pass
-
-expected_schema = {
-    "host": str,
-    "port": int,
-    "debug": bool,
-    "max_connections": int,
-}
-
-def validate_config(config):
-    for key, expected_type in expected_schema.items():
-        if key not in config:
-            raise ConfigKeyError(f"Missing required key: '{key}'")
-        if not isinstance(config[key], expected_type):
-            raise ConfigTypeError(
-                f"'{key}' should be {expected_type.__name__}, "
-                f"got {type(config[key]).__name__}"
-            )
-    port = config["port"]
-    if port < 1 or port > 65535:
-        raise ConfigValueError(f"Port {port} out of range (1-65535)")
-    if config.get("max_connections", 0) < 1:
-        raise ConfigValueError("max_connections must be >= 1")
-    print("Config is valid!")
-
-validate_config({"host": "localhost", "port": 8080, "debug": True, "max_connections": 10})
-try:
-    validate_config({"host": "localhost", "port": 99999, "debug": True, "max_connections": 10})
-except ConfigValueError as e:
-    print(f"Config error: {e}")
-```
-
-5. **File Validation System**
-
-```python
-import os
-
-class FileValidationError(Exception): pass
-class FileSizeExceededError(FileValidationError):
-    def __init__(self, filename, size_mb, max_size):
-        super().__init__(f"{filename} is {size_mb:.1f}MB (max {max_size}MB)")
-class InvalidExtensionError(FileValidationError):
-    def __init__(self, filename, allowed):
-        super().__init__(f"{filename}: allowed extensions: {allowed}")
-class FileEmptyError(FileValidationError): pass
-
-def validate_file(filename, max_mb=10, allowed_extensions=None):
-    if allowed_extensions is None:
-        allowed_extensions = [".txt", ".csv", ".json"]
-    ext = os.path.splitext(filename)[1].lower()
-    if ext not in allowed_extensions:
-        raise InvalidExtensionError(filename, allowed_extensions)
-    if not os.path.exists(filename):
-        raise FileValidationError(f"{filename} does not exist")
-    size_mb = os.path.getsize(filename) / (1024 * 1024)
-    if size_mb > max_mb:
-        raise FileSizeExceededError(filename, size_mb, max_mb)
-    if os.path.getsize(filename) == 0:
-        raise FileEmptyError(f"{filename} is empty")
-    print(f"{filename}: valid ({size_mb:.2f}MB)")
-
-open("test.txt", "w").write("hello")
-validate_file("test.txt")
-validate_file("test.txt", max_mb=0.001)
-```
+   open("test.txt", "w").write("hello")
+   validate_file("test.txt")
+   validate_file("test.txt", max_mb=0.001)
+   ```
+   </details>

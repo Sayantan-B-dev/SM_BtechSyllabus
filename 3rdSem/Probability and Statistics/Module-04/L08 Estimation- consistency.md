@@ -247,24 +247,34 @@ The standard error is 3.16 times smaller with `n = 100`. The estimator with `n =
 
 **Problem 1:** Let `X_1, X_2, ..., X_n` be i.i.d. with mean `mu` and variance `sigma^2`. Consider the estimator `T_n = (X_1 + X_2 + ... + X_k) / k` where `k` is a fixed number (does not grow with `n`). Is `T_n` consistent? Explain.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** No, `T_n` is not consistent. It only uses the first `k` observations regardless of `n`. Its variance is `sigma^2/k`, which does not go to 0 as `n -> infinity`.
+   </details>
+
 **Problem 2:** Let `X_1, X_2, ..., X_n` be i.i.d. `Bernoulli(p)`. Show that `hat{p}_n = bar{X}_n` is consistent for `p` using Chebyshev's inequality.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `E[hat{p}_n] = p`, `Var(hat{p}_n) = p(1-p)/n`. By Chebyshev: `P(|hat{p}_n - p| >= epsilon) <= p(1-p)/(n*epsilon^2) -> 0` as `n -> infinity`.
+   </details>
 
 **Problem 3:** The sample median is a consistent estimator of the population median. True or False? Justify briefly.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** True. Sample quantiles (including the median) are consistent estimators of their population counterparts under mild regularity conditions.
+   </details>
+
 **Problem 4:** A statistician proposes the estimator `T_n = bar{X}_n + 1/n` for the population mean `mu`. Is `T_n` consistent? Is it unbiased?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** `E[T_n] = mu + 1/n`, so bias = `1/n -> 0`. `Var(T_n) = sigma^2/n -> 0`. Since both bias and variance go to 0, `T_n` is consistent. It is biased for finite `n` but asymptotically unbiased.
+   </details>
+
 **Problem 5:** Explain the difference between unbiasedness and consistency. Can an estimator be unbiased but not consistent? Give an example.
-
----
-
-### Answers / Hints
-
-**Problem 1:** No, `T_n` is not consistent. It only uses the first `k` observations regardless of `n`. Its variance is `sigma^2/k`, which does not go to 0 as `n -> infinity`.
-
-**Problem 2:** `E[hat{p}_n] = p`, `Var(hat{p}_n) = p(1-p)/n`. By Chebyshev: `P(|hat{p}_n - p| >= epsilon) <= p(1-p)/(n*epsilon^2) -> 0` as `n -> infinity`.
-
-**Problem 3:** True. Sample quantiles (including the median) are consistent estimators of their population counterparts under mild regularity conditions.
-
-**Problem 4:** `E[T_n] = mu + 1/n`, so bias = `1/n -> 0`. `Var(T_n) = sigma^2/n -> 0`. Since both bias and variance go to 0, `T_n` is consistent. It is biased for finite `n` but asymptotically unbiased.
-
-**Problem 5:** Unbiasedness = `E[hat{theta}_n] = theta` for every `n`. Consistency = `hat{theta}_n -> theta` in probability as `n -> infinity`. Example of unbiased but not consistent: `T_n = X_1` (use only the first observation) is unbiased for `mu` but its variance is constant `sigma^2`, so it does not converge to `mu`.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** Unbiasedness = `E[hat{theta}_n] = theta` for every `n`. Consistency = `hat{theta}_n -> theta` in probability as `n -> infinity`. Example of unbiased but not consistent: `T_n = X_1` (use only the first observation) is unbiased for `mu` but its variance is constant `sigma^2`, so it does not converge to `mu`.
+   </details>

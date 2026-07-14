@@ -175,17 +175,34 @@ Mean = `lambda = 5`.
 
 1. Find the MGF of X with PMF: `P(X=0)=0.1, P(X=1)=0.4, P(X=2)=0.5`. Then find `E[X]` and `E[X^2]`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `M(t) = 0.1 + 0.4e^t + 0.5e^{2t}`. `M'(t) = 0.4e^t + e^{2t}` => `M'(0) = 1.4`. `M''(t) = 0.4e^t + 2e^{2t}` => `M''(0)=2.4`.
+   </details>
+
 2. If `M_X(t) = (0.6 + 0.4e^{t})^{15}`, identify the distribution and find its mean and variance.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. Binomial(15, 0.4). Mean = 6. Variance = 15(0.4)(0.6) = 3.6.
+   </details>
 
 3. If X ~ Poisson(3), find the MGF and use it to find `E[X]` and `E[X^2]`.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `M(t) = e^{3(e^t-1)}`. `M'(0)=3`, `M''(0)=9+3=12`. So `E[X]=3`, `E[X^2]=12`.
+   </details>
+
 4. Show that the MGF of a Geometric distribution yields the correct mean.
 
-5. Two independent random variables X ~ Poisson(2) and Y ~ Poisson(3). Find the MGF of `Z = X + Y` and identify its distribution.
+   <details>
+   <summary>Show Answer</summary>
+   4. `M'(t) = [pe^t(1-(1-p)e^t) - pe^t(-(1-p)e^t)]/[1-(1-p)e^t]^2`. At t=0: `M'(0) = [p(1-(1-p)) + p(1-p)]/[1-(1-p)]^2 = [p*p + p(1-p)]/p^2 = (p^2+p-p^2)/p^2 = p/p^2 = 1/p`.
+   </details>
 
-**Answers / Hints:**
-1. `M(t) = 0.1 + 0.4e^t + 0.5e^{2t}`. `M'(t) = 0.4e^t + e^{2t}` => `M'(0) = 1.4`. `M''(t) = 0.4e^t + 2e^{2t}` => `M''(0)=2.4`.
-2. Binomial(15, 0.4). Mean = 6. Variance = 15(0.4)(0.6) = 3.6.
-3. `M(t) = e^{3(e^t-1)}`. `M'(0)=3`, `M''(0)=9+3=12`. So `E[X]=3`, `E[X^2]=12`.
-4. `M'(t) = [pe^t(1-(1-p)e^t) - pe^t(-(1-p)e^t)]/[1-(1-p)e^t]^2`. At t=0: `M'(0) = [p(1-(1-p)) + p(1-p)]/[1-(1-p)]^2 = [p*p + p(1-p)]/p^2 = (p^2+p-p^2)/p^2 = p/p^2 = 1/p`.
-5. By independence: `M_Z(t) = M_X(t)*M_Y(t) = e^{2(e^t-1)} * e^{3(e^t-1)} = e^{5(e^t-1)}`. So Z ~ Poisson(5).
+5. Two independent random variables X ~ Poisson(2) and Y ~ Poisson(3). Find the MGF of `Z = X + Y` and identify its distribution.
+   <details>
+   <summary>Show Answer</summary>
+   5. By independence: `M_Z(t) = M_X(t)*M_Y(t) = e^{2(e^t-1)} * e^{3(e^t-1)} = e^{5(e^t-1)}`. So Z ~ Poisson(5).
+   </details>

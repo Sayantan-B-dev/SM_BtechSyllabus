@@ -232,13 +232,13 @@ Factorial of 6 is 720.
 **Problem 1:** Write a function `is_palindrome(s)` that checks whether a given string is a palindrome (reads the same forwards and backwards). Return `True` or `False`.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Compare the string with its reverse: `s == s[::-1]`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def is_palindrome(s):
@@ -252,13 +252,13 @@ print(is_palindrome("hello"))  # False
 **Problem 2:** Write a function `count_vowels(text)` that returns the number of vowels (a, e, i, o, u) in a given string.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Loop through each character and check if it is in `"aeiouAEIOU"`.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def count_vowels(text):
@@ -275,13 +275,13 @@ print(count_vowels("Hello World"))  # 3
 **Problem 3:** Write a function `stats(numbers)` that takes a list of numbers and returns the sum, average, minimum, and maximum as four separate values.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Use `sum()`, `len()`, `min()`, `max()` built-in functions.
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def stats(numbers):
@@ -299,13 +299,13 @@ print(f"Sum: {s}, Avg: {a}, Min: {mi}, Max: {ma}")
 **Problem 4:** Write a function `temperature_converter(value, to_celsius=True)` that converts between Celsius and Fahrenheit. If `to_celsius` is `True`, convert Fahrenheit to Celsius; otherwise, convert Celsius to Fahrenheit.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 C = (F - 32) * 5/9, F = C * 9/5 + 32
 </details>
 
 <details>
-<summary>Solution</summary>
+<summary>Show Answer</summary>
 
 ```python
 def temperature_converter(value, to_celsius=True):

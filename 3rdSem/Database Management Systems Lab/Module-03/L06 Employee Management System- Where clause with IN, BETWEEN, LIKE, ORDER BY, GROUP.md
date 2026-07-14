@@ -134,5 +134,19 @@ FROM Employee GROUP BY department HAVING COUNT(*) >= 2 ORDER BY avg_salary DESC;
 ## Homework / Practice
 
 1. Find all employees whose name contains the letter 'e' as the second character (use _ pattern).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee WHERE emp_name LIKE '_e%';
+   </details>
+
 2. List employees sorted by hire_date in descending order (newest first), and limit to the 3 most recent hires.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT * FROM Employee ORDER BY hire_date DESC LIMIT 3;
+   </details>
+
 3. Use GROUP BY to find departments where the total salary expense exceeds 150000, sorted by total expense descending.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT department, SUM(salary) AS total_salary FROM Employee GROUP BY department HAVING SUM(salary) > 150000 ORDER BY total_salary DESC;
+   </details>

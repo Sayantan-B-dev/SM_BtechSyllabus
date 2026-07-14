@@ -134,5 +134,19 @@ LEFT JOIN Employee e ON d.dept_id = e.dept_id WHERE e.emp_id IS NULL;
 ## Homework / Practice
 
 1. Use LEFT JOIN to list all projects and the employees assigned to them. Include projects with no employees assigned.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT p.project_name, p.status, e.emp_name, w.role FROM Project p LEFT JOIN Works_On w ON p.project_id = w.project_id LEFT JOIN Employee e ON w.emp_id = e.emp_id ORDER BY p.project_name;
+   </details>
+
 2. Write a FULL OUTER JOIN query (using UNION) to find all employees and all projects, showing which employees are assigned to which projects.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.emp_name, p.project_name FROM Employee e LEFT JOIN Works_On w ON e.emp_id = w.emp_id LEFT JOIN Project p ON w.project_id = p.project_id UNION SELECT e.emp_name, p.project_name FROM Employee e RIGHT JOIN Works_On w ON e.emp_id = w.emp_id RIGHT JOIN Project p ON w.project_id = p.project_id ORDER BY emp_name, project_name;
+   </details>
+
 3. Identify any employees who are not assigned to any project using a LEFT JOIN with a WHERE IS NULL condition.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.emp_id, e.emp_name, e.department FROM Employee e LEFT JOIN Works_On w ON e.emp_id = w.emp_id WHERE w.project_id IS NULL;
+   </details>

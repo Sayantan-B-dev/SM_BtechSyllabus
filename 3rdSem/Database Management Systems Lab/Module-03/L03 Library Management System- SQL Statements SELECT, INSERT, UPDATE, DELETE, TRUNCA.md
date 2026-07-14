@@ -134,5 +134,19 @@ FROM Book b LEFT JOIN Loan l ON b.book_id = l.book_id GROUP BY b.category;
 ## Homework / Practice
 
 1. Insert additional loan records and then identify members who have borrowed more than 2 books.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO Loan (member_id, book_id, issue_date) VALUES (1, 2, '2024-03-01'), (1, 3, '2024-03-05'), (2, 1, '2024-03-10'); SELECT l.member_id, m.member_name, COUNT(l.book_id) AS books_borrowed FROM Loan l INNER JOIN Member m ON l.member_id = m.member_id GROUP BY l.member_id HAVING COUNT(l.book_id) > 2;
+   </details>
+
 2. Find the most popular author (the author whose books have been borrowed the most times).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT b.author, COUNT(l.loan_id) AS borrow_count FROM Book b INNER JOIN Loan l ON b.book_id = l.book_id GROUP BY b.author ORDER BY borrow_count DESC LIMIT 1;
+   </details>
+
 3. Write a query that shows the number of loans per month (extract month from issue_date).
+   <details>
+   <summary>Show Answer</summary>
+   SELECT MONTH(issue_date) AS month, COUNT(*) AS loan_count FROM Loan GROUP BY MONTH(issue_date) ORDER BY month;
+   </details>

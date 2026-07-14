@@ -276,37 +276,51 @@ WHERE e.Salary = (
 ## Practice Problems
 
 1. Write a query to find the number of employees in each department, sorted by count descending.
-
-2. Find departments where the average salary is above 50000 and at least 2 employees work.
-
-3. Write a query using EXISTS to find employees who belong to a department with budget > 300000.
-
-4. What is the difference between WHERE and HAVING?
-
-5. Find employees who earn more than the average salary of ALL employees (not per department).
-
-**Answers:**
-1. ```sql
+<details>
+<summary>Show Answer</summary>
+```sql
 SELECT DeptID, COUNT(*) AS EmpCount
 FROM EMPLOYEE
 GROUP BY DeptID
 ORDER BY EmpCount DESC;
 ```
-2. ```sql
+</details>
+
+2. Find departments where the average salary is above 50000 and at least 2 employees work.
+<details>
+<summary>Show Answer</summary>
+```sql
 SELECT DeptID, AVG(Salary) AS AvgSal
 FROM EMPLOYEE
 GROUP BY DeptID
 HAVING AVG(Salary) > 50000 AND COUNT(*) >= 2;
 ```
-3. ```sql
+</details>
+
+3. Write a query using EXISTS to find employees who belong to a department with budget > 300000.
+<details>
+<summary>Show Answer</summary>
+```sql
 SELECT e.Name FROM EMPLOYEE e
 WHERE EXISTS (
     SELECT * FROM DEPARTMENT d
     WHERE d.DeptID = e.DeptID AND d.Budget > 300000
 );
 ```
-4. WHERE filters rows **before** grouping; HAVING filters groups **after** grouping.
-5. ```sql
+</details>
+
+4. What is the difference between WHERE and HAVING?
+<details>
+<summary>Show Answer</summary>
+WHERE filters rows **before** grouping; HAVING filters groups **after** grouping.
+</details>
+
+5. Find employees who earn more than the average salary of ALL employees (not per department).
+<details>
+<summary>Show Answer</summary>
+```sql
 SELECT Name, Salary FROM EMPLOYEE
 WHERE Salary > (SELECT AVG(Salary) FROM EMPLOYEE);
 ```
+</details>
+

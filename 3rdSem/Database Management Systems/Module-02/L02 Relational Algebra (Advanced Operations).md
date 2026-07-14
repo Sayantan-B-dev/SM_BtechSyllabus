@@ -201,18 +201,32 @@ Result: `JAVA cap PYTHON` returns `(101)`.
 ## Practice Problems
 
 1. Given `STUDENT(SID, SName, Major)` and `ENROLLED(SID, CID, Grade)`, write RA to find names of students enrolled in course 'CS101'.
+<details>
+<summary>Show Answer</summary>
+`pi_SName(STUDENT bowtie sigma_CID = 'CS101'(ENROLLED))`
+</details>
 
 2. Find the names of students enrolled in ALL courses offered -- explain why the division operator would be needed.
+<details>
+<summary>Show Answer</summary>
+This requires division (`÷`) : `pi_SID,CID(ENROLLED) ÷ pi_CID(Courses)`. Division is covered in advanced topics.
+</details>
 
 3. Given `R(A,B) = {(1,2), (3,4)}` and `S(B,C) = {(2,5), (6,7)}`, compute `R bowtie S` (natural join).
+<details>
+<summary>Show Answer</summary>
+Only `(1,2,5)` because the only matching B value is 2.
+</details>
 
 4. Express intersection using only union and set difference.
+<details>
+<summary>Show Answer</summary>
+`R cap S = R - (R - S)`
+</details>
 
 5. Why must relations be union-compatible for `cup` and `-`?
+<details>
+<summary>Show Answer</summary>
+The result must be a relation with a fixed schema. Without union-compatibility, the result would not have a well-defined set of attributes.
+</details>
 
-**Answers:**
-1. `pi_SName(STUDENT bowtie sigma_CID = 'CS101'(ENROLLED))`
-2. This requires division (`÷`) : `pi_SID,CID(ENROLLED) ÷ pi_CID(Courses)`. Division is covered in advanced topics.
-3. Only `(1,2,5)` because the only matching B value is 2.
-4. `R cap S = R - (R - S)`
-5. The result must be a relation with a fixed schema. Without union-compatibility, the result would not have a well-defined set of attributes.

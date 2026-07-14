@@ -199,7 +199,7 @@ print(list(zip(a, b)))  # [(1, 10), (2, 20)]
 **Problem 1:** Given `nums = [15, 8, 22, 3, 10, 7]`, use built-in functions to find the length, maximum, minimum, and sum.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [15, 8, 22, 3, 10, 7]
@@ -213,7 +213,7 @@ print(sum(nums))  # 65
 **Problem 2:** Use `map()` and `filter()` together to get the squares of odd numbers from 1 to 20. Then write the equivalent list comprehension.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 # Using map and filter
@@ -230,7 +230,7 @@ print(result)
 **Problem 3:** Use `reduce()` to find the product of all numbers in `[2, 3, 4, 5]`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from functools import reduce
@@ -242,7 +242,7 @@ print(product)  # 120
 **Problem 4:** Given `names = ["Alice", "Bob", "Charlie"]` and `ages = [25, 30, 35]`, use `zip()` to create a list of tuples and then print each name with its age.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 names = ["Alice", "Bob", "Charlie"]
@@ -260,7 +260,7 @@ for name, age in zip(names, ages):
 **Problem 5:** Use `any()` and `all()` to check if a list `[10, 20, 30, 40, 50]` contains any number greater than 45, and if all numbers are positive.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [10, 20, 30, 40, 50]

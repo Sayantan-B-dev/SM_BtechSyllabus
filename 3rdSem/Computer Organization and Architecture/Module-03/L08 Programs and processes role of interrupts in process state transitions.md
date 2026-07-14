@@ -372,22 +372,37 @@ Time   Event                        P1 State       P2 State
 
 **Q1:** List the five process states and describe the transitions between them. What triggers each transition?
 
-**A1:** The five states are: New, Ready, Running, Waiting (Blocked), Terminated. Transitions: (1) New -> Ready: OS admits process. (2) Ready -> Running: scheduler dispatches process. (3) Running -> Ready: timer interrupt (preemption) or voluntary yield. (4) Running -> Waiting: process requests I/O or waits for event. (5) Waiting -> Ready: I/O completion interrupt or event arrival. (6) Running -> Terminated: process exits.
+<details>
+<summary>Show Answer</summary>
+The five states are: New, Ready, Running, Waiting (Blocked), Terminated. Transitions: (1) New -> Ready: OS admits process. (2) Ready -> Running: scheduler dispatches process. (3) Running -> Ready: timer interrupt (preemption) or voluntary yield. (4) Running -> Waiting: process requests I/O or waits for event. (5) Waiting -> Ready: I/O completion interrupt or event arrival. (6) Running -> Terminated: process exits.
+</details>
 
 **Q2:** Explain the role of the timer interrupt in process state transitions.
 
-**A2:** The timer interrupt is generated periodically by a hardware timer. When it fires, the OS scheduler gains control. The scheduler inspects the currently running process; if its time quantum has expired, the process is moved from Running to Ready, and another process is dispatched from the Ready queue. This ensures fair CPU time sharing among processes and prevents any single process from monopolizing the CPU. Without timer interrupts, a process could run indefinitely unless it voluntarily yielded.
+<details>
+<summary>Show Answer</summary>
+The timer interrupt is generated periodically by a hardware timer. When it fires, the OS scheduler gains control. The scheduler inspects the currently running process; if its time quantum has expired, the process is moved from Running to Ready, and another process is dispatched from the Ready queue. This ensures fair CPU time sharing among processes and prevents any single process from monopolizing the CPU. Without timer interrupts, a process could run indefinitely unless it voluntarily yielded.
+</details>
 
 **Q3:** What information is stored in a Process Control Block (PCB)? Why is it needed?
 
-**A3:** The PCB stores: Process ID (PID), process state, program counter, CPU registers, memory management info (page table base), scheduling info (priority, time quantum), I/O status (open files), accounting info (CPU time used), parent PID, signal handlers. The PCB is needed because it contains all the information required to suspend and resume a process. During a context switch, the OS saves the running process's context into its PCB and loads the next process's context from its PCB. Without the PCB, the OS would have no way to restore a process's exact execution state.
+<details>
+<summary>Show Answer</summary>
+The PCB stores: Process ID (PID), process state, program counter, CPU registers, memory management info (page table base), scheduling info (priority, time quantum), I/O status (open files), accounting info (CPU time used), parent PID, signal handlers. The PCB is needed because it contains all the information required to suspend and resume a process. During a context switch, the OS saves the running process's context into its PCB and loads the next process's context from its PCB. Without the PCB, the OS would have no way to restore a process's exact execution state.
+</details>
 
 **Q4:** Describe the complete sequence of steps in a context switch initiated by a timer interrupt.
 
-**A4:** (1) Timer generates interrupt. (2) CPU completes current instruction. (3) CPU saves PC, PSW, stack pointers (mode switch to kernel). (4) Timer ISR saves remaining registers. (5) ISR calls scheduler. (6) Scheduler: saves current process state into its PCB, adds PCB to Ready queue, selects next process (highest priority), removes next process's PCB from Ready queue, loads its state from PCB. (7) Scheduler loads CR3 with next process's page table base (if needed). (8) Scheduler restores registers, executes IRET. (9) Next process resumes execution.
+<details>
+<summary>Show Answer</summary>
+(1) Timer generates interrupt. (2) CPU completes current instruction. (3) CPU saves PC, PSW, stack pointers (mode switch to kernel). (4) Timer ISR saves remaining registers. (5) ISR calls scheduler. (6) Scheduler: saves current process state into its PCB, adds PCB to Ready queue, selects next process (highest priority), removes next process's PCB from Ready queue, loads its state from PCB. (7) Scheduler loads CR3 with next process's page table base (if needed). (8) Scheduler restores registers, executes IRET. (9) Next process resumes execution.
+</details>
 
 **Q5:** What is the difference between a mode switch and a context switch? Why is a context switch more expensive?
 
-**A5:** A mode switch changes only the privilege level (user mode to kernel mode and back), saving minimal context (PC, PSW, stack). A context switch switches between entirely different processes, requiring saving ALL registers (general-purpose, floating-point, SIMD, etc.), flushing/reloading the TLB (unless ASIDs are used), and potentially warming new cache lines. A mode switch costs ~50-200 cycles; a context switch costs ~500-10,000+ cycles depending on architecture and the amount of state saved/restored. A context switch always involves at least two mode switches, but a mode switch does not always involve a context switch (e.g., a system call in the same process).
+<details>
+<summary>Show Answer</summary>
+A mode switch changes only the privilege level (user mode to kernel mode and back), saving minimal context (PC, PSW, stack). A context switch switches between entirely different processes, requiring saving ALL registers (general-purpose, floating-point, SIMD, etc.), flushing/reloading the TLB (unless ASIDs are used), and potentially warming new cache lines. A mode switch costs ~50-200 cycles; a context switch costs ~500-10,000+ cycles depending on architecture and the amount of state saved/restored. A context switch always involves at least two mode switches, but a mode switch does not always involve a context switch (e.g., a system call in the same process).
+</details>
 
 ---

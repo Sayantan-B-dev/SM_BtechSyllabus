@@ -207,5 +207,19 @@ SELECT * FROM SalaryAudit;
 ## Homework / Practice
 
 1. Create a function that returns the department name for a given employee ID.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE FUNCTION GetEmployeeDept(p_emp_id INT) RETURNS VARCHAR(100) DETERMINISTIC READS SQL DATA BEGIN DECLARE v_dept_name VARCHAR(100); SELECT department INTO v_dept_name FROM Employee WHERE emp_id = p_emp_id; RETURN v_dept_name; END // DELIMITER ;
+   </details>
+
 2. Write an AFTER DELETE trigger that logs deleted employee records into an `EmployeeDeletionLog` table.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE TABLE IF NOT EXISTS EmployeeDeletionLog (log_id INT PRIMARY KEY AUTO_INCREMENT, emp_id INT, emp_name VARCHAR(100), department VARCHAR(50), job_role VARCHAR(50), salary DECIMAL(10,2), deleted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP); DELIMITER // CREATE TRIGGER after_employee_delete AFTER DELETE ON Employee FOR EACH ROW BEGIN INSERT INTO EmployeeDeletionLog (emp_id, emp_name, department, job_role, salary) VALUES (OLD.emp_id, OLD.emp_name, OLD.department, OLD.job_role, OLD.salary); END // DELIMITER ;
+   </details>
+
 3. Create a BEFORE UPDATE trigger that prevents setting a salary below 30000.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE TRIGGER before_employee_salary_update BEFORE UPDATE ON Employee FOR EACH ROW BEGIN IF NEW.salary < 30000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Salary cannot be below 30000'; END IF; END // DELIMITER ;
+   </details>

@@ -598,211 +598,211 @@ IDs: EMP1000, EMP1001, EMP1003, EMP1002
 ## Practice Problems
 
 1. **Book Constructor with Validation** -- Create a `Book` class with `__init__` that validates: title (non-empty string), author (non-empty string), isbn (13-digit string or int), pages (positive int), year (between 1450 and current year). Raise `ValueError` for invalid data.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Book:
+       def __init__(self, title, author, isbn, pages, year):
+           if not title or not title.strip():
+               raise ValueError("Title cannot be empty.")
+           if not author or not author.strip():
+               raise ValueError("Author cannot be empty.")
+           isbn_str = str(isbn).replace("-", "")
+           if len(isbn_str) != 13 or not isbn_str.isdigit():
+               raise ValueError("ISBN must be 13 digits.")
+           if not isinstance(pages, int) or pages <= 0:
+               raise ValueError("Pages must be positive integer.")
+           if not isinstance(year, int) or year < 1450 or year > 2026:
+               raise ValueError(f"Year {year} out of range.")
+           self.title = title
+           self.author = author
+           self.isbn = isbn_str
+           self.pages = pages
+           self.year = year
+
+       def __str__(self):
+           return f"'{self.title}' by {self.author} ({self.year})"
+
+   try:
+       b = Book("1984", "George Orwell", "9780451524935", 328, 1949)
+       print(b)
+       Book("", "Author", "123", -5, 100)  # Should fail
+   except ValueError as e:
+       print(f"Error: {e}")
+   ```
+   </details>
 
 2. **Multiple Constructor Patterns** -- Create a `Time` class that can be constructed from (hours, minutes), from a string "HH:MM", or from total minutes. Use default arguments and class methods.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Time:
+       def __init__(self, hours=0, minutes=0):
+           self._validate(hours, minutes)
+           self.hours = hours
+           self.minutes = minutes
+
+       @classmethod
+       def from_string(cls, time_str):
+           parts = time_str.split(":")
+           if len(parts) != 2:
+               raise ValueError("Use format HH:MM")
+           return cls(int(parts[0]), int(parts[1]))
+
+       @classmethod
+       def from_total_minutes(cls, total_minutes):
+           hours = total_minutes // 60
+           minutes = total_minutes % 60
+           return cls(hours, minutes)
+
+       def _validate(self, h, m):
+           if not (0 <= h < 24):
+               raise ValueError(f"Hours {h} out of range (0-23)")
+           if not (0 <= m < 60):
+               raise ValueError(f"Minutes {m} out of range (0-59)")
+
+       def total_minutes(self):
+           return self.hours * 60 + self.minutes
+
+       def __str__(self):
+           return f"{self.hours:02d}:{self.minutes:02d}"
+
+   t1 = Time(14, 30)
+   t2 = Time.from_string("09:15")
+   t3 = Time.from_total_minutes(450)
+
+   print(t1, t2, t3)
+   ```
+   </details>
 
 3. **Singleton Logger** -- Implement a `Logger` singleton using `__new__`. It should have a `log(level, message)` method and store all log entries in a list. The `__init__` should only initialize once.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Logger:
+       _instance = None
+
+       def __new__(cls):
+           if cls._instance is None:
+               cls._instance = super().__new__(cls)
+           return cls._instance
+
+       def __init__(self):
+           if not hasattr(self, "_initialized"):
+               self._log_entries = []
+               self._initialized = True
+
+       def log(self, level, message):
+           import datetime
+           timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+           entry = f"[{timestamp}] [{level.upper()}] {message}"
+           self._log_entries.append(entry)
+           print(entry)
+
+       def get_logs(self):
+           return self._log_entries
+
+   logger1 = Logger()
+   logger2 = Logger()
+   logger1.log("INFO", "Application started")
+   logger2.log("WARN", "Low disk space")
+   print(f"Same instance: {logger1 is logger2}")
+   print(f"All logs ({len(logger1.get_logs())}):")
+   for log in logger1.get_logs():
+       print(f"  {log}")
+   ```
+   </details>
 
 4. **Immutable Point** -- Create a `Point2D` class that subclasses `tuple` to create immutable 2D points. Implement `__new__` to accept x, y and store them. Add a `distance_from_origin()` method.
+   <details>
+   <summary>Show Answer</summary>
+
+   ```python
+   class Point2D(tuple):
+       def __new__(cls, x, y):
+           return super().__new__(cls, (x, y))
+
+       def __init__(self, x, y):
+           pass
+
+       @property
+       def x(self):
+           return self[0]
+
+       @property
+       def y(self):
+           return self[1]
+
+       def distance_from_origin(self):
+           return (self.x ** 2 + self.y ** 2) ** 0.5
+
+       def __str__(self):
+           return f"Point({self.x}, {self.y})"
+
+   p = Point2D(3, 4)
+   print(f"Point: {p}")
+   print(f"x={p.x}, y={p.y}")
+   print(f"Distance from origin: {p.distance_from_origin()}")
+   print(f"Is tuple: {isinstance(p, tuple)}")
+
+   try:
+       p.x = 10
+   except AttributeError as e:
+       print(f"Cannot modify: {e}")
+   ```
+   </details>
 
 5. **Database Connection Pool** -- Create a `ConnectionPool` class where each pool has a max size. Use `__new__` to manage a fixed number of connections. Implement `acquire()` and `release()` methods.
+   <details>
+   <summary>Show Answer</summary>
 
----
+   ```python
+   class ConnectionPool:
+       _instances = {}
 
-## Practice Problems
+       def __new__(cls, pool_name, max_size=5):
+           if pool_name not in cls._instances:
+               instance = super().__new__(cls)
+               instance.pool_name = pool_name
+               instance.max_size = max_size
+               instance._available = list(range(max_size))
+               instance._in_use = set()
+               instance._initialized = True
+               cls._instances[pool_name] = instance
+               print(f"Created pool '{pool_name}' (max {max_size})")
+           return cls._instances[pool_name]
 
-1. **Book Constructor with Validation**
+       def acquire(self):
+           if not self._available:
+               print(f"Pool '{self.pool_name}' exhausted!")
+               return None
+           conn_id = self._available.pop(0)
+           self._in_use.add(conn_id)
+           print(f"Acquired connection {conn_id} "
+                 f"(available: {len(self._available)})")
+           return conn_id
 
-```python
-class Book:
-    def __init__(self, title, author, isbn, pages, year):
-        if not title or not title.strip():
-            raise ValueError("Title cannot be empty.")
-        if not author or not author.strip():
-            raise ValueError("Author cannot be empty.")
-        isbn_str = str(isbn).replace("-", "")
-        if len(isbn_str) != 13 or not isbn_str.isdigit():
-            raise ValueError("ISBN must be 13 digits.")
-        if not isinstance(pages, int) or pages <= 0:
-            raise ValueError("Pages must be positive integer.")
-        if not isinstance(year, int) or year < 1450 or year > 2026:
-            raise ValueError(f"Year {year} out of range.")
-        self.title = title
-        self.author = author
-        self.isbn = isbn_str
-        self.pages = pages
-        self.year = year
+       def release(self, conn_id):
+           if conn_id not in self._in_use:
+               print(f"Connection {conn_id} not in use!")
+               return
+           self._in_use.remove(conn_id)
+           self._available.append(conn_id)
+           print(f"Released connection {conn_id} "
+                 f"(available: {len(self._available)})")
 
-    def __str__(self):
-        return f"'{self.title}' by {self.author} ({self.year})"
+   pool1 = ConnectionPool("db-main", 3)
+   pool2 = ConnectionPool("db-main")
+   print(f"Same pool: {pool1 is pool2}")
 
-try:
-    b = Book("1984", "George Orwell", "9780451524935", 328, 1949)
-    print(b)
-    Book("", "Author", "123", -5, 100)  # Should fail
-except ValueError as e:
-    print(f"Error: {e}")
-```
-
-2. **Multiple Constructor Patterns**
-
-```python
-class Time:
-    def __init__(self, hours=0, minutes=0):
-        self._validate(hours, minutes)
-        self.hours = hours
-        self.minutes = minutes
-
-    @classmethod
-    def from_string(cls, time_str):
-        parts = time_str.split(":")
-        if len(parts) != 2:
-            raise ValueError("Use format HH:MM")
-        return cls(int(parts[0]), int(parts[1]))
-
-    @classmethod
-    def from_total_minutes(cls, total_minutes):
-        hours = total_minutes // 60
-        minutes = total_minutes % 60
-        return cls(hours, minutes)
-
-    def _validate(self, h, m):
-        if not (0 <= h < 24):
-            raise ValueError(f"Hours {h} out of range (0-23)")
-        if not (0 <= m < 60):
-            raise ValueError(f"Minutes {m} out of range (0-59)")
-
-    def total_minutes(self):
-        return self.hours * 60 + self.minutes
-
-    def __str__(self):
-        return f"{self.hours:02d}:{self.minutes:02d}"
-
-t1 = Time(14, 30)
-t2 = Time.from_string("09:15")
-t3 = Time.from_total_minutes(450)
-
-print(t1, t2, t3)
-```
-
-3. **Singleton Logger**
-
-```python
-class Logger:
-    _instance = None
-
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-
-    def __init__(self):
-        if not hasattr(self, "_initialized"):
-            self._log_entries = []
-            self._initialized = True
-
-    def log(self, level, message):
-        import datetime
-        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        entry = f"[{timestamp}] [{level.upper()}] {message}"
-        self._log_entries.append(entry)
-        print(entry)
-
-    def get_logs(self):
-        return self._log_entries
-
-logger1 = Logger()
-logger2 = Logger()
-logger1.log("INFO", "Application started")
-logger2.log("WARN", "Low disk space")
-print(f"Same instance: {logger1 is logger2}")
-print(f"All logs ({len(logger1.get_logs())}):")
-for log in logger1.get_logs():
-    print(f"  {log}")
-```
-
-4. **Immutable Point**
-
-```python
-class Point2D(tuple):
-    def __new__(cls, x, y):
-        return super().__new__(cls, (x, y))
-
-    def __init__(self, x, y):
-        # tuple is immutable, so __init__ is a no-op
-        pass
-
-    @property
-    def x(self):
-        return self[0]
-
-    @property
-    def y(self):
-        return self[1]
-
-    def distance_from_origin(self):
-        return (self.x ** 2 + self.y ** 2) ** 0.5
-
-    def __str__(self):
-        return f"Point({self.x}, {self.y})"
-
-p = Point2D(3, 4)
-print(f"Point: {p}")
-print(f"x={p.x}, y={p.y}")
-print(f"Distance from origin: {p.distance_from_origin()}")
-print(f"Is tuple: {isinstance(p, tuple)}")
-
-try:
-    p.x = 10  # Should fail -- immutable
-except AttributeError as e:
-    print(f"Cannot modify: {e}")
-```
-
-5. **Database Connection Pool**
-
-```python
-class ConnectionPool:
-    _instances = {}
-
-    def __new__(cls, pool_name, max_size=5):
-        if pool_name not in cls._instances:
-            instance = super().__new__(cls)
-            instance.pool_name = pool_name
-            instance.max_size = max_size
-            instance._available = list(range(max_size))
-            instance._in_use = set()
-            instance._initialized = True
-            cls._instances[pool_name] = instance
-            print(f"Created pool '{pool_name}' (max {max_size})")
-        return cls._instances[pool_name]
-
-    def acquire(self):
-        if not self._available:
-            print(f"Pool '{self.pool_name}' exhausted!")
-            return None
-        conn_id = self._available.pop(0)
-        self._in_use.add(conn_id)
-        print(f"Acquired connection {conn_id} "
-              f"(available: {len(self._available)})")
-        return conn_id
-
-    def release(self, conn_id):
-        if conn_id not in self._in_use:
-            print(f"Connection {conn_id} not in use!")
-            return
-        self._in_use.remove(conn_id)
-        self._available.append(conn_id)
-        print(f"Released connection {conn_id} "
-              f"(available: {len(self._available)})")
-
-pool1 = ConnectionPool("db-main", 3)
-pool2 = ConnectionPool("db-main")  # Same pool
-print(f"Same pool: {pool1 is pool2}")
-
-c1 = pool1.acquire()
-c2 = pool1.acquire()
-c3 = pool1.acquire()
-c4 = pool1.acquire()  # Should be None
-pool1.release(c1)
-pool1.acquire()
-```
+   c1 = pool1.acquire()
+   c2 = pool1.acquire()
+   c3 = pool1.acquire()
+   c4 = pool1.acquire()
+   pool1.release(c1)
+   pool1.acquire()
+   ```
+   </details>

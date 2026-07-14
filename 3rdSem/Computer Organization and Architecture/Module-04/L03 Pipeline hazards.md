@@ -208,15 +208,24 @@ I2: OR R1, R2, R2
 I3: SW R2, 200(R3)
 ```
 
-**Answer**: RAW hazard between I1 (write R2) and I2 (read R2). Also RAW between I1 and I3 (read R2 for store address).
+<details>
+<summary>Show Answer</summary>
+RAW hazard between I1 (write R2) and I2 (read R2). Also RAW between I1 and I3 (read R2 for store address).
+</details>
 
 **Problem 2**: In a 5-stage pipeline, how many stall cycles are needed for a RAW hazard between an ALU instruction and its dependent instruction?
 
-**Answer**: Zero stalls if forwarding is implemented (result forwarded from EX of first to EX of second). Without forwarding, 2 stalls (the dependent instruction waits until the result is available in WB).
+<details>
+<summary>Show Answer</summary>
+Zero stalls if forwarding is implemented (result forwarded from EX of first to EX of second). Without forwarding, 2 stalls (the dependent instruction waits until the result is available in WB).
+</details>
 
 **Problem 3**: What is the branch penalty for a 5-stage pipeline where the branch condition is evaluated in MEM stage?
 
-**Answer**: If branch resolves in MEM (cycle 4), three wrong-path instructions have been fetched (in cycles 2, 3, 4). Penalty = 3 cycles. Typically, branches resolve earlier (EX stage) to reduce penalty.
+<details>
+<summary>Show Answer</summary>
+If branch resolves in MEM (cycle 4), three wrong-path instructions have been fetched (in cycles 2, 3, 4). Penalty = 3 cycles. Typically, branches resolve earlier (EX stage) to reduce penalty.
+</details>
 
 **Problem 4**: Show the pipeline diagram for:
 ```
@@ -225,13 +234,18 @@ I2: ADD R3, R1, R4
 ```
 Assume no forwarding, only interlock+stall.
 
-**Answer**:
+<details>
+<summary>Show Answer</summary>
 ```
 Cycle:    1    2    3    4    5    6    7    8
 I1:    [ IF][ ID][ EX][ MEM][ WB]
 I2:        [ IF][ ID][STALL][STALL][ ID][ EX][ MEM][ WB]
 ```
+</details>
 
 **Problem 5**: Can a structural hazard cause a data hazard? Explain with an example.
 
-**Answer**: Not directly, but they can compound. Example: if an I-cache miss stalls the IF stage, the later stages empty out. When IF resumes, the ID stage may get an instruction that reads a register that is also being updated by a long-latency instruction still in MEM. The interlock logic must handle both the control stall (cache miss) and the data hazard simultaneously.
+<details>
+<summary>Show Answer</summary>
+Not directly, but they can compound. Example: if an I-cache miss stalls the IF stage, the later stages empty out. When IF resumes, the ID stage may get an instruction that reads a register that is also being updated by a long-latency instruction still in MEM. The interlock logic must handle both the control stall (cache miss) and the data hazard simultaneously.
+</details>

@@ -144,16 +144,31 @@ A new medicine claims to reduce blood pressure. The current average systolic BP 
 ## Practice Problems
 
 1. A school claims its students have an average IQ of 110. Formulate `H_0` and `H_1` to test this claim.
-   - **Answer:** `H_0: mu = 110`, `H_1: mu != 110` (two-tailed)
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: mu = 110`, `H_1: mu != 110` (two-tailed)
+   </details>
 
 2. A car manufacturer claims that a new engine gives more than 18 km/L mileage. Formulate the hypotheses.
-   - **Answer:** `H_0: mu <= 18`, `H_1: mu > 18` (right-tailed)
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: mu <= 18`, `H_1: mu > 18` (right-tailed)
+   </details>
 
 3. A researcher wants to test if a new drug reduces recovery time compared to the current average of 10 days. State the hypotheses.
-   - **Answer:** `H_0: mu >= 10`, `H_1: mu < 10` (left-tailed)
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: mu >= 10`, `H_1: mu < 10` (left-tailed)
+   </details>
 
 4. Classify each hypothesis as simple or composite: (a) `H: mu = 50`, (b) `H: mu > 50`, (c) `H: p = 0.25`, (d) `H: sigma != 3`.
-   - **Answer:** (a) simple, (b) composite, (c) simple, (d) composite
+   <details>
+   <summary>Show Answer</summary>
+   (a) simple, (b) composite, (c) simple, (d) composite
+   </details>
 
 5. A coin is suspected of being biased towards heads. Formulate `H_0` and `H_1`.
-   - **Answer:** `H_0: p <= 0.5`, `H_1: p > 0.5` (right-tailed)
+   <details>
+   <summary>Show Answer</summary>
+   `H_0: p <= 0.5`, `H_1: p > 0.5` (right-tailed)
+   </details>

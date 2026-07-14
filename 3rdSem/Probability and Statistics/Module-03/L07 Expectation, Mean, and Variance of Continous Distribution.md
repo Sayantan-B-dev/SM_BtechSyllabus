@@ -199,17 +199,34 @@ The formulas are analogous, with sums replaced by integrals.
 
 1. Let X have PDF `f(x) = 2(1-x)` for `0 <= x <= 1`. Find `E[X]` and `Var(X)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `E[X] = int_0^1 2x(1-x)dx = 1/3`. `E[X^2] = int_0^1 2x^2(1-x)dx = 1/6`. `Var = 1/6 - 1/9 = 1/18`.
+   </details>
+
 2. Let X have PDF `f(x) = (3/8)(x+1)^2` for `-1 <= x <= 1`. Find the mean and variance.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `E[X] = 0` (by symmetry). `E[X^2] = int_{-1}^1 x^2(3/8)(x+1)^2 dx = 1/5`. `Var = 1/5`.
+   </details>
 
 3. Let X have PDF `f(x) = 4x^3` for `0 <= x <= 1`. Find `E[2X - 3]` and `Var(2X - 3)`.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `E[X] = int_0^1 4x^4 dx = 4/5`. `E[2X-3] = 2(4/5)-3 = -7/5`. `E[X^2] = int_0^1 4x^5 dx = 2/3`. `Var(X) = 2/3 - 16/25 = 2/75`. `Var(2X-3) = 4 * 2/75 = 8/75`.
+   </details>
+
 4. The lifetime (in years) of a device has PDF `f(x) = 2e^{-2x}` for x >= 0. Find the mean lifetime and variance.
 
-5. Let `f(x) = k/(1+x)^3` for x >= 0. Find k, then find E[X] and Var(X).
+   <details>
+   <summary>Show Answer</summary>
+   4. `E[X] = 1/2` (mean of exponential). `E[X^2] = 2/4 = 1/2`. `Var = 1/2 - 1/4 = 1/4`.
+   </details>
 
-**Answers / Hints:**
-1. `E[X] = int_0^1 2x(1-x)dx = 1/3`. `E[X^2] = int_0^1 2x^2(1-x)dx = 1/6`. `Var = 1/6 - 1/9 = 1/18`.
-2. `E[X] = 0` (by symmetry). `E[X^2] = int_{-1}^1 x^2(3/8)(x+1)^2 dx = 1/5`. `Var = 1/5`.
-3. `E[X] = int_0^1 4x^4 dx = 4/5`. `E[2X-3] = 2(4/5)-3 = -7/5`. `E[X^2] = int_0^1 4x^5 dx = 2/3`. `Var(X) = 2/3 - 16/25 = 2/75`. `Var(2X-3) = 4 * 2/75 = 8/75`.
-4. `E[X] = 1/2` (mean of exponential). `E[X^2] = 2/4 = 1/2`. `Var = 1/2 - 1/4 = 1/4`.
-5. `k int_0^{infty} 1/(1+x)^3 dx = k[-1/(2(1+x)^2)]_0^{infty} = k/2 = 1` => k=2. `E[X] = 1`. `E[X^2]` diverges, so Var(X) is infinite.
+5. Let `f(x) = k/(1+x)^3` for x >= 0. Find k, then find E[X] and Var(X).
+   <details>
+   <summary>Show Answer</summary>
+   5. `k int_0^{infty} 1/(1+x)^3 dx = k[-1/(2(1+x)^2)]_0^{infty} = k/2 = 1` => k=2. `E[X] = 1`. `E[X^2]` diverges, so Var(X) is infinite.
+   </details>

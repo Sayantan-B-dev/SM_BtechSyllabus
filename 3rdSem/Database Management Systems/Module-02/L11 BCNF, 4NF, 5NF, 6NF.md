@@ -191,18 +191,32 @@ This allows different attributes to have different temporal validity periods.
 ## Practice Problems
 
 1. Given `R(A, B, C)` with FDs `{AB -> C, C -> B}`, is R in BCNF? Is it in 3NF?
+<details>
+<summary>Show Answer</summary>
+Candidate keys: `{A,B}`, `{A,C}`. All attributes are prime. For `C -> B`: X=C is not a superkey, Y=B is prime. So: 3NF = YES (Y is prime). BCNF = NO (X must be superkey).
+</details>
 
 2. Decompose `R(Student, Course, Instructor)` with FDs `{Student, Course -> Instructor, Course -> Instructor}` into BCNF.
+<details>
+<summary>Show Answer</summary>
+`Course -> Instructor` violates BCNF. Decompose: `R1(Course, Instructor)` and `R2(Student, Course)`.
+</details>
 
 3. Give an example of a multivalued dependency (MVD) and explain how to normalize to 4NF.
+<details>
+<summary>Show Answer</summary>
+`EMP_SKILL_LANG(EmpName, Skill, Language)` has MVD EmpName ->> Skill. Normalize by splitting: `EMP_SKILL(EmpName, Skill)`, `EMP_LANG(EmpName, Language)`.
+</details>
 
 4. What is the difference between an MVD and a JD?
+<details>
+<summary>Show Answer</summary>
+An MVD is a binary join dependency (decomposes into 2 projections). A JD can involve more than 2 projections (ternary or higher).
+</details>
 
 5. When would you need 6NF?
+<details>
+<summary>Show Answer</summary>
+6NF is used for temporal databases where different attributes have different time-stamping requirements, allowing each attribute to be tracked independently with its own temporal validity period.
+</details>
 
-**Answers:**
-1. Candidate keys: `{A,B}`, `{A,C}`. All attributes are prime. For `C -> B`: X=C is not a superkey, Y=B is prime. So: 3NF = YES (Y is prime). BCNF = NO (X must be superkey).
-2. `Course -> Instructor` violates BCNF. Decompose: `R1(Course, Instructor)` and `R2(Student, Course)`.
-3. `EMP_SKILL_LANG(EmpName, Skill, Language)` has MVD EmpName ->> Skill. Normalize by splitting: `EMP_SKILL(EmpName, Skill)`, `EMP_LANG(EmpName, Language)`.
-4. An MVD is a binary join dependency (decomposes into 2 projections). A JD can involve more than 2 projections (ternary or higher).
-5. 6NF is used for temporal databases where different attributes have different time-stamping requirements, allowing each attribute to be tracked independently with its own temporal validity period.

@@ -242,17 +242,34 @@ Conditional PDF of X given Y = y:
 
 Find `E[Y | X = 0]`, `E[Y | X = 1]`, and `E[Y]` using the law of total expectation.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `P(X=0)=0.4`. `P(Y|X=0): P(Y=0)=0.1/0.4=0.25, P(Y=1)=0.2/0.4=0.5, P(Y=2)=0.1/0.4=0.25`. `E[Y|X=0]=0(0.25)+1(0.5)+2(0.25)=1.0`. `E[Y|X=1]: P(Y=0)=0.2/0.4=0.5, P(Y=1)=0.1/0.4=0.25, P(Y=2)=0.1/0.4=0.25`. `E[Y|X=1]=0(0.5)+1(0.25)+2(0.25)=0.75`. `E[Y] = E[E[Y|X]] = 1.0(0.4)+0.75(0.4)+?`. Need `E[Y|X=2]`: `P(Y=0|X=2)=0.1/0.2=0.5, P(Y=1)=0.1/0.2=0.5`. `E[Y|X=2]=0.5`. `E[Y] = 1.0(0.4)+0.75(0.4)+0.5(0.2) = 0.4+0.3+0.1 = 0.8`.
+   </details>
+
 2. If `E[X | Y] = 2Y + 1` and `E[Y] = 3`, find `E[X]`.
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `E[X] = E[E[X|Y]] = E[2Y+1] = 2E[Y] + 1 = 2(3) + 1 = 7`.
+   </details>
 
 3. If `Var(X | Y) = Y` and `E[X | Y] = 3Y - 2`, and `E[Y] = 2`, `Var(Y) = 4`, find `Var(X)` using the law of total variance.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `E[Var(X|Y)] = E[Y] = 2`. `Var(E[X|Y]) = Var(3Y-2) = 9 Var(Y) = 36`. `Var(X) = 2 + 36 = 38`.
+   </details>
+
 4. Joint PDF: `f(x, y) = 8x^3 y` for `0 < x < 1, 0 < y < 1/x`. Find `E[Y | X = x]` and `E[Y]`.
 
-5. Show that `Var(X) = E[Var(X | Y)] + Var(E[X | Y])` (proof in outline form).
+   <details>
+   <summary>Show Answer</summary>
+   4. `f_Y(y)` is complicated, but `E[Y] = E[E[Y|X]]`. Find marginal of X: `f_X(x) = int_0^{1/x} 8x^3 y dy = 8x^3 [y^2/2]_0^{1/x} = 4x`. `E[Y|X=x] = int_0^{1/x} y * (8x^3 y / (4x)) dy = int_0^{1/x} 2x^2 y^2 dy = 2x^2 [y^3/3]_0^{1/x} = 2/(3x)`. `E[Y] = int_0^1 (2/(3x)) * 4x dx = 8/3 int_0^1 1 dx = 8/3`.
+   </details>
 
-**Answers / Hints:**
-1. `P(X=0)=0.4`. `P(Y|X=0): P(Y=0)=0.1/0.4=0.25, P(Y=1)=0.2/0.4=0.5, P(Y=2)=0.1/0.4=0.25`. `E[Y|X=0]=0(0.25)+1(0.5)+2(0.25)=1.0`. `E[Y|X=1]: P(Y=0)=0.2/0.4=0.5, P(Y=1)=0.1/0.4=0.25, P(Y=2)=0.1/0.4=0.25`. `E[Y|X=1]=0(0.5)+1(0.25)+2(0.25)=0.75`. `E[Y] = E[E[Y|X]] = 1.0(0.4)+0.75(0.4)+?`. Need `E[Y|X=2]`: `P(Y=0|X=2)=0.1/0.2=0.5, P(Y=1)=0.1/0.2=0.5`. `E[Y|X=2]=0.5`. `E[Y] = 1.0(0.4)+0.75(0.4)+0.5(0.2) = 0.4+0.3+0.1 = 0.8`.
-2. `E[X] = E[E[X|Y]] = E[2Y+1] = 2E[Y] + 1 = 2(3) + 1 = 7`.
-3. `E[Var(X|Y)] = E[Y] = 2`. `Var(E[X|Y]) = Var(3Y-2) = 9 Var(Y) = 36`. `Var(X) = 2 + 36 = 38`.
-4. `f_Y(y)` is complicated, but `E[Y] = E[E[Y|X]]`. Find marginal of X: `f_X(x) = int_0^{1/x} 8x^3 y dy = 8x^3 [y^2/2]_0^{1/x} = 4x`. `E[Y|X=x] = int_0^{1/x} y * (8x^3 y / (4x)) dy = int_0^{1/x} 2x^2 y^2 dy = 2x^2 [y^3/3]_0^{1/x} = 2/(3x)`. `E[Y] = int_0^1 (2/(3x)) * 4x dx = 8/3 int_0^1 1 dx = 8/3`.
-5. `Var(X) = E[X^2] - (E[X])^2 = E[E[X^2|Y]] - (E[E[X|Y]])^2`. Then `E[X^2|Y] = Var(X|Y) + (E[X|Y])^2`. Substituting: `Var(X) = E[Var(X|Y)] + E[(E[X|Y])^2] - (E[E[X|Y]])^2 = E[Var(X|Y)] + Var(E[X|Y])`.
+5. Show that `Var(X) = E[Var(X | Y)] + Var(E[X | Y])` (proof in outline form).
+   <details>
+   <summary>Show Answer</summary>
+   5. `Var(X) = E[X^2] - (E[X])^2 = E[E[X^2|Y]] - (E[E[X|Y]])^2`. Then `E[X^2|Y] = Var(X|Y) + (E[X|Y])^2`. Substituting: `Var(X) = E[Var(X|Y)] + E[(E[X|Y])^2] - (E[E[X|Y]])^2 = E[Var(X|Y)] + Var(E[X|Y])`.
+   </details>

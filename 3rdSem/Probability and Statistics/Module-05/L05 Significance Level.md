@@ -161,16 +161,31 @@ This format includes:
 ## Practice Problems
 
 1. A test yields `p-value = 0.06`. At `alpha = 0.05`, is the result statistically significant? What about at `alpha = 0.10`?
-   - **Answer:** At `alpha = 0.05`: not significant (`0.06 > 0.05`). At `alpha = 0.10`: significant (`0.06 < 0.10`).
+   <details>
+   <summary>Show Answer</summary>
+   At `alpha = 0.05`: not significant (`0.06 > 0.05`). At `alpha = 0.10`: significant (`0.06 < 0.10`).
+   </details>
 
 2. Why is it problematic to choose `alpha` after computing the p-value?
-   - **Answer:** It is p-hacking and inflates the Type I error rate. The significance level must be set before data collection to maintain the validity of the test.
+   <details>
+   <summary>Show Answer</summary>
+   It is p-hacking and inflates the Type I error rate. The significance level must be set before data collection to maintain the validity of the test.
+   </details>
 
 3. A study finds `p = 0.03` for a new teaching method. Interpret this finding.
-   - **Answer:** Assuming the null hypothesis (no effect) is true, there is a 3% probability of observing results as extreme as those found. This provides evidence against `H_0`, and the result is statistically significant at the 0.05 level.
+   <details>
+   <summary>Show Answer</summary>
+   Assuming the null hypothesis (no effect) is true, there is a 3% probability of observing results as extreme as those found. This provides evidence against `H_0`, and the result is statistically significant at the 0.05 level.
+   </details>
 
 4. Explain the difference between "statistically significant" and "practically significant."
-   - **Answer:** A result can be statistically significant (p < alpha) but have such a small effect that it is not meaningful in practice. For example, a drug that reduces blood pressure by 0.5 mmHg might be statistically significant with a large sample, but not clinically relevant.
+   <details>
+   <summary>Show Answer</summary>
+   A result can be statistically significant (p < alpha) but have such a small effect that it is not meaningful in practice. For example, a drug that reduces blood pressure by 0.5 mmHg might be statistically significant with a large sample, but not clinically relevant.
+   </details>
 
 5. A researcher sets `alpha = 0.01` for a medical trial and obtains `p = 0.015`. What should they conclude?
-   - **Answer:** Fail to reject `H_0`. The result is not statistically significant at the 0.01 level. However, they should report the exact p-value as `p = 0.015`.
+   <details>
+   <summary>Show Answer</summary>
+   Fail to reject `H_0`. The result is not statistically significant at the 0.01 level. However, they should report the exact p-value as `p = 0.015`.
+   </details>

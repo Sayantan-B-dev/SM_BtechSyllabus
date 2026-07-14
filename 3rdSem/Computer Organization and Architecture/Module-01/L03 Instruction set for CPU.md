@@ -344,7 +344,8 @@ Assume a simple 16-bit ISA with:
 ## Practice Problems
 
 1. **Problem**: For the expression `X = (A + B) * (C - D)`, write assembly code using (a) zero-address (stack), (b) one-address (accumulator), and (c) three-address (load-store) architectures.
-   **Answer**:
+<details>
+<summary>Show Answer</summary>
    (a) Stack:
    ```
    PUSH A
@@ -377,15 +378,28 @@ Assume a simple 16-bit ISA with:
    MUL R7, R3, R6
    STORE X, R7
    ```
+</details>
 
 2. **Problem**: Explain why three-address instructions often result in shorter programs (fewer total instructions) than one-address instructions, even though each instruction is longer.
-   **Answer**: Three-address instructions can express complex operations directly (e.g., `ADD R1, R2, R3` performs a complete operation). In one-address architectures, temporary results must be stored to and loaded from memory, requiring additional LOAD and STORE instructions. The total number of instructions is fewer in three-address format, even though each instruction has more bits.
+<details>
+<summary>Show Answer</summary>
+Three-address instructions can express complex operations directly (e.g., `ADD R1, R2, R3` performs a complete operation). In one-address architectures, temporary results must be stored to and loaded from memory, requiring additional LOAD and STORE instructions. The total number of instructions is fewer in three-address format, even though each instruction has more bits.
+</details>
 
 3. **Problem**: What is the primary advantage of a load-store architecture over a register-memory architecture?
-   **Answer**: In a load-store architecture, only LOAD and STORE instructions access memory; all ALU operations work on registers. This simplifies instruction decoding, pipelining, and execution (uniform instruction length and timing). It also allows the control unit to be simpler and faster. The trade-off is that more instructions may be needed (extra LOAD/STORE) compared to register-memory architectures where ALU instructions can directly access memory.
+<details>
+<summary>Show Answer</summary>
+In a load-store architecture, only LOAD and STORE instructions access memory; all ALU operations work on registers. This simplifies instruction decoding, pipelining, and execution (uniform instruction length and timing). It also allows the control unit to be simpler and faster. The trade-off is that more instructions may be needed (extra LOAD/STORE) compared to register-memory architectures where ALU instructions can directly access memory.
+</details>
 
 4. **Problem**: A CPU has 16 registers, 64 instructions, and can address 32 KB of memory. What is the minimum instruction length if all instructions are fixed-length and use three-address format (Rd, Rs1, Rs2)?
-   **Answer**: Registers: 16 => 4 bits each. Three registers => 12 bits. Instructions: 64 => 6 bits for opcode. Total: 6 + 4 + 4 + 4 = 18 bits. Minimum fixed instruction length is 18 bits (rounded to 24 bits, or 3 bytes, for byte alignment).
+<details>
+<summary>Show Answer</summary>
+Registers: 16 => 4 bits each. Three registers => 12 bits. Instructions: 64 => 6 bits for opcode. Total: 6 + 4 + 4 + 4 = 18 bits. Minimum fixed instruction length is 18 bits (rounded to 24 bits, or 3 bytes, for byte alignment).
+</details>
 
 5. **Problem**: Compare the execution of `ADD M[X], M[Y]` (memory-to-memory add) in a CISC ISA versus the equivalent in a RISC load-store ISA. Which is faster and why?
-   **Answer**: In CISC, a single instruction `ADD X, Y` might fetch both operands from memory, add them, and store the result, taking many cycles but only one instruction fetch. In RISC, the equivalent requires `LOAD R1, X`, `LOAD R2, Y`, `ADD R3, R1, R2`, `STORE X, R3` -- four instructions. However, the RISC version may execute faster overall due to simpler hardware, pipelining (each instruction takes one clock cycle ideally), and the ability of compilers to optimize register usage, eliminating redundant loads/stores.
+<details>
+<summary>Show Answer</summary>
+In CISC, a single instruction `ADD X, Y` might fetch both operands from memory, add them, and store the result, taking many cycles but only one instruction fetch. In RISC, the equivalent requires `LOAD R1, X`, `LOAD R2, Y`, `ADD R3, R1, R2`, `STORE X, R3` -- four instructions. However, the RISC version may execute faster overall due to simpler hardware, pipelining (each instruction takes one clock cycle ideally), and the ability of compilers to optimize register usage, eliminating redundant loads/stores.
+</details>

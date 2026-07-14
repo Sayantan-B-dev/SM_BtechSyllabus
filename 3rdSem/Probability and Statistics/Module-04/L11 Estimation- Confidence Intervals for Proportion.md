@@ -281,24 +281,34 @@ The reported margin of error is likely computed as:
 
 **Problem 1:** In a survey of 900 voters, 495 support a proposed tax reform. Construct a 90% confidence interval for the true proportion of supporters.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `hat{p} = 495/900 = 0.55`. `z_{0.05} = 1.645`. `SE = sqrt(0.55*0.45/900) = 0.01658`. `ME = 1.645 * 0.01658 = 0.0273`. CI = `0.55 +/- 0.0273` = `(0.5227, 0.5773)`.
+   </details>
+
 **Problem 2:** A manufacturer samples 250 items and finds 10 defective. Construct a 95% confidence interval for the proportion of defective items.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `hat{p} = 10/250 = 0.04`. Check: `250*0.04 = 10 >= 5`, `250*0.96 = 240 >= 5`. `z = 1.96`. `SE = sqrt(0.04*0.96/250) = 0.01239`. `ME = 1.96 * 0.01239 = 0.0243`. CI = `0.04 +/- 0.0243` = `(0.0157, 0.0643)`.
+   </details>
 
 **Problem 3:** How large a sample is needed to estimate the proportion of left-handed people with a margin of error of 0.02 at 99% confidence? Assume no prior information.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** `z_{0.005} = 2.576`. `n = (2.576)^2 * 0.25 / (0.02)^2 = 6.636 * 0.25 / 0.0004 = 1.659 / 0.0004 = 4147.5`. Round up: `n = 4148`.
+   </details>
+
 **Problem 4:** A previous study found that 30% of patients experience side effects from a certain medication. A new study wants to estimate the current proportion with a margin of error of 0.04 at 95% confidence. What sample size is needed?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** `p* = 0.30` (from previous study). `n = (1.96)^2 * 0.30 * 0.70 / (0.04)^2 = 3.8416 * 0.21 / 0.0016 = 0.8067 / 0.0016 = 504.2`. Round up: `n = 505`.
+   </details>
+
 **Problem 5:** A candidate's campaign claims that 55% of voters support him. An independent poll of 400 voters finds that 48% support him. Construct a 95% confidence interval for the true proportion. Does the interval contradict the campaign's claim?
-
----
-
-### Answers / Hints
-
-**Problem 1:** `hat{p} = 495/900 = 0.55`. `z_{0.05} = 1.645`. `SE = sqrt(0.55*0.45/900) = 0.01658`. `ME = 1.645 * 0.01658 = 0.0273`. CI = `0.55 +/- 0.0273` = `(0.5227, 0.5773)`.
-
-**Problem 2:** `hat{p} = 10/250 = 0.04`. Check: `250*0.04 = 10 >= 5`, `250*0.96 = 240 >= 5`. `z = 1.96`. `SE = sqrt(0.04*0.96/250) = 0.01239`. `ME = 1.96 * 0.01239 = 0.0243`. CI = `0.04 +/- 0.0243` = `(0.0157, 0.0643)`.
-
-**Problem 3:** `z_{0.005} = 2.576`. `n = (2.576)^2 * 0.25 / (0.02)^2 = 6.636 * 0.25 / 0.0004 = 1.659 / 0.0004 = 4147.5`. Round up: `n = 4148`.
-
-**Problem 4:** `p* = 0.30` (from previous study). `n = (1.96)^2 * 0.30 * 0.70 / (0.04)^2 = 3.8416 * 0.21 / 0.0016 = 0.8067 / 0.0016 = 504.2`. Round up: `n = 505`.
-
-**Problem 5:** `hat{p} = 0.48`. `SE = sqrt(0.48*0.52/400) = 0.02498`. `ME = 1.96 * 0.02498 = 0.0490`. CI = `0.48 +/- 0.0490` = `(0.431, 0.529)`. The campaign claim of 0.55 is above the upper limit (0.529), so the interval suggests the campaign's claim may be inflated. The data contradicts the claim at the 95% confidence level.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** `hat{p} = 0.48`. `SE = sqrt(0.48*0.52/400) = 0.02498`. `ME = 1.96 * 0.02498 = 0.0490`. CI = `0.48 +/- 0.0490` = `(0.431, 0.529)`. The campaign claim of 0.55 is above the upper limit (0.529), so the interval suggests the campaign's claim may be inflated. The data contradicts the claim at the 95% confidence level.
+   </details>

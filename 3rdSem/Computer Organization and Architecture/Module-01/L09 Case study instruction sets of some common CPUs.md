@@ -573,18 +573,32 @@ sw $t2, A_offset($gp)  ; M[A] = $t2
 ## Practice Problems
 
 1. **Problem**: Compare how the instruction `ADD R3, R1, R2` would be encoded in ARM and MIPS. What are the key differences in format?
-   **Answer**: 
+<details>
+<summary>Show Answer</summary>
    - ARM: `ADD R3, R1, R2` encoding: cond=1110(AL), 00, I=0, opcode=0100(ADD), S=0, Rn=0001(R1), Rd=0011(R3), operand2=000000000010(R2) = 0xE0813002. Has condition field and optional S bit for flag updates.
    - MIPS: `ADD $t1, $s1, $s2` ($t1=R9, $s1=R17, $s2=R18): opcode=0(R-type), rs=10001($s1), rt=10010($s2), rd=01001($t1), shamt=00000, funct=100000 = 0x02324820. No condition field; always executes. Function code distinguishes R-type ops.
+</details>
 
 2. **Problem**: Explain the purpose of the hardwired zero register ($zero/R0) in MIPS. Give three practical uses.
-   **Answer**: $zero is permanently 0; writes to it are ignored. Uses: (1) `MOVE $t0, $s1` = `ADD $t0, $s1, $zero`; (2) `LI $t0, 100` = `ADDI $t0, $zero, 100` (load immediate using $zero as base); (3) `NOP` = `ADD $zero, $zero, $zero` (no effective operation since result goes to $zero).
+<details>
+<summary>Show Answer</summary>
+$zero is permanently 0; writes to it are ignored. Uses: (1) `MOVE $t0, $s1` = `ADD $t0, $s1, $zero`; (2) `LI $t0, 100` = `ADDI $t0, $zero, 100` (load immediate using $zero as base); (3) `NOP` = `ADD $zero, $zero, $zero` (no effective operation since result goes to $zero).
+</details>
 
 3. **Problem**: The x86 instruction `ADD EAX, [EBX + ESI*4 + 100]` uses which addressing mode? How many bytes are needed to encode this instruction (approximately)?
-   **Answer**: This is base+index*scale+displacement addressing. It uses ModR/M and SIB bytes. Approximate encoding: prefixes (0), opcode (1), ModR/M (1), SIB (1), displacement 4 bytes = 7 bytes total (plus possible immediate if any).
+<details>
+<summary>Show Answer</summary>
+This is base+index*scale+displacement addressing. It uses ModR/M and SIB bytes. Approximate encoding: prefixes (0), opcode (1), ModR/M (1), SIB (1), displacement 4 bytes = 7 bytes total (plus possible immediate if any).
+</details>
 
 4. **Problem**: What is the ARM Thumb mode and why was it introduced? How does it compare to ARM mode in terms of code density and performance?
-   **Answer**: Thumb is a 16-bit instruction subset introduced to improve code density for memory-constrained embedded systems. Thumb code is typically 30-40% smaller than ARM mode but may execute 5-15% slower (fewer instructions, more instructions needed for same task). Thumb-2 adds 32-bit instructions for a balance of density and performance.
+<details>
+<summary>Show Answer</summary>
+Thumb is a 16-bit instruction subset introduced to improve code density for memory-constrained embedded systems. Thumb code is typically 30-40% smaller than ARM mode but may execute 5-15% slower (fewer instructions, more instructions needed for same task). Thumb-2 adds 32-bit instructions for a balance of density and performance.
+</details>
 
 5. **Problem**: A MIPS `BEQ $t0, $t1, offset` instruction is at address 0x00400010. The target label is at address 0x00400028. What is the value of the offset field in the instruction?
-   **Answer**: In MIPS, BEQ computes: if condition true, PC = PC + 4 + (offset << 2). PC+4 = 0x00400014. Target = 0x00400028. So: 0x00400028 = 0x00400014 + (offset << 2). (offset << 2) = 0x00000014 = 20. Offset = 20/4 = 5. The offset field is 5 (encoded as 16-bit signed immediate).
+<details>
+<summary>Show Answer</summary>
+In MIPS, BEQ computes: if condition true, PC = PC + 4 + (offset << 2). PC+4 = 0x00400014. Target = 0x00400028. So: 0x00400028 = 0x00400014 + (offset << 2). (offset << 2) = 0x00000014 = 20. Offset = 20/4 = 5. The offset field is 5 (encoded as 16-bit signed immediate).
+</details>

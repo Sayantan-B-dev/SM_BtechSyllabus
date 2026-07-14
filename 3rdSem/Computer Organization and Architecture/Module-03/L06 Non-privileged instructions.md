@@ -280,22 +280,37 @@ skip:
 
 **Q1:** Explain why the ADD instruction is non-privileged while the IN instruction is privileged.
 
-**A1:** ADD performs arithmetic on user data in registers or memory. It cannot affect any other process or system hardware. IN reads from I/O ports, giving direct access to hardware devices (keyboard, disk, network). A user program reading keyboard input directly could implement a keylogger without OS awareness. Therefore, only the kernel (device drivers) may execute IN/OUT.
+<details>
+<summary>Show Answer</summary>
+ADD performs arithmetic on user data in registers or memory. It cannot affect any other process or system hardware. IN reads from I/O ports, giving direct access to hardware devices (keyboard, disk, network). A user program reading keyboard input directly could implement a keylogger without OS awareness. Therefore, only the kernel (device drivers) may execute IN/OUT.
+</details>
 
 **Q2:** What sequence of instructions might a user program execute to read a file from disk? Identify which are non-privileged and which require a system call.
 
-**A2:** The program sets up arguments (non-privileged: MOV instructions), invokes a system call via INT 0x80 or SYSENTER (non-privileged but causes a trap). Inside the kernel: the file system code validates permissions, interacts with the disk driver (privileged: IN/OUT to disk controller), copies data to user buffer (non-privileged MOV), and returns. After the trap, the program processes the data (non-privileged arithmetic, logical, etc.).
+<details>
+<summary>Show Answer</summary>
+The program sets up arguments (non-privileged: MOV instructions), invokes a system call via INT 0x80 or SYSENTER (non-privileged but causes a trap). Inside the kernel: the file system code validates permissions, interacts with the disk driver (privileged: IN/OUT to disk controller), copies data to user buffer (non-privileged MOV), and returns. After the trap, the program processes the data (non-privileged arithmetic, logical, etc.).
+</details>
 
 **Q3:** Describe the role of the system call instruction (e.g., INT 0x80 on x86) and why it is not a privileged instruction.
 
-**A3:** INT 0x80 is a software interrupt instruction that triggers a trap to the kernel. It is not privileged because user programs must be able to request kernel services. However, the instruction causes the CPU to switch to kernel mode and jump to a predetermined handler in the OS. The OS then validates the request before executing any privileged operations. This provides a controlled gateway between user space and kernel space.
+<details>
+<summary>Show Answer</summary>
+INT 0x80 is a software interrupt instruction that triggers a trap to the kernel. It is not privileged because user programs must be able to request kernel services. However, the instruction causes the CPU to switch to kernel mode and jump to a predetermined handler in the OS. The OS then validates the request before executing any privileged operations. This provides a controlled gateway between user space and kernel space.
+</details>
 
 **Q4:** Which of the following instructions are non-privileged and which are privileged on a typical x86 system? (a) XOR EAX, EAX (b) CLI (c) PUSH EBX (d) MOV CR0, EAX (e) RET (f) IN AL, 0x60
 
-**A4:** (a) Non-privileged (bitwise XOR). (b) Privileged (modifies interrupt flag). (c) Non-privileged (stack operation). (d) Privileged (modifies control register). (e) Non-privileged (return from subroutine). (f) Privileged (I/O port access).
+<details>
+<summary>Show Answer</summary>
+(a) Non-privileged (bitwise XOR). (b) Privileged (modifies interrupt flag). (c) Non-privileged (stack operation). (d) Privileged (modifies control register). (e) Non-privileged (return from subroutine). (f) Privileged (I/O port access).
+</details>
 
 **Q5:** A user program needs to allocate more memory. Show the interaction between non-privileged and privileged components.
 
-**A5:** The user program calls `malloc(n)`. Internally, malloc may invoke `brk()` or `mmap()` which are system calls. The program: (a) loads arguments (non-privileged MOV). (b) executes SYSCALL/INT 0x80 (non-privileged trap). (c) Kernel mode: validates the request, modifies page tables (privileged -- MOV CR3 changes may be involved), updates process memory map (non-privileged data operations). (d) Returns to user mode. (e) The program continues with the new memory available (non-privileged).
+<details>
+<summary>Show Answer</summary>
+The user program calls `malloc(n)`. Internally, malloc may invoke `brk()` or `mmap()` which are system calls. The program: (a) loads arguments (non-privileged MOV). (b) executes SYSCALL/INT 0x80 (non-privileged trap). (c) Kernel mode: validates the request, modifies page tables (privileged -- MOV CR3 changes may be involved), updates process memory map (non-privileged data operations). (d) Returns to user mode. (e) The program continues with the new memory available (non-privileged).
+</details>
 
 ---

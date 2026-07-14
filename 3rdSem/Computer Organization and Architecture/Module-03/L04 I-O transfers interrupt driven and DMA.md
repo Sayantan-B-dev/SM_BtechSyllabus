@@ -294,22 +294,37 @@ Interrupts can be assigned priorities. When multiple interrupts occur:
 
 **Q1:** Explain the sequence of events that occurs when an I/O device generates an interrupt, from the moment the device asserts the interrupt line until the CPU begins executing the ISR.
 
-**A1:** (1) Device asserts IRQ. (2) Interrupt controller prioritizes and sends INT to CPU. (3) CPU finishes current instruction, checks INT line. (4) CPU sends INTA. (5) Controller/device returns vector number. (6) CPU saves PC and PSW on stack. (7) CPU looks up ISR address in interrupt vector table using the vector number. (8) CPU loads ISR address into PC. (9) ISR begins executing, saves additional registers.
+<details>
+<summary>Show Answer</summary>
+(1) Device asserts IRQ. (2) Interrupt controller prioritizes and sends INT to CPU. (3) CPU finishes current instruction, checks INT line. (4) CPU sends INTA. (5) Controller/device returns vector number. (6) CPU saves PC and PSW on stack. (7) CPU looks up ISR address in interrupt vector table using the vector number. (8) CPU loads ISR address into PC. (9) ISR begins executing, saves additional registers.
+</details>
 
 **Q2:** A DMA controller is configured to transfer 64 KB of data from a disk to memory. The bus cycle takes 50 ns. In burst mode, how long does the DMA transfer take? How many bus cycles does the CPU lose?
 
-**A2:** 64 KB = 65536 bytes. Assuming 1 byte per bus cycle: 65536 cycles x 50 ns = 3,276,800 ns = 3.2768 ms. In burst mode, the CPU loses all 65536 bus cycles during this time.
+<details>
+<summary>Show Answer</summary>
+64 KB = 65536 bytes. Assuming 1 byte per bus cycle: 65536 cycles x 50 ns = 3,276,800 ns = 3.2768 ms. In burst mode, the CPU loses all 65536 bus cycles during this time.
+</details>
 
 **Q3:** Compare burst mode and cycle stealing mode in DMA.
 
-**A3:** Burst mode: DMA holds the bus for the entire block transfer. Maximum transfer rate but CPU is blocked for the whole duration. Cycle stealing: DMA holds the bus for only one word/byte at a time, then releases it. Lower transfer rate but CPU is only delayed by a single bus cycle per word, allowing interleaved CPU execution.
+<details>
+<summary>Show Answer</summary>
+Burst mode: DMA holds the bus for the entire block transfer. Maximum transfer rate but CPU is blocked for the whole duration. Cycle stealing: DMA holds the bus for only one word/byte at a time, then releases it. Lower transfer rate but CPU is only delayed by a single bus cycle per word, allowing interleaved CPU execution.
+</details>
 
 **Q4:** What is the difference between vectored and non-vectored interrupts?
 
-**A4:** Vectored interrupts: Each device supplies a unique vector number that the CPU uses to index an interrupt vector table to find the specific ISR for that device. Non-vectored interrupts: All devices share a single ISR entry point. The ISR must poll each device to identify which one generated the interrupt. Vectored is faster but requires more hardware.
+<details>
+<summary>Show Answer</summary>
+Vectored interrupts: Each device supplies a unique vector number that the CPU uses to index an interrupt vector table to find the specific ISR for that device. Non-vectored interrupts: All devices share a single ISR entry point. The ISR must poll each device to identify which one generated the interrupt. Vectored is faster but requires more hardware.
+</details>
 
 **Q5:** Why can't a non-maskable interrupt (NMI) be disabled, and what kind of events typically trigger an NMI?
 
-**A5:** NMIs are reserved for critical system events that must be handled immediately regardless of the current state. They cannot be disabled because ignoring them could lead to data corruption or hardware damage. Typical NMI sources: hardware reset button, power failure warning, memory parity error, watchdog timer expiration.
+<details>
+<summary>Show Answer</summary>
+NMIs are reserved for critical system events that must be handled immediately regardless of the current state. They cannot be disabled because ignoring them could lead to data corruption or hardware damage. Typical NMI sources: hardware reset button, power failure warning, memory parity error, watchdog timer expiration.
+</details>
 
 ---

@@ -330,30 +330,30 @@ Course entity set (with unary Prerequisite):
 
 **1.** In a hospital database, identify the entities, attributes, and relationships. Draw an ER diagram conceptually.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Entities: Patient (patient_id, name, dob, phone), Doctor (doctor_id, name, specialty), Appointment (appt_id, date, time). Relationships: Doctor *has* Appointment (1:N), Patient *books* Appointment (1:N). Ternary: Doctor *treats* Patient *in* Appointment.
 </details>
 
 **2.** What is the degree of a relationship? Give one example of a unary, binary, and ternary relationship.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Degree = number of entity sets participating. Unary: Employee *manages* Employee. Binary: Student *enrolls* Course. Ternary: Customer *buys* Product *from* Store.
 </details>
 
 **3.** Differentiate between simple and composite attributes with examples.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Simple: cannot be divided (e.g., `age`). Composite: can be divided (e.g., `Address` -> street, city, state, zip).
 </details>
 
 **4.** A student can be enrolled in multiple courses, and a course can have multiple students. What is the cardinality ratio?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 M:N (Many-to-Many). This requires a junction/intersection table like `Enrollment(student_id, course_id)` when converting to relational schema.
 </details>
 
 **5.** Define composite key. Give an example.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 A composite key is a combination of two or more attributes that uniquely identifies a record. Example: In `Enrollment`, the composite key is `(student_id, course_id, semester)` because a student can take multiple courses and the same course across different semesters.
 </details>

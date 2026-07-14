@@ -259,27 +259,37 @@ CI: `50 +/- 1.96` = `(48.04, 51.96)`
 
 **Problem 1:** A sample of 36 observations from a population with `sigma = 12` gives `bar{x} = 85`. Construct a 99% confidence interval for the population mean.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `z_{0.005} = 2.576`. `ME = 2.576 * 12/6 = 5.152`. CI = `85 +/- 5.152` = `(79.848, 90.152)`.
+   </details>
+
 **Problem 2:** A random sample of 16 bottles from a filling machine yields an average fill volume of 500 ml with a sample standard deviation of 3 ml. Assuming the fill volumes are normally distributed, construct a 95% confidence interval for the population mean fill volume.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `t_{0.025, 15} = 2.131`. `ME = 2.131 * 3/4 = 1.598`. CI = `500 +/- 1.598` = `(498.402, 501.598)`.
+   </details>
 
 **Problem 3:** For a 90% confidence interval with `n = 20` and `sigma` unknown, what is the critical t-value? What is the z-value for the same confidence level?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** `t_{0.05, 19} = 1.729`. `z_{0.05} = 1.645`. The t-value is larger because of the additional uncertainty from estimating `sigma`.
+   </details>
+
 **Problem 4:** A researcher wants to estimate the mean height of students at a university. She samples 100 students and finds `bar{x} = 168` cm and `s = 10` cm. Construct a 95% confidence interval.
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** `df = 99`, `t_{0.025, 99} approx 1.984` (close to 1.96 for large `n`). `ME = 1.984 * 10/10 = 1.984`. CI = `168 +/- 1.984` = `(166.016, 169.984)`.
+   </details>
 
 **Problem 5:** Explain what happens to the width of a confidence interval when:
 (a) The confidence level increases from 90% to 99%.
 (b) The sample size increases from 25 to 100.
 (c) The population standard deviation decreases.
-
----
-
-### Answers / Hints
-
-**Problem 1:** `z_{0.005} = 2.576`. `ME = 2.576 * 12/6 = 5.152`. CI = `85 +/- 5.152` = `(79.848, 90.152)`.
-
-**Problem 2:** `t_{0.025, 15} = 2.131`. `ME = 2.131 * 3/4 = 1.598`. CI = `500 +/- 1.598` = `(498.402, 501.598)`.
-
-**Problem 3:** `t_{0.05, 19} = 1.729`. `z_{0.05} = 1.645`. The t-value is larger because of the additional uncertainty from estimating `sigma`.
-
-**Problem 4:** `df = 99`, `t_{0.025, 99} approx 1.984` (close to 1.96 for large `n`). `ME = 1.984 * 10/10 = 1.984`. CI = `168 +/- 1.984` = `(166.016, 169.984)`.
-
-**Problem 5:** (a) The interval becomes wider (larger critical value). (b) The interval becomes narrower (standard error decreases by factor of `sqrt{n}`). (c) The interval becomes narrower (smaller standard error).
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** (a) The interval becomes wider (larger critical value). (b) The interval becomes narrower (standard error decreases by factor of `sqrt{n}`). (c) The interval becomes narrower (smaller standard error).
+   </details>

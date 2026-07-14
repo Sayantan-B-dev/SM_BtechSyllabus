@@ -192,30 +192,30 @@ The choice depends on the application:
 
 **1.** Define a data model. Why is it important in database design?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 A data model is a collection of concepts for describing data, relationships, semantics, and constraints. It is important because it provides a systematic way to represent real-world information in a database, ensuring that the design is consistent, complete, and understandable by both designers and users.
 </details>
 
 **2.** List the three categories of data models based on abstraction level and give one example of each.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Conceptual (ER model), Logical (Relational model), Physical (Storage and indexing model).
 </details>
 
 **3.** In the relational model, define: relation, tuple, attribute, domain, degree, cardinality.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Relation = table; Tuple = row; Attribute = column; Domain = set of allowed values for an attribute; Degree = number of attributes; Cardinality = number of tuples.
 </details>
 
 **4.** What is the difference between a record-based model and an object-based model?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Record-based models (Relational, Network, Hierarchical) organize data as fixed-format records with primitive data types and passive data. Object-based models treat data as objects that encapsulate both state and behavior, supporting inheritance, polymorphism, and complex user-defined types.
 </details>
 
 **5.** Why does the relational model dominate the database industry today?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Simplicity (tables are intuitive), strong theoretical foundation (set theory, predicate logic), declarative query language (SQL), high data independence, support for ad-hoc queries, robust integrity constraints, and extensive vendor support and standardization.
 </details>

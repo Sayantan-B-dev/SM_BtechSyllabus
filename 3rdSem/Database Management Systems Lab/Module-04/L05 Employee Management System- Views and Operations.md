@@ -128,5 +128,19 @@ mysql> SELECT * FROM ActiveProjectAssignments;
 ## Homework / Practice
 
 1. Create a view named `SalesHighPerformers` that shows sales employees with salary > 70000. Use WITH CHECK OPTION.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE VIEW SalesHighPerformers AS SELECT emp_id, emp_name, job_role, salary FROM Employee WHERE department = 'Sales' AND salary > 70000 WITH CHECK OPTION;
+   </details>
+
 2. Create a view that joins Employee, Department, and Works_On to show a complete employee work profile.
+   <details>
+   <summary>Show Answer</summary>
+   CREATE VIEW EmployeeWorkProfile AS SELECT e.emp_id, e.emp_name, e.job_role, e.salary, d.dept_name, d.location, p.project_name, w.role AS project_role, w.hours_worked FROM Employee e INNER JOIN Department d ON e.dept_id = d.dept_id INNER JOIN Works_On w ON e.emp_id = w.emp_id INNER JOIN Project p ON w.project_id = p.project_id;
+   </details>
+
 3. Try inserting a record into HighSalaryEmployees with salary = 85000. What happens? Explain why.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO HighSalaryEmployees (emp_id, emp_name, department, job_role, salary) VALUES (20, 'Test User', 'IT', 'Tester', 85000); This insertion FAILS because the view HighSalaryEmployees was created WITH CHECK OPTION and its WHERE condition is salary > 90000. The value 85000 does not satisfy the condition, so MySQL rejects the insert to enforce the view's filter.
+   </details>

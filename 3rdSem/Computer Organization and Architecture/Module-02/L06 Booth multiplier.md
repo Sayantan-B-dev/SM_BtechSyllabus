@@ -283,23 +283,38 @@ Modified Booth's algorithm (also called Booth-2) examines **3 bits** at a time a
 ## Practice Problems
 
 1. **Booth recoding**: Recode the multiplier 01110 (14) into Booth digits. Show the operation at each step.
-   - **Answer**: Q = 01110, Q-1 = 0.
+<details>
+<summary>Show Answer</summary>
+Q = 01110, Q-1 = 0.
      1: (0,0) -> 0; 1: (1,0) -> -M; 1: (1,1) -> 0; 1: (1,1) -> 0; 0: (0,1) -> +M.
      Operations: -M at pos 1, +M at pos 4. Result = M x (-2 + 16) = 14M. Correct.
+</details>
 
 2. **Booth multiplication**: Compute (-5) x (-3) using 4-bit Booth algorithm.
-   - **Answer**: M = 1011 (-5), Q = 1101 (-3). Booth operations on Q=1101 with Q-1=0:
+<details>
+<summary>Show Answer</summary>
+M = 1011 (-5), Q = 1101 (-3). Booth operations on Q=1101 with Q-1=0:
      (1,0) -> -M = 0101 (+5)
      (0,1) -> +M = 1011 (-5)
      (1,0) -> -M = 0101
      (1,1) -> 0
      After algorithm: Product = 0000 1111 = +15. Check: (-5) x (-3) = 15.
+</details>
 
 3. **Booth advantage**: Explain why Booth's algorithm is efficient for multiplier 0011111110.
-   - **Answer**: The multiplier has a long run of 1s. Standard shift-and-add would require 7 additions. Booth requires only 2 operations: -M at the start of the run (bit 1, since Q1=1 and Q0=0) and +M at the end (bit 8, since Q9=0 and Q8=1). Run length doesn't affect operation count.
+<details>
+<summary>Show Answer</summary>
+The multiplier has a long run of 1s. Standard shift-and-add would require 7 additions. Booth requires only 2 operations: -M at the start of the run (bit 1, since Q1=1 and Q0=0) and +M at the end (bit 8, since Q9=0 and Q8=1). Run length doesn't affect operation count.
+</details>
 
 4. **Radix-4 encoding**: For multiplier Q = 011011, encode using radix-4 Booth. Show the operations.
-   - **Answer**: Group bits (with Q-1=0): (0,1,1) -> +2M, (0,1,0) -> +M. Operations: +2M and +M, each shifted appropriately. 2 iterations instead of 6.
+<details>
+<summary>Show Answer</summary>
+Group bits (with Q-1=0): (0,1,1) -> +2M, (0,1,0) -> +M. Operations: +2M and +M, each shifted appropriately. 2 iterations instead of 6.
+</details>
 
 5. **Limitation**: When does Booth's algorithm perform worse than standard shift-and-add?
-   - **Answer**: When the multiplier has alternating 1s and 0s (e.g., 01010101), every bit pair is a (1,0) or (0,1) transition, requiring an add/sub per bit. Standard shift-and-add would also add per 1 bit, which is half the bits. Both are similar, but Booth requires both addition and subtraction hardware, making the control more complex.
+<details>
+<summary>Show Answer</summary>
+When the multiplier has alternating 1s and 0s (e.g., 01010101), every bit pair is a (1,0) or (0,1) transition, requiring an add/sub per bit. Standard shift-and-add would also add per 1 bit, which is half the bits. Both are similar, but Booth requires both addition and subtraction hardware, making the control more complex.
+</details>

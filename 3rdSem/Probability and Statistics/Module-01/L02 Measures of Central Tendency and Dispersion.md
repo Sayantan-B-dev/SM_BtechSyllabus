@@ -415,7 +415,17 @@ sigma = sqrt(132.32) = 11.50
 ## Practice Problems
 
 1. Find the mean, median, and mode for: 11, 14, 17, 14, 19, 22, 14, 25.
+   <details>
+   <summary>Show Answer</summary>
+   1. Mean = 17, Median = 14 (arrange: 11,14,14,14,17,19,22,25; n=8 even, avg of 4th and 5th = (14+17)/2 = 15.5), Mode = 14. (Note: mean = (11+14+14+14+17+19+22+25)/8 = 136/8 = 17)
+   </details>
+
 2. The mean of 10 observations is 15. If one observation 8 is removed, find the new mean.
+   <details>
+   <summary>Show Answer</summary>
+   2. Sum = 10*15 = 150. New sum = 150 - 8 = 142. New n = 9. New mean = 142/9 = 15.78.
+   </details>
+
 3. For the following grouped data, find the mean and standard deviation:
 
 | Class | Frequency |
@@ -426,13 +436,20 @@ sigma = sqrt(132.32) = 11.50
 | 30-40 | 8 |
 | 40-50 | 2 |
 
-4. Calculate Q1, Q3, and Quartile Deviation for: 5, 8, 12, 15, 18, 20, 22, 25, 28, 30.
-5. Two groups have means 65 and 75 with sizes 40 and 60 respectively. Find the combined mean.
+   <details>
+   <summary>Show Answer</summary>
+   3. Mean = (4*5 + 6*15 + 10*25 + 8*35 + 2*45)/30 = (20+90+250+280+90)/30 = 730/30 = 24.33.
+      Variance = (4*25 + 6*225 + 10*625 + 8*1225 + 2*2025)/30 - (24.33)^2 = (100+1350+6250+9800+4050)/30 - 592.0 = 21550/30 - 592 = 718.33 - 592 = 126.33. SD = sqrt(126.33) = 11.24.
+   </details>
 
-**Answers/Hints:**
-1. Mean = 17, Median = 14 (arrange: 11,14,14,14,17,19,22,25; n=8 even, avg of 4th and 5th = (14+17)/2 = 15.5), Mode = 14. (Note: mean = (11+14+14+14+17+19+22+25)/8 = 136/8 = 17)
-2. Sum = 10*15 = 150. New sum = 150 - 8 = 142. New n = 9. New mean = 142/9 = 15.78.
-3. Mean = (4*5 + 6*15 + 10*25 + 8*35 + 2*45)/30 = (20+90+250+280+90)/30 = 730/30 = 24.33.
-   Variance = (4*25 + 6*225 + 10*625 + 8*1225 + 2*2025)/30 - (24.33)^2 = (100+1350+6250+9800+4050)/30 - 592.0 = 21550/30 - 592 = 718.33 - 592 = 126.33. SD = sqrt(126.33) = 11.24.
-4. n=10, Q1 at position (n+1)/4 = 2.75, Q1 = 8 + 0.75*(12-8) = 11. Q3 at position 3(n+1)/4 = 8.25, Q3 = 25 + 0.25*(28-25) = 25.75. QD = (25.75 - 11)/2 = 7.375.
-5. Combined mean = (40*65 + 60*75) / (40+60) = (2600 + 4500) / 100 = 7100/100 = 71.
+4. Calculate Q1, Q3, and Quartile Deviation for: 5, 8, 12, 15, 18, 20, 22, 25, 28, 30.
+   <details>
+   <summary>Show Answer</summary>
+   4. n=10, Q1 at position (n+1)/4 = 2.75, Q1 = 8 + 0.75*(12-8) = 11. Q3 at position 3(n+1)/4 = 8.25, Q3 = 25 + 0.25*(28-25) = 25.75. QD = (25.75 - 11)/2 = 7.375.
+   </details>
+
+5. Two groups have means 65 and 75 with sizes 40 and 60 respectively. Find the combined mean.
+   <details>
+   <summary>Show Answer</summary>
+   5. Combined mean = (40*65 + 60*75) / (40+60) = (2600 + 4500) / 100 = 7100/100 = 71.
+   </details>

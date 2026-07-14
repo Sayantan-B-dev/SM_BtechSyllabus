@@ -286,7 +286,17 @@ Bayes' Theorem: `P(B_i | A) = P(B_i) * P(A | B_i) / sum_j P(B_j) * P(A | B_j)`
 
 1. In a certain college, 60% of students are male and 40% are female. 5% of males and 2% of females are color-blind. A student is selected at random and is found to be color-blind. Find the probability that the student is male.
 
+   <details>
+   <summary>Show Answer</summary>
+   1. `P(M|C) = (0.60*0.05) / (0.60*0.05 + 0.40*0.02) = 0.03/0.038 = 15/19`
+   </details>
+
 2. Two machines produce items in a factory. Machine X produces 40% of the items, and Machine Y produces 60%. Machine X produces 5% defective items, while Machine Y produces 8% defective items. An item is randomly selected and found to be defective. What is the probability it was produced by Machine X?
+
+   <details>
+   <summary>Show Answer</summary>
+   2. `P(X|D) = (0.40*0.05) / (0.40*0.05 + 0.60*0.08) = 0.02/0.068 = 10/34 = 5/17`
+   </details>
 
 3. There are three bags:
    - Bag 1 contains 2 white and 3 black balls
@@ -294,15 +304,20 @@ Bayes' Theorem: `P(B_i | A) = P(B_i) * P(A | B_i) / sum_j P(B_j) * P(A | B_j)`
    - Bag 3 contains 3 white and 5 black balls
    A bag is chosen at random, and a ball is drawn from it. The ball is white. Find the probability that it was drawn from Bag 2.
 
+   <details>
+   <summary>Show Answer</summary>
+   3. `P(B2|W) = (1/3)*(4/6) / [(1/3)*(2/5) + (1/3)*(4/6) + (1/3)*(3/8)] = (4/18) / (2/15 + 4/18 + 3/24)`. Compute common denominator and simplify.
+   </details>
+
 4. A car rental company has three locations: Airport (50% of rentals), Downtown (30%), and Suburb (20%). The probability that a car needs maintenance after a rental from these locations is 0.05, 0.03, and 0.02 respectively. A returned car needs maintenance. What is the probability it was rented from the Airport?
 
+   <details>
+   <summary>Show Answer</summary>
+   4. `P(A|M) = (0.50*0.05) / (0.50*0.05 + 0.30*0.03 + 0.20*0.02) = 0.025/0.038 = 25/38`
+   </details>
+
 5. In a multiple-choice question with 4 options, a student either knows the answer (probability 0.7) or guesses (probability 0.3). If the student knows, they answer correctly with probability 1. If they guess, they answer correctly with probability 1/4. If the student answers correctly, what is the probability they actually knew the answer?
-
----
-
-**Answers/Hints:**
-1. `P(M|C) = (0.60*0.05) / (0.60*0.05 + 0.40*0.02) = 0.03/0.038 = 15/19`
-2. `P(X|D) = (0.40*0.05) / (0.40*0.05 + 0.60*0.08) = 0.02/0.068 = 10/34 = 5/17`
-3. `P(B2|W) = (1/3)*(4/6) / [(1/3)*(2/5) + (1/3)*(4/6) + (1/3)*(3/8)] = (4/18) / (2/15 + 4/18 + 3/24)`. Compute common denominator and simplify.
-4. `P(A|M) = (0.50*0.05) / (0.50*0.05 + 0.30*0.03 + 0.20*0.02) = 0.025/0.038 = 25/38`
-5. `P(K|C) = (0.7*1) / (0.7*1 + 0.3*0.25) = 0.7/0.775 = 700/775 = 28/31`
+   <details>
+   <summary>Show Answer</summary>
+   5. `P(K|C) = (0.7*1) / (0.7*1 + 0.3*0.25) = 0.7/0.775 = 700/775 = 28/31`
+   </details>

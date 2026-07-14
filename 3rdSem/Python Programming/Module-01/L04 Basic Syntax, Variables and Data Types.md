@@ -409,10 +409,48 @@ Circumference: 43.98 units
 ## Practice Problems
 
 1. **Addition Quiz:** Write a program that asks the user for two numbers, adds them, and prints the result using an f-string. Example: `"The sum of 10 and 20 is 30"`.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   a = float(input("Enter first number: "))
+   b = float(input("Enter second number: "))
+   print(f"The sum of {a} and {b} is {a + b}")
+   ```
+   </details>
 
 2. **Type Converter:** Write a program that asks the user for an integer, a float, and a string. Then print the type of each using `type()` both before and after conversion.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   data = input("Enter an integer: ")
+   print(f"Before: {type(data)}")
+   int_val = int(data)
+   print(f"After: {type(int_val)}")
+   
+   data = input("Enter a float: ")
+   print(f"Before: {type(data)}")
+   float_val = float(data)
+   print(f"After: {type(float_val)}")
+   
+   data = input("Enter a string: ")
+   print(f"Before: {type(data)}")
+   str_val = str(data)
+   print(f"After: {type(str_val)}")
+   ```
+   </details>
 
 3. **Rectangle Calculator:** Ask the user for the length and width of a rectangle. Calculate and display the area and perimeter. Format the output to 2 decimal places.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   length = float(input("Enter length: "))
+   width = float(input("Enter width: "))
+   area = length * width
+   perimeter = 2 * (length + width)
+   print(f"Area: {area:.2f}")
+   print(f"Perimeter: {perimeter:.2f}")
+   ```
+   </details>
 
 4. **Student Grade Input:** Ask the user for their name, subject, and score (out of 100). Display a formatted report like:
    ```
@@ -421,5 +459,25 @@ Circumference: 43.98 units
    Score: 87.50 / 100
    Percentage: 87.50%
    ```
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   name = input("Enter student name: ")
+   subject = input("Enter subject: ")
+   score = float(input("Enter score out of 100: "))
+   print(f"\nStudent: {name}")
+   print(f"Subject: {subject}")
+   print(f"Score: {score:.2f} / 100")
+   print(f"Percentage: {score:.2f}%")
+   ```
+   </details>
 
 5. **Currency Converter:** Ask the user for an amount in USD. Convert it to INR using a conversion rate (assume 1 USD = 83.50 INR). Display the result formatted with 2 decimal places and the currency symbol.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   usd = float(input("Enter amount in USD: "))
+   inr = usd * 83.50
+   print(f"\${usd:.2f} USD = ₹{inr:.2f} INR")
+   ```
+   </details>

@@ -259,7 +259,7 @@ MVCC is used by:
 **Problem 1:** In the basic timestamp ordering protocol, T1 (TS=5) writes A, then T2 (TS=10) reads A, then T1 tries to write A again. What happens?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 After T1 writes A: write_TS(A)=5.
 After T2 reads A: read_TS(A)=10.
@@ -269,7 +269,7 @@ T1 writes A: TS(T1)=5 < read_TS(A)=10. T1 must ABORT.
 **Problem 2:** Under Thomas Write Rule, would the answer to Problem 1 change?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 No. TWR only changes the case TS(T) < write_TS(X). Here, TS(T1) < read_TS(X) still holds, so T1 still aborts. TWR does not help with read conflicts.
 </details>
@@ -277,7 +277,7 @@ No. TWR only changes the case TS(T) < write_TS(X). Here, TS(T1) < read_TS(X) sti
 **Problem 3:** T1 (TS=100) reads X, T2 (TS=200) writes X, T1 writes X. What happens under (a) basic timestamp ordering, (b) Thomas Write Rule?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 After T1 reads X: read_TS(X)=100.
 After T2 writes X: write_TS(X)=200.
@@ -289,7 +289,7 @@ T1 writes X:
 **Problem 4:** In MVCC, T1 (TS=10) writes A=5, T2 (TS=20) writes A=10, T3 (TS=15) reads A. What value does T3 read?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 Versions of A: A_v10=5, A_v20=10.
 T3 reads the version with largest write_TS <= TS(T3)=15.
@@ -300,7 +300,7 @@ So T3 reads A=5 (the version written by T1).
 **Problem 5:** Why does MVCC never block read-only transactions? Why is this beneficial?
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 In MVCC, reads always see a consistent snapshot of the database as of the reader's timestamp. The reader does not need to acquire locks or wait for writers. If a writer is in progress, the reader simply reads the previous version. This is beneficial for read-heavy workloads (e.g., reporting, analytics) where long-running queries should not be blocked by concurrent updates.
 </details>

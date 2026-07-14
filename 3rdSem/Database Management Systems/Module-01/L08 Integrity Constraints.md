@@ -509,7 +509,7 @@ CREATE TABLE Borrow (
 
 **1.** Write SQL to create a `Product` table with: `product_id` (PK), `name` (NOT NULL), `price` (CHECK > 0), `stock` (DEFAULT 0), and `category` (CHECK IN ('Electronics', 'Clothing', 'Food')).
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 CREATE TABLE Product (
@@ -524,24 +524,24 @@ CREATE TABLE Product (
 
 **2.** What happens when you try to delete a department that has employees assigned to it, assuming a foreign key with `ON DELETE RESTRICT`?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 The DELETE operation is rejected with an error. The DBMS prevents the deletion because employee rows reference the department's primary key. You must first delete or reassign all employees in that department.
 </details>
 
 **3.** Compare `ON DELETE CASCADE` and `ON DELETE SET NULL` with examples.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 CASCADE: Deleting a parent row automatically deletes all child rows referencing it. Example: Deleting a customer deletes all their orders. SET NULL: Deleting a parent row sets the foreign key in child rows to NULL. Example: Deleting a department sets employees' dept_id to NULL (employees remain in the database but become unassigned).
 </details>
 
 **4.** What is the difference between a CHECK constraint and an assertion?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 A CHECK constraint applies to a single column or row within one table (e.g., `CHECK (age >= 18)`). An assertion is a database-wide constraint that can span multiple tables and include aggregate conditions (e.g., ensuring total salaries do not exceed department budget). Most DBMS implement CHECK constraints but not assertions; triggers are used instead.
 </details>
 
 **5.** Explain the entity integrity constraint. Can a composite primary key have a NULL value in any of its columns?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Entity integrity states that no component of the primary key can be NULL. For a composite primary key (e.g., `PRIMARY KEY (student_id, course_id, semester)`), none of the three columns can be NULL. If `semester` is NULL, the tuple cannot be uniquely identified, violating entity integrity.
 </details>

@@ -432,31 +432,31 @@ Most modern relational databases (PostgreSQL, Oracle, DB2) have added OO feature
 
 **1.** Define superkey, candidate key, and primary key. Give an example where a superkey is not a candidate key.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Superkey: set of attributes that uniquely identifies a tuple. Candidate key: minimal superkey. Primary key: chosen candidate key. Example: In Employee(emp_id, pan, name), {emp_id, pan, name} is a superkey but not a candidate key because {emp_id} alone is sufficient.
 </details>
 
 **2.** Explain the difference between entity integrity and referential integrity.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 Entity integrity: no primary key attribute can be NULL. Referential integrity: a foreign key value must either match a primary key value in the referenced table or be entirely NULL.
 </details>
 
 **3.** How does the object-oriented model overcome limitations of the relational model?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 It supports complex data types (nested objects, collections), encapsulates behavior with methods, provides inheritance for IS-A hierarchies, and uses OIDs for identity instead of user-defined keys.
 </details>
 
 **4.** In the object-oriented model, what is an OID and why is it advantageous?
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 OID (Object Identifier) is a system-generated, immutable, globally unique identifier for each object. Advantage: identity is independent of attribute values -- if a student changes their name, the OID remains the same. Also, OIDs provide direct access without key lookups.
 </details>
 
 **5.** Write SQL to create a `Customer` table with `cust_id` (PK), `name` (NOT NULL), `phone` (UNIQUE), and `age` (CHECK >= 18) including referential integrity with an `Order` table.
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```sql
 CREATE TABLE Customer (

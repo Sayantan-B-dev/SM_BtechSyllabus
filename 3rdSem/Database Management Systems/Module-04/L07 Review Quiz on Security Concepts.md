@@ -326,7 +326,61 @@ The four security layers are:
 ## Practice Problems
 
 1. Write a comprehensive answer comparing all three access control models (DAC, MAC, RBAC) with specific SQL syntax examples for each.
+   <details>
+   <summary>Show Answer</summary>
+   **DAC (Discretionary Access Control):** Data owner controls access. SQL: `GRANT SELECT ON students TO bob;` — bob can further grant it (`WITH GRANT OPTION`). **MAC (Mandatory Access Control):** System-enforced labels. SQL: Not native to standard SQL; implemented via security labels (e.g., Oracle Label Security). Example: A row labeled `TS` (Top Secret) cannot be read by a user with `S` (Secret) clearance. **RBAC (Role-Based Access Control):** Permissions assigned to roles, roles to users. SQL: `CREATE ROLE instructor; GRANT SELECT, INSERT ON grades TO instructor; GRANT instructor TO alice;` — manages permissions efficiently.
+   </details>
 2. Given a university database with tables `students`, `courses`, `enrollments`, design an RBAC system with at least four roles. Write all GRANT statements.
+   <details>
+   <summary>Show Answer</summary>
+   Roles: `student`, `instructor`, `registrar`, `admin`.
+   ```sql
+   CREATE ROLE student;
+   CREATE ROLE instructor;
+   CREATE ROLE registrar;
+   CREATE ROLE admin;
+
+   -- Students view their own data
+   GRANT SELECT ON students TO student;
+   GRANT SELECT ON enrollments TO student;
+
+   -- Instructors manage courses and grades
+   GRANT SELECT, INSERT, UPDATE ON courses TO instructor;
+   GRANT SELECT, UPDATE ON enrollments TO instructor;
+
+   -- Registrar manages enrollments
+   GRANT SELECT, INSERT, UPDATE, DELETE ON enrollments TO registrar;
+   GRANT SELECT ON students TO registrar;
+   GRANT SELECT ON courses TO registrar;
+
+   -- Admin has full access
+   GRANT ALL PRIVILEGES ON ALL TABLES TO admin;
+   ```
+   </details>
 3. Explain how encryption, hashing, and salting work together to protect user passwords in a database. Include SQL examples.
+   <details>
+   <summary>Show Answer</summary>
+   When a user registers: (1) A random **salt** is generated per user. (2) The password + salt are passed through a **hash** function (e.g., SHA-256). (3) The salt and hash are stored in the database — the original password is never stored. When logging in: the system retrieves the salt, hashes the entered password with that salt, and compares it to the stored hash.
+   ```sql
+   CREATE TABLE users (
+       id INT PRIMARY KEY,
+       username VARCHAR(50),
+       password_hash VARCHAR(256),
+       salt VARCHAR(64)
+   );
+
+   -- Registration
+   INSERT INTO users (username, password_hash, salt)
+   VALUES ('alice', SHA2(CONCAT('mypassword', 'random_salt'), 256), 'random_salt');
+   ```
+   </details>
 4. You are hired as a security consultant for a startup. Create a security checklist of 10 items based on the breaches studied in L06.
+   <details>
+   <summary>Show Answer</summary>
+   1. Enforce strong password policies and hash passwords with salt. 2. Apply security patches within 48 hours of release. 3. Implement network segmentation — isolate databases from web servers. 4. Use parameterized queries to prevent SQL injection. 5. Enforce least privilege for all database users and applications. 6. Encrypt sensitive data at rest (TDE) and in transit (TLS). 7. Implement multi-factor authentication for all administrative access. 8. Deploy database activity monitoring (DAM) to detect anomalies. 9. Conduct regular vulnerability assessments and penetration testing. 10. Audit and review third-party API access and vendor permissions.
+   </details>
 5. The CIA triad is sometimes extended with additional principles. Research and write about Non-Repudiation and Accountability as extensions of the model.
+   <details>
+   <summary>Show Answer</summary>
+   **Non-Repudiation:** Prevents a party from denying an action they performed. In databases, this is achieved through audit logs, digital signatures, and transaction logs — e.g., a signed log entry proves exactly who deleted a record and when. **Accountability:** Ensures that every action can be traced back to an individual. Implementation: database audit trails that record user ID, timestamp, query, and affected rows. Together they extend the CIA triad to the C-I-A-N-A model (Confidentiality, Integrity, Availability, Non-Repudiation, Accountability), providing a more complete security framework.
+   </details>

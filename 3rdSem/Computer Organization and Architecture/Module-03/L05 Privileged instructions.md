@@ -237,22 +237,37 @@ x86 supports four privilege levels (Ring 0 through Ring 3):
 
 **Q1:** List four privileged instructions and explain why each must be restricted to kernel mode.
 
-**A1:** (1) HLT -- halts the CPU; a user program halting the CPU would freeze the entire system. (2) IN/OUT -- provides direct hardware I/O access; user programs could manipulate devices bypassing OS security. (3) CLI/STI -- disables/enables interrupts; a user program disabling interrupts would prevent the OS from regaining control. (4) MOV CR3, EAX -- loads page table base address; a user program could point page tables to arbitrary physical memory.
+<details>
+<summary>Show Answer</summary>
+(1) HLT -- halts the CPU; a user program halting the CPU would freeze the entire system. (2) IN/OUT -- provides direct hardware I/O access; user programs could manipulate devices bypassing OS security. (3) CLI/STI -- disables/enables interrupts; a user program disabling interrupts would prevent the OS from regaining control. (4) MOV CR3, EAX -- loads page table base address; a user program could point page tables to arbitrary physical memory.
+</details>
 
 **Q2:** What is the mode bit and how does it relate to the execution of privileged instructions?
 
-**A2:** The mode bit (typically in the PSW/EFLAGS register) indicates the current privilege level of the processor. When the mode bit indicates kernel mode (0 on many architectures), all instructions are allowed. When it indicates user mode (1), the processor checks each instruction; if a privileged instruction is detected, it generates a trap/exception. The mode bit is automatically changed by the hardware during interrupts, exceptions, and system calls.
+<details>
+<summary>Show Answer</summary>
+The mode bit (typically in the PSW/EFLAGS register) indicates the current privilege level of the processor. When the mode bit indicates kernel mode (0 on many architectures), all instructions are allowed. When it indicates user mode (1), the processor checks each instruction; if a privileged instruction is detected, it generates a trap/exception. The mode bit is automatically changed by the hardware during interrupts, exceptions, and system calls.
+</details>
 
 **Q3:** Describe the sequence of events that occurs when a user program attempts to execute a privileged instruction.
 
-**A3:** (1) CPU fetches the instruction and determines it is privileged. (2) CPU checks the current privilege level (CPL) against the required privilege level (typically 0). (3) Since CPL != 0, the CPU does not execute the instruction. (4) CPU generates a General Protection Fault (#GP) exception. (5) CPU switches to kernel mode, saves user context (PC, PSW, registers). (6) OS exception handler runs, identifies the faulting instruction and process. (7) OS sends an appropriate signal (SIGSEGV, SIGILL) to the process. (8) Process is terminated or the OS delivers a signal handler.
+<details>
+<summary>Show Answer</summary>
+(1) CPU fetches the instruction and determines it is privileged. (2) CPU checks the current privilege level (CPL) against the required privilege level (typically 0). (3) Since CPL != 0, the CPU does not execute the instruction. (4) CPU generates a General Protection Fault (#GP) exception. (5) CPU switches to kernel mode, saves user context (PC, PSW, registers). (6) OS exception handler runs, identifies the faulting instruction and process. (7) OS sends an appropriate signal (SIGSEGV, SIGILL) to the process. (8) Process is terminated or the OS delivers a signal handler.
+</details>
 
 **Q4:** Why do most modern operating systems use only two rings (Ring 0 and Ring 3) instead of all four available on x86?
 
-**A4:** Maintaining four distinct privilege rings adds significant complexity to the OS design. The additional rings were originally designed for system architectures that are rarely used today (e.g., for separating OS core from system services). Modern OS design philosophy favors simplicity, portability, and security through other mechanisms (user vs kernel mode, virtual memory, capabilities). Two levels are sufficient to implement protection: privileged kernel code and unprivileged user code.
+<details>
+<summary>Show Answer</summary>
+Maintaining four distinct privilege rings adds significant complexity to the OS design. The additional rings were originally designed for system architectures that are rarely used today (e.g., for separating OS core from system services). Modern OS design philosophy favors simplicity, portability, and security through other mechanisms (user vs kernel mode, virtual memory, capabilities). Two levels are sufficient to implement protection: privileged kernel code and unprivileged user code.
+</details>
 
 **Q5:** What is the relationship between system calls and privileged instructions?
 
-**A5:** System calls are the mechanism through which user programs request kernel services (e.g., file I/O, process creation, memory allocation). The system call instruction (e.g., INT 0x80, SYSCALL, SVC) itself is NOT privileged -- it is available to user programs. However, the instruction causes a software trap that switches the CPU to kernel mode. Once in kernel mode, the OS executes privileged instructions on behalf of the user program (e.g., IN/OUT for I/O, modifying page tables for memory allocation). This provides a controlled interface: user programs request services, and the kernel validates and performs privileged operations.
+<details>
+<summary>Show Answer</summary>
+System calls are the mechanism through which user programs request kernel services (e.g., file I/O, process creation, memory allocation). The system call instruction (e.g., INT 0x80, SYSCALL, SVC) itself is NOT privileged -- it is available to user programs. However, the instruction causes a software trap that switches the CPU to kernel mode. Once in kernel mode, the OS executes privileged instructions on behalf of the user program (e.g., IN/OUT for I/O, modifying page tables for memory allocation). This provides a controlled interface: user programs request services, and the kernel validates and performs privileged operations.
+</details>
 
 ---

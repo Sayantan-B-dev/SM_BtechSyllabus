@@ -194,19 +194,33 @@ Each CLA block computes 4-bit addition and outputs GG and PP to the second-level
 ## Practice Problems
 
 1. **Carry expression**: Write the carry expression for C5 in a 5-bit CLA (bits 0-4).
-   - **Answer**: C5 = G4 + P4*G3 + P4*P3*G2 + P4*P3*P2*G1 + P4*P3*P2*P1*G0 + P4*P3*P2*P1*P0*C0.
+<details>
+<summary>Show Answer</summary>
+C5 = G4 + P4*G3 + P4*P3*G2 + P4*P3*P2*G1 + P4*P3*P2*P1*G0 + P4*P3*P2*P1*P0*C0.
+</details>
 
 2. **CLA computation**: For A = 1010, B = 0101, C0 = 0, compute all G, P, and carries. Find the sum.
-   - **Answer**: 
+<details>
+<summary>Show Answer</summary>
      G0=0,P0=1; G1=0,P1=1; G2=1,P2=0; G3=0,P3=1.
      C1=0, C2=0, C3=1, C4=0.
      S0=1, S1=1, S2=0, S3=1. Sum = 01111 = 15. Check: 10+5=15.
+</details>
 
 3. **Delay comparison**: A 32-bit RCA has t_FA = 300 ps. A 32-bit hierarchical CLA has 8 gate delays where each gate delay = 100 ps. Compare total delay.
-   - **Answer**: RCA: 32 * 300 = 9600 ps = 9.6 ns. CLA: 8 * 100 = 800 ps = 0.8 ns. CLA is 12x faster.
+<details>
+<summary>Show Answer</summary>
+RCA: 32 * 300 = 9600 ps = 9.6 ns. CLA: 8 * 100 = 800 ps = 0.8 ns. CLA is 12x faster.
+</details>
 
 4. **Block-level**: For a 4-bit CLA block, derive the block generate GG and block propagate PP expressions.
-   - **Answer**: GG = G3 + P3*G2 + P3*P2*G1 + P3*P2*P1*G0. PP = P3 * P2 * P1 * P0.
+<details>
+<summary>Show Answer</summary>
+GG = G3 + P3*G2 + P3*P2*G1 + P3*P2*P1*G0. PP = P3 * P2 * P1 * P0.
+</details>
 
 5. **Hierarchical**: Show how a 16-bit CLA would be constructed using four 4-bit CLA blocks and a second-level look-ahead.
-   - **Answer**: Four 4-bit CLA blocks compute GG[3:0] and PP[3:0]. A second-level CLA takes these four sets of GG, PP plus a block-level C0 to compute carry-in to each 4-bit block. Each block then uses the incoming carry to compute its internal carries and final sums.
+<details>
+<summary>Show Answer</summary>
+Four 4-bit CLA blocks compute GG[3:0] and PP[3:0]. A second-level CLA takes these four sets of GG, PP plus a block-level C0 to compute carry-in to each 4-bit block. Each block then uses the incoming carry to compute its internal carries and final sums.
+</details>

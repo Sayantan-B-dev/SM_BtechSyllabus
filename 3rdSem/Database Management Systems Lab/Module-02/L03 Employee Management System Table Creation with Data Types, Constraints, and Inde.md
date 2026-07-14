@@ -116,5 +116,19 @@ mysql> SELECT * FROM Works_On;
 ## Homework / Practice
 
 1. Add a new project "AI Chatbot Development" and assign 3 employees to it.
+   <details>
+   <summary>Show Answer</summary>
+   INSERT INTO Project (project_name, status, budget) VALUES ('AI Chatbot Development', 'Active', 150000.00); INSERT INTO Works_On (emp_id, project_id, role, hours_worked) VALUES (1, 2, 'Developer', 20), (2, 2, 'Tester', 15), (3, 2, 'Project Lead', 10);
+   </details>
+
 2. Query all employees working on project_id = 1 (ERP System Upgrade) along with their roles and hours worked.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.emp_name, w.role, w.hours_worked FROM Employee e INNER JOIN Works_On w ON e.emp_id = w.emp_id WHERE w.project_id = 1;
+   </details>
+
 3. Write a query to find the total hours worked by each employee across all projects.
+   <details>
+   <summary>Show Answer</summary>
+   SELECT e.emp_name, SUM(w.hours_worked) AS total_hours FROM Employee e INNER JOIN Works_On w ON e.emp_id = w.emp_id GROUP BY e.emp_name;
+   </details>

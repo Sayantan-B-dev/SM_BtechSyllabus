@@ -179,5 +179,19 @@ mysql> SELECT emp_name, department FROM Employee WHERE emp_id = 1;
 ## Homework / Practice
 
 1. Create a stored procedure named `GetDepartmentBudget` that takes a department name as IN parameter and returns the total salary expense as an OUT parameter.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE GetDepartmentBudget(IN p_dept_name VARCHAR(50), OUT p_total_salary DECIMAL(12,2)) BEGIN SELECT SUM(salary) INTO p_total_salary FROM Employee WHERE department = p_dept_name; END // DELIMITER ;
+   </details>
+
 2. Write a procedure `UpdateEmployeeSalary` that takes emp_id and percentage increase as IN parameters and updates the salary. Use a transaction.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE UpdateEmployeeSalary(IN p_emp_id INT, IN p_pct_increase DECIMAL(5,2)) BEGIN DECLARE EXIT HANDLER FOR SQLEXCEPTION BEGIN ROLLBACK; END; START TRANSACTION; UPDATE Employee SET salary = salary + (salary * p_pct_increase / 100) WHERE emp_id = p_emp_id; COMMIT; END // DELIMITER ;
+   </details>
+
 3. Create a procedure that returns all employees earning more than a given salary using a result set.
+   <details>
+   <summary>Show Answer</summary>
+   DELIMITER // CREATE PROCEDURE GetHighEarners(IN p_min_salary DECIMAL(10,2)) BEGIN SELECT emp_id, emp_name, department, job_role, salary FROM Employee WHERE salary > p_min_salary ORDER BY salary DESC; END // DELIMITER ;
+   </details>

@@ -235,24 +235,34 @@ About 5.71% chance.
 
 **Problem 1:** A population has mean 50 and standard deviation 8. A random sample of size 64 is taken. What is the probability that the sample mean is between 48 and 52?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 1:** `SE = 8/8 = 1`. `Z_1 = (48-50)/1 = -2`, `Z_2 = (52-50)/1 = 2`. `P(-2 < Z < 2) = 0.9772 - 0.0228 = 0.9544`.
+   </details>
+
 **Problem 2:** A manufacturer claims that 90% of his products are non-defective. You randomly select 400 products. What is the probability that the sample proportion of non-defective products is less than 87%?
+
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 2:** `p = 0.90`, `SE = sqrt(0.9*0.1/400) = 0.015`. `Z = (0.87 - 0.90)/0.015 = -2`. `P(hat{p} < 0.87) = P(Z < -2) = 0.0228`.
+   </details>
 
 **Problem 3:** The average monthly electricity bill in a city is $120 with a standard deviation of $30. A sample of 36 households is selected. What is the probability that the average bill exceeds $130?
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 3:** `SE = 30/6 = 5`. `Z = (130-120)/5 = 2`. `P(Z > 2) = 0.0228`.
+   </details>
+
 **Problem 4:** Explain what happens to the standard error of the sample mean when: (a) the sample size is quadrupled, (b) the population standard deviation is doubled.
 
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 4:** (a) `SE` becomes half (`SE_new = sigma / sqrt(4n) = sigma / (2*sqrt(n)) = SE_old / 2`). (b) `SE` doubles (`SE_new = (2sigma)/sqrt(n) = 2*(sigma/sqrt(n)) = 2*SE_old`).
+   </details>
+
 **Problem 5:** A population is heavily skewed to the right. Can you still use the normal distribution to approximate the sampling distribution of the sample mean? If yes, what is the minimum sample size required?
-
----
-
-### Answers / Hints
-
-**Problem 1:** `SE = 8/8 = 1`. `Z_1 = (48-50)/1 = -2`, `Z_2 = (52-50)/1 = 2`. `P(-2 < Z < 2) = 0.9772 - 0.0228 = 0.9544`.
-
-**Problem 2:** `p = 0.90`, `SE = sqrt(0.9*0.1/400) = 0.015`. `Z = (0.87 - 0.90)/0.015 = -2`. `P(hat{p} < 0.87) = P(Z < -2) = 0.0228`.
-
-**Problem 3:** `SE = 30/6 = 5`. `Z = (130-120)/5 = 2`. `P(Z > 2) = 0.0228`.
-
-**Problem 4:** (a) `SE` becomes half (`SE_new = sigma / sqrt(4n) = sigma / (2*sqrt(n)) = SE_old / 2`). (b) `SE` doubles (`SE_new = (2sigma)/sqrt(n) = 2*(sigma/sqrt(n)) = 2*SE_old`).
-
-**Problem 5:** Yes, the CLT applies. For skewed populations, a minimum sample size of `n >= 30` is generally recommended; for heavily skewed populations, `n >= 50` may be safer.
+   <details>
+   <summary>Show Answer</summary>
+   **Problem 5:** Yes, the CLT applies. For skewed populations, a minimum sample size of `n >= 30` is generally recommended; for heavily skewed populations, `n >= 50` may be safer.
+   </details>

@@ -126,7 +126,7 @@ print(f"Quotient: {q}, Remainder: {r}")  # Quotient: 3, Remainder: 2
 **Problem 1:** Given `t1 = (1, 2, 3)` and `t2 = (4, 5, 6)`, create `t3` that is the concatenation of `t1` and `t2` repeated twice. Print `t3`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 t1 = (1, 2, 3)
@@ -139,7 +139,7 @@ print(t3)  # (1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6)
 **Problem 2:** Given `tup = (5, 10, 15, 10, 20, 10, 25)`, use `count()` and `index()` to find how many times `10` appears and the index of its first occurrence.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 tup = (5, 10, 15, 10, 20, 10, 25)
@@ -156,7 +156,7 @@ print(tup.index(10))  # 1
 Access and print the element at row 2, column 3 (value 6).
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 matrix = ((1, 2, 3), (4, 5, 6))
@@ -167,7 +167,7 @@ print(matrix[1][2])  # 6
 **Problem 4:** Write a function `split(number)` that takes an integer and returns a tuple of its digits. For example, `split(1234)` should return `(1, 2, 3, 4)`.
 
 <details>
-<summary>Hint</summary>
+<summary>Show Answer</summary>
 
 Convert the number to a string, then to a tuple of characters, then map each character to an integer.
 
@@ -182,7 +182,7 @@ print(split(1234))  # (1, 2, 3, 4)
 **Problem 5:** Given `data = ((1, 2), (3, 4, 5), (6,))`, write a loop that prints the length of each inner tuple.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 data = ((1, 2), (3, 4, 5), (6,))

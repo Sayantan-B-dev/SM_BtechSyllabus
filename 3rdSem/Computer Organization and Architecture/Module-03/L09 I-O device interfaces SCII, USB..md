@@ -340,22 +340,37 @@ The original filename listed "SCII" which is a common typographical error. The c
 
 **Q1:** A SCSI bus has 8 devices including the host adapter. What is the maximum number of disk drives that can be connected? If the bus uses Ultra320 SCSI, what is the maximum theoretical throughput?
 
-**A1:** 8 total IDs - 1 host adapter = 7 devices (disk drives). In practice, one or more IDs may be used for other peripherals. Ultra320 SCSI provides 320 MB/s theoretical throughput using a 16-bit bus at 160 MHz double-edged clocking (16 bits x 160 MHz x 2 = 5120 Mbps = 320 MB/s).
+<details>
+<summary>Show Answer</summary>
+8 total IDs - 1 host adapter = 7 devices (disk drives). In practice, one or more IDs may be used for other peripherals. Ultra320 SCSI provides 320 MB/s theoretical throughput using a 16-bit bus at 160 MHz double-edged clocking (16 bits x 160 MHz x 2 = 5120 Mbps = 320 MB/s).
+</details>
 
 **Q2:** Describe the USB enumeration process from the moment a device is plugged in to the moment it is ready for use.
 
-**A2:** (1) Hub detects device via voltage change on D+/D- lines. (2) Hub reports port status change to host (interrupt transfer). (3) Host sends port reset to device. (4) Device is now at default address 0. (5) Host sends GET_DESCRIPTOR (Device Descriptor). (6) Host assigns unique 7-bit address to device via SET_ADDRESS. (7) Host reads Configuration Descriptors (interfaces, endpoints). (8) Host sends SET_CONFIGURATION to activate device. (9) Device is ready for data transfers.
+<details>
+<summary>Show Answer</summary>
+(1) Hub detects device via voltage change on D+/D- lines. (2) Hub reports port status change to host (interrupt transfer). (3) Host sends port reset to device. (4) Device is now at default address 0. (5) Host sends GET_DESCRIPTOR (Device Descriptor). (6) Host assigns unique 7-bit address to device via SET_ADDRESS. (7) Host reads Configuration Descriptors (interfaces, endpoints). (8) Host sends SET_CONFIGURATION to activate device. (9) Device is ready for data transfers.
+</details>
 
 **Q3:** Compare the four USB transfer types. When would you use each?
 
-**A3:** (1) Control: used for device enumeration and commands -- guaranteed delivery, low bandwidth. (2) Bulk: used for mass storage -- guaranteed delivery, variable bandwidth, uses leftover bus time. (3) Interrupt: used for HID devices (keyboard, mouse) -- guaranteed periodic polling, bounded latency, guaranteed delivery. (4) Isochronous: used for audio/video streaming -- guaranteed bandwidth, no retry on error, time-sensitive delivery is more important than perfect accuracy.
+<details>
+<summary>Show Answer</summary>
+(1) Control: used for device enumeration and commands -- guaranteed delivery, low bandwidth. (2) Bulk: used for mass storage -- guaranteed delivery, variable bandwidth, uses leftover bus time. (3) Interrupt: used for HID devices (keyboard, mouse) -- guaranteed periodic polling, bounded latency, guaranteed delivery. (4) Isochronous: used for audio/video streaming -- guaranteed bandwidth, no retry on error, time-sensitive delivery is more important than perfect accuracy.
+</details>
 
 **Q4:** Why does SCSI require bus termination while USB does not?
 
-**A4:** SCSI is a parallel bus where signals travel in both directions. Without termination, signal reflections occur at the ends of the bus, corrupting data. Terminators absorb the signals at both endpoints. USB uses point-to-point serial links with built-in impedance matching -- transmitters and receivers are designed to match the characteristic impedance of the cable, so no external termination is needed.
+<details>
+<summary>Show Answer</summary>
+SCSI is a parallel bus where signals travel in both directions. Without termination, signal reflections occur at the ends of the bus, corrupting data. Terminators absorb the signals at both endpoints. USB uses point-to-point serial links with built-in impedance matching -- transmitters and receivers are designed to match the characteristic impedance of the cable, so no external termination is needed.
+</details>
 
 **Q5:** A USB 3.0 device sends isochronous audio data. The audio is 2-channel, 24-bit samples at 96 kHz. What is the raw data rate? Can USB 2.0 isochronous transfers handle this?
 
-**A5:** Raw data rate = 2 channels x 24 bits x 96000 Hz = 4,608,000 bps = 4.608 Mbps. USB 2.0 isochronous transfers support up to 1023 bytes per microframe (125 us). Max isochronous bandwidth = 1023 bytes x 8000 microframes/sec = 8,184,000 bytes/sec = 65.472 Mbps. So yes, USB 2.0 can easily handle 4.608 Mbps. USB 3.0 would also handle it easily.
+<details>
+<summary>Show Answer</summary>
+Raw data rate = 2 channels x 24 bits x 96000 Hz = 4,608,000 bps = 4.608 Mbps. USB 2.0 isochronous transfers support up to 1023 bytes per microframe (125 us). Max isochronous bandwidth = 1023 bytes x 8000 microframes/sec = 8,184,000 bytes/sec = 65.472 Mbps. So yes, USB 2.0 can easily handle 4.608 Mbps. USB 3.0 would also handle it easily.
+</details>
 
 ---

@@ -235,7 +235,7 @@ else:
 **Problem 1:** Given `student = {"name": "Alice", "age": 20, "grade": "A"}`, use `keys()`, `values()`, and `items()` to print all keys, all values, and all key-value pairs.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 student = {"name": "Alice", "age": 20, "grade": "A"}
@@ -251,7 +251,7 @@ print("Items:", list(student.items()))
 **Problem 2:** Use dictionary comprehension to create a dictionary mapping numbers 1 to 10 to their cubes.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 cubes = {x: x ** 3 for x in range(1, 11)}
@@ -263,7 +263,7 @@ print(cubes)
 **Problem 3:** Given `d1 = {"a": 1, "b": 2}` and `d2 = {"c": 3, "d": 4}`, merge them using the `|` operator and using `update()`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 d1 = {"a": 1, "b": 2}
@@ -283,7 +283,7 @@ print(d1_copy)  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}
 **Problem 3:** Use `pop()` to remove the key `"age"` from `student = {"name": "Alice", "age": 20, "grade": "A"}` and store the removed value. Then use `popitem()` to remove the last item.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 student = {"name": "Alice", "age": 20, "grade": "A"}
@@ -300,7 +300,7 @@ print(student)    # {'name': 'Alice'}
 **Problem 3:** Use dictionary comprehension to create a dictionary that maps each character in the string "hello" to its ASCII code (use `ord()`).
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 ascii_map = {ch: ord(ch) for ch in "hello"}
@@ -311,7 +311,7 @@ print(ascii_map)  # {'h': 104, 'e': 101, 'l': 108, 'o': 111}
 **Problem 4:** Write a program that checks if the key `"email"` exists in `user = {"name": "Alice", "age": 20}`. If it does not, add it with value `"alice@example.com"`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 user = {"name": "Alice", "age": 20}
@@ -325,7 +325,7 @@ print(user)
 **Problem 5:** Use `clear()` to empty a dictionary, then verify its length is 0.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 d = {"a": 1, "b": 2, "c": 3}

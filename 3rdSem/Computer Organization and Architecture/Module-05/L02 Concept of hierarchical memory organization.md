@@ -172,20 +172,35 @@ Observation: As hit rate approaches 1.0, EAT approaches T_cache. Even a small mi
 
 **Problem 1:** A two-level memory system has T_cache = 10 ns, T_memory = 200 ns, and the hit rate is 97%. What is EAT?
 
-**Answer:** EAT = 0.97 * 10 + 0.03 * 200 = 9.7 + 6.0 = 15.7 ns.
+<details>
+<summary>Show Answer</summary>
+EAT = 0.97 * 10 + 0.03 * 200 = 9.7 + 6.0 = 15.7 ns.
+</details>
 
 **Problem 2:** For a system with T_cache = 5 ns, what must the hit rate be to achieve EAT <= 10 ns if T_memory = 120 ns?
 
-**Answer:** 10 >= H * 5 + (1-H) * 120 = 5H + 120 - 120H = 120 - 115H => 115H >= 110 => H >= 110/115 = 0.9565 = 95.65%.
+<details>
+<summary>Show Answer</summary>
+10 >= H * 5 + (1-H) * 120 = 5H + 120 - 120H = 120 - 115H => 115H >= 110 => H >= 110/115 = 0.9565 = 95.65%.
+</details>
 
 **Problem 3:** In a three-level hierarchy, L1 hit rate = 85%, L2 hit rate = 75% (on L1 misses), T_L1 = 1 ns, T_L2 = 8 ns, T_MM = 150 ns. Compute EAT.
 
-**Answer:** EAT = 0.85 * 1 + 0.15 * (0.75 * 8 + 0.25 * 150) = 0.85 + 0.15 * (6 + 37.5) = 0.85 + 0.15 * 43.5 = 0.85 + 6.525 = 7.375 ns.
+<details>
+<summary>Show Answer</summary>
+EAT = 0.85 * 1 + 0.15 * (0.75 * 8 + 0.25 * 150) = 0.85 + 0.15 * (6 + 37.5) = 0.85 + 0.15 * 43.5 = 0.85 + 6.525 = 7.375 ns.
+</details>
 
 **Problem 4:** Define temporal locality and spatial locality. Give one code example that exhibits each.
 
-**Answer:** Temporal locality: accessing the same variable repeatedly in a loop: `for(int i=0; i<1000; i++) sum += a[i];` -- `sum` exhibits temporal locality. Spatial locality: accessing consecutive array elements: `for(int i=0; i<1000; i++) sum += a[i];` -- array `a[]` exhibits spatial locality.
+<details>
+<summary>Show Answer</summary>
+Temporal locality: accessing the same variable repeatedly in a loop: `for(int i=0; i<1000; i++) sum += a[i];` -- `sum` exhibits temporal locality. Spatial locality: accessing consecutive array elements: `for(int i=0; i<1000; i++) sum += a[i];` -- array `a[]` exhibits spatial locality.
+</details>
 
 **Problem 5:** Explain why the memory hierarchy is necessary in modern computer systems.
 
-**Answer:** No single memory technology can simultaneously provide very fast access (required by modern CPUs), very large capacity (required by modern applications), and very low cost per bit (required for affordability). The hierarchy uses small amounts of fast, expensive SRAM for cache and large amounts of slow, cheap DRAM/disk for bulk storage, relying on locality to give the illusion of a large, fast memory at reasonable cost.
+<details>
+<summary>Show Answer</summary>
+No single memory technology can simultaneously provide very fast access (required by modern CPUs), very large capacity (required by modern applications), and very low cost per bit (required for affordability). The hierarchy uses small amounts of fast, expensive SRAM for cache and large amounts of slow, cheap DRAM/disk for bulk storage, relying on locality to give the illusion of a large, fast memory at reasonable cost.
+</details>

@@ -590,10 +590,41 @@ print(f"\nTotal: {count} times")
       **
        *
    ```
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   n = 5
+   for i in range(n, 0, -1):
+       print(" " * (n - i) + "*" * i)
+   ```
+   </details>
 
 2. **Student Marks Analysis:** Given two lists `names = ["Ram", "Shyam", "Hari"]` and `marks = [[80, 85, 90], [70, 65, 75], [95, 92, 88]]` (3 subjects each), use `enumerate()` and `zip()` to print each student's name, their marks, total, and percentage.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   names = ["Ram", "Shyam", "Hari"]
+   marks = [[80, 85, 90], [70, 65, 75], [95, 92, 88]]
+   for i, (name, m) in enumerate(zip(names, marks)):
+       total = sum(m)
+       perc = total / 3
+       print(f"{i+1}. {name}: Marks={m}, Total={total}, Percentage={perc:.2f}%")
+   ```
+   </details>
 
 3. **Prime Numbers in Range:** Write a program that prints all prime numbers between 2 and 100. Use the `for-else` pattern for prime checking.
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   for num in range(2, 101):
+       for i in range(2, int(num ** 0.5) + 1):
+           if num % i == 0:
+               break
+       else:
+           print(num, end=" ")
+   ```
+   Output: `2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97`
+   </details>
 
 4. **Pattern: Number Pyramid:** Write a program to print:
    ```
@@ -603,10 +634,51 @@ print(f"\nTotal: {count} times")
     1234321
    123454321
    ```
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   n = 5
+   for i in range(1, n + 1):
+       print(" " * (n - i), end="")
+       for j in range(1, i + 1):
+           print(j, end="")
+       for j in range(i - 1, 0, -1):
+           print(j, end="")
+       print()
+   ```
+   </details>
 
 5. **Matrix Addition:** Write a program to add two 3x3 matrices. Use nested loops to iterate through rows and columns. Display all three matrices (A, B, A+B).
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+   B = [[9, 8, 7], [6, 5, 4], [3, 2, 1]]
+   C = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+   for i in range(3):
+       for j in range(3):
+           C[i][j] = A[i][j] + B[i][j]
+   print("Matrix A:", A)
+   print("Matrix B:", B)
+   print("A + B:", C)
+   ```
+   </details>
 
 6. **FizzBuzz with Loop:** Write a program that prints numbers 1 to 100, but:
    - For multiples of 3, print "Fizz" instead of the number.
    - For multiples of 5, print "Buzz" instead.
    - For multiples of both 3 and 5, print "FizzBuzz".
+   <details>
+   <summary>Show Answer</summary>
+   ```python
+   for i in range(1, 101):
+       if i % 3 == 0 and i % 5 == 0:
+           print("FizzBuzz")
+       elif i % 3 == 0:
+           print("Fizz")
+       elif i % 5 == 0:
+           print("Buzz")
+       else:
+           print(i)
+   ```
+   </details>

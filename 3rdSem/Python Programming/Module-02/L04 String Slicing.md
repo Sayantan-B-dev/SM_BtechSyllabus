@@ -453,10 +453,9 @@ print(lines)
 ## Practice Problems
 
 1. **Password Masking**: Write a program that takes a password and shows only the first and last character, replacing the middle with `*`. For example, "Secret123" becomes "S*******3".
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Use slicing to get first, middle, and last parts.
-
-   **Answer**:
    ```python
    password = input("Enter password: ")
    if len(password) <= 2:
@@ -465,12 +464,12 @@ print(lines)
        masked = password[0] + "*" * (len(password) - 2) + password[-1]
        print(masked)
    ```
+   </details>
 
 2. **Every Other Word Reversal**: Write a program that takes a sentence and reverses every other word (2nd, 4th, 6th, ...) using slicing.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Split the sentence, use slicing with step 2 to select even-indexed words, and reverse them.
-
-   **Answer**:
    ```python
    sentence = input("Enter a sentence: ")
    words = sentence.split()
@@ -478,6 +477,7 @@ print(lines)
        words[i] = words[i][::-1]
    print(" ".join(words))
    ```
+   </details>
 
 3. **Slicing Puzzle**: Given the string `s = "abcdefghij"`, write Python expressions using slicing to produce:
    - "abc"
@@ -485,8 +485,9 @@ print(lines)
    - "jihgfedcba"
    - "acegi"
    - "hfdb"
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    s = "abcdefghij"
    print(s[0:3])       # abc
@@ -495,10 +496,12 @@ print(lines)
    print(s[::2])       # acegi
    print(s[-3::-2])    # hfdb
    ```
+   </details>
 
 4. **Binary Palindrome**: Write a program that converts a number to binary and checks if the binary representation is a palindrome using slicing.
+   <details>
+   <summary>Show Answer</summary>
 
-   **Answer**:
    ```python
    num = int(input("Enter a number: "))
    binary = bin(num)[2:]  # Remove '0b' prefix
@@ -508,12 +511,12 @@ print(lines)
    else:
        print(f"{num} is NOT a binary palindrome")
    ```
+   </details>
 
 5. **String Rotation**: Write a function that rotates a string left by `n` positions. For example, rotating "Hello" by 2 gives "lloHe".
+   <details>
+   <summary>Show Answer</summary>
 
-   **Hint**: Use slicing: `s[n:] + s[:n]`.
-
-   **Answer**:
    ```python
    def rotate_left(s, n):
        n = n % len(s)
@@ -528,3 +531,4 @@ print(lines)
    print(f"Left: {rotate_left(text, n)}")
    print(f"Right: {rotate_right(text, n)}")
    ```
+   </details>

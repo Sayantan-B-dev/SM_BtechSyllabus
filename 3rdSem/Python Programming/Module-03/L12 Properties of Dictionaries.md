@@ -216,7 +216,7 @@ print(f"With memo: {end - start:.4f} seconds")
 **Problem 1:** Write a function `count_words(text)` that returns a dictionary with word frequencies. Test with `"apple banana apple cherry banana apple"`.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 def count_words(text):
@@ -234,7 +234,7 @@ print(count_words("apple banana apple cherry banana apple"))
 **Problem 2:** Use `defaultdict` to group the list `[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]` into "even" and "odd" groups.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import defaultdict
@@ -251,7 +251,7 @@ print(dict(groups))
 **Problem 3:** Implement a simple cache using a dictionary. The function `expensive_square(n)` should print "Computing..." and then cache the result for future calls.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 cache = {}
@@ -273,7 +273,7 @@ print(expensive_square(10)) # Returns from cache
 **Problem 4:** Compare the time to check membership of `999999` in a list of 1 million numbers vs a dictionary of 1 million keys. Write code to demonstrate the difference.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 import time
@@ -298,7 +298,7 @@ print(f"Dict: {end - start:.6f}s")
 **Problem 4:** Use `OrderedDict` to create a dictionary with keys `"z"`, `"a"`, `"m"` in that order. Then move `"z"` to the end and print the order.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import OrderedDict
@@ -315,7 +315,7 @@ print(list(od.keys()))  # ['a', 'm', 'z']
 **Problem 4:** Write a function `invert_dict(d)` that takes a dictionary and returns a new dictionary where keys become values and values become keys. Assume all values are unique and hashable.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 def invert_dict(d):
@@ -330,7 +330,7 @@ print(inverted)  # {1: 'a', 2: 'b', 3: 'c'}
 **Problem 5:** Use memoization to optimize a recursive function that computes the nth triangular number (T(n) = n + T(n-1), T(0) = 0).
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 cache = {}
@@ -355,7 +355,7 @@ print(triangular(100)) # 5050 (from cache)
 **Problem 1 (Lists):** Write a program that takes a list of numbers and returns a new list containing only the even numbers, squared. Use list comprehension.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -367,7 +367,7 @@ print(result)  # [4, 16, 36, 64, 100]
 **Problem 2 (Tuples):** Write a function `min_max_avg(numbers)` that returns a tuple containing the minimum, maximum, and average of the list.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 def min_max_avg(numbers):
@@ -381,7 +381,7 @@ print(result)  # (10, 50, 30.0)
 **Problem 3 (Dictionaries):** Write a program that takes a string and creates a dictionary mapping each character to its frequency. Ignore spaces.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 text = "hello world"
@@ -396,7 +396,7 @@ print(freq)
 **Problem 4 (Mixed):** Given a list of tuples `[("Alice", 85), ("Bob", 92), ("Charlie", 78), ("Diana", 95)]`, create a dictionary mapping names to scores. Then find the student with the highest score.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 data = [("Alice", 85), ("Bob", 92), ("Charlie", 78), ("Diana", 95)]
@@ -416,7 +416,7 @@ print(f"Top student: {top_student} with {scores[top_student]}")
 4. A dictionary grouping words by their first letter.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 from collections import defaultdict, Counter
@@ -450,7 +450,7 @@ print("Grouped by letter:", dict(by_letter))
 **Problem 5 (Performance):** Create a list of 100,000 numbers and a dictionary with the same keys. Time how long it takes to find the number `99999` in the list vs the dictionary. Explain the result.
 
 <details>
-<summary>Answer</summary>
+<summary>Show Answer</summary>
 
 ```python
 import time
