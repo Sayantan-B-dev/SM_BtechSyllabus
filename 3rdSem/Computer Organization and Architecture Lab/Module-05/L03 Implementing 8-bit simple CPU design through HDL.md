@@ -41,139 +41,157 @@ A CPU datapath consists of:
 [0]   Source Register 2 / Rt or immediate flag
 ```
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Register file: 4 registers x 8 bits
-module reg_file (
-    input  wire        clk, wr_en,
-    input  wire [1:0]  rd_addr, rs_addr, rt_addr,
-    input  wire [7:0]  wr_data,
-    output wire [7:0]  rs_data, rt_data
-);
-    reg [7:0] regs [0:3];
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    // Write (synchronous)
-    always @(posedge clk) begin
-        if (wr_en)
-            regs[rd_addr] <= wr_data;
-    end
+entity reg_file is
+  port (
+    clk, wr_en                : in  std_logic;
+    rd_addr, rs_addr, rt_addr : in  std_logic_vector(1 downto 0);
+    wr_data                   : in  std_logic_vector(7 downto 0);
+    rs_data, rt_data          : out std_logic_vector(7 downto 0)
+  );
+end entity;
 
-    // Read (combinational)
-    assign rs_data = regs[rs_addr];
-    assign rt_data = regs[rt_addr];
-endmodule
+architecture behavioral of reg_file is
+  type reg_array is array (0 to 3) of std_logic_vector(7 downto 0);
+  signal regs : reg_array;
+begin
+  process (clk) begin
+    if rising_edge(clk) then
+      if wr_en = '1' then
+        regs(to_integer(unsigned(rd_addr))) <= wr_data;
+      end if;
+    end if;
+  end process;
 
-// Simple CPU Datapath
-module cpu_datapath (
-    input  wire        clk, rst,
-    input  wire        ir_load,                  // load enable for IR
-    input  wire        reg_wr_en,                // register file write enable
-    input  wire [7:0]  instruction_in,           // instruction from memory
-    output wire [7:0]  alu_result
-);
-    // Internal signals
-    wire [7:0]  ir_out;
-    wire [2:0]  opcode;
-    wire [1:0]  rd, rs, rt;
-    wire [7:0]  rs_data, rt_data, alu_out;
+  rs_data <= regs(to_integer(unsigned(rs_addr)));
+  rt_data <= regs(to_integer(unsigned(rt_addr)));
+end architecture;
 
-    // Instruction Register
-    reg [7:0] ir;
-    always @(posedge clk) begin
-        if (ir_load)
-            ir <= instruction_in;
-    end
-    assign ir_out = ir;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    // Decode instruction
-    assign opcode = ir_out[7:5];
-    assign rd     = ir_out[4:3];
-    assign rs     = ir_out[2:1];
-    assign rt     = {1'b0, ir_out[0]}; // Rt uses bit 0 (Rt is either R0 or R1)
+entity cpu_datapath is
+  port (
+    clk, rst       : in  std_logic;
+    ir_load        : in  std_logic;
+    reg_wr_en      : in  std_logic;
+    instruction_in : in  std_logic_vector(7 downto 0);
+    alu_result     : out std_logic_vector(7 downto 0)
+  );
+end entity;
 
-    // Register file
-    reg_file rf (.clk(clk), .wr_en(reg_wr_en), .rd_addr(rd),
-                 .rs_addr(rs), .rt_addr(rt),
-                 .wr_data(alu_out),
-                 .rs_data(rs_data), .rt_data(rt_data));
+architecture structural of cpu_datapath is
+  signal ir_out   : std_logic_vector(7 downto 0);
+  signal opcode   : std_logic_vector(2 downto 0);
+  signal rd, rs, rt : std_logic_vector(1 downto 0);
+  signal rs_data, rt_data, alu_out : std_logic_vector(7 downto 0);
+begin
+  process (clk) begin
+    if rising_edge(clk) then
+      if ir_load = '1' then
+        ir_out <= instruction_in;
+      end if;
+    end if;
+  end process;
 
-    // ALU
-    alu_8bit alu (.a(rs_data), .b(rt_data), .sel(opcode[2:0]), .result(alu_out));
+  opcode <= ir_out(7 downto 5);
+  rd     <= ir_out(4 downto 3);
+  rs     <= ir_out(2 downto 1);
+  rt     <= '0' & ir_out(0);
 
-    assign alu_result = alu_out;
-endmodule
+  rf: entity work.reg_file
+    port map (
+      clk => clk, wr_en => reg_wr_en,
+      rd_addr => rd, rs_addr => rs, rt_addr => rt,
+      wr_data => alu_out,
+      rs_data => rs_data, rt_data => rt_data
+    );
 
-// Simple ALU (internal for CPU)
-module alu_8bit (
-    input  wire [7:0] a, b,
-    input  wire [2:0] sel,
-    output reg  [7:0] result
-);
-    always @(*) begin
-        case (sel)
-            3'b000: result = a + b;
-            3'b001: result = a - b;
-            3'b010: result = a;           // MOV
-            3'b011: result = b;           // LDI (immediate pass-through)
-            3'b100: result = a & b;
-            3'b101: result = a | b;
-            default: result = 8'b00000000;
-        endcase
-    end
-endmodule
+  alu: entity work.alu_8bit
+    port map (a => rs_data, b => rt_data, sel => opcode, result => alu_out);
+
+  alu_result <= alu_out;
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity alu_8bit is
+  port (
+    a, b   : in  std_logic_vector(7 downto 0);
+    sel    : in  std_logic_vector(2 downto 0);
+    result : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture behavioral of alu_8bit is
+begin
+  process (a, b, sel) begin
+    case sel is
+      when "000" => result <= std_logic_vector(unsigned(a) + unsigned(b));
+      when "001" => result <= std_logic_vector(unsigned(a) - unsigned(b));
+      when "010" => result <= a;
+      when "011" => result <= b;
+      when "100" => result <= a AND b;
+      when "101" => result <= a OR b;
+      when others => result <= (others => '0');
+    end case;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_cpu_datapath;
-    reg        clk, rst;
-    reg        ir_load, reg_wr_en;
-    reg  [7:0] instruction_in;
-    wire [7:0] alu_result;
+entity tb_cpu_datapath is
+end entity;
 
-    cpu_datapath uut (.clk(clk), .rst(rst), .ir_load(ir_load),
-                      .reg_wr_en(reg_wr_en), .instruction_in(instruction_in),
-                      .alu_result(alu_result));
+architecture sim of tb_cpu_datapath is
+  signal clk, rst          : std_logic := '0';
+  signal ir_load, reg_wr_en : std_logic := '0';
+  signal instruction_in    : std_logic_vector(7 downto 0) := (others => '0');
+  signal alu_result        : std_logic_vector(7 downto 0);
+begin
+  uut: entity work.cpu_datapath
+    port map (clk => clk, rst => rst, ir_load => ir_load,
+              reg_wr_en => reg_wr_en, instruction_in => instruction_in,
+              alu_result => alu_result);
 
-    always #5 clk = ~clk;
+  clk <= NOT clk after 5 ns;
 
-    initial begin
-        $monitor("clk=%b inst=%b opcode=%b | alu_result=%d",
-                 clk, instruction_in, instruction_in[7:5], alu_result);
+  process begin
+    clk <= '0'; rst <= '0'; ir_load <= '0'; reg_wr_en <= '0'; instruction_in <= (others => '0');
 
-        clk = 0; rst = 0; ir_load = 0; reg_wr_en = 0; instruction_in = 0;
+    wait for 10 ns; rst <= '1'; wait for 10 ns; rst <= '0';
 
-        // Reset
-        #10 rst = 1; #10 rst = 0;
+    instruction_in <= "01000010";
+    ir_load <= '1'; wait for 10 ns;
+    ir_load <= '0';
+    reg_wr_en <= '1'; wait for 10 ns;
+    reg_wr_en <= '0';
 
-        // Load instruction: LDI R0, 42 (opcode=011, rd=00, imm=1, data=42)
-        // Instruction: 011_00_0_1 = 8'b01100001, but we need two cycles
-        // Cycle 1: load immediate value via separate path
-        // For simplicity, we simulate a MOV R0, R1 with R1=42 preloaded
+    instruction_in <= "00000001";
+    ir_load <= '1'; wait for 10 ns;
+    ir_load <= '0';
+    reg_wr_en <= '1'; wait for 10 ns;
+    reg_wr_en <= '0';
 
-        // Load instruction: MOV R0, R1 (opcode=010, rd=00, rs=01, rt=0)
-        instruction_in = 8'b010_00_01_0;
-        ir_load = 1; #10;
-        ir_load = 0;
-
-        // Execute: ALU with opcode 010 does MOV
-        reg_wr_en = 1; #10;
-        reg_wr_en = 0;
-
-        // Load instruction: ADD R0, R0, R1 (opcode=000, rd=00, rs=00, rt=01=1)
-        instruction_in = 8'b000_00_00_1;
-        ir_load = 1; #10;
-        ir_load = 0;
-        reg_wr_en = 1; #10;
-        reg_wr_en = 0;
-
-        #20 $finish;
-    end
-endmodule
+    wait for 20 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

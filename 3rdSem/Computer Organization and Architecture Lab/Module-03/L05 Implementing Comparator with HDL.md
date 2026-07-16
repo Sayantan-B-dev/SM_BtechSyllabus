@@ -37,67 +37,79 @@ A 4-bit comparator compares two 4-bit numbers A[3:0] and B[3:0]. The comparison 
 | 1 | 0 |  1  |  0  |  0  |
 | 1 | 1 |  0  |  1  |  0  |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 1-bit Comparator
-module comp_1bit (
-    input  wire a, b,
-    output wire a_gt_b,
-    output wire a_eq_b,
-    output wire a_lt_b
-);
-    assign a_gt_b = a & ~b;
-    assign a_eq_b = ~(a ^ b);
-    assign a_lt_b = ~a & b;
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-// 4-bit Comparator using hierarchical design
-module comp_4bit (
-    input  wire [3:0] a, b,
-    output wire       a_gt_b,
-    output wire       a_eq_b,
-    output wire       a_lt_b
-);
-    wire [3:0] gt, eq, lt;
+entity comp_1bit is
+  port (
+    a, b   : in  std_logic;
+    a_gt_b : out std_logic;
+    a_eq_b : out std_logic;
+    a_lt_b : out std_logic
+  );
+end entity;
 
-    // Instantiate 1-bit comparators for each bit
-    comp_1bit c0 (.a(a[0]), .b(b[0]), .a_gt_b(gt[0]), .a_eq_b(eq[0]), .a_lt_b(lt[0]));
-    comp_1bit c1 (.a(a[1]), .b(b[1]), .a_gt_b(gt[1]), .a_eq_b(eq[1]), .a_lt_b(lt[1]));
-    comp_1bit c2 (.a(a[2]), .b(b[2]), .a_gt_b(gt[2]), .a_eq_b(eq[2]), .a_lt_b(lt[2]));
-    comp_1bit c3 (.a(a[3]), .b(b[3]), .a_gt_b(gt[3]), .a_eq_b(eq[3]), .a_lt_b(lt[3]));
+architecture behavioral of comp_1bit is
+begin
+  a_gt_b <= a and not b;
+  a_eq_b <= not (a xor b);
+  a_lt_b <= not a and b;
+end architecture;
 
-    // Combine results: check from MSB to LSB
-    assign a_gt_b = gt[3] | (eq[3] & gt[2]) | (eq[3] & eq[2] & gt[1]) | (eq[3] & eq[2] & eq[1] & gt[0]);
-    assign a_lt_b = lt[3] | (eq[3] & lt[2]) | (eq[3] & eq[2] & lt[1]) | (eq[3] & eq[2] & eq[1] & lt[0]);
-    assign a_eq_b = eq[3] & eq[2] & eq[1] & eq[0];
-endmodule
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity comp_4bit is
+  port (
+    a, b   : in  std_logic_vector(3 downto 0);
+    a_gt_b : out std_logic;
+    a_eq_b : out std_logic;
+    a_lt_b : out std_logic
+  );
+end entity;
+
+architecture structural of comp_4bit is
+  signal gt, eq, lt : std_logic_vector(3 downto 0);
+begin
+  c0: entity work.comp_1bit port map (a => a(0), b => b(0), a_gt_b => gt(0), a_eq_b => eq(0), a_lt_b => lt(0));
+  c1: entity work.comp_1bit port map (a => a(1), b => b(1), a_gt_b => gt(1), a_eq_b => eq(1), a_lt_b => lt(1));
+  c2: entity work.comp_1bit port map (a => a(2), b => b(2), a_gt_b => gt(2), a_eq_b => eq(2), a_lt_b => lt(2));
+  c3: entity work.comp_1bit port map (a => a(3), b => b(3), a_gt_b => gt(3), a_eq_b => eq(3), a_lt_b => lt(3));
+
+  a_gt_b <= gt(3) or (eq(3) and gt(2)) or (eq(3) and eq(2) and gt(1)) or (eq(3) and eq(2) and eq(1) and gt(0));
+  a_lt_b <= lt(3) or (eq(3) and lt(2)) or (eq(3) and eq(2) and lt(1)) or (eq(3) and eq(2) and eq(1) and lt(0));
+  a_eq_b <= eq(3) and eq(2) and eq(1) and eq(0);
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_comp_4bit;
-    reg  [3:0] a, b;
-    wire       a_gt_b, a_eq_b, a_lt_b;
+entity tb_comp_4bit is
+end entity;
 
-    comp_4bit uut (.a(a), .b(b), .a_gt_b(a_gt_b), .a_eq_b(a_eq_b), .a_lt_b(a_lt_b));
+architecture sim of tb_comp_4bit is
+  signal a, b   : std_logic_vector(3 downto 0);
+  signal a_gt_b, a_eq_b, a_lt_b : std_logic;
+begin
+  uut: entity work.comp_4bit port map (a => a, b => b, a_gt_b => a_gt_b, a_eq_b => a_eq_b, a_lt_b => a_lt_b);
 
-    initial begin
-        $monitor("A=%d B=%d | A>B=%b A=B=%b A<B=%b", a, b, a_gt_b, a_eq_b, a_lt_b);
-
-        a = 4'd10; b = 4'd5;  #10;  // A > B
-        a = 4'd5;  b = 4'd10; #10;  // A < B
-        a = 4'd7;  b = 4'd7;  #10;  // A = B
-        a = 4'd15; b = 4'd0;  #10;  // A > B
-        a = 4'd0;  b = 4'd15; #10;  // A < B
-        a = 4'd8;  b = 4'd9;  #10;  // A < B
-
-        $finish;
-    end
-endmodule
+  process begin
+    a <= "1010"; b <= "0101"; wait for 10 ns;
+    a <= "0101"; b <= "1010"; wait for 10 ns;
+    a <= "0111"; b <= "0111"; wait for 10 ns;
+    a <= "1111"; b <= "0000"; wait for 10 ns;
+    a <= "0000"; b <= "1111"; wait for 10 ns;
+    a <= "1000"; b <= "1001"; wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

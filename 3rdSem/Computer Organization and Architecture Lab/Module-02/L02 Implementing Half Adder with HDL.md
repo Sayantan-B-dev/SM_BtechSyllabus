@@ -10,8 +10,8 @@
 
 ## Lab Objectives
 
-- Design a half subtractor using Verilog.
-- Understand the difference between half adder and half subtractor.
+- Design a half subtractor using VHDL.
+- Understand the difference between half adder and half subtractor in VHDL.
 - Verify the half subtractor truth table through simulation.
 
 ## Theory
@@ -32,62 +32,70 @@ When A < B, a borrow is needed, so B_out = 1.
 | 1 | 0 |       1        |         0          |
 | 1 | 1 |       0        |         0          |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Half Subtractor -- Dataflow
-module half_subtractor_df (
-    input  wire a, b,
-    output wire diff, borrow
-);
-    assign diff  = a ^ b;
-    assign borrow = ~a & b;
-endmodule
+```vhdl
+-- Half Subtractor -- Dataflow
+library ieee;
+use ieee.std_logic_1164.all;
 
-// Half Subtractor -- Structural
-module half_subtractor_st (
-    input  wire a, b,
-    output wire diff, borrow
-);
-    xor u1 (diff, a, b);
-    and u2 (borrow_int, ~a, b); // not supported directly; use dataflow for structural with NOT
-    // Structural version needs a NOT gate:
-endmodule
+entity half_subtractor_df is
+  port (
+    a, b   : in  std_logic;
+    diff   : out std_logic;
+    borrow : out std_logic
+  );
+end entity;
 
-// Alternative structural with NOT gate primitive
-module half_subtractor_st2 (
-    input  wire a, b,
-    output wire diff, borrow
-);
-    wire not_a;
-    not u1 (not_a, a);
-    xor u2 (diff, a, b);
-    and u3 (borrow, not_a, b);
-endmodule
+architecture dataflow of half_subtractor_df is
+begin
+  diff   <= a XOR b;
+  borrow <= NOT a AND b;
+end architecture;
+
+-- Half Subtractor -- Structural
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity half_subtractor_st is
+  port (
+    a, b   : in  std_logic;
+    diff   : out std_logic;
+    borrow : out std_logic
+  );
+end entity;
+
+architecture structural of half_subtractor_st is
+  signal not_a : std_logic;
+begin
+  not_a  <= NOT a;
+  diff   <= a XOR b;
+  borrow <= not_a AND b;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_half_subtractor;
-    reg  a, b;
-    wire diff, borrow;
+entity tb_half_subtractor is
+end entity;
 
-    half_subtractor_df uut (.a(a), .b(b), .diff(diff), .borrow(borrow));
+architecture sim of tb_half_subtractor is
+  signal a, b, diff, borrow : std_logic;
+begin
+  uut : entity work.half_subtractor_df port map (a => a, b => b, diff => diff, borrow => borrow);
 
-    initial begin
-        $monitor("A=%b B=%b | Diff=%b Borrow=%b", a, b, diff, borrow);
-
-        a = 0; b = 0; #10;
-        a = 0; b = 1; #10;
-        a = 1; b = 0; #10;
-        a = 1; b = 1; #10;
-
-        $finish;
-    end
-endmodule
+  process begin
+    a <= '0'; b <= '0'; wait for 10 ns;
+    a <= '0'; b <= '1'; wait for 10 ns;
+    a <= '1'; b <= '0'; wait for 10 ns;
+    a <= '1'; b <= '1'; wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -101,4 +109,4 @@ A=1 B=1 | Diff=0 Borrow=0
 
 ## Conclusion
 
-Implemented a half subtractor using dataflow and structural modeling. The borrow output is 1 only when A=0 and B=1, correctly indicating that a borrow is needed.
+Implemented a half subtractor using dataflow and structural modeling in VHDL. The borrow output is 1 only when A=0 and B=1, correctly indicating that a borrow is needed.

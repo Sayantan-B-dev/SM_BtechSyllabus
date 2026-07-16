@@ -36,84 +36,94 @@ i[3:0]   i[7:4]   i[11:8]  i[15:12]
               s[3:2] (select)
 ```
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 4:1 MUX building block
-module mux_4to1 (
-    input  wire [3:0] i,
-    input  wire [1:0] sel,
-    output reg        y
-);
-    always @(*) begin
-        case (sel)
-            2'b00: y = i[0];
-            2'b01: y = i[1];
-            2'b10: y = i[2];
-            2'b11: y = i[3];
-            default: y = 1'b0;
-        endcase
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-// 16:1 MUX using hierarchical design
-module mux_16to1 (
-    input  wire [15:0] i,
-    input  wire [3:0]  sel,
-    output wire        y
-);
-    wire [3:0] mux_out;
+entity mux_4to1 is
+  port (
+    i   : in  std_logic_vector(3 downto 0);
+    sel : in  std_logic_vector(1 downto 0);
+    y   : out std_logic
+  );
+end entity;
 
-    // Stage 1: Four 4:1 MUXes
-    mux_4to1 m0 (.i(i[3:0]),    .sel(sel[1:0]), .y(mux_out[0]));
-    mux_4to1 m1 (.i(i[7:4]),    .sel(sel[1:0]), .y(mux_out[1]));
-    mux_4to1 m2 (.i(i[11:8]),   .sel(sel[1:0]), .y(mux_out[2]));
-    mux_4to1 m3 (.i(i[15:12]),  .sel(sel[1:0]), .y(mux_out[3]));
+architecture behavioral of mux_4to1 is
+begin
+  process (i, sel) begin
+    case sel is
+      when "00" => y <= i(0);
+      when "01" => y <= i(1);
+      when "10" => y <= i(2);
+      when "11" => y <= i(3);
+      when others => y <= '0';
+    end case;
+  end process;
+end architecture;
 
-    // Stage 2: Final 4:1 MUX
-    mux_4to1 m_final (.i(mux_out), .sel(sel[3:2]), .y(y));
-endmodule
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity mux_16to1 is
+  port (
+    i   : in  std_logic_vector(15 downto 0);
+    sel : in  std_logic_vector(3 downto 0);
+    y   : out std_logic
+  );
+end entity;
+
+architecture structural of mux_16to1 is
+  signal mux_out : std_logic_vector(3 downto 0);
+begin
+  m0: entity work.mux_4to1 port map (i => i(3 downto 0), sel => sel(1 downto 0), y => mux_out(0));
+  m1: entity work.mux_4to1 port map (i => i(7 downto 4), sel => sel(1 downto 0), y => mux_out(1));
+  m2: entity work.mux_4to1 port map (i => i(11 downto 8), sel => sel(1 downto 0), y => mux_out(2));
+  m3: entity work.mux_4to1 port map (i => i(15 downto 12), sel => sel(1 downto 0), y => mux_out(3));
+  m_final: entity work.mux_4to1 port map (i => mux_out, sel => sel(3 downto 2), y => y);
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_mux_16to1;
-    reg  [15:0] i;
-    reg  [3:0]  sel;
-    wire        y;
+entity tb_mux_16to1 is
+end entity;
 
-    mux_16to1 uut (.i(i), .sel(sel), .y(y));
+architecture sim of tb_mux_16to1 is
+  signal i   : std_logic_vector(15 downto 0);
+  signal sel : std_logic_vector(3 downto 0);
+  signal y   : std_logic;
+begin
+  uut: entity work.mux_16to1 port map (i => i, sel => sel, y => y);
 
-    initial begin
-        $monitor("sel=%b i=%b | y=%b", sel, i, y);
+  process begin
+    i <= "0001001001001000";
 
-        // Assign a pattern: each group has a unique bit high
-        i = 16'b0001_0010_0100_1000; // group pattern
+    sel <= "0000"; wait for 10 ns;
+    sel <= "0001"; wait for 10 ns;
+    sel <= "0010"; wait for 10 ns;
+    sel <= "0011"; wait for 10 ns;
+    sel <= "0100"; wait for 10 ns;
+    sel <= "0101"; wait for 10 ns;
+    sel <= "0110"; wait for 10 ns;
+    sel <= "0111"; wait for 10 ns;
+    sel <= "1000"; wait for 10 ns;
+    sel <= "1001"; wait for 10 ns;
+    sel <= "1010"; wait for 10 ns;
+    sel <= "1011"; wait for 10 ns;
+    sel <= "1100"; wait for 10 ns;
+    sel <= "1101"; wait for 10 ns;
+    sel <= "1110"; wait for 10 ns;
+    sel <= "1111"; wait for 10 ns;
 
-        // Test all select combinations
-        sel = 4'b0000; #10;  // expect i[0] = 0
-        sel = 4'b0001; #10;  // expect i[1] = 0
-        sel = 4'b0010; #10;  // expect i[2] = 1
-        sel = 4'b0011; #10;  // expect i[3] = 0
-        sel = 4'b0100; #10;  // expect i[4] = 0
-        sel = 4'b0101; #10;  // expect i[5] = 1
-        sel = 4'b0110; #10;  // expect i[6] = 0
-        sel = 4'b0111; #10;  // expect i[7] = 0
-        sel = 4'b1000; #10;  // expect i[8] = 0
-        sel = 4'b1001; #10;  // expect i[9] = 0
-        sel = 4'b1010; #10;  // expect i[10] = 1
-        sel = 4'b1011; #10;  // expect i[11] = 0
-        sel = 4'b1100; #10;  // expect i[12] = 0
-        sel = 4'b1101; #10;  // expect i[13] = 0
-        sel = 4'b1110; #10;  // expect i[14] = 0
-        sel = 4'b1111; #10;  // expect i[15] = 1
-
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

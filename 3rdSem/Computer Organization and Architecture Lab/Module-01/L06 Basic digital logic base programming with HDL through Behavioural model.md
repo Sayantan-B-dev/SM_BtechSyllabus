@@ -20,13 +20,13 @@
 A decoder converts n-bit input to 2^n-bit output. For a 3:8 decoder:
 - Input: A[2:0] (3-bit binary)
 - Output: Y[7:0] (one-hot -- exactly one output is 1)
-- For input 3'b000, Y[0]=1; for 3'b001, Y[1]=1; ...; for 3'b111, Y[7]=1.
+- For input "000", Y(0)='1'; for "001", Y(1)='1'; ...; for "111", Y(7)='1'.
 
 **Encoder:**
 An encoder performs the reverse operation. For an 8:3 encoder:
 - Input: D[7:0] (one-hot)
 - Output: Q[2:0] (3-bit binary)
-- For D[0]=1, Q=000; for D[1]=1, Q=001; ...; for D[7]=1, Q=111.
+- For D(0)='1', Q="000"; for D(1)='1', Q="001"; ...; for D(7)='1', Q="111".
 
 ## Truth Table
 
@@ -54,97 +54,108 @@ An encoder performs the reverse operation. For an 8:3 encoder:
 | 0  | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 1  | 0  |
 | 1  | 0  | 0  | 0  | 0  | 0  | 0  | 0  | 1  | 1  | 1  |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 3:8 Decoder using behavioral modeling
-module decoder_3to8 (
-    input  wire [2:0] a,
-    output reg  [7:0] y
-);
-    always @(*) begin
-        case (a)
-            3'b000: y = 8'b00000001;
-            3'b001: y = 8'b00000010;
-            3'b010: y = 8'b00000100;
-            3'b011: y = 8'b00001000;
-            3'b100: y = 8'b00010000;
-            3'b101: y = 8'b00100000;
-            3'b110: y = 8'b01000000;
-            3'b111: y = 8'b10000000;
-            default: y = 8'b00000000;
-        endcase
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-// 8:3 Encoder using behavioral modeling
-module encoder_8to3 (
-    input  wire [7:0] d,
-    output reg  [2:0] q
-);
-    always @(*) begin
-        case (d)
-            8'b00000001: q = 3'b000;
-            8'b00000010: q = 3'b001;
-            8'b00000100: q = 3'b010;
-            8'b00001000: q = 3'b011;
-            8'b00010000: q = 3'b100;
-            8'b00100000: q = 3'b101;
-            8'b01000000: q = 3'b110;
-            8'b10000000: q = 3'b111;
-            default:     q = 3'b000;
-        endcase
-    end
-endmodule
+entity decoder_3to8 is
+  port (
+    a : in  std_logic_vector(2 downto 0);
+    y : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture behavioral of decoder_3to8 is
+begin
+  process (a) begin
+    case a is
+      when "000" => y <= "00000001";
+      when "001" => y <= "00000010";
+      when "010" => y <= "00000100";
+      when "011" => y <= "00001000";
+      when "100" => y <= "00010000";
+      when "101" => y <= "00100000";
+      when "110" => y <= "01000000";
+      when "111" => y <= "10000000";
+      when others => y <= "00000000";
+    end case;
+  end process;
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity encoder_8to3 is
+  port (
+    d : in  std_logic_vector(7 downto 0);
+    q : out std_logic_vector(2 downto 0)
+  );
+end entity;
+
+architecture behavioral of encoder_8to3 is
+begin
+  process (d) begin
+    case d is
+      when "00000001" => q <= "000";
+      when "00000010" => q <= "001";
+      when "00000100" => q <= "010";
+      when "00001000" => q <= "011";
+      when "00010000" => q <= "100";
+      when "00100000" => q <= "101";
+      when "01000000" => q <= "110";
+      when "10000000" => q <= "111";
+      when others => q <= "000";
+    end case;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_dec_enc;
-    reg  [2:0] a;
-    wire [7:0] y;
-    reg  [7:0] d;
-    wire [2:0] q;
+entity tb_dec_enc is
+end entity;
 
-    decoder_3to8 dec (.a(a), .y(y));
-    encoder_8to3 enc (.d(d), .q(q));
+architecture sim of tb_dec_enc is
+  signal a : std_logic_vector(2 downto 0);
+  signal y : std_logic_vector(7 downto 0);
+  signal d : std_logic_vector(7 downto 0);
+  signal q : std_logic_vector(2 downto 0);
+begin
+  dec: entity work.decoder_3to8 port map (a => a, y => y);
+  enc: entity work.encoder_8to3 port map (d => d, q => q);
 
-    initial begin
-        $display("=== 3:8 Decoder ===");
-        $monitor("a=%b | y=%b", a, y);
+  process begin
+    report "=== 3:8 Decoder ===";
+    a <= "000"; wait for 10 ns;
+    a <= "001"; wait for 10 ns;
+    a <= "010"; wait for 10 ns;
+    a <= "011"; wait for 10 ns;
+    a <= "100"; wait for 10 ns;
+    a <= "101"; wait for 10 ns;
+    a <= "110"; wait for 10 ns;
+    a <= "111"; wait for 10 ns;
 
-        a = 3'b000; #10;
-        a = 3'b001; #10;
-        a = 3'b010; #10;
-        a = 3'b011; #10;
-        a = 3'b100; #10;
-        a = 3'b101; #10;
-        a = 3'b110; #10;
-        a = 3'b111; #10;
+    wait for 20 ns;
 
-        #20;
+    report "=== 8:3 Encoder ===";
+    d <= "00000001"; wait for 10 ns;
+    d <= "00000010"; wait for 10 ns;
+    d <= "00000100"; wait for 10 ns;
+    d <= "00001000"; wait for 10 ns;
+    d <= "00010000"; wait for 10 ns;
+    d <= "00100000"; wait for 10 ns;
+    d <= "01000000"; wait for 10 ns;
+    d <= "10000000"; wait for 10 ns;
 
-        $display("=== 8:3 Encoder ===");
-        d = 8'b00000001; #10;
-        d = 8'b00000010; #10;
-        d = 8'b00000100; #10;
-        d = 8'b00001000; #10;
-        d = 8'b00010000; #10;
-        d = 8'b00100000; #10;
-        d = 8'b01000000; #10;
-        d = 8'b10000000; #10;
-
-        $finish;
-    end
-
-    // Separate monitor for encoder
-    always @(d) begin
-        #1 $display("d=%b | q=%b", d, q);
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -173,4 +184,4 @@ d=10000000 | q=111
 
 ## Conclusion
 
-Successfully implemented a 3:8 decoder and an 8:3 encoder using behavioral modeling with the `case` statement. The decoder produces a one-hot output, while the encoder generates the corresponding binary code from a one-hot input.
+Successfully implemented a 3:8 decoder and an 8:3 encoder using behavioral modeling with the `case` statement in VHDL. The decoder produces a one-hot output, while the encoder generates the corresponding binary code from a one-hot input.

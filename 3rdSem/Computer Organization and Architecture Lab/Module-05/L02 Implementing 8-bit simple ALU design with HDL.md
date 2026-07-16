@@ -22,109 +22,121 @@
 - **Overflow (V):** Set to 1 when signed overflow occurs (result exceeds the signed 8-bit range -128 to 127).
 - **Negative (N):** Set to 1 when the MSB of the result is 1 (result is negative in signed interpretation).
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Enhanced 8-bit ALU with status flags
-module alu_8bit_flags (
-    input  wire [7:0] a, b,
-    input  wire [2:0] sel,
-    output reg  [7:0] result,
-    output reg        zero,
-    output reg        carry,
-    output reg        overflow,
-    output reg        negative
-);
-    wire [8:0] add_result, sub_result;
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    assign add_result = a + b;
-    assign sub_result = a - b;
+entity alu_8bit_flags is
+  port (
+    a, b     : in  std_logic_vector(7 downto 0);
+    sel      : in  std_logic_vector(2 downto 0);
+    result   : out std_logic_vector(7 downto 0);
+    zero     : out std_logic;
+    carry    : out std_logic;
+    overflow : out std_logic;
+    negative : out std_logic
+  );
+end entity;
 
-    always @(*) begin
-        // Default values
-        zero = 1'b0;
-        carry = 1'b0;
-        overflow = 1'b0;
-        negative = 1'b0;
+architecture behavioral of alu_8bit_flags is
+  signal add_result : std_logic_vector(8 downto 0);
+  signal sub_result : std_logic_vector(8 downto 0);
+  signal res_int    : std_logic_vector(7 downto 0);
+begin
+  add_result <= std_logic_vector(unsigned("0" & a) + unsigned("0" & b));
+  sub_result <= std_logic_vector(unsigned("0" & a) - unsigned("0" & b));
 
-        case (sel)
-            3'b000: begin  // Addition
-                result = add_result[7:0];
-                carry = add_result[8];
-                overflow = (a[7] == b[7]) && (result[7] != a[7]);
-                negative = result[7];
-            end
-            3'b001: begin  // Subtraction
-                result = sub_result[7:0];
-                carry = sub_result[8];
-                overflow = (a[7] != b[7]) && (result[7] != a[7]);
-                negative = result[7];
-            end
-            3'b010: result = a & b;           // AND
-            3'b011: result = a | b;           // OR
-            3'b100: result = a ^ b;           // XOR
-            3'b101: result = ~a;              // NOT
-            3'b110: begin                     // Left shift
-                result = a << 1;
-                carry = a[7];
-            end
-            3'b111: begin                     // Right shift
-                result = a >> 1;
-                carry = a[0];
-            end
-            default: result = 8'b00000000;
-        endcase
+  process (a, b, sel, add_result, sub_result) begin
+    zero <= '0'; carry <= '0'; overflow <= '0'; negative <= '0';
+    res_int <= (others => '0');
 
-        // Zero flag (check after result is computed)
-        if (result == 8'b00000000)
-            zero = 1'b1;
-    end
-endmodule
+    case sel is
+      when "000" =>
+        res_int <= add_result(7 downto 0);
+        carry <= add_result(8);
+        overflow <= (a(7) XNOR b(7)) AND (a(7) XOR add_result(7));
+      when "001" =>
+        res_int <= sub_result(7 downto 0);
+        carry <= sub_result(8);
+        overflow <= (a(7) XNOR b(7)) AND (a(7) XOR sub_result(7));
+      when "010" => res_int <= a AND b;
+      when "011" => res_int <= a OR b;
+      when "100" => res_int <= a XOR b;
+      when "101" => res_int <= NOT a;
+      when "110" =>
+        res_int <= std_logic_vector(unsigned(a) sll 1);
+        carry <= a(7);
+      when "111" =>
+        res_int <= std_logic_vector(unsigned(a) srl 1);
+        carry <= a(0);
+      when others => res_int <= (others => '0');
+    end case;
+
+    result <= res_int;
+    negative <= res_int(7);
+    if res_int = "00000000" then
+      zero <= '1';
+    end if;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_alu_flags;
-    reg  [7:0] a, b;
-    reg  [2:0] sel;
-    wire [7:0] result;
-    wire       zero, carry, overflow, negative;
+entity tb_alu_flags is
+end entity;
 
-    alu_8bit_flags uut (.a(a), .b(b), .sel(sel), .result(result),
-                        .zero(zero), .carry(carry), .overflow(overflow),
-                        .negative(negative));
+architecture sim of tb_alu_flags is
+  signal a, b     : std_logic_vector(7 downto 0) := (others => '0');
+  signal sel      : std_logic_vector(2 downto 0) := (others => '0');
+  signal result   : std_logic_vector(7 downto 0);
+  signal zero, carry, overflow, negative : std_logic;
+begin
+  uut: entity work.alu_8bit_flags
+    port map (a => a, b => b, sel => sel, result => result,
+              zero => zero, carry => carry, overflow => overflow,
+              negative => negative);
 
-    initial begin
-        $monitor("A=%d B=%d sel=%b | result=%d Z=%b C=%b V=%b N=%b",
-                 a, b, sel, result, zero, carry, overflow, negative);
+  process begin
+    a <= std_logic_vector(to_unsigned(50, 8));
+    b <= std_logic_vector(to_unsigned(50, 8));
+    sel <= "000"; wait for 10 ns;
 
-        // Test addition: 50 + 50 = 100 (no flags)
-        a = 8'd50; b = 8'd50; sel = 3'b000; #10;
+    a <= std_logic_vector(to_unsigned(200, 8));
+    b <= std_logic_vector(to_unsigned(100, 8));
+    sel <= "000"; wait for 10 ns;
 
-        // Test addition: 200 + 100 = 44 (carry, overflow)
-        a = 8'd200; b = 8'd100; sel = 3'b000; #10;
+    a <= std_logic_vector(to_unsigned(100, 8));
+    b <= std_logic_vector(to_unsigned(100, 8));
+    sel <= "001"; wait for 10 ns;
 
-        // Test subtraction: 100 - 100 = 0 (zero)
-        a = 8'd100; b = 8'd100; sel = 3'b001; #10;
+    a <= std_logic_vector(to_unsigned(50, 8));
+    b <= std_logic_vector(to_unsigned(100, 8));
+    sel <= "001"; wait for 10 ns;
 
-        // Test subtraction: 50 - 100 = -56 (negative)
-        a = 8'd50; b = 8'd100; sel = 3'b001; #10;
+    a <= std_logic_vector(to_unsigned(255, 8));
+    b <= std_logic_vector(to_unsigned(0, 8));
+    sel <= "010"; wait for 10 ns;
 
-        // Test AND: 0xFF & 0x00 = 0x00 (zero)
-        a = 8'd255; b = 8'd0; sel = 3'b010; #10;
+    a <= std_logic_vector(to_unsigned(128, 8));
+    b <= std_logic_vector(to_unsigned(0, 8));
+    sel <= "110"; wait for 10 ns;
 
-        // Test left shift of 0x80 (carry flag)
-        a = 8'd128; b = 8'd0; sel = 3'b110; #10;
+    a <= std_logic_vector(to_unsigned(127, 8));
+    b <= std_logic_vector(to_unsigned(1, 8));
+    sel <= "000"; wait for 10 ns;
 
-        // Test addition: 127 + 1 = 128 (overflow for signed)
-        a = 8'd127; b = 8'd1; sel = 3'b000; #10;
-
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

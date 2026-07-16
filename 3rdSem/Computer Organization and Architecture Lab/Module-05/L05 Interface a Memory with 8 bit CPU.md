@@ -37,125 +37,144 @@ The CPU's program counter (PC) provides the address for instruction fetch. For d
          +-------+                    +--------+
 ```
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// RAM module
-module ram_256x8 (
-    input  wire        clk,
-    input  wire        we,
-    input  wire [7:0]  addr,
-    input  wire [7:0]  din,
-    output reg  [7:0]  dout
-);
-    reg [7:0] mem [0:255];
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    always @(posedge clk) begin
-        if (we)
-            mem[addr] <= din;
-        dout <= mem[addr];
-    end
-endmodule
+entity ram_256x8 is
+  port (
+    clk  : in  std_logic;
+    we   : in  std_logic;
+    addr : in  std_logic_vector(7 downto 0);
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
 
-// CPU core with memory interface
-module cpu_core (
-    input  wire        clk, rst,
-    input  wire [7:0]  data_in,
-    output wire [7:0]  addr_out,
-    output wire [7:0]  data_out,
-    output wire        mem_read,
-    output wire        mem_write
-);
-    reg [7:0] pc, ir, acc;
-    reg [1:0] state;
+architecture behavioral of ram_256x8 is
+  type mem_array is array (0 to 255) of std_logic_vector(7 downto 0);
+  signal mem : mem_array;
+begin
+  process (clk) begin
+    if rising_edge(clk) then
+      if we = '1' then
+        mem(to_integer(unsigned(addr))) <= din;
+      end if;
+      dout <= mem(to_integer(unsigned(addr)));
+    end if;
+  end process;
+end architecture;
 
-    localparam FETCH  = 2'b00;
-    localparam DECODE = 2'b01;
-    localparam EXEC   = 2'b10;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    assign addr_out = (state == FETCH) ? pc : 8'b00000000;
-    assign data_out = acc;
+entity cpu_core is
+  port (
+    clk, rst  : in  std_logic;
+    data_in   : in  std_logic_vector(7 downto 0);
+    addr_out  : out std_logic_vector(7 downto 0);
+    data_out  : out std_logic_vector(7 downto 0);
+    mem_read  : out std_logic;
+    mem_write : out std_logic
+  );
+end entity;
 
-    // FSM
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
-            state <= FETCH;
-            pc <= 8'b00000000;
-            ir <= 8'b00000000;
-            acc <= 8'b00000000;
-        end else begin
-            case (state)
-                FETCH: begin
-                    ir <= data_in;
-                    state <= DECODE;
-                end
-                DECODE: begin
-                    state <= EXEC;
-                end
-                EXEC: begin
-                    pc <= pc + 1;
-                    // Simple execution
-                    case (ir[7:5])
-                        3'b000: acc <= acc + data_in;  // ADD
-                        3'b001: acc <= acc - data_in;  // SUB
-                        3'b010: acc <= data_in;        // LOAD
-                        3'b011: acc <= acc;            // NOP
-                        3'b100: acc <= acc & data_in;  // AND
-                        3'b101: acc <= acc | data_in;  // OR
-                        default: acc <= acc;
-                    endcase
-                    state <= FETCH;
-                end
-            endcase
-        end
-    end
+architecture behavioral of cpu_core is
+  type state_type is (FETCH, DECODE, EXEC);
+  signal state : state_type;
+  signal pc, ir, acc : std_logic_vector(7 downto 0) := (others => '0');
+begin
+  addr_out <= pc when state = FETCH else (others => '0');
+  data_out <= acc;
 
-    assign mem_read  = (state == FETCH) || (state == EXEC && ir[7:5] != 3'b011);
-    assign mem_write = 1'b0; // No write in this simple core
-endmodule
+  process (clk, rst) begin
+    if rst = '1' then
+      state <= FETCH;
+      pc <= (others => '0');
+      ir <= (others => '0');
+      acc <= (others => '0');
+    elsif rising_edge(clk) then
+      case state is
+        when FETCH =>
+          ir <= data_in;
+          state <= DECODE;
+        when DECODE =>
+          state <= EXEC;
+        when EXEC =>
+          pc <= std_logic_vector(unsigned(pc) + 1);
+          case ir(7 downto 5) is
+            when "000" => acc <= std_logic_vector(unsigned(acc) + unsigned(data_in));
+            when "001" => acc <= std_logic_vector(unsigned(acc) - unsigned(data_in));
+            when "010" => acc <= data_in;
+            when "011" => acc <= acc;
+            when "100" => acc <= acc AND data_in;
+            when "101" => acc <= acc OR data_in;
+            when others => acc <= acc;
+          end case;
+          state <= FETCH;
+      end case;
+    end if;
+  end process;
 
-// Top-level CPU + Memory
-module cpu_with_memory (
-    input  wire clk, rst
-);
-    wire [7:0] addr, data_to_mem, data_from_mem;
-    wire       mem_read, mem_write;
+  mem_read  <= '1' when (state = FETCH) or (state = EXEC and ir(7 downto 5) /= "011") else '0';
+  mem_write <= '0';
+end architecture;
 
-    cpu_core cpu (.clk(clk), .rst(rst), .data_in(data_from_mem),
-                  .addr_out(addr), .data_out(data_to_mem),
-                  .mem_read(mem_read), .mem_write(mem_write));
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    ram_256x8 ram (.clk(clk), .we(mem_write), .addr(addr),
-                   .din(data_to_mem), .dout(data_from_mem));
-endmodule
+entity cpu_with_memory is
+  port (
+    clk, rst : in std_logic
+  );
+end entity;
+
+architecture structural of cpu_with_memory is
+  signal addr, data_to_mem, data_from_mem : std_logic_vector(7 downto 0);
+  signal mem_read, mem_write : std_logic;
+begin
+  cpu: entity work.cpu_core
+    port map (clk => clk, rst => rst, data_in => data_from_mem,
+              addr_out => addr, data_out => data_to_mem,
+              mem_read => mem_read, mem_write => mem_write);
+
+  ram: entity work.ram_256x8
+    port map (clk => clk, we => mem_write, addr => addr,
+              din => data_to_mem, dout => data_from_mem);
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_cpu_memory;
-    reg  clk, rst;
+entity tb_cpu_memory is
+end entity;
 
-    cpu_with_memory uut (.clk(clk), .rst(rst));
+architecture sim of tb_cpu_memory is
+  signal clk, rst : std_logic := '0';
+begin
+  uut: entity work.cpu_with_memory
+    port map (clk => clk, rst => rst);
 
-    always #5 clk = ~clk;
+  clk <= NOT clk after 5 ns;
 
-    initial begin
-        $monitor("clk=%b rst=%b", clk, rst);
-
-        clk = 0; rst = 0;
-
-        #10 rst = 1;  // Reset CPU
-        #10 rst = 0;
-
-        // Run for several clock cycles
-        #100;
-
-        $finish;
-    end
-endmodule
+  process begin
+    clk <= '0'; rst <= '0';
+    wait for 10 ns; rst <= '1';
+    wait for 10 ns; rst <= '0';
+    wait for 100 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

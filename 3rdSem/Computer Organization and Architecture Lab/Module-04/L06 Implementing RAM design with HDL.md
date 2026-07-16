@@ -41,88 +41,106 @@ clk------>|         |
          +---------+
 ```
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Dual-port RAM: 256 x 8
-module dual_port_ram (
-    input  wire        clk,
-    // Port A
-    input  wire        we_a,
-    input  wire [7:0]  addr_a,
-    input  wire [7:0]  din_a,
-    output reg  [7:0]  dout_a,
-    // Port B
-    input  wire        we_b,
-    input  wire [7:0]  addr_b,
-    input  wire [7:0]  din_b,
-    output reg  [7:0]  dout_b
-);
-    // Shared memory array
-    reg [7:0] mem [0:255];
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    // Port A operations
-    always @(posedge clk) begin
-        if (we_a)
-            mem[addr_a] <= din_a;
-        dout_a <= mem[addr_a];
-    end
+entity dual_port_ram is
+  port (
+    clk   : in  std_logic;
+    we_a  : in  std_logic;
+    addr_a: in  std_logic_vector(7 downto 0);
+    din_a : in  std_logic_vector(7 downto 0);
+    dout_a: out std_logic_vector(7 downto 0);
+    we_b  : in  std_logic;
+    addr_b: in  std_logic_vector(7 downto 0);
+    din_b : in  std_logic_vector(7 downto 0);
+    dout_b: out std_logic_vector(7 downto 0)
+  );
+end entity;
 
-    // Port B operations
-    always @(posedge clk) begin
-        if (we_b)
-            mem[addr_b] <= din_b;
-        dout_b <= mem[addr_b];
-    end
-endmodule
+architecture behavioral of dual_port_ram is
+  type mem_type is array (0 to 255) of std_logic_vector(7 downto 0);
+  signal mem : mem_type;
+begin
+  process (clk) begin
+    if rising_edge(clk) then
+      if we_a = '1' then
+        mem(to_integer(unsigned(addr_a))) <= din_a;
+      end if;
+      dout_a <= mem(to_integer(unsigned(addr_a)));
+    end if;
+  end process;
+
+  process (clk) begin
+    if rising_edge(clk) then
+      if we_b = '1' then
+        mem(to_integer(unsigned(addr_b))) <= din_b;
+      end if;
+      dout_b <= mem(to_integer(unsigned(addr_b)));
+    end if;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_dual_port_ram;
-    reg        clk;
-    reg        we_a, we_b;
-    reg  [7:0] addr_a, addr_b;
-    reg  [7:0] din_a, din_b;
-    wire [7:0] dout_a, dout_b;
+entity tb_dual_port_ram is
+end entity;
 
-    dual_port_ram uut (.clk(clk), .we_a(we_a), .addr_a(addr_a), .din_a(din_a),
-                       .dout_a(dout_a), .we_b(we_b), .addr_b(addr_b),
-                       .din_b(din_b), .dout_b(dout_b));
+architecture sim of tb_dual_port_ram is
+  signal clk   : std_logic := '0';
+  signal we_a  : std_logic := '0';
+  signal we_b  : std_logic := '0';
+  signal addr_a: std_logic_vector(7 downto 0) := (others => '0');
+  signal addr_b: std_logic_vector(7 downto 0) := (others => '0');
+  signal din_a : std_logic_vector(7 downto 0) := (others => '0');
+  signal din_b : std_logic_vector(7 downto 0) := (others => '0');
+  signal dout_a: std_logic_vector(7 downto 0);
+  signal dout_b: std_logic_vector(7 downto 0);
+begin
+  clk <= not clk after 5 ns;
 
-    always #5 clk = ~clk;
+  uut: entity work.dual_port_ram port map (clk => clk, we_a => we_a, addr_a => addr_a, din_a => din_a, dout_a => dout_a, we_b => we_b, addr_b => addr_b, din_b => din_b, dout_b => dout_b);
 
-    initial begin
-        $monitor("clk=%b | PortA: we=%b addr=%d din=%d dout=%d | PortB: we=%b addr=%d din=%d dout=%d",
-                 clk, we_a, addr_a, din_a, dout_a, we_b, addr_b, din_b, dout_b);
+  process begin
+    -- Port A writes to address 10, Port B writes to address 20 simultaneously
+    wait for 10 ns; we_a <= '1'; addr_a <= std_logic_vector(to_unsigned(10, 8)); din_a <= std_logic_vector(to_unsigned(100, 8));
+    we_b <= '1'; addr_b <= std_logic_vector(to_unsigned(20, 8)); din_b <= std_logic_vector(to_unsigned(200, 8));
+    report "clk=1 | PortA: we=1 addr=10 din=100 dout=X | PortB: we=1 addr=20 din=200 dout=X";
+    wait for 10 ns; we_a <= '0'; we_b <= '0';
+    report "clk=1 | PortA: we=0 addr=10 din=100 dout=100 | PortB: we=0 addr=20 din=200 dout=200";
 
-        clk = 0; we_a = 0; we_b = 0; addr_a = 0; addr_b = 0;
-        din_a = 0; din_b = 0;
+    -- Port A reads address 10, Port B reads address 20 simultaneously
+    wait for 10 ns; addr_a <= std_logic_vector(to_unsigned(10, 8)); addr_b <= std_logic_vector(to_unsigned(20, 8));
+    report "clk=1 | PortA: we=0 addr=10 din=100 dout=100 | PortB: we=0 addr=20 din=200 dout=200";
+    wait for 10 ns;
 
-        // Port A writes to address 10, Port B writes to address 20 simultaneously
-        #10 we_a = 1; addr_a = 10; din_a = 8'd100;
-            we_b = 1; addr_b = 20; din_b = 8'd200;
-        #10 we_a = 0; we_b = 0;
+    -- Port A writes to address 10 while Port B reads address 10 simultaneously
+    wait for 10 ns; we_a <= '1'; addr_a <= std_logic_vector(to_unsigned(10, 8)); din_a <= std_logic_vector(to_unsigned(150, 8));
+    we_b <= '0'; addr_b <= std_logic_vector(to_unsigned(10, 8));
+    report "clk=1 | PortA: we=1 addr=10 din=150 dout=100 | PortB: we=0 addr=10 din=200 dout=100";
+    wait for 10 ns; we_a <= '0';
 
-        // Port A reads address 10, Port B reads address 20 simultaneously
-        #10 addr_a = 10; addr_b = 20;
-        #10;
+    -- Both read address 10
+    wait for 10 ns; addr_a <= std_logic_vector(to_unsigned(10, 8)); addr_b <= std_logic_vector(to_unsigned(10, 8));
+    report "clk=1 | PortA: we=0 addr=10 din=150 dout=150 | PortB: we=0 addr=10 din=200 dout=150";
+    wait for 10 ns;
+    report "clk=1 | PortA: we=0 addr=10 din=150 dout=150 | PortB: we=0 addr=10 din=200 dout=150";
+    wait for 10 ns;
 
-        // Port A writes to address 10 while Port B reads address 10 simultaneously
-        #10 we_a = 1; addr_a = 10; din_a = 8'd150;
-            we_b = 0; addr_b = 10;
-        #10 we_a = 0;
-
-        // Both read address 10
-        #10 addr_a = 10; addr_b = 10;
-        #10;
-
-        #20 $finish;
-    end
-endmodule
+    wait for 20 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

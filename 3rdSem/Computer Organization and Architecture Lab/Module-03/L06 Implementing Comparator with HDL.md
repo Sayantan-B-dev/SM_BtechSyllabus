@@ -22,77 +22,83 @@ An enable input (en) controls whether the comparator is active. When en = 0, the
 **Behavioral Implementation:**
 Using `always @(*)` with `if-else` statements makes the code easy to read and modify. The comparison can use either bit-wise logic or relational operators (`>`, `<`, `==`).
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 8-bit Comparator with Enable
-module comp_8bit_en (
-    input  wire       en,
-    input  wire [7:0] a, b,
-    output reg        a_gt_b,
-    output reg        a_eq_b,
-    output reg        a_lt_b
-);
-    always @(*) begin
-        if (!en) begin
-            a_gt_b = 1'b0;
-            a_eq_b = 1'b0;
-            a_lt_b = 1'b0;
-        end else begin
-            if (a > b) begin
-                a_gt_b = 1'b1;
-                a_eq_b = 1'b0;
-                a_lt_b = 1'b0;
-            end else if (a == b) begin
-                a_gt_b = 1'b0;
-                a_eq_b = 1'b1;
-                a_lt_b = 1'b0;
-            end else begin
-                a_gt_b = 1'b0;
-                a_eq_b = 1'b0;
-                a_lt_b = 1'b1;
-            end
-        end
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity comp_8bit_en is
+  port (
+    en     : in  std_logic;
+    a, b   : in  std_logic_vector(7 downto 0);
+    a_gt_b : out std_logic;
+    a_eq_b : out std_logic;
+    a_lt_b : out std_logic
+  );
+end entity;
+
+architecture behavioral of comp_8bit_en is
+begin
+  process (en, a, b) begin
+    if en = '0' then
+      a_gt_b <= '0';
+      a_eq_b <= '0';
+      a_lt_b <= '0';
+    else
+      if unsigned(a) > unsigned(b) then
+        a_gt_b <= '1';
+        a_eq_b <= '0';
+        a_lt_b <= '0';
+      elsif unsigned(a) = unsigned(b) then
+        a_gt_b <= '0';
+        a_eq_b <= '1';
+        a_lt_b <= '0';
+      else
+        a_gt_b <= '0';
+        a_eq_b <= '0';
+        a_lt_b <= '1';
+      end if;
+    end if;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_comp_8bit_en;
-    reg        en;
-    reg  [7:0] a, b;
-    wire       a_gt_b, a_eq_b, a_lt_b;
+entity tb_comp_8bit_en is
+end entity;
 
-    comp_8bit_en uut (.en(en), .a(a), .b(b), .a_gt_b(a_gt_b), .a_eq_b(a_eq_b), .a_lt_b(a_lt_b));
+architecture sim of tb_comp_8bit_en is
+  signal en     : std_logic;
+  signal a, b   : std_logic_vector(7 downto 0);
+  signal a_gt_b, a_eq_b, a_lt_b : std_logic;
+begin
+  uut: entity work.comp_8bit_en port map (en => en, a => a, b => b, a_gt_b => a_gt_b, a_eq_b => a_eq_b, a_lt_b => a_lt_b);
 
-    initial begin
-        $monitor("en=%b A=%d B=%d | A>B=%b A=B=%b A<B=%b",
-                 en, a, b, a_gt_b, a_eq_b, a_lt_b);
+  process begin
+    en <= '0';
+    a <= "01100100"; b <= "00110010"; wait for 10 ns;
+    a <= "00110010"; b <= "01100100"; wait for 10 ns;
 
-        // Enable disabled -- outputs should be 0
-        en = 0;
-        a = 8'd100; b = 8'd50;  #10;
-        a = 8'd50;  b = 8'd100; #10;
+    en <= '1';
+    a <= "01100100"; b <= "00110010"; wait for 10 ns;
+    a <= "00110010"; b <= "01100100"; wait for 10 ns;
+    a <= "01001011"; b <= "01001011"; wait for 10 ns;
+    a <= "11001000"; b <= "01100100"; wait for 10 ns;
+    a <= "00000000"; b <= "11111111"; wait for 10 ns;
 
-        // Enable enabled
-        en = 1;
-        a = 8'd100; b = 8'd50;  #10;  // A > B
-        a = 8'd50;  b = 8'd100; #10;  // A < B
-        a = 8'd75;  b = 8'd75;  #10;  // A = B
-        a = 8'd200; b = 8'd100; #10;  // A > B
-        a = 8'd0;   b = 8'd255; #10;  // A < B
+    en <= '0';
+    a <= "11001000"; b <= "01100100"; wait for 10 ns;
 
-        // Disable again
-        en = 0;
-        a = 8'd200; b = 8'd100; #10;
-
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

@@ -13,7 +13,7 @@
 ## Resources
 
 - **Textbook:** Computer Organization and Design: The Hardware/Software Interface, David A. Patterson and John L. Hennessy, 5th edition, Elsevier.
-- **Simulation Tool:** Xilinx Vivado / ModelSim / Icarus Verilog
+- **Simulation Tool:** ModelSim (VHDL)
 - **Prerequisites:** Basic digital logic design, number systems
 
 ## Lab Sessions Summary

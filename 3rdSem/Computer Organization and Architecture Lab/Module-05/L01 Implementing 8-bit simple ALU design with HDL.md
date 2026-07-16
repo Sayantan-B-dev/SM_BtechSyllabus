@@ -31,65 +31,78 @@ The ALU is the core computational unit of a CPU. It performs arithmetic and logi
 | 110      | A << 1        | Left shift by 1     |
 | 111      | A >> 1        | Right shift by 1    |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 8-bit ALU with 8 operations
-module alu_8bit (
-    input  wire [7:0] a, b,
-    input  wire [2:0] sel,
-    output reg  [7:0] result
-);
-    always @(*) begin
-        case (sel)
-            3'b000: result = a + b;        // Addition
-            3'b001: result = a - b;        // Subtraction
-            3'b010: result = a & b;        // AND
-            3'b011: result = a | b;        // OR
-            3'b100: result = a ^ b;        // XOR
-            3'b101: result = ~a;           // NOT
-            3'b110: result = a << 1;       // Left shift
-            3'b111: result = a >> 1;       // Right shift
-            default: result = 8'b00000000;
-        endcase
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity alu_8bit is
+  port (
+    a, b   : in  std_logic_vector(7 downto 0);
+    sel    : in  std_logic_vector(2 downto 0);
+    result : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture behavioral of alu_8bit is
+begin
+  process (a, b, sel) begin
+    case sel is
+      when "000" => result <= std_logic_vector(unsigned(a) + unsigned(b));
+      when "001" => result <= std_logic_vector(unsigned(a) - unsigned(b));
+      when "010" => result <= a AND b;
+      when "011" => result <= a OR b;
+      when "100" => result <= a XOR b;
+      when "101" => result <= NOT a;
+      when "110" => result <= std_logic_vector(unsigned(a) sll 1);
+      when "111" => result <= std_logic_vector(unsigned(a) srl 1);
+      when others => result <= (others => '0');
+    end case;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_alu_8bit;
-    reg  [7:0] a, b;
-    reg  [2:0] sel;
-    wire [7:0] result;
+entity tb_alu_8bit is
+end entity;
 
-    alu_8bit uut (.a(a), .b(b), .sel(sel), .result(result));
+architecture sim of tb_alu_8bit is
+  signal a, b   : std_logic_vector(7 downto 0) := (others => '0');
+  signal sel    : std_logic_vector(2 downto 0) := (others => '0');
+  signal result : std_logic_vector(7 downto 0);
+begin
+  uut: entity work.alu_8bit
+    port map (a => a, b => b, sel => sel, result => result);
 
-    initial begin
-        $monitor("A=%d B=%d sel=%b | result=%d", a, b, sel, result);
+  process begin
+    a <= std_logic_vector(to_unsigned(20, 8));
+    b <= std_logic_vector(to_unsigned(10, 8));
+    sel <= "000"; wait for 10 ns;
+    sel <= "001"; wait for 10 ns;
+    sel <= "010"; wait for 10 ns;
+    sel <= "011"; wait for 10 ns;
+    sel <= "100"; wait for 10 ns;
+    sel <= "101"; wait for 10 ns;
+    sel <= "110"; wait for 10 ns;
+    sel <= "111"; wait for 10 ns;
 
-        a = 8'd20; b = 8'd10;
+    a <= std_logic_vector(to_unsigned(240, 8));
+    b <= std_logic_vector(to_unsigned(15, 8));
+    sel <= "000"; wait for 10 ns;
+    sel <= "010"; wait for 10 ns;
+    sel <= "110"; wait for 10 ns;
 
-        sel = 3'b000; #10;  // 20 + 10 = 30
-        sel = 3'b001; #10;  // 20 - 10 = 10
-        sel = 3'b010; #10;  // 20 & 10 = 0 (10100 & 01010 = 00000)
-        sel = 3'b011; #10;  // 20 | 10 = 30 (10100 | 01010 = 11110)
-        sel = 3'b100; #10;  // 20 ^ 10 = 30 (10100 ^ 01010 = 11110)
-        sel = 3'b101; #10;  // ~20 = 235
-        sel = 3'b110; #10;  // 20 << 1 = 40
-        sel = 3'b111; #10;  // 20 >> 1 = 10
-
-        a = 8'd240; b = 8'd15;
-        sel = 3'b000; #10;  // 240 + 15 = 255
-        sel = 3'b010; #10;  // 240 & 15 = 0
-        sel = 3'b110; #10;  // 240 << 1 = 224 (overflow)
-
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

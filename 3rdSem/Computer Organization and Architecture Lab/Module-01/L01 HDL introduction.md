@@ -10,31 +10,37 @@
 
 ## Lab Objectives
 
-- Understand the fundamental structure of a Verilog module (ports, inputs, outputs, body).
-- Learn basic Verilog data types: `wire` (combinational) and `reg` (sequential/stored).
+- Understand the fundamental structure of a VHDL entity and architecture.
+- Learn basic VHDL data types: `std_logic` and `std_logic_vector`.
 - Implement and simulate basic logic gates (AND, OR, NOT) using dataflow modeling.
 
 ## Theory
 
-**HDL (Hardware Description Language)** allows designers to describe digital circuits textually. Verilog is one of the most widely used HDLs.
+**HDL (Hardware Description Language)** allows designers to describe digital circuits textually. VHDL is one of the most widely used HDLs.
 
-**Module Structure:**
-```verilog
-module module_name (port_list);
-  input  [width-1:0] input_port;
-  output [width-1:0] output_port;
-  // internal logic
-endmodule
+**Entity and Architecture Structure:**
+```vhdl
+entity entity_name is
+  port (
+    input_port  : in  std_logic;
+    output_port : out std_logic
+  );
+end entity;
+
+architecture arch_name of entity_name is
+begin
+  -- concurrent statements
+end architecture;
 ```
 
 **Data Types:**
-- `wire` -- Represents a physical wire; holds a value only when driven continuously. Used in combinational logic.
-- `reg` -- Represents a storage element; holds a value until a new value is assigned inside an `always` block. Used in sequential and behavioral logic.
+- `std_logic` -- Standard logic type (0, 1, Z, X, etc.). Used for single-bit signals.
+- `std_logic_vector` -- Array of std_logic elements. Used for multi-bit buses.
 
 **Basic Gates (Dataflow operators):**
-- AND:  `assign y = a & b;`
-- OR:   `assign y = a | b;`
-- NOT:  `assign y = ~a;`
+- AND:  `y <= a AND b;`
+- OR:   `y <= a OR b;`
+- NOT:  `y <= NOT a;`
 
 ## Truth Table
 
@@ -60,61 +66,85 @@ endmodule
 | 0 |   1    |
 | 1 |   0    |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// AND gate module
-module and_gate (
-    input  wire a,
-    input  wire b,
-    output wire y
-);
-    assign y = a & b;
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-// OR gate module
-module or_gate (
-    input  wire a,
-    input  wire b,
-    output wire y
-);
-    assign y = a | b;
-endmodule
+-- AND gate entity
+entity and_gate is
+  port (
+    a : in  std_logic;
+    b : in  std_logic;
+    y : out std_logic
+  );
+end entity;
 
-// NOT gate module
-module not_gate (
-    input  wire a,
-    output wire y
-);
-    assign y = ~a;
-endmodule
+architecture dataflow of and_gate is
+begin
+  y <= a AND b;
+end architecture;
+
+-- OR gate entity
+entity or_gate is
+  port (
+    a : in  std_logic;
+    b : in  std_logic;
+    y : out std_logic
+  );
+end entity;
+
+architecture dataflow of or_gate is
+begin
+  y <= a OR b;
+end architecture;
+
+-- NOT gate entity
+entity not_gate is
+  port (
+    a : in  std_logic;
+    y : out std_logic
+  );
+end entity;
+
+architecture dataflow of not_gate is
+begin
+  y <= NOT a;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_gates;
-    reg  a, b;
-    wire y_and, y_or, y_not;
+entity tb_gates is
+end entity;
 
-    // Instantiate the gates
-    and_gate u1 (.a(a), .b(b), .y(y_and));
-    or_gate  u2 (.a(a), .b(b), .y(y_or));
-    not_gate u3 (.a(a),       .y(y_not));
+architecture sim of tb_gates is
+  signal a, b     : std_logic;
+  signal y_and,
+         y_or,
+         y_not    : std_logic;
+begin
+  -- Instantiate the gates
+  u1: entity work.and_gate port map (a => a, b => b, y => y_and);
+  u2: entity work.or_gate  port map (a => a, b => b, y => y_or);
+  u3: entity work.not_gate port map (a => a,       y => y_not);
 
-    initial begin
-        $monitor("a=%b b=%b  AND=%b OR=%b NOT(a)=%b", a, b, y_and, y_or, y_not);
+  process begin
+    report "a b AND OR NOT(a)";
 
-        a = 0; b = 0; #10;
-        a = 0; b = 1; #10;
-        a = 1; b = 0; #10;
-        a = 1; b = 1; #10;
+    a <= '0'; b <= '0'; wait for 10 ns;
+    a <= '0'; b <= '1'; wait for 10 ns;
+    a <= '1'; b <= '0'; wait for 10 ns;
+    a <= '1'; b <= '1'; wait for 10 ns;
 
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -128,4 +158,4 @@ a=1 b=1  AND=1 OR=1 NOT(a)=0
 
 ## Conclusion
 
-Successfully implemented AND, OR, and NOT gates using dataflow modeling in Verilog. The simulation results match the expected truth tables, confirming correct functionality.
+Successfully implemented AND, OR, and NOT gates using dataflow modeling in VHDL. The simulation results match the expected truth tables, confirming correct functionality.

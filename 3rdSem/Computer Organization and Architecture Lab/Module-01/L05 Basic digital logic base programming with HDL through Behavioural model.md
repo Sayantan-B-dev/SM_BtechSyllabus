@@ -10,22 +10,22 @@
 
 ## Lab Objectives
 
-- Understand behavioral modeling in Verilog using the `always` block.
-- Use `if-else` and `case` statements for decision-based hardware description.
+- Understand behavioral modeling in VHDL using the `process` block.
+- Use `if-then-else` and `case` statements for decision-based hardware description.
 - Design and simulate a 4:1 multiplexer using behavioral modeling.
 
 ## Theory
 
 **Behavioral Modeling:**
-Behavioral modeling describes a circuit's functionality at a high level of abstraction, without explicitly specifying gate-level interconnections. It uses constructs like `always`, `if-else`, `case`, and `for` loops.
+Behavioral modeling describes a circuit's functionality at a high level of abstraction, without explicitly specifying gate-level interconnections. It uses constructs like `process`, `if-then-else`, `case`, and `for` loops.
 
-**always block:**
-```verilog
-always @(sensitivity_list) begin
-    // sequential or combinational logic
-end
+**Process block:**
+```vhdl
+process (sensitivity_list) begin
+    -- sequential or combinational logic
+end process;
 ```
-For combinational logic, all input signals are listed in the sensitivity list, or `@(*)` (automatic sensitivity) is used.
+For combinational logic, all input signals are listed in the sensitivity list.
 
 **4:1 Multiplexer:**
 A multiplexer selects one of several input signals and forwards it to the output. A 4:1 MUX has 4 data inputs (i0, i1, i2, i3), 2 select lines (s1, s0), and 1 output (y).
@@ -39,60 +39,72 @@ A multiplexer selects one of several input signals and forwards it to the output
 | 1  | 0  |  i2  |
 | 1  | 1  |  i3  |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 4:1 Multiplexer using behavioral modeling (case statement)
-module mux_4to1 (
-    input  wire [3:0] i,    // packed inputs: i[0]=i0, i[1]=i1, etc.
-    input  wire [1:0] sel,  // select lines: sel[1]=s1, sel[0]=s0
-    output reg        y
-);
-    always @(*) begin
-        case (sel)
-            2'b00: y = i[0];
-            2'b01: y = i[1];
-            2'b10: y = i[2];
-            2'b11: y = i[3];
-            default: y = 1'b0;
-        endcase
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+
+-- 4:1 Multiplexer using behavioral modeling (case statement)
+entity mux_4to1 is
+  port (
+    i   : in  std_logic_vector(3 downto 0);
+    sel : in  std_logic_vector(1 downto 0);
+    y   : out std_logic
+  );
+end entity;
+
+architecture behavioral of mux_4to1 is
+begin
+  process (i, sel) begin
+    case sel is
+      when "00"   => y <= i(0);
+      when "01"   => y <= i(1);
+      when "10"   => y <= i(2);
+      when "11"   => y <= i(3);
+      when others => y <= '0';
+    end case;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_mux_4to1;
-    reg  [3:0] i;
-    reg  [1:0] sel;
-    wire       y;
+entity tb_mux_4to1 is
+end entity;
 
-    mux_4to1 uut (.i(i), .sel(sel), .y(y));
+architecture sim of tb_mux_4to1 is
+  signal i   : std_logic_vector(3 downto 0);
+  signal sel : std_logic_vector(1 downto 0);
+  signal y   : std_logic;
+begin
+  uut: entity work.mux_4to1 port map (i => i, sel => sel, y => y);
 
-    initial begin
-        $monitor("sel=%b i=%b | y=%b", sel, i, y);
+  process begin
+    report "sel i y";
 
-        // Set inputs to known pattern
-        i = 4'b1010;
+    -- Set inputs to known pattern
+    i <= "1010";
 
-        sel = 2'b00; #10;  // expect y = i[0] = 0
-        sel = 2'b01; #10;  // expect y = i[1] = 1
-        sel = 2'b10; #10;  // expect y = i[2] = 0
-        sel = 2'b11; #10;  // expect y = i[3] = 1
+    sel <= "00"; wait for 10 ns;
+    sel <= "01"; wait for 10 ns;
+    sel <= "10"; wait for 10 ns;
+    sel <= "11"; wait for 10 ns;
 
-        // Try another pattern
-        i = 4'b0110;
-        sel = 2'b00; #10;
-        sel = 2'b01; #10;
-        sel = 2'b10; #10;
-        sel = 2'b11; #10;
+    -- Try another pattern
+    i <= "0110";
+    sel <= "00"; wait for 10 ns;
+    sel <= "01"; wait for 10 ns;
+    sel <= "10"; wait for 10 ns;
+    sel <= "11"; wait for 10 ns;
 
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -110,4 +122,4 @@ sel=11 i=0110 | y=0
 
 ## Conclusion
 
-Designed a 4:1 multiplexer using behavioral modeling with the `case` statement. The simulation confirms that the correct input is routed to the output based on the select line combination.
+Designed a 4:1 multiplexer using behavioral modeling in VHDL with the `case` statement. The simulation confirms that the correct input is routed to the output based on the select line combination.

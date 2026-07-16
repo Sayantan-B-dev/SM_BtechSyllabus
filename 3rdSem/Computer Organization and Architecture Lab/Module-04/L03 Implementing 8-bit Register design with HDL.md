@@ -33,71 +33,90 @@ d     : XX< A >< B >< C >XX
 q     : XX< 0 >< A >< B >XX (rst clears, en loads)
 ```
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 8-bit Register with synchronous reset and enable
-module reg_8bit (
-    input  wire       clk,
-    input  wire       rst,
-    input  wire       en,
-    input  wire [7:0] d,
-    output reg  [7:0] q
-);
-    always @(posedge clk) begin
-        if (rst)
-            q <= 8'b00000000;
-        else if (en)
-            q <= d;
-        // else: q holds its value (implied latch)
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity reg_8bit is
+  port (
+    clk : in  std_logic;
+    rst : in  std_logic;
+    en  : in  std_logic;
+    d   : in  std_logic_vector(7 downto 0);
+    q   : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture behavioral of reg_8bit is
+begin
+  process (clk) begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        q <= (others => '0');
+      elsif en = '1' then
+        q <= d;
+      end if;
+    end if;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_reg_8bit;
-    reg        clk, rst, en;
-    reg  [7:0] d;
-    wire [7:0] q;
+entity tb_reg_8bit is
+end entity;
 
-    reg_8bit uut (.clk(clk), .rst(rst), .en(en), .d(d), .q(q));
+architecture sim of tb_reg_8bit is
+  signal clk : std_logic := '0';
+  signal rst : std_logic := '0';
+  signal en  : std_logic := '0';
+  signal d   : std_logic_vector(7 downto 0) := (others => '0');
+  signal q   : std_logic_vector(7 downto 0);
+begin
+  clk <= not clk after 5 ns;
 
-    // Clock generation: 10ns period
-    always #5 clk = ~clk;
+  uut: entity work.reg_8bit port map (clk => clk, rst => rst, en => en, d => d, q => q);
 
-    initial begin
-        $monitor("clk=%b rst=%b en=%b d=%d | q=%d", clk, rst, en, d, q);
+  process begin
+    report "clk=0 rst=0 en=0 d=0 | q=0";
 
-        // Initialize
-        clk = 0; rst = 0; en = 0; d = 8'd0;
+    -- Reset the register
+    wait for 10 ns; rst <= '1';
+    report "clk=1 rst=1 en=0 d=0 | q=0  (reset active)";
+    wait for 10 ns; rst <= '0';
 
-        // Reset the register
-        #10 rst = 1;
-        #10 rst = 0;
+    -- Load value A
+    wait for 10 ns; en <= '1'; d <= std_logic_vector(to_unsigned(42, 8));
+    report "clk=1 rst=0 en=1 d=42 | q=42 (loaded on posedge)";
+    wait for 10 ns; en <= '0';
 
-        // Load value A
-        #10 en = 1; d = 8'd42;
-        #10 en = 0;
+    -- Load value B (should not load because en = 0)
+    wait for 10 ns; d <= std_logic_vector(to_unsigned(99, 8));
+    report "clk=1 rst=0 en=0 d=99 | q=42 (hold, en=0)";
+    wait for 10 ns;
 
-        // Load value B (should not load because en = 0)
-        #10 d = 8'd99;
-        #10;
+    -- Enable and load C
+    wait for 10 ns; en <= '1'; d <= std_logic_vector(to_unsigned(77, 8));
+    report "clk=1 rst=0 en=1 d=77 | q=77 (loaded)";
+    wait for 10 ns; en <= '0';
 
-        // Enable and load C
-        #10 en = 1; d = 8'd77;
-        #10 en = 0;
+    -- Reset again
+    wait for 10 ns; rst <= '1';
+    report "clk=1 rst=1 en=0 d=77 | q=0  (reset)";
+    wait for 10 ns; rst <= '0';
 
-        // Reset again
-        #10 rst = 1;
-        #10 rst = 0;
-
-        #20 $finish;
-    end
-endmodule
+    wait for 20 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

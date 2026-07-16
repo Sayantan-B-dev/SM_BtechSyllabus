@@ -10,7 +10,7 @@
 
 ## Lab Objectives
 
-- Design a half adder using structural and dataflow modeling in Verilog.
+- Design a half adder using structural and dataflow modeling in VHDL.
 - Understand the truth table and logical expressions for half adder.
 - Verify the design through simulation.
 
@@ -22,8 +22,8 @@ A half adder is a combinational circuit that adds two single-bit binary numbers 
 - Carry (C) = A and B
 
 **Modeling Styles:**
-1. **Dataflow:** Uses `assign` statements with operators like `^` and `&`.
-2. **Structural:** Instantiates primitive gates like `xor` and `and`.
+1. **Dataflow:** Uses concurrent signal assignments with operators like `XOR` and `AND`.
+2. **Structural:** Instantiates entities and uses concurrent signal assignments.
 
 ## Truth Table
 
@@ -34,53 +34,71 @@ A half adder is a combinational circuit that adds two single-bit binary numbers 
 | 1 | 0 |    1    |     0     |
 | 1 | 1 |    0    |     1     |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Half Adder -- Dataflow modeling
-module half_adder_df (
-    input  wire a, b,
-    output wire sum, carry
-);
-    assign sum   = a ^ b;
-    assign carry = a & b;
-endmodule
+```vhdl
+-- Half Adder -- Dataflow modeling
+library ieee;
+use ieee.std_logic_1164.all;
 
-// Half Adder -- Structural modeling
-module half_adder_st (
-    input  wire a, b,
-    output wire sum, carry
-);
-    xor u1 (sum, a, b);
-    and u2 (carry, a, b);
-endmodule
+entity half_adder_df is
+  port (
+    a, b  : in  std_logic;
+    sum   : out std_logic;
+    carry : out std_logic
+  );
+end entity;
+
+architecture dataflow of half_adder_df is
+begin
+  sum   <= a XOR b;
+  carry <= a AND b;
+end architecture;
+
+-- Half Adder -- Structural modeling
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity half_adder_st is
+  port (
+    a, b  : in  std_logic;
+    sum   : out std_logic;
+    carry : out std_logic
+  );
+end entity;
+
+architecture structural of half_adder_st is
+begin
+  sum   <= a XOR b;
+  carry <= a AND b;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_half_adder;
-    reg  a, b;
-    wire sum_df, carry_df;
-    wire sum_st, carry_st;
+entity tb_half_adder is
+end entity;
 
-    half_adder_df uut_df (.a(a), .b(b), .sum(sum_df), .carry(carry_df));
-    half_adder_st uut_st (.a(a), .b(b), .sum(sum_st), .carry(carry_st));
+architecture sim of tb_half_adder is
+  signal a, b              : std_logic;
+  signal sum_df, carry_df  : std_logic;
+  signal sum_st, carry_st  : std_logic;
+begin
+  uut_df : entity work.half_adder_df port map (a => a, b => b, sum => sum_df, carry => carry_df);
+  uut_st : entity work.half_adder_st port map (a => a, b => b, sum => sum_st, carry => carry_st);
 
-    initial begin
-        $monitor("A=%b B=%b | Sum_df=%b Carry_df=%b | Sum_st=%b Carry_st=%b",
-                 a, b, sum_df, carry_df, sum_st, carry_st);
-
-        a = 0; b = 0; #10;
-        a = 0; b = 1; #10;
-        a = 1; b = 0; #10;
-        a = 1; b = 1; #10;
-
-        $finish;
-    end
-endmodule
+  process begin
+    a <= '0'; b <= '0'; wait for 10 ns;
+    a <= '0'; b <= '1'; wait for 10 ns;
+    a <= '1'; b <= '0'; wait for 10 ns;
+    a <= '1'; b <= '1'; wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -94,4 +112,4 @@ A=1 B=1 | Sum_df=0 Carry_df=1 | Sum_st=0 Carry_st=1
 
 ## Conclusion
 
-Designed a half adder using both dataflow and structural modeling styles. Both implementations produce identical results matching the expected truth table.
+Designed a half adder using both dataflow and structural modeling styles in VHDL. Both implementations produce identical results matching the expected truth table.

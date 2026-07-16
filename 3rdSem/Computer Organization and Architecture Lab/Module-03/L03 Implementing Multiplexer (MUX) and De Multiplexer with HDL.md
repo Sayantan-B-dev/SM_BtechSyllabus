@@ -55,111 +55,139 @@ A demultiplexer takes a single input and routes it to one of several output line
 | 1  | 0  | 0  | d  | 0  | 0  |
 | 1  | 1  | d  | 0  | 0  | 0  |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 4:1 Multiplexer using case
-module mux_4to1 (
-    input  wire [3:0] i,
-    input  wire [1:0] sel,
-    output reg        y
-);
-    always @(*) begin
-        case (sel)
-            2'b00: y = i[0];
-            2'b01: y = i[1];
-            2'b10: y = i[2];
-            2'b11: y = i[3];
-            default: y = 1'b0;
-        endcase
-    end
-endmodule
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-// 8:1 Multiplexer using case
-module mux_8to1 (
-    input  wire [7:0] i,
-    input  wire [2:0] sel,
-    output reg        y
-);
-    always @(*) begin
-        case (sel)
-            3'b000: y = i[0];
-            3'b001: y = i[1];
-            3'b010: y = i[2];
-            3'b011: y = i[3];
-            3'b100: y = i[4];
-            3'b101: y = i[5];
-            3'b110: y = i[6];
-            3'b111: y = i[7];
-            default: y = 1'b0;
-        endcase
-    end
-endmodule
+entity mux_4to1 is
+  port (
+    i   : in  std_logic_vector(3 downto 0);
+    sel : in  std_logic_vector(1 downto 0);
+    y   : out std_logic
+  );
+end entity;
 
-// 1:4 Demultiplexer
-module demux_1to4 (
-    input  wire       d,
-    input  wire [1:0] sel,
-    output reg  [3:0] y
-);
-    always @(*) begin
-        y = 4'b0000;
-        case (sel)
-            2'b00: y[0] = d;
-            2'b01: y[1] = d;
-            2'b10: y[2] = d;
-            2'b11: y[3] = d;
-        endcase
-    end
-endmodule
+architecture behavioral of mux_4to1 is
+begin
+  process (i, sel) begin
+    case sel is
+      when "00" => y <= i(0);
+      when "01" => y <= i(1);
+      when "10" => y <= i(2);
+      when "11" => y <= i(3);
+      when others => y <= '0';
+    end case;
+  end process;
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity mux_8to1 is
+  port (
+    i   : in  std_logic_vector(7 downto 0);
+    sel : in  std_logic_vector(2 downto 0);
+    y   : out std_logic
+  );
+end entity;
+
+architecture behavioral of mux_8to1 is
+begin
+  process (i, sel) begin
+    case sel is
+      when "000" => y <= i(0);
+      when "001" => y <= i(1);
+      when "010" => y <= i(2);
+      when "011" => y <= i(3);
+      when "100" => y <= i(4);
+      when "101" => y <= i(5);
+      when "110" => y <= i(6);
+      when "111" => y <= i(7);
+      when others => y <= '0';
+    end case;
+  end process;
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity demux_1to4 is
+  port (
+    d   : in  std_logic;
+    sel : in  std_logic_vector(1 downto 0);
+    y   : out std_logic_vector(3 downto 0)
+  );
+end entity;
+
+architecture behavioral of demux_1to4 is
+begin
+  process (d, sel) begin
+    y <= "0000";
+    case sel is
+      when "00" => y(0) <= d;
+      when "01" => y(1) <= d;
+      when "10" => y(2) <= d;
+      when "11" => y(3) <= d;
+      when others => null;
+    end case;
+  end process;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_mux_demux;
-    reg  [3:0] i4;
-    reg  [1:0] sel4;
-    wire       y4;
+entity tb_mux_demux is
+end entity;
 
-    reg  [7:0] i8;
-    reg  [2:0] sel8;
-    wire       y8;
+architecture sim of tb_mux_demux is
+  signal i4   : std_logic_vector(3 downto 0);
+  signal sel4 : std_logic_vector(1 downto 0);
+  signal y4   : std_logic;
 
-    reg        d;
-    reg  [1:0] sel_d;
-    wire [3:0] y_d;
+  signal i8   : std_logic_vector(7 downto 0);
+  signal sel8 : std_logic_vector(2 downto 0);
+  signal y8   : std_logic;
 
-    mux_4to1   mux4 (.i(i4),   .sel(sel4), .y(y4));
-    mux_8to1   mux8 (.i(i8),   .sel(sel8), .y(y8));
-    demux_1to4 demux (.d(d), .sel(sel_d), .y(y_d));
+  signal d    : std_logic;
+  signal sel_d : std_logic_vector(1 downto 0);
+  signal y_d  : std_logic_vector(3 downto 0);
+begin
+  mux4: entity work.mux_4to1 port map (i => i4, sel => sel4, y => y4);
+  mux8: entity work.mux_8to1 port map (i => i8, sel => sel8, y => y8);
+  demux: entity work.demux_1to4 port map (d => d, sel => sel_d, y => y_d);
 
-    initial begin
-        $display("=== 4:1 MUX ===");
-        i4 = 4'b1010;
-        sel4 = 2'b00; #10 $display("sel=%b i=%b | y=%b", sel4, i4, y4);
-        sel4 = 2'b01; #10 $display("sel=%b i=%b | y=%b", sel4, i4, y4);
-        sel4 = 2'b10; #10 $display("sel=%b i=%b | y=%b", sel4, i4, y4);
-        sel4 = 2'b11; #10 $display("sel=%b i=%b | y=%b", sel4, i4, y4);
+  process begin
+    i4 <= "1010";
+    sel4 <= "00"; wait for 10 ns;
+    sel4 <= "01"; wait for 10 ns;
+    sel4 <= "10"; wait for 10 ns;
+    sel4 <= "11"; wait for 10 ns;
 
-        $display("=== 8:1 MUX ===");
-        i8 = 8'b10101010;
-        for (sel8 = 0; sel8 < 8; sel8 = sel8 + 1) begin
-            #10 $display("sel=%b i=%b | y=%b", sel8, i8, y8);
-        end
+    i8 <= "10101010";
+    sel8 <= "000"; wait for 10 ns;
+    sel8 <= "001"; wait for 10 ns;
+    sel8 <= "010"; wait for 10 ns;
+    sel8 <= "011"; wait for 10 ns;
+    sel8 <= "100"; wait for 10 ns;
+    sel8 <= "101"; wait for 10 ns;
+    sel8 <= "110"; wait for 10 ns;
+    sel8 <= "111"; wait for 10 ns;
 
-        $display("=== 1:4 DEMUX ===");
-        d = 1'b1;
-        sel_d = 2'b00; #10 $display("sel=%b d=%b | y=%b", sel_d, d, y_d);
-        sel_d = 2'b01; #10 $display("sel=%b d=%b | y=%b", sel_d, d, y_d);
-        sel_d = 2'b10; #10 $display("sel=%b d=%b | y=%b", sel_d, d, y_d);
-        sel_d = 2'b11; #10 $display("sel=%b d=%b | y=%b", sel_d, d, y_d);
+    d <= '1';
+    sel_d <= "00"; wait for 10 ns;
+    sel_d <= "01"; wait for 10 ns;
+    sel_d <= "10"; wait for 10 ns;
+    sel_d <= "11"; wait for 10 ns;
 
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

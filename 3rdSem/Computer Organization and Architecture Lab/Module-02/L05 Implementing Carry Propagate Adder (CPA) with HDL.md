@@ -10,7 +10,7 @@
 
 ## Lab Objectives
 
-- Design a 4-bit ripple carry adder (carry propagate adder) using structural Verilog.
+- Design a 4-bit ripple carry adder (carry propagate adder) using structural VHDL.
 - Understand how carry propagates through cascaded full adders.
 - Simulate with multiple input combinations.
 
@@ -44,60 +44,77 @@ S3 C3--> S2 C2--> S1 C1--> S0 Cin
 | 1111 | 0001 |  0  | 0000 |   1  |
 | 1010 | 1010 |  0  | 0100 |   1  |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Full Adder module (building block)
-module full_adder (
-    input  wire a, b, cin,
-    output wire sum, cout
-);
-    assign {cout, sum} = a + b + cin;
-endmodule
+```vhdl
+-- Full Adder module (building block)
+library ieee;
+use ieee.std_logic_1164.all;
 
-// 4-bit Ripple Carry Adder
-module ripple_carry_adder (
-    input  wire [3:0] a, b,
-    input  wire       cin,
-    output wire [3:0] sum,
-    output wire       cout
-);
-    wire c1, c2, c3;
+entity full_adder is
+  port (
+    a, b, cin : in  std_logic;
+    sum, cout : out std_logic
+  );
+end entity;
 
-    full_adder fa0 (.a(a[0]), .b(b[0]), .cin(cin),  .sum(sum[0]), .cout(c1));
-    full_adder fa1 (.a(a[1]), .b(b[1]), .cin(c1),   .sum(sum[1]), .cout(c2));
-    full_adder fa2 (.a(a[2]), .b(b[2]), .cin(c2),   .sum(sum[2]), .cout(c3));
-    full_adder fa3 (.a(a[3]), .b(b[3]), .cin(c3),   .sum(sum[3]), .cout(cout));
-endmodule
+architecture dataflow of full_adder is
+begin
+  sum  <= a XOR b XOR cin;
+  cout <= (a AND b) OR (cin AND (a XOR b));
+end architecture;
+
+-- 4-bit Ripple Carry Adder
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity ripple_carry_adder is
+  port (
+    a, b : in  std_logic_vector(3 downto 0);
+    cin  : in  std_logic;
+    sum  : out std_logic_vector(3 downto 0);
+    cout : out std_logic
+  );
+end entity;
+
+architecture structural of ripple_carry_adder is
+  signal c1, c2, c3 : std_logic;
+begin
+  fa0 : entity work.full_adder port map (a => a(0), b => b(0), cin => cin,  sum => sum(0), cout => c1);
+  fa1 : entity work.full_adder port map (a => a(1), b => b(1), cin => c1,   sum => sum(1), cout => c2);
+  fa2 : entity work.full_adder port map (a => a(2), b => b(2), cin => c2,   sum => sum(2), cout => c3);
+  fa3 : entity work.full_adder port map (a => a(3), b => b(3), cin => c3,   sum => sum(3), cout => cout);
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_rca;
-    reg  [3:0] a, b;
-    reg        cin;
-    wire [3:0] sum;
-    wire       cout;
+entity tb_rca is
+end entity;
 
-    ripple_carry_adder uut (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
+architecture sim of tb_rca is
+  signal a, b   : std_logic_vector(3 downto 0);
+  signal cin    : std_logic;
+  signal sum    : std_logic_vector(3 downto 0);
+  signal cout   : std_logic;
+begin
+  uut : entity work.ripple_carry_adder port map (a => a, b => b, cin => cin, sum => sum, cout => cout);
 
-    initial begin
-        $monitor("A=%b B=%b Cin=%b | Sum=%b Cout=%b (decimal: %d + %d + %d = %d)",
-                 a, b, cin, sum, cout, a, b, cin, {cout, sum});
-
-        a = 4'b0011; b = 4'b0101; cin = 0; #10;
-        a = 4'b0110; b = 4'b0011; cin = 0; #10;
-        a = 4'b1111; b = 4'b0001; cin = 0; #10;  // 15 + 1 = 16 (overflow)
-        a = 4'b1010; b = 4'b1010; cin = 0; #10;  // 10 + 10 = 20
-        a = 4'b0111; b = 4'b1000; cin = 0; #10;  // 7 + 8 = 15
-        a = 4'b0001; b = 4'b0010; cin = 1; #10;  // 1 + 2 + 1 = 4
-
-        $finish;
-    end
-endmodule
+  process begin
+    a <= "0011"; b <= "0101"; cin <= '0'; wait for 10 ns;
+    a <= "0110"; b <= "0011"; cin <= '0'; wait for 10 ns;
+    a <= "1111"; b <= "0001"; cin <= '0'; wait for 10 ns;
+    a <= "1010"; b <= "1010"; cin <= '0'; wait for 10 ns;
+    a <= "0111"; b <= "1000"; cin <= '0'; wait for 10 ns;
+    a <= "0001"; b <= "0010"; cin <= '1'; wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -113,4 +130,4 @@ A=0001 B=0010 Cin=1 | Sum=0100 Cout=0 (decimal: 1 + 2 + 1 = 4)
 
 ## Conclusion
 
-Successfully designed a 4-bit ripple carry adder by cascading four full adders. The carry propagates through each stage, and the simulation results confirm correct addition for multiple input combinations.
+Successfully designed a 4-bit ripple carry adder in VHDL by cascading four full adders. The carry propagates through each stage, and the simulation results confirm correct addition for multiple input combinations.

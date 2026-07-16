@@ -43,75 +43,88 @@ A[7:4] B[7:4]              A[3:0] B[3:0]
               Cout <--- c3[high]   c3[low] ----> Cin
 ```
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// 4-bit CLA block with group generate and propagate
-module cla_4bit (
-    input  wire [3:0] a, b,
-    input  wire       cin,
-    output wire [3:0] sum,
-    output wire       cout,
-    output wire       gg, pg         // group generate and propagate
-);
-    wire [3:0] g, p, c;
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-    assign g = a & b;
-    assign p = a ^ b;
+entity cla_4bit is
+  port (
+    a, b : in  std_logic_vector(3 downto 0);
+    cin  : in  std_logic;
+    sum  : out std_logic_vector(3 downto 0);
+    cout : out std_logic;
+    gg   : out std_logic;
+    pg   : out std_logic
+  );
+end entity;
 
-    assign c[0] = cin;
-    assign c[1] = g[0] | (p[0] & cin);
-    assign c[2] = g[1] | (p[1] & g[0]) | (p[1] & p[0] & cin);
-    assign c[3] = g[2] | (p[2] & g[1]) | (p[2] & p[1] & g[0]) | (p[2] & p[1] & p[0] & cin);
-    assign cout = g[3] | (p[3] & g[2]) | (p[3] & p[2] & g[1]) | (p[3] & p[2] & p[1] & g[0]) |
-                  (p[3] & p[2] & p[1] & p[0] & cin);
+architecture behavioral of cla_4bit is
+  signal g, p, c : std_logic_vector(3 downto 0);
+begin
+  g <= a and b;
+  p <= a xor b;
 
-    assign sum = p ^ {c[2:0], cin};
+  c(0) <= cin;
+  c(1) <= g(0) or (p(0) and cin);
+  c(2) <= g(1) or (p(1) and g(0)) or (p(1) and p(0) and cin);
+  c(3) <= g(2) or (p(2) and g(1)) or (p(2) and p(1) and g(0)) or (p(2) and p(1) and p(0) and cin);
+  cout <= g(3) or (p(3) and g(2)) or (p(3) and p(2) and g(1)) or (p(3) and p(2) and p(1) and g(0)) or
+          (p(3) and p(2) and p(1) and p(0) and cin);
 
-    // Group generate and propagate
-    assign gg = g[3] | (p[3] & g[2]) | (p[3] & p[2] & g[1]) | (p[3] & p[2] & p[1] & g[0]);
-    assign pg = p[3] & p[2] & p[1] & p[0];
-endmodule
+  sum <= p xor (c(2 downto 0) & cin);
 
-// 8-bit CLA using two 4-bit CLA blocks
-module cla_8bit (
-    input  wire [7:0] a, b,
-    input  wire       cin,
-    output wire [7:0] sum,
-    output wire       cout
-);
-    wire c4;
+  gg <= g(3) or (p(3) and g(2)) or (p(3) and p(2) and g(1)) or (p(3) and p(2) and p(1) and g(0));
+  pg <= p(3) and p(2) and p(1) and p(0);
+end architecture;
 
-    cla_4bit low  (.a(a[3:0]), .b(b[3:0]), .cin(cin),  .sum(sum[3:0]), .cout(c4));
-    cla_4bit high (.a(a[7:4]), .b(b[7:4]), .cin(c4),   .sum(sum[7:4]), .cout(cout));
-endmodule
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity cla_8bit is
+  port (
+    a, b : in  std_logic_vector(7 downto 0);
+    cin  : in  std_logic;
+    sum  : out std_logic_vector(7 downto 0);
+    cout : out std_logic
+  );
+end entity;
+
+architecture structural of cla_8bit is
+  signal c4 : std_logic;
+begin
+  low: entity work.cla_4bit port map (a => a(3 downto 0), b => b(3 downto 0), cin => cin, sum => sum(3 downto 0), cout => c4);
+  high: entity work.cla_4bit port map (a => a(7 downto 4), b => b(7 downto 4), cin => c4, sum => sum(7 downto 4), cout => cout);
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_cla_8bit;
-    reg  [7:0] a, b;
-    reg        cin;
-    wire [7:0] sum;
-    wire       cout;
+entity tb_cla_8bit is
+end entity;
 
-    cla_8bit uut (.a(a), .b(b), .cin(cin), .sum(sum), .cout(cout));
+architecture sim of tb_cla_8bit is
+  signal a, b : std_logic_vector(7 downto 0);
+  signal cin  : std_logic;
+  signal sum  : std_logic_vector(7 downto 0);
+  signal cout : std_logic;
+begin
+  uut: entity work.cla_8bit port map (a => a, b => b, cin => cin, sum => sum, cout => cout);
 
-    initial begin
-        $monitor("A=%d B=%d Cin=%b | Sum=%d Cout=%b", a, b, cin, sum, cout);
-
-        a = 8'd15;  b = 8'd20;  cin = 0; #10;
-        a = 8'd100; b = 8'd55;  cin = 0; #10;
-        a = 8'd200; b = 8'd100; cin = 0; #10;
-        a = 8'd255; b = 8'd1;   cin = 0; #10;
-        a = 8'd50;  b = 8'd50;  cin = 1; #10;
-
-        $finish;
-    end
-endmodule
+  process begin
+    a <= "00001111"; b <= "00010100"; cin <= '0'; wait for 10 ns;
+    a <= "01100100"; b <= "00110111"; cin <= '0'; wait for 10 ns;
+    a <= "11001000"; b <= "01100100"; cin <= '0'; wait for 10 ns;
+    a <= "11111111"; b <= "00000001"; cin <= '0'; wait for 10 ns;
+    a <= "00110010"; b <= "00110010"; cin <= '1'; wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

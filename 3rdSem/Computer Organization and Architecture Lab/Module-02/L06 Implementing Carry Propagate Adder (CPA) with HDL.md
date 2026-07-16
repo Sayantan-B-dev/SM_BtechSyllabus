@@ -10,7 +10,7 @@
 
 ## Lab Objectives
 
-- Design a 4-bit ripple carry adder/subtractor using XOR gates for 2's complement.
+- Design a 4-bit ripple carry adder/subtractor using XOR gates for 2's complement in VHDL.
 - Implement a control signal (Add/Sub) that selects between addition and subtraction.
 - Verify through simulation with both addition and subtraction operations.
 
@@ -38,77 +38,89 @@ sub = 1: B XOR 1 = ~B, Cin = 1 => A + (~B) + 1 = A - B
 |  0  | A + B         |
 |  1  | A - B         |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Full Adder module
-module full_adder (
-    input  wire a, b, cin,
-    output wire sum, cout
-);
-    assign {cout, sum} = a + b + cin;
-endmodule
+```vhdl
+-- Full Adder module
+library ieee;
+use ieee.std_logic_1164.all;
 
-// 4-bit Ripple Carry Adder/Subtractor
-module add_sub_4bit (
-    input  wire [3:0] a, b,
-    input  wire       sub,        // 0 = add, 1 = subtract
-    output wire [3:0] result,
-    output wire       cout,
-    output wire       overflow
-);
-    wire [3:0] b_xor;
-    wire c1, c2, c3;
+entity full_adder is
+  port (
+    a, b, cin : in  std_logic;
+    sum, cout : out std_logic
+  );
+end entity;
 
-    // XOR gates to conditionally invert B
-    assign b_xor[0] = b[0] ^ sub;
-    assign b_xor[1] = b[1] ^ sub;
-    assign b_xor[2] = b[2] ^ sub;
-    assign b_xor[3] = b[3] ^ sub;
+architecture dataflow of full_adder is
+begin
+  sum  <= a XOR b XOR cin;
+  cout <= (a AND b) OR (cin AND (a XOR b));
+end architecture;
 
-    full_adder fa0 (.a(a[0]), .b(b_xor[0]), .cin(sub),    .sum(result[0]), .cout(c1));
-    full_adder fa1 (.a(a[1]), .b(b_xor[1]), .cin(c1),     .sum(result[1]), .cout(c2));
-    full_adder fa2 (.a(a[2]), .b(b_xor[2]), .cin(c2),     .sum(result[2]), .cout(c3));
-    full_adder fa3 (.a(a[3]), .b(b_xor[3]), .cin(c3),     .sum(result[3]), .cout(cout));
+-- 4-bit Ripple Carry Adder/Subtractor
+library ieee;
+use ieee.std_logic_1164.all;
 
-    // Overflow detection: XOR of carry-in and carry-out of MSB
-    assign overflow = c3 ^ cout;
-endmodule
+entity add_sub_4bit is
+  port (
+    a, b     : in  std_logic_vector(3 downto 0);
+    sub      : in  std_logic;        -- 0 = add, 1 = subtract
+    result   : out std_logic_vector(3 downto 0);
+    cout     : out std_logic;
+    overflow : out std_logic
+  );
+end entity;
+
+architecture structural of add_sub_4bit is
+  signal b_xor   : std_logic_vector(3 downto 0);
+  signal c1, c2, c3 : std_logic;
+begin
+  b_xor(0) <= b(0) XOR sub;
+  b_xor(1) <= b(1) XOR sub;
+  b_xor(2) <= b(2) XOR sub;
+  b_xor(3) <= b(3) XOR sub;
+
+  fa0 : entity work.full_adder port map (a => a(0), b => b_xor(0), cin => sub,    sum => result(0), cout => c1);
+  fa1 : entity work.full_adder port map (a => a(1), b => b_xor(1), cin => c1,     sum => result(1), cout => c2);
+  fa2 : entity work.full_adder port map (a => a(2), b => b_xor(2), cin => c2,     sum => result(2), cout => c3);
+  fa3 : entity work.full_adder port map (a => a(3), b => b_xor(3), cin => c3,     sum => result(3), cout => cout);
+
+  overflow <= c3 XOR cout;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_add_sub;
-    reg  [3:0] a, b;
-    reg        sub;
-    wire [3:0] result;
-    wire       cout, overflow;
+entity tb_add_sub is
+end entity;
 
-    add_sub_4bit uut (.a(a), .b(b), .sub(sub), .result(result),
-                      .cout(cout), .overflow(overflow));
+architecture sim of tb_add_sub is
+  signal a, b       : std_logic_vector(3 downto 0);
+  signal sub        : std_logic;
+  signal result     : std_logic_vector(3 downto 0);
+  signal cout, overflow : std_logic;
+begin
+  uut : entity work.add_sub_4bit port map (a => a, b => b, sub => sub, result => result, cout => cout, overflow => overflow);
 
-    initial begin
-        $monitor("sub=%b A=%d B=%d | Result=%d Cout=%b Overflow=%b",
-                 sub, a, b, result, cout, overflow);
+  process begin
+    sub <= '0';
+    a <= std_logic_vector(to_unsigned(5, 4));  b <= std_logic_vector(to_unsigned(3, 4));  wait for 10 ns;
+    a <= std_logic_vector(to_unsigned(12, 4)); b <= std_logic_vector(to_unsigned(7, 4));  wait for 10 ns;
+    a <= std_logic_vector(to_unsigned(10, 4)); b <= std_logic_vector(to_unsigned(10, 4)); wait for 10 ns;
 
-        // Addition tests
-        sub = 0;
-        a = 4'd5;  b = 4'd3;  #10;  // 5 + 3 = 8
-        a = 4'd12; b = 4'd7;  #10;  // 12 + 7 = 19
-        a = 4'd10; b = 4'd10; #10;  // 10 + 10 = 20 (overflow in 4-bit signed)
-
-        // Subtraction tests
-        sub = 1;
-        a = 4'd8;  b = 4'd3;  #10;  // 8 - 3 = 5
-        a = 4'd10; b = 4'd12; #10;  // 10 - 12 = -2 (2's complement)
-        a = 4'd7;  b = 4'd7;  #10;  // 7 - 7 = 0
-
-        $finish;
-    end
-endmodule
+    sub <= '1';
+    a <= std_logic_vector(to_unsigned(8, 4));  b <= std_logic_vector(to_unsigned(3, 4));  wait for 10 ns;
+    a <= std_logic_vector(to_unsigned(10, 4)); b <= std_logic_vector(to_unsigned(12, 4)); wait for 10 ns;
+    a <= std_logic_vector(to_unsigned(7, 4));  b <= std_logic_vector(to_unsigned(7, 4));  wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -124,4 +136,4 @@ sub=1 A=7 B=7 | Result=0  Cout=0 Overflow=0
 
 ## Conclusion
 
-Designed a 4-bit adder/subtractor using XOR gates for 2's complement conversion. The `sub` control signal successfully toggles between addition and subtraction operations.
+Designed a 4-bit adder/subtractor in VHDL using XOR gates for 2's complement conversion. The `sub` control signal successfully toggles between addition and subtraction operations.

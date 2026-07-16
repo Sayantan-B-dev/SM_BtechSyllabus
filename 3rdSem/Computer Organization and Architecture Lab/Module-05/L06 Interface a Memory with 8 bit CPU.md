@@ -40,166 +40,166 @@ A simple program that:
 | 0x11    | 5         | Data: second operand    |
 | 0x12    | 3         | Data: third operand     |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// RAM module with initialization support
-module ram_256x8 (
-    input  wire        clk,
-    input  wire        we,
-    input  wire [7:0]  addr,
-    input  wire [7:0]  din,
-    output reg  [7:0]  dout
-);
-    reg [7:0] mem [0:255];
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    // Initialize memory with a program
-    integer i;
-    initial begin
-        for (i = 0; i < 256; i = i + 1)
-            mem[i] = 8'b00000000;
+entity ram_256x8 is
+  port (
+    clk  : in  std_logic;
+    we   : in  std_logic;
+    addr : in  std_logic_vector(7 downto 0);
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
 
-        // Simple program:
-        // Address 0: LOAD accumulator from address 0x10
-        mem[0] = 8'b010_00000; // opcode=010 (LOAD), address in next instruction
-        mem[1] = 8'd16;        // address = 16 (0x10)
-        // Address 2: ADD accumulator with value at address 0x11
-        mem[2] = 8'b000_00000; // opcode=000 (ADD)
-        mem[3] = 8'd17;        // address = 17 (0x11)
-        // Address 4: SUB accumulator with value at address 0x12
-        mem[4] = 8'b001_00000; // opcode=001 (SUB)
-        mem[5] = 8'd18;        // address = 18 (0x12)
-        // Address 6: NOP (infinite loop here)
-        mem[6] = 8'b011_00000; // opcode=011 (NOP)
-        mem[7] = 8'b011_00000; // NOP
+architecture behavioral of ram_256x8 is
+  type mem_array is array (0 to 255) of std_logic_vector(7 downto 0);
+  signal mem : mem_array := (
+    0 => "01000000", 1 => "00010000",
+    2 => "00000000", 3 => "00010001",
+    4 => "00100000", 5 => "00010010",
+    6 => "01100000", 7 => "01100000",
+    16 => "00001010", 17 => "00000101", 18 => "00000011",
+    others => (others => '0')
+  );
+begin
+  process (clk) begin
+    if rising_edge(clk) then
+      if we = '1' then
+        mem(to_integer(unsigned(addr))) <= din;
+      end if;
+      dout <= mem(to_integer(unsigned(addr)));
+    end if;
+  end process;
+end architecture;
 
-        // Data section
-        mem[16] = 8'd10; // operand 1
-        mem[17] = 8'd5;  // operand 2
-        mem[18] = 8'd3;  // operand 3
-    end
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    always @(posedge clk) begin
-        if (we)
-            mem[addr] <= din;
-        dout <= mem[addr];
-    end
-endmodule
+entity cpu_core is
+  port (
+    clk, rst  : in  std_logic;
+    data_in   : in  std_logic_vector(7 downto 0);
+    addr_out  : out std_logic_vector(7 downto 0);
+    data_out  : out std_logic_vector(7 downto 0);
+    mem_read  : out std_logic;
+    mem_write : out std_logic
+  );
+end entity;
 
-// Enhanced CPU core
-module cpu_core (
-    input  wire        clk, rst,
-    input  wire [7:0]  data_in,
-    output wire [7:0]  addr_out,
-    output wire [7:0]  data_out,
-    output wire        mem_read,
-    output wire        mem_write
-);
-    reg [7:0] pc, ir, acc, mar;
-    reg [1:0] state;
-    reg       fetch_operand;
+architecture behavioral of cpu_core is
+  type state_type is (FETCH, DECODE, EXEC);
+  signal state : state_type;
+  signal pc, ir, acc, mar : std_logic_vector(7 downto 0) := (others => '0');
+  signal fetch_operand : std_logic := '0';
+begin
+  addr_out <= pc when state = FETCH else mar;
+  data_out <= acc;
 
-    localparam FETCH  = 2'b00;
-    localparam DECODE = 2'b01;
-    localparam EXEC   = 2'b10;
-
-    assign addr_out = (state == FETCH) ? pc : mar;
-    assign data_out = acc;
-
-    always @(posedge clk or posedge rst) begin
-        if (rst) begin
+  process (clk, rst) begin
+    if rst = '1' then
+      state <= FETCH;
+      pc <= (others => '0');
+      ir <= (others => '0');
+      acc <= (others => '0');
+      mar <= (others => '0');
+      fetch_operand <= '0';
+    elsif rising_edge(clk) then
+      case state is
+        when FETCH =>
+          if fetch_operand = '0' then
+            ir <= data_in;
+            pc <= std_logic_vector(unsigned(pc) + 1);
+            state <= DECODE;
+          else
+            mar <= data_in;
+            fetch_operand <= '0';
+            state <= EXEC;
+          end if;
+        when DECODE =>
+          if ir(7 downto 5) /= "011" then
+            fetch_operand <= '1';
             state <= FETCH;
-            pc <= 8'b00000000;
-            ir <= 8'b00000000;
-            acc <= 8'b00000000;
-            mar <= 8'b00000000;
-            fetch_operand <= 1'b0;
-        end else begin
-            case (state)
-                FETCH: begin
-                    if (!fetch_operand) begin
-                        ir <= data_in;
-                        pc <= pc + 1;
-                        state <= DECODE;
-                    end else begin
-                        mar <= data_in;
-                        fetch_operand <= 1'b0;
-                        state <= EXEC;
-                    end
-                end
-                DECODE: begin
-                    // Check if instruction needs operand fetch
-                    if (ir[7:5] != 3'b011) begin // not NOP
-                        fetch_operand <= 1'b1;
-                        state <= FETCH;
-                    end else begin
-                        state <= EXEC;
-                    end
-                end
-                EXEC: begin
-                    case (ir[7:5])
-                        3'b000: acc <= acc + data_in;
-                        3'b001: acc <= acc - data_in;
-                        3'b010: acc <= data_in;
-                        3'b100: acc <= acc & data_in;
-                        3'b101: acc <= acc | data_in;
-                        default: acc <= acc; // NOP
-                    endcase
-                    state <= FETCH;
-                end
-            endcase
-        end
-    end
+          else
+            state <= EXEC;
+          end if;
+        when EXEC =>
+          case ir(7 downto 5) is
+            when "000" => acc <= std_logic_vector(unsigned(acc) + unsigned(data_in));
+            when "001" => acc <= std_logic_vector(unsigned(acc) - unsigned(data_in));
+            when "010" => acc <= data_in;
+            when "100" => acc <= acc AND data_in;
+            when "101" => acc <= acc OR data_in;
+            when others => acc <= acc;
+          end case;
+          state <= FETCH;
+      end case;
+    end if;
+  end process;
 
-    assign mem_read  = 1'b1; // Always read
-    assign mem_write = 1'b0;
-endmodule
+  mem_read  <= '1';
+  mem_write <= '0';
+end architecture;
 
-// Top-level system
-module complete_system (
-    input  wire clk, rst
-);
-    wire [7:0] addr, data_to_mem, data_from_mem;
-    wire       mem_read, mem_write;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    cpu_core cpu (.clk(clk), .rst(rst), .data_in(data_from_mem),
-                  .addr_out(addr), .data_out(data_to_mem),
-                  .mem_read(mem_read), .mem_write(mem_write));
+entity complete_system is
+  port (
+    clk, rst : in std_logic
+  );
+end entity;
 
-    ram_256x8 ram (.clk(clk), .we(mem_write), .addr(addr),
-                   .din(data_to_mem), .dout(data_from_mem));
-endmodule
+architecture structural of complete_system is
+  signal addr, data_to_mem, data_from_mem : std_logic_vector(7 downto 0);
+  signal mem_read, mem_write : std_logic;
+begin
+  cpu: entity work.cpu_core
+    port map (clk => clk, rst => rst, data_in => data_from_mem,
+              addr_out => addr, data_out => data_to_mem,
+              mem_read => mem_read, mem_write => mem_write);
+
+  ram: entity work.ram_256x8
+    port map (clk => clk, we => mem_write, addr => addr,
+              din => data_to_mem, dout => data_from_mem);
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_complete_system;
-    reg clk, rst;
+entity tb_complete_system is
+end entity;
 
-    complete_system uut (.clk(clk), .rst(rst));
+architecture sim of tb_complete_system is
+  signal clk, rst : std_logic := '0';
+begin
+  uut: entity work.complete_system
+    port map (clk => clk, rst => rst);
 
-    always #5 clk = ~clk;
+  clk <= NOT clk after 5 ns;
 
-    initial begin
-        $display("Starting complete system test...");
-        $monitor("Time=%0t clk=%b", $time, clk);
-
-        clk = 0; rst = 0;
-
-        #10 rst = 1;
-        #10 rst = 0;
-
-        // Run for enough cycles to execute the program
-        // Program: LOAD 10, ADD 5, SUB 3 => result should be 12
-        #200;
-
-        $display("System test complete.");
-        $finish;
-    end
-endmodule
+  process begin
+    report "Starting complete system test...";
+    clk <= '0'; rst <= '0';
+    wait for 10 ns; rst <= '1';
+    wait for 10 ns; rst <= '0';
+    wait for 200 ns;
+    report "System test complete.";
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

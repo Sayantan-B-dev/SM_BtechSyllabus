@@ -38,154 +38,159 @@ The control unit sequences the operations of the CPU through the fetch-decode-ex
 - `reg_wr_en`: Enable register file write
 - `alu_sel`: ALU operation select
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// CPU Control Unit (FSM)
-module cpu_control (
-    input  wire       clk, rst,
-    input  wire [2:0] opcode,
-    output reg        pc_inc,
-    output reg        ir_load,
-    output reg        reg_wr_en,
-    output reg        mem_read
-);
-    // State encoding
-    localparam FETCH  = 2'b00;
-    localparam DECODE = 2'b01;
-    localparam EXEC   = 2'b10;
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    reg [1:0] state, next_state;
+entity cpu_control is
+  port (
+    clk, rst  : in  std_logic;
+    opcode    : in  std_logic_vector(2 downto 0);
+    pc_inc    : out std_logic;
+    ir_load   : out std_logic;
+    reg_wr_en : out std_logic;
+    mem_read  : out std_logic
+  );
+end entity;
 
-    // State register
-    always @(posedge clk or posedge rst) begin
-        if (rst)
-            state <= FETCH;
-        else
-            state <= next_state;
-    end
+architecture behavioral of cpu_control is
+  type state_type is (FETCH, DECODE, EXEC);
+  signal state, next_state : state_type;
+begin
+  process (clk, rst) begin
+    if rst = '1' then
+      state <= FETCH;
+    elsif rising_edge(clk) then
+      state <= next_state;
+    end if;
+  end process;
 
-    // Next state logic
-    always @(*) begin
-        next_state = state;
-        case (state)
-            FETCH:  next_state = DECODE;
-            DECODE: next_state = EXEC;
-            EXEC:   next_state = FETCH;
-        endcase
-    end
+  process (state) begin
+    next_state <= state;
+    case state is
+      when FETCH  => next_state <= DECODE;
+      when DECODE => next_state <= EXEC;
+      when EXEC   => next_state <= FETCH;
+    end case;
+  end process;
 
-    // Output logic
-    always @(*) begin
-        // Defaults
-        pc_inc    = 1'b0;
-        ir_load   = 1'b0;
-        reg_wr_en = 1'b0;
-        mem_read  = 1'b0;
+  process (state, opcode) begin
+    pc_inc    <= '0';
+    ir_load   <= '0';
+    reg_wr_en <= '0';
+    mem_read  <= '0';
 
-        case (state)
-            FETCH: begin
-                mem_read = 1'b1;
-                ir_load  = 1'b1;
-            end
-            DECODE: begin
-                // Decode: prepare control signals based on opcode
-                // (no outputs needed here for simple CPU)
-            end
-            EXEC: begin
-                pc_inc = 1'b1;
-                // Write back for ALU operations (opcode != 011 means ALU op)
-                if (opcode != 3'b011)  // LDI is handled differently
-                    reg_wr_en = 1'b1;
-            end
-        endcase
-    end
-endmodule
+    case state is
+      when FETCH =>
+        mem_read <= '1';
+        ir_load  <= '1';
+      when DECODE =>
+      when EXEC =>
+        pc_inc <= '1';
+        if opcode /= "011" then
+          reg_wr_en <= '1';
+        end if;
+    end case;
+  end process;
+end architecture;
 
-// Top-level Simple CPU
-module simple_cpu (
-    input  wire       clk, rst,
-    input  wire [7:0] instruction,
-    output wire [7:0] alu_result
-);
-    wire pc_inc, ir_load, reg_wr_en;
-    wire [2:0] opcode;
-    reg  [7:0] pc;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-    // Program Counter
-    always @(posedge clk or posedge rst) begin
-        if (rst)
-            pc <= 8'b00000000;
-        else if (pc_inc)
-            pc <= pc + 1;
-    end
+entity simple_cpu is
+  port (
+    clk, rst     : in  std_logic;
+    instruction  : in  std_logic_vector(7 downto 0);
+    alu_result   : out std_logic_vector(7 downto 0)
+  );
+end entity;
 
-    // Control Unit
-    cpu_control ctrl (.clk(clk), .rst(rst), .opcode(opcode),
-                      .pc_inc(pc_inc), .ir_load(ir_load),
-                      .reg_wr_en(reg_wr_en), .mem_read());
+architecture behavioral of simple_cpu is
+  signal pc_inc, ir_load, reg_wr_en : std_logic;
+  signal opcode : std_logic_vector(2 downto 0);
+  signal pc     : std_logic_vector(7 downto 0) := (others => '0');
+  signal ir     : std_logic_vector(7 downto 0);
+  signal reg_a, reg_b : std_logic_vector(7 downto 0) := (others => '0');
+  signal alu_out : std_logic_vector(7 downto 0);
+begin
+  process (clk, rst) begin
+    if rst = '1' then
+      pc <= (others => '0');
+    elsif rising_edge(clk) then
+      if pc_inc = '1' then
+        pc <= std_logic_vector(unsigned(pc) + 1);
+      end if;
+    end if;
+  end process;
 
-    // Datapath (simplified)
-    reg [7:0] ir;
-    always @(posedge clk) begin
-        if (ir_load)
-            ir <= instruction;
-    end
-    assign opcode = ir[7:5];
+  ctrl: entity work.cpu_control
+    port map (clk => clk, rst => rst, opcode => opcode,
+              pc_inc => pc_inc, ir_load => ir_load,
+              reg_wr_en => reg_wr_en, mem_read => open);
 
-    // Simple ALU for execute stage
-    reg [7:0] reg_a, reg_b;
-    always @(posedge clk) begin
-        if (reg_wr_en)
-            reg_a <= alu_result;
-    end
+  process (clk) begin
+    if rising_edge(clk) then
+      if ir_load = '1' then
+        ir <= instruction;
+      end if;
+    end if;
+  end process;
+  opcode <= ir(7 downto 5);
 
-    assign alu_result = (opcode == 3'b000) ? reg_a + reg_b :
-                        (opcode == 3'b001) ? reg_a - reg_b :
-                        (opcode == 3'b010) ? reg_a :
-                        (opcode == 3'b011) ? instruction : // LDI
-                        (opcode == 3'b100) ? reg_a & reg_b :
-                        (opcode == 3'b101) ? reg_a | reg_b : 8'b00000000;
-endmodule
+  process (clk) begin
+    if rising_edge(clk) then
+      if reg_wr_en = '1' then
+        reg_a <= alu_out;
+      end if;
+    end if;
+  end process;
+
+  alu_out <= std_logic_vector(unsigned(reg_a) + unsigned(reg_b)) when opcode = "000" else
+             std_logic_vector(unsigned(reg_a) - unsigned(reg_b)) when opcode = "001" else
+             reg_a when opcode = "010" else
+             instruction when opcode = "011" else
+             reg_a AND reg_b when opcode = "100" else
+             reg_a OR reg_b when opcode = "101" else
+             (others => '0');
+  alu_result <= alu_out;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-module tb_cpu_control;
-    reg        clk, rst;
-    reg  [7:0] instruction;
-    wire [7:0] alu_result;
+entity tb_cpu_control is
+end entity;
 
-    simple_cpu cpu (.clk(clk), .rst(rst), .instruction(instruction), .alu_result(alu_result));
+architecture sim of tb_cpu_control is
+  signal clk, rst     : std_logic := '0';
+  signal instruction  : std_logic_vector(7 downto 0) := (others => '0');
+  signal alu_result   : std_logic_vector(7 downto 0);
+begin
+  cpu: entity work.simple_cpu
+    port map (clk => clk, rst => rst, instruction => instruction, alu_result => alu_result);
 
-    always #5 clk = ~clk;
+  clk <= NOT clk after 5 ns;
 
-    initial begin
-        $monitor("clk=%b rst=%b inst=%b | alu_result=%d", clk, rst, instruction, alu_result);
+  process begin
+    clk <= '0'; rst <= '0'; instruction <= (others => '0');
+    wait for 10 ns; rst <= '1'; wait for 10 ns; rst <= '0';
 
-        clk = 0; rst = 0; instruction = 0;
-
-        // Reset CPU
-        #10 rst = 1; #10 rst = 0;
-
-        // Instruction 1: LDI R0, 42  (opcode=011, uses instruction[7:0] as immediate)
-        instruction = 8'b011_00_0_1;  // simplified: immediate = 42
-        #30;  // 3 cycles (fetch, decode, execute)
-
-        // Instruction 2: ADD R0, R0, R1 (opcode=000)
-        instruction = 8'b000_00_00_1;
-        #30;
-
-        // Instruction 3: SUB R0, R0, R1 (opcode=001)
-        instruction = 8'b001_00_00_1;
-        #30;
-
-        #20 $finish;
-    end
-endmodule
+    instruction <= "01100001"; wait for 30 ns;
+    instruction <= "00000001"; wait for 30 ns;
+    instruction <= "00100001"; wait for 30 ns;
+    wait for 20 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform

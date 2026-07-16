@@ -10,7 +10,7 @@
 
 ## Lab Objectives
 
-- Design a full subtractor using Verilog.
+- Design a full subtractor using VHDL.
 - Understand the borrow logic in multi-bit subtraction.
 - Verify the full subtractor truth table through exhaustive simulation.
 
@@ -37,66 +37,90 @@ The borrow-out indicates whether the subtraction of the current bit position req
 | 1 | 1 |  0  |  0   |  0   |
 | 1 | 1 |  1  |  1   |  1   |
 
-## Verilog Code
+## VHDL Code
 
-```verilog
-// Full Subtractor -- Behavioral
-module full_subtractor_beh (
-    input  wire a, b, bin,
-    output reg  diff, bout
-);
-    always @(*) begin
-        diff = a ^ b ^ bin;
-        bout = (~a & b) | (~a & bin) | (b & bin);
-    end
-endmodule
+```vhdl
+-- Full Subtractor -- Behavioral
+library ieee;
+use ieee.std_logic_1164.all;
 
-// Full Subtractor -- Structural using half subtractors
-module half_subtractor (
-    input  wire a, b,
-    output wire diff, borrow
-);
-    assign diff  = a ^ b;
-    assign borrow = ~a & b;
-endmodule
+entity full_subtractor_beh is
+  port (
+    a, b, bin : in  std_logic;
+    diff, bout : out std_logic
+  );
+end entity;
 
-module full_subtractor_str (
-    input  wire a, b, bin,
-    output wire diff, bout
-);
-    wire d1, b1, b2;
-    half_subtractor hs1 (.a(a), .b(b),       .diff(d1), .borrow(b1));
-    half_subtractor hs2 (.a(d1), .b(bin),    .diff(diff), .borrow(b2));
-    or u1 (bout, b1, b2);
-endmodule
+architecture behavioral of full_subtractor_beh is
+begin
+  diff <= a XOR b XOR bin;
+  bout <= (NOT a AND b) OR (NOT a AND bin) OR (b AND bin);
+end architecture;
+
+-- Half Subtractor sub-module (for structural)
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity half_subtractor is
+  port (
+    a, b   : in  std_logic;
+    diff   : out std_logic;
+    borrow : out std_logic
+  );
+end entity;
+
+architecture dataflow of half_subtractor is
+begin
+  diff   <= a XOR b;
+  borrow <= NOT a AND b;
+end architecture;
+
+-- Full Subtractor -- Structural using half subtractors
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity full_subtractor_str is
+  port (
+    a, b, bin : in  std_logic;
+    diff, bout : out std_logic
+  );
+end entity;
+
+architecture structural of full_subtractor_str is
+  signal d1, b1, b2 : std_logic;
+begin
+  hs1 : entity work.half_subtractor port map (a => a, b => b, diff => d1, borrow => b1);
+  hs2 : entity work.half_subtractor port map (a => d1, b => bin, diff => diff, borrow => b2);
+  bout <= b1 OR b2;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_full_subtractor;
-    reg  a, b, bin;
-    wire diff, bout;
+entity tb_full_subtractor is
+end entity;
 
-    full_subtractor_beh uut (.a(a), .b(b), .bin(bin), .diff(diff), .bout(bout));
+architecture sim of tb_full_subtractor is
+  signal a, b, bin, diff, bout : std_logic;
+begin
+  uut : entity work.full_subtractor_beh port map (a => a, b => b, bin => bin, diff => diff, bout => bout);
 
-    initial begin
-        $monitor("A=%b B=%b Bin=%b | Diff=%b Bout=%b", a, b, bin, diff, bout);
-
-        {a, b, bin} = 3'b000; #10;
-        {a, b, bin} = 3'b001; #10;
-        {a, b, bin} = 3'b010; #10;
-        {a, b, bin} = 3'b011; #10;
-        {a, b, bin} = 3'b100; #10;
-        {a, b, bin} = 3'b101; #10;
-        {a, b, bin} = 3'b110; #10;
-        {a, b, bin} = 3'b111; #10;
-
-        $finish;
-    end
-endmodule
+  process begin
+    (a, b, bin) <= std_logic_vector'("000"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("001"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("010"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("011"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("100"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("101"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("110"); wait for 10 ns;
+    (a, b, bin) <= std_logic_vector'("111"); wait for 10 ns;
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -114,4 +138,4 @@ A=1 B=1 Bin=1 | Diff=1 Bout=1
 
 ## Conclusion
 
-Implemented a full subtractor using both behavioral and structural modeling. The borrow-out logic correctly handles the cases where A < (B + Bin).
+Implemented a full subtractor using both behavioral and structural modeling in VHDL. The borrow-out logic correctly handles the cases where A < (B + Bin).

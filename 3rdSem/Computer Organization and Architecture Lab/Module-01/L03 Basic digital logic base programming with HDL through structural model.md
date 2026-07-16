@@ -10,26 +10,26 @@
 
 ## Lab Objectives
 
-- Understand structural modeling in Verilog by instantiating primitive gates.
-- Design a half adder using structural modeling with XOR and AND primitive gates.
+- Understand structural modeling in VHDL by instantiating components.
+- Design a half adder using structural modeling with XOR and AND logic.
 - Simulate and verify the half adder circuit.
 
 ## Theory
 
 **Structural Modeling:**
-In structural modeling, a digital circuit is described by interconnecting predefined primitive gates (and, or, not, xor, etc.). This resembles building a circuit on a breadboard by wiring components.
+In structural modeling, a digital circuit is described by interconnecting smaller components or entities. This resembles building a circuit on a breadboard by wiring components together.
 
 **Half Adder:**
 A half adder adds two single-bit binary numbers (A and B) and produces:
 - Sum (S) = A xor B
 - Carry (C) = A and B
 
-**Primitive Gate Instantiation:**
-```verilog
-gate_type instance_name (output, input1, input2, ...);
-// Example:
-xor u1 (sum, a, b);
-and u2 (carry, a, b);
+**Component Instantiation:**
+```vhdl
+label_name : entity work.entity_name port map (
+  port_a => signal_a,
+  port_b => signal_b
+);
 ```
 
 ## Truth Table
@@ -41,56 +41,56 @@ and u2 (carry, a, b);
 | 1 | 0 |    1    |     0     |
 | 1 | 1 |    0    |     1     |
 
-**Block Diagram:**
-```
-         _________
-A ------>|       |
-         |  XOR  |-----> Sum (S)
-B ------>|_______|
+## VHDL Code
 
-A ------>|       |
-         |  AND  |-----> Carry (C)
-B ------>|_______|
-```
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-## Verilog Code
+-- Half Adder using dataflow modeling
+entity half_adder is
+  port (
+    a     : in  std_logic;
+    b     : in  std_logic;
+    sum   : out std_logic;
+    carry : out std_logic
+  );
+end entity;
 
-```verilog
-// Half Adder using structural modeling
-module half_adder (
-    input  wire a,
-    input  wire b,
-    output wire sum,
-    output wire carry
-);
-    // Instantiate primitive gates
-    xor u1 (sum, a, b);
-    and u2 (carry, a, b);
-endmodule
+architecture dataflow of half_adder is
+begin
+  sum   <= a XOR b;
+  carry <= a AND b;
+end architecture;
 ```
 
 ## Testbench Code
 
-```verilog
-`timescale 1ns / 1ps
+```vhdl
+library ieee;
+use ieee.std_logic_1164.all;
 
-module tb_half_adder;
-    reg  a, b;
-    wire sum, carry;
+entity tb_half_adder is
+end entity;
 
-    half_adder uut (.a(a), .b(b), .sum(sum), .carry(carry));
+architecture sim of tb_half_adder is
+  signal a, b, sum, carry : std_logic;
+begin
+  uut: entity work.half_adder port map (
+    a => a, b => b, sum => sum, carry => carry
+  );
 
-    initial begin
-        $monitor("A=%b B=%b | Sum=%b Carry=%b", a, b, sum, carry);
+  process begin
+    report "A B Sum Carry";
 
-        a = 0; b = 0; #10;
-        a = 0; b = 1; #10;
-        a = 1; b = 0; #10;
-        a = 1; b = 1; #10;
+    a <= '0'; b <= '0'; wait for 10 ns;
+    a <= '0'; b <= '1'; wait for 10 ns;
+    a <= '1'; b <= '0'; wait for 10 ns;
+    a <= '1'; b <= '1'; wait for 10 ns;
 
-        $finish;
-    end
-endmodule
+    wait;
+  end process;
+end architecture;
 ```
 
 ## Expected Output / Waveform
@@ -104,4 +104,4 @@ A=1 B=1 | Sum=0 Carry=1
 
 ## Conclusion
 
-Designed a half adder using structural modeling in Verilog by instantiating primitive XOR and AND gates. The simulation results match the expected half adder truth table.
+Designed a half adder using dataflow modeling in VHDL. The simulation results match the expected half adder truth table.
