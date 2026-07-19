@@ -1,0 +1,38 @@
+Class                                            Date: 19/02/24
+
+Project: Electricity Bill Calculator
+Using Operator & Conditional Statements (Python)
+
+Project Description:
+This program calculates an electricity bill based on units
+consumed using slab rates.
+
+Problem Statement:
+• Input: Units consumed
+• Output: Total electricity bill
+• Use conditions to apply different rates.
+
+Sample Rate Structure:
+
++----------------+---------------+
+| Unit Range     | Rate per Unit |
++----------------+---------------+
+| 0 – 100        | ₹1.5          |
+| 101 – 200      | ₹2.5          |
+| 201 – 300      | ₹4.0          |
+| Above 300      | ₹6.0          |
++----------------+---------------+
+
+------------------------------------------------------------
+
+Student Tasks (Practice)
+
+1. Add fixed charge (₹50 per bill).
+2. Add discount if bill > ₹1000.
+3. Display units consumed.
+4. Final bill with taxes.
+
+Add:
+• Add customer name.
+• Show bill breakdown.
+• Use loops for multiple customers.

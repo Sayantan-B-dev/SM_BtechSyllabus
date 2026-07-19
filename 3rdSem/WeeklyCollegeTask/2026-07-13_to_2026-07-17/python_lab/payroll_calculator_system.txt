@@ -1,0 +1,28 @@
+10. Payroll Calculation System (C++)
+( Input Process & Decision Making )
+
+Project Description:
+This program calculates an employee's salary based on basic pay, allowances, and deductions.
+
+Problem Statement:
+- Take employee details as input.
+- Calculate salary components.
+- Apply conditions for bonus/deductions.
+- Display final salary.
+
+Concepts Used:
+- Input processing (input())
+- Variables (basic salary, House Rent Allowance, Dearness Allowance etc.)
+- Operators (+, -, *)
+- Conditional statements (if, else)
+- Output formatting
+
+Student Tasks (Practice):
+1. Add bonus if salary > ₹30,000.
+2. Add PF deduction (8%).
+3. Print formatted pay slip.
+
+Advanced Version (Optional):
+- Allow multiple employees (using loops).
+- Store data in a file.
+- Add department-wise salary.

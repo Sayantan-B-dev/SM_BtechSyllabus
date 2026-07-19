@@ -1,0 +1,20 @@
+ATM Transaction Simulator
+( Using Menu-driven Program + Loops )
+
+Project Description:
+The program simulates basic ATM operations like:
+- Checking balance
+- Depositing amount
+- Withdrawing money
+using a menu system.
+
+Student Tasks (Practice):
+
+1. Add PIN authentication (3 attempts).
+2. Add transaction limit (max ₹5000 withdraw).
+3. Display transaction history (last 10).
+
+Advanced Version (Extra):
+- Allow multiple users.
+- Store data in a file.
+- Add mini statement.

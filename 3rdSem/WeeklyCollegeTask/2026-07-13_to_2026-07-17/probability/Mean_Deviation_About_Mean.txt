@@ -1,0 +1,52 @@
+Mean Deviation About Mean
+
+Problem:
+Find the Mean Deviation about Mean for the following grouped data.
+
+---------------------------------------------------------------------------
+No. of Absentees | Frequency (fi) | Midpoint (xi) | xi × fi | |xi - x̄| × fi
+---------------------------------------------------------------------------
+0 - 5            |       6        |     2.5       |   15    | |2.5 - 12.67| × 6  = 61.02
+5 - 10           |      14        |     7.5       |  105    | |7.5 - 12.67| × 14 = 72.38
+10 - 15          |      20        |    12.5       |  250    | |12.5 - 12.67| × 20 = 3.40
+15 - 20          |      12        |    17.5       |  210    | |17.5 - 12.67| × 12 = 57.96
+20 - 25          |       8        |    22.5       |  180    | |22.5 - 12.67| × 8  = 78.64
+---------------------------------------------------------------------------
+
+Step 1: Calculate the Mean
+
+Formula:
+Mean (x̄) = Σ(xi × fi) / Σfi
+
+Substitute the values:
+
+Mean = (15 + 105 + 250 + 210 + 180) / (6 + 14 + 20 + 12 + 8)
+
+Mean = 760 / 60
+
+Mean = 12.67
+
+------------------------------------------------------------
+
+Step 2: Calculate Mean Deviation about Mean
+
+Formula:
+MD(mean) = Σ[fi × |xi - x̄|] / Σfi
+
+Substitute the values:
+
+MD(mean) =
+(61.02 + 72.38 + 3.40 + 57.96 + 78.64) /
+(6 + 14 + 20 + 12 + 8)
+
+MD(mean) = 273.40 / 60
+
+MD(mean) = 4.56 (approximately)
+
+------------------------------------------------------------
+
+Final Answer
+
+Mean = 12.67
+
+Mean Deviation about Mean = 4.56

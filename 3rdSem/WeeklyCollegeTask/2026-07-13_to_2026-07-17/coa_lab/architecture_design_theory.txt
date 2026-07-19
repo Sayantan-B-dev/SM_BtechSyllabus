@@ -1,0 +1,26 @@
+Architecture Design of Basic Gates with VHDL
+==============================================
+
+In VHDL, the architecture describes how an entity works.
+For basic logic gates, the architecture uses concurrent signal
+assignment statements. The output signal is assigned the logical
+operation of the input signals.
+
+General syntax:
+    architecture Behavioral of entity_name is
+    begin
+        output_signal <= logical_expression;
+    end Behavioral;
+
+Gate summary:
+  - AND  : C <= A AND B;
+  - OR   : C <= A OR B;
+  - NOT  : C <= NOT A;
+  - NAND : C <= A NAND B;
+  - NOR  : C <= A NOR B;
+  - XOR  : C <= A XOR B;
+  - XNOR : C <= A XNOR B;
+
+This is called Behavioral Architecture, as it describes the
+behavior of the logic gate rather than its internal hardware
+structure.
