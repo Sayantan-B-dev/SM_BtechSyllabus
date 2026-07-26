@@ -3,8 +3,6 @@ CREATE DATABASE Emp;
 USE Emp;
 
 -- 1. Creating table Employee with attributes like employee id, first name,last name, address 1 , address 2, phone number, salary, date of joining
-SELECT '# TASK 1 : >>>CREATING EMPLOYEE AND DESCRIBING THE SCHEMA<<<' as " ";
-
 CREATE TABLE Employee (
   emp_id VARCHAR(30) PRIMARY KEY,
   first_name VARCHAR(30),
@@ -18,8 +16,6 @@ CREATE TABLE Employee (
 DESC Employee;
 
 -- 2. Inserting data into Employee table
-SELECT '# TASK 2 : >>>INSERTING INTO EMPLOYEE TABLE<<<' AS " ";
-
 INSERT INTO Employee 
 (emp_id, first_name, last_name, address1, address2, phn_no, salary, DOJ)
 VALUES
@@ -30,8 +26,6 @@ VALUES
 SELECT * FROM Employee;
 
 -- 3. Creating MASTER table with the same attributes with Employee but changing emp_id to id
-SELECT '# TASK 3 : >>>CREATING MASTER TABLE AND DESCRIBING IT<<<' AS " ";
-
 CREATE TABLE MASTER (
   id VARCHAR(30) PRIMARY KEY,
   first_name VARCHAR(30),
@@ -45,14 +39,10 @@ CREATE TABLE MASTER (
 DESC MASTER;
 
 -- 4. Deleting all records from MASTER
-SELECT '# TASK 4 : >>>DELETING ALL RECORDS FROM MASTER<<<' AS " ";
-
 TRUNCATE TABLE MASTER;
 SELECT * FROM MASTER;
 
 -- 5. Inserting data into MASTER table
-SELECT '# TASK 5 : >>>INSERTING INTO MASTER TABLE<<<' AS " ";
-
 INSERT INTO MASTER
 (id, first_name, last_name, address1, address2, phn_no, salary, DOJ)
 VALUES
@@ -63,37 +53,25 @@ SELECT * FROM MASTER;
 
 
 -- 6. Deleting a row from master where id is 001
-SELECT '# TASK 6 : >>>DELETING ROW WITH ID 001 AND DISPLAYING<<<' AS " ";
-
 DELETE FROM MASTER WHERE id="001";
 SELECT * FROM MASTER;
 
 -- 7. Updating lastname from master where id is 003
-SELECT '# TASK 7 : >>>UPDATING LASTNAME FROM MASTER TABLE WHERE ID IS 003 AND DISPLAYING<<<' AS " ";
-
 UPDATE MASTER SET last_name="Sah" WHERE id='003';
 SELECT * FROM MASTER;
 
 -- 8. Adding a new column in MASTER named email id
-SELECT '# TASK 8 : >>>ADDING A EMAIL ID COLUMN IN MASTER TABLE<<<' AS " ";
-
 
 ALTER TABLE MASTER ADD email_id VARCHAR(30);
 DESC MASTER;
 
 -- 9. Deleting the column address 2 from MASTER table
-SELECT '# TASK 9 : >>>DELETING THE ADDRESS 2 COLUMN FROM MASTER TABLE<<<' AS " ";
-
 ALTER TABLE MASTER DROP COLUMN address2;
 DESC MASTER;
 
 -- 10. Renaming the MASTER table to MID
-SELECT '# TASK 10 : >>>RENAMING THE MASTER TABLE TO MID<<<' AS " ";
-
 RENAME TABLE MASTER TO MID;
 DESC MID;
 
 -- 11. Dropping the MID table
-SELECT '# TASK 11 : >>>DROPPING THE MID TABLE<<<' AS " ";
-
 TRUNCATE TABLE MID;
