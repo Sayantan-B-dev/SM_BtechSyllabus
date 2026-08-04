@@ -28,17 +28,17 @@ BANNER = r"""
 
 # ---------- BOX DRAWING ----------
 def box_top(w=WIDTH):
-    return "+" + "-" * (w - 2) + "+"
+    return "╔" + "═" * (w - 2) + "╗"
 
 def box_bottom(w=WIDTH):
-    return "+" + "-" * (w - 2) + "+"
+    return "╚" + "═" * (w - 2) + "╝"
 
 def box_divider(w=WIDTH):
-    return "+" + "-" * (w - 2) + "+"
+    return "╠" + "═" * (w - 2) + "╣"
 
 def box_line(text, w=WIDTH):
     pad = max(w - 4 - len(text), 0)
-    return f"| {text}{' ' * pad} |"
+    return f"║ {text}{' ' * pad} ║"
 
 def print_boxed(lines, w=WIDTH):
     print(box_top(w))
