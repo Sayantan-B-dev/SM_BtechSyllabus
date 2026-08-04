@@ -52,6 +52,14 @@ ACCOUNTS = {"4091": {"name": "Sayantan", "pin": "1234", "balance": 25000.0}}
 MAX_ATTEMPTS = 3
 
 # ---------- ATM FUNCTIONS ----------
+def create_account(name, pin, initial_deposit):
+    if len(ACCOUNTS) > 0:
+        card_no = str(max(int(k) for k in ACCOUNTS.keys()) + 1)
+    else:
+        card_no = "1001"
+    ACCOUNTS[card_no] = {"name": name, "pin": pin, "balance": initial_deposit}
+    return card_no
+
 def authenticate(card_no, pin):
     if card_no in ACCOUNTS and ACCOUNTS[card_no]["pin"] == pin:
         return True
@@ -80,21 +88,50 @@ def main():
 
     while True:
         print_boxed([
-            "  [1] Check Balance",
-            "  [2] Withdraw Cash",
-            "  [3] Deposit Cash",
-            "  [4] Change PIN",
-            "  [5] Exit"
+            "  [1] Create Account",
+            "  [2] Check Balance",
+            "  [3] Withdraw Cash",
+            "  [4] Deposit Cash",
+            "  [5] Change PIN",
+            "  [6] Exit"
         ])
         option = input("> Enter option: ").strip()
 
-        if option == "5":
+        if option == "6":
             print()
             print_boxed(["Goodbye!"])
             print()
             break
 
-        if option not in ["1", "2", "3", "4"]:
+        if option == "1":
+            name = input("> Enter account holder name: ").strip()
+            pin = input("> Set a 4-digit PIN: ").strip()
+            if not (pin.isdigit() and len(pin) == 4):
+                print_boxed(["ERROR: PIN must be exactly 4 digits."])
+                print()
+                continue
+            try:
+                initial_deposit = float(input("> Enter initial deposit: ").strip())
+                if initial_deposit < 0:
+                    raise ValueError
+            except ValueError:
+                print_boxed(["ERROR: Initial deposit must be a valid non-negative amount."])
+                print()
+                continue
+            card_no = create_account(name, pin, initial_deposit)
+            print()
+            print_boxed([
+                "ACCOUNT CREATED:",
+                "",
+                f"  Card holder : {name}",
+                f"  Card number : {card_no}",
+                f"  PIN         : {pin}",
+                f"  Balance     : {initial_deposit}"
+            ])
+            print()
+            continue
+
+        if option not in ["2", "3", "4", "5"]:
             print_boxed(["Invalid option, try again."])
             print()
             continue
@@ -107,7 +144,7 @@ def main():
             print()
             continue
 
-        if option == "1":
+        if option == "2":
             print()
             print_boxed([
                 "BALANCE:",
@@ -117,7 +154,7 @@ def main():
             ])
             print()
 
-        elif option == "2":
+        elif option == "3":
             try:
                 amount = float(input("> Enter amount to withdraw: ").strip())
             except ValueError:
@@ -142,7 +179,7 @@ def main():
                 print_boxed(["ERROR: Insufficient balance."])
                 print()
 
-        elif option == "3":
+        elif option == "4":
             try:
                 amount = float(input("> Enter amount to deposit: ").strip())
             except ValueError:
@@ -163,7 +200,7 @@ def main():
             ])
             print()
 
-        elif option == "4":
+        elif option == "5":
             old_pin = input("> Enter current PIN: ").strip()
             new_pin = input("> Enter new PIN: ").strip()
             if change_pin(card_no, old_pin, new_pin):
