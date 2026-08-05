@@ -74,7 +74,7 @@ print(valid)
 
 # Invalid keys
 # invalid = {[1, 2]: "list"}  # TypeError: unhashable type: 'list'
-# invalid = {{"a": 1}: "dict"}  # TypeError: unhashable type: 'dict'
+# invalid = {`{{"a": 1}`}: "dict"}  # TypeError: unhashable type: 'dict'
 ```
 
 ## Accessing Values
