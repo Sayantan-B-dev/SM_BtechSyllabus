@@ -61,23 +61,18 @@ document.addEventListener("DOMContentLoaded", () => {
       const lbl = document.createElement("div");
       lbl.className = "row-label";
       lbl.textContent = label;
-      const tree = document.createElement("div");
-      tree.className = "tree";
-      pages.forEach((p, i) => {
-        const span = document.createElement("span");
-        span.className = "branch";
-        span.textContent = i === pages.length - 1 ? "└─" : "├─";
-        const a = document.createElement("button");
-        a.className = "page-link";
-        a.textContent = `Page ${p}`;
-        a.addEventListener("click", () =>
+      const chips = document.createElement("div");
+      chips.className = "chips";
+      pages.forEach(p => {
+        const chip = document.createElement("button");
+        chip.className = "page-chip";
+        chip.textContent = p;
+        chip.title = `Page ${p}`;
+        chip.addEventListener("click", () =>
           openViewer(`Week ${w.n} · ${label} · Page ${p}`, pagePdf(w.n, kind, p)));
-        const rowItem = document.createElement("div");
-        rowItem.className = "tree-item";
-        rowItem.append(span, a);
-        tree.appendChild(rowItem);
+        chips.appendChild(chip);
       });
-      row.append(lbl, tree);
+      row.append(lbl, chips);
       rows.appendChild(row);
     };
 
