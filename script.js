@@ -1,23 +1,9 @@
-const base = "3rdSem/PROJECTS/PYTHON/docx/FinalWeeklyReport/pdf";
-const splitRoot = base + "/split";
-
-const weeks = [
-  { n: 1, total: 6, title: "Student Grade Management System", print: [1, 3, 4, 6] },
-  { n: 2, total: 8, title: "Electricity Bill Calculator & ATM Simulator", print: [1, 4, 5, 6, 8] },
-  { n: 3, total: 9, title: "Bank, Hotel & Library Systems", print: [1, 3, 5, 7, 9] },
-  { n: 4, total: 7, title: "Password Strength & Email Validation", print: [1, 3, 5, 7] }
-];
-
-const originals = {
-  1: `${base}/Week1_(print 1,3,4,6 pages)_Student_Grade_Management_System_Report.pdf`,
-  2: `${base}/Week2_(print 1,4,5,6,8 pages)_Electricity_Bill_Calculator_and_ATM_Simulator_Report.pdf`,
-  3: `${base}/Week3_(print 1,3,5,7,9 pages)_Combined_Report_Bank_Hotel_Library.pdf`,
-  4: `${base}/Week4_(print 1,3,5,7 pages)_Password_Strength_Email_Validation_Report.pdf`
-};
+const PREFIX = "";
+const pdfRoot = "3rdSem/PROJECTS/PYTHON/docx/FinalWeeklyReport/pdf";
 
 const u = (p) => encodeURI(p);
 const pagePdf = (week, kind, page) =>
-  `${u(splitRoot)}/Week${week}/${kind}/page-${String(page).padStart(2, "0")}.pdf`;
+  `${u(`${PREFIX}${pdfRoot}/split`)}/Week${week}/${kind}/page-${String(page).padStart(2, "0")}.pdf`;
 
 function openViewer(title, src) {
   window.open(u(src), "_blank", "noopener");
@@ -46,8 +32,18 @@ async function downloadPrintPages(week, title, pages) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const root = document.getElementById("cards");
+
+  let weeks;
+  try {
+    const resp = await fetch("weeks.json");
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    weeks = (await resp.json()).weeks;
+  } catch (e) {
+    root.innerHTML = `<p class="no-data">weeks.json not found. Run <code>node split.js</code> in the pdf folder to generate the week data.</p>`;
+    return;
+  }
 
   weeks.forEach(w => {
     const handwrite = [];
@@ -103,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     openBtn.className = "open-full";
     openBtn.textContent = "Open Full PDF";
     openBtn.addEventListener("click", () =>
-      openViewer(`Week ${w.n} · Full Report (${w.total} pages)`, originals[w.n]));
+      openViewer(`Week ${w.n} · Full Report (${w.total} pages)`, u(w.original)));
     const foot = document.createElement("div");
     foot.className = "row-footer";
     const listSpan = document.createElement("span");

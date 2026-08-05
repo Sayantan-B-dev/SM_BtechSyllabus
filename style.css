@@ -286,6 +286,22 @@ header p {
   transform: translateY(1px);
 }
 
+.no-data {
+  background: var(--surface);
+  color: var(--muted);
+  border-radius: var(--radius-card);
+  padding: 28px 24px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  box-shadow: var(--raise-sm);
+}
+
+.no-data code {
+  font-family: Consolas, monospace;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
 /* ---------- Viewer (sticky side panel, visible beside cards) ---------- */
 footer {
   margin-top: 36px;

@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 Microprocessor_and_Microcontroller_compressed.pdf
 computer-systems-Architecture.pdf
+
+# Node
+node_modules/
+npm-debug.log*
