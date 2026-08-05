@@ -1,5 +1,5 @@
-{
-  "generated": "2026-08-05T19:41:43.324Z",
+window.weeksData = {
+  "generated": "2026-08-05T19:56:38.351Z",
   "pdfRoot": "3rdSem/PROJECTS/PYTHON/docx/FinalWeeklyReport/pdf",
   "weeks": [
     {
@@ -73,4 +73,4 @@
       "original": "3rdSem/PROJECTS/PYTHON/docx/FinalWeeklyReport/pdf/Week4_(print 1,3,5,7 pages)_Password_Strength_Email_Validation_Report.pdf"
     }
   ]
-}
+};

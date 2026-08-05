@@ -1,4 +1,4 @@
-const PREFIX = "";
+const PREFIX = "../../";
 const pdfRoot = "3rdSem/PROJECTS/PYTHON/docx/FinalWeeklyReport/pdf";
 
 const u = (p) => encodeURI(p);
@@ -32,16 +32,12 @@ async function downloadPrintPages(week, title, pages) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("cards");
 
-  let weeks;
-  try {
-    const resp = await fetch("weeks.json");
-    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    weeks = (await resp.json()).weeks;
-  } catch (e) {
-    root.innerHTML = `<p class="no-data">weeks.json not found. Run <code>node split.js</code> in the pdf folder to generate the week data.</p>`;
+  const weeks = window.weeksData && window.weeksData.weeks;
+  if (!weeks) {
+    root.innerHTML = `<p class="no-data">weeks data not found. Run <code>node split.js</code> in the pdf folder to generate it.</p>`;
     return;
   }
 
@@ -99,7 +95,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     openBtn.className = "open-full";
     openBtn.textContent = "Open Full PDF";
     openBtn.addEventListener("click", () =>
-      openViewer(`Week ${w.n} · Full Report (${w.total} pages)`, u(w.original)));
+      openViewer(`Week ${w.n} · Full Report (${w.total} pages)`, PREFIX + w.original));
     const foot = document.createElement("div");
     foot.className = "row-footer";
     const listSpan = document.createElement("span");

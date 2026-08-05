@@ -7,7 +7,7 @@ const PDF_DIR = __dirname;
 function findRepoRoot(dir) {
   let cur = dir;
   while (true) {
-    if (fs.existsSync(path.join(cur, "index.html")) && fs.existsSync(path.join(cur, ".git"))) return cur;
+    if (fs.existsSync(path.join(cur, ".git"))) return cur;
     const up = path.dirname(cur);
     if (up === cur) throw new Error("Could not locate repo root from " + dir);
     cur = up;
@@ -16,7 +16,7 @@ function findRepoRoot(dir) {
 
 const REPO_ROOT = findRepoRoot(PDF_DIR);
 const PDF_REL = path.relative(REPO_ROOT, PDF_DIR).split(path.sep).join("/");
-const WEEKS_JSON = path.join(REPO_ROOT, "weeks.json");
+const WEEKS_JSON = path.join(REPO_ROOT, "modules", "python", "weeks.json");
 
 function parsePrintFromName(name) {
   const m = name.match(/\(print\s+([\d,\s]+)\s+pages?\)/i);
@@ -79,7 +79,7 @@ async function main() {
   }
 
   const data = { generated: new Date().toISOString(), pdfRoot: PDF_REL, weeks };
-  fs.writeFileSync(WEEKS_JSON, JSON.stringify(data, null, 2) + "\n");
+  fs.writeFileSync(WEEKS_JSON, `window.weeksData = ${JSON.stringify(data, null, 2)};\n`);
   console.log(`Wrote ${WEEKS_JSON} (${weeks.length} weeks)`);
 }
 
