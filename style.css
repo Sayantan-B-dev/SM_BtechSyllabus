@@ -295,6 +295,34 @@ footer code {
   flex-shrink: 0;
 }
 
+.access-docx {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  box-shadow: var(--raise-sm);
+  transition: box-shadow 0.15s ease, color 0.15s ease;
+  margin-bottom: clamp(16px, 2.5vw, 24px);
+  align-self: flex-start;
+}
+
+.access-docx:hover {
+  color: var(--text);
+}
+
+.access-docx:active {
+  box-shadow: var(--inset-sm);
+}
+
+.access-docx svg {
+  flex-shrink: 0;
+}
+
 @media (max-width: 560px) {
   .wrap {
     padding: 16px 12px 40px;
