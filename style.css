@@ -334,10 +334,6 @@ header p {
   background: var(--bg);
 }
 
-body.viewer-locked {
-  overflow: hidden;
-}
-
 footer {
   margin-top: 36px;
   text-align: center;
@@ -395,49 +391,6 @@ footer code {
 
   .viewer {
     display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    height: 100dvh;
-    max-height: none;
-    min-height: 0;
-    border-radius: 0;
-  }
-
-  .viewer.open {
-    display: flex;
-  }
-
-  .viewer::before {
-    content: "";
-    position: absolute;
-    inset: 10px;
-    z-index: -1;
-    background: var(--surface);
-    border-radius: var(--radius-card);
-    box-shadow: var(--raise);
-  }
-
-  .viewer-head,
-  #viewer-frame {
-    position: relative;
-    margin: 10px;
-  }
-
-  .viewer-head {
-    margin-bottom: 0;
-    border-radius: var(--radius-card) var(--radius-card) 0 0;
-    border-bottom: none;
-  }
-
-  #viewer-frame {
-    margin-top: 0;
-    border-radius: 0 0 var(--radius-card) var(--radius-card);
-  }
-
-  .viewer-empty {
-    margin: 10px;
-    border-radius: var(--radius-card);
   }
 }
 

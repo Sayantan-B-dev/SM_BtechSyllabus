@@ -22,11 +22,14 @@ const pagePdf = (week, kind, page) =>
 const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
 
 function openViewer(title, src) {
+  if (isMobile()) {
+    window.open(u(src), "_blank", "noopener");
+    return;
+  }
   const frame = document.getElementById("viewer-frame");
   document.getElementById("viewer-title").textContent = title;
   document.getElementById("viewer-empty").classList.add("hidden");
   document.getElementById("viewer").classList.add("open");
-  if (isMobile()) document.body.classList.add("viewer-locked");
   frame.src = u(src);
 }
 
