@@ -23,6 +23,29 @@ function openViewer(title, src) {
   window.open(u(src), "_blank", "noopener");
 }
 
+async function downloadPrintPages(week, title, pages) {
+  try {
+    const merged = await PDFLib.PDFDocument.create();
+    for (const p of pages) {
+      const resp = await fetch(pagePdf(week, "print", p));
+      if (!resp.ok) throw new Error(`Failed to load page ${p}`);
+      const src = await PDFLib.PDFDocument.load(await resp.arrayBuffer());
+      const copied = await merged.copyPages(src, src.getPageIndices());
+      copied.forEach(cp => merged.addPage(cp));
+    }
+    const bytes = await merged.save();
+    const blob = new Blob([bytes], { type: "application/pdf" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Week${week}_${title.replace(/\s+/g, "_")}_Print_Pages.pdf`;
+    a.click();
+    URL.revokeObjectURL(url);
+  } catch (e) {
+    alert("Merge failed: " + e.message);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("cards");
 
@@ -63,6 +86,13 @@ document.addEventListener("DOMContentLoaded", () => {
         chips.appendChild(chip);
       });
       row.append(lbl, chips);
+      if (kind === "print") {
+        const dl = document.createElement("button");
+        dl.className = "download-print";
+        dl.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download Printing Pages`;
+        dl.addEventListener("click", () => downloadPrintPages(w.n, w.title, w.print));
+        row.appendChild(dl);
+      }
       rows.appendChild(row);
     };
 
