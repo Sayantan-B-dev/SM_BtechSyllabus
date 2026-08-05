@@ -19,19 +19,28 @@ const u = (p) => encodeURI(p);
 const pagePdf = (week, kind, page) =>
   `${u(splitRoot)}/Week${week}/${kind}/page-${String(page).padStart(2, "0")}.pdf`;
 
+const isMobile = () => window.matchMedia("(max-width: 900px)").matches;
+
 function openViewer(title, src) {
-  const viewer = document.getElementById("viewer");
   const frame = document.getElementById("viewer-frame");
   document.getElementById("viewer-title").textContent = title;
+  document.getElementById("viewer-empty").classList.add("hidden");
+  document.getElementById("viewer").classList.add("open");
+  if (isMobile()) document.body.classList.add("viewer-locked");
   frame.src = u(src);
-  viewer.classList.add("open");
-  frame.scrollTo(0, 0);
 }
 
 function closeViewer() {
   document.getElementById("viewer").classList.remove("open");
+  document.body.classList.remove("viewer-locked");
+  document.getElementById("viewer-title").textContent = "Select a page to preview";
+  document.getElementById("viewer-empty").classList.remove("hidden");
   document.getElementById("viewer-frame").src = "about:blank";
 }
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeViewer();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("cards");

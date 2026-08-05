@@ -270,9 +270,7 @@ header p {
   border-radius: var(--radius-card);
   box-shadow: var(--raise);
   overflow: hidden;
-}
-
-.viewer-head {
+}.viewer-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -336,18 +334,52 @@ header p {
   background: var(--bg);
 }
 
+body.viewer-locked {
+  overflow: hidden;
+}
+
 footer {
   margin-top: 36px;
   text-align: center;
   font-size: clamp(12px, 1.3vw, 12.5px);
   color: var(--dim);
   padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 footer code {
   font-family: Consolas, monospace;
   color: var(--muted);
   overflow-wrap: anywhere;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  box-shadow: var(--raise-sm);
+  transition: box-shadow 0.15s ease, color 0.15s ease;
+}
+
+.github-link:hover {
+  color: var(--accent);
+}
+
+.github-link:active {
+  box-shadow: var(--inset-sm);
+}
+
+.github-link svg {
+  flex-shrink: 0;
 }
 
 @media (max-width: 1080px) {
@@ -362,12 +394,50 @@ footer code {
   }
 
   .viewer {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    height: 55dvh;
-    min-height: 320px;
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    height: 100dvh;
+    max-height: none;
+    min-height: 0;
     border-radius: 0;
+  }
+
+  .viewer.open {
+    display: flex;
+  }
+
+  .viewer::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    z-index: -1;
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--raise);
+  }
+
+  .viewer-head,
+  #viewer-frame {
+    position: relative;
+    margin: 10px;
+  }
+
+  .viewer-head {
+    margin-bottom: 0;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    border-bottom: none;
+  }
+
+  #viewer-frame {
+    margin-top: 0;
+    border-radius: 0 0 var(--radius-card) var(--radius-card);
+  }
+
+  .viewer-empty {
+    margin: 10px;
+    border-radius: var(--radius-card);
   }
 }
 
@@ -410,11 +480,6 @@ footer code {
 
   .open-full {
     width: 100%;
-  }
-
-  .viewer {
-    height: 60dvh;
-    min-height: 300px;
   }
 }
 
