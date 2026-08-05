@@ -69,18 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
     mkRow("print", "Print Pages", w.print);
     mkRow("handwrite", "Handwrite Only", handwrite);
 
-    const foot = document.createElement("div");
-    foot.className = "row-footer";
     const openBtn = document.createElement("button");
     openBtn.className = "open-full";
     openBtn.textContent = "Open Full PDF";
     openBtn.addEventListener("click", () =>
       openViewer(`Week ${w.n} · Full Report (${w.total} pages)`, originals[w.n]));
+    const foot = document.createElement("div");
+    foot.className = "row-footer";
     const listSpan = document.createElement("span");
     listSpan.innerHTML = `Print: <b>${w.print.join(", ")}</b> · Handwrite: <b>${handwrite.join(", ")}</b>`;
-    foot.append(openBtn, listSpan);
+    foot.appendChild(listSpan);
 
-    card.append(head, rows, foot);
+    card.append(head, openBtn, rows, foot);
     root.appendChild(card);
   });
 });
