@@ -421,11 +421,11 @@ This is useful for understanding when variables refer to the same object vs. dif
    - `total$`
    <details>
    <summary>Show Answer</summary>
-   - `2nd_place` — Invalid (starts with digit). Fix: `second_place`
-   - `my_name` — Valid
-   - `_count` — Valid
-   - `class` — Invalid (reserved keyword). Fix: `class_` or `my_class`
-   - `total$` — Invalid (`$` is not allowed). Fix: `total`
+   - `2nd_place` - Invalid (starts with digit). Fix: `second_place`
+   - `my_name` - Valid
+   - `_count` - Valid
+   - `class` - Invalid (reserved keyword). Fix: `class_` or `my_class`
+   - `total$` - Invalid (`$` is not allowed). Fix: `total`
    </details>
 
 2. **Multiple Assignment:** Use multiple assignment to swap the values of `a = 15` and `b = 30` so that `a` becomes 30 and `b` becomes 15. Print the result.

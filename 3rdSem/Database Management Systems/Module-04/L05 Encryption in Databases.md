@@ -312,7 +312,7 @@ Encryption is only as secure as the key management.
 4. Why is hashing preferred over encryption for password storage? What is a salt and why is it important?
    <details>
    <summary>Show Answer</summary>
-   Hashing is one-way (cannot be reversed), so even if the password file is stolen, the original passwords cannot be recovered. Encryption is two-way — if the encryption key is compromised, all passwords are exposed. A **salt** is a random value appended to each password before hashing. It prevents attackers from using precomputed rainbow tables and ensures that identical passwords produce different hashes.
+   Hashing is one-way (cannot be reversed), so even if the password file is stolen, the original passwords cannot be recovered. Encryption is two-way - if the encryption key is compromised, all passwords are exposed. A **salt** is a random value appended to each password before hashing. It prevents attackers from using precomputed rainbow tables and ensures that identical passwords produce different hashes.
    </details>
 5. Describe the SSL/TLS handshake process for securing a database connection.
    <details>

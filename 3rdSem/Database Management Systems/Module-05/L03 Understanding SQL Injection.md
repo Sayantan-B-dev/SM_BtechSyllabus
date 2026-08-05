@@ -337,7 +337,7 @@ Object-Relational Mapping frameworks (Hibernate, Entity Framework, Django ORM, S
 1. What is SQL injection and why does it occur? Provide a vulnerable SQL query and the resulting query when an attacker inputs `' OR '1'='1`.
    <details>
    <summary>Show Answer</summary>
-   SQL injection is a code injection technique where an attacker inserts malicious SQL statements into application queries. It occurs when user input is directly concatenated into SQL queries without proper sanitization or parameterization. **Vulnerable query:** `SELECT * FROM users WHERE username = '` + user_input + `';` **Resulting query with input `' OR '1'='1`:** `SELECT * FROM users WHERE username = '' OR '1'='1';` — this returns all users because `'1'='1'` is always true.
+   SQL injection is a code injection technique where an attacker inserts malicious SQL statements into application queries. It occurs when user input is directly concatenated into SQL queries without proper sanitization or parameterization. **Vulnerable query:** `SELECT * FROM users WHERE username = '` + user_input + `';` **Resulting query with input `' OR '1'='1`:** `SELECT * FROM users WHERE username = '' OR '1'='1';` - this returns all users because `'1'='1'` is always true.
    </details>
 2. Write parameterized (safe) versions of the following vulnerable query in Java, Python, and PHP:
    `SELECT * FROM products WHERE category = '` + category + `' AND price < ` + max_price
@@ -367,7 +367,7 @@ Object-Relational Mapping frameworks (Hibernate, Entity Framework, Django ORM, S
 3. Explain the difference between whitelist validation and blacklist validation. Which one is more secure and why?
    <details>
    <summary>Show Answer</summary>
-   **Whitelist validation** allows only a predefined set of acceptable values (e.g., allowing only [A-Za-z0-9] in a username). **Blacklist validation** blocks known malicious patterns (e.g., blocking `'`, `--`, `DROP`, `OR`). Whitelist validation is more secure because it defines what is permitted rather than trying to anticipate every possible attack pattern — blacklists are easily bypassed by encoding variations, alternative syntax, or novel payloads.
+   **Whitelist validation** allows only a predefined set of acceptable values (e.g., allowing only [A-Za-z0-9] in a username). **Blacklist validation** blocks known malicious patterns (e.g., blocking `'`, `--`, `DROP`, `OR`). Whitelist validation is more secure because it defines what is permitted rather than trying to anticipate every possible attack pattern - blacklists are easily bypassed by encoding variations, alternative syntax, or novel payloads.
    </details>
 4. How does the principle of least privilege help prevent SQL injection damage? Give a specific example with SQL statements.
    <details>

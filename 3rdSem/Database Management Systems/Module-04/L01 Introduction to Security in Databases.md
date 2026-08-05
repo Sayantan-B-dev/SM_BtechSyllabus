@@ -155,7 +155,7 @@ No single security measure is sufficient. Defense in depth means layering multip
 4. What is defense in depth? Why is a single security measure insufficient?
    <details>
    <summary>Show Answer</summary>
-   Defense in depth is a security strategy that employs multiple layers of defense so that if one layer fails, another layer is already in place to stop the attack. A single security measure is insufficient because no control is foolproof — firewalls can be misconfigured, passwords can be stolen, encryption keys can be compromised. Layering ensures that an attacker must breach several independent controls to succeed.
+   Defense in depth is a security strategy that employs multiple layers of defense so that if one layer fails, another layer is already in place to stop the attack. A single security measure is insufficient because no control is foolproof - firewalls can be misconfigured, passwords can be stolen, encryption keys can be compromised. Layering ensures that an attacker must breach several independent controls to succeed.
    </details>
 5. Give an example of how a privilege escalation attack could occur in a poorly configured database system.
    <details>

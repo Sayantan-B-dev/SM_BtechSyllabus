@@ -312,7 +312,7 @@ Example: Should we play tennis?
 1. Explain the KDD process. For each step, describe what happens using a concrete example.
    <details>
    <summary>Show Answer</summary>
-   Knowledge Discovery in Databases (KDD) process: (1) **Selection** — choose relevant data (e.g., select customer purchase history from the database). (2) **Preprocessing** — clean data (remove null values, fix inconsistencies). (3) **Transformation** — convert data into suitable format (e.g., normalize numeric values, create date parts). (4) **Data Mining** — apply algorithms (e.g., Apriori to find frequent itemsets). (5) **Interpretation/Evaluation** — validate patterns (e.g., "customers who buy milk also buy bread" has 70% confidence).
+   Knowledge Discovery in Databases (KDD) process: (1) **Selection** - choose relevant data (e.g., select customer purchase history from the database). (2) **Preprocessing** - clean data (remove null values, fix inconsistencies). (3) **Transformation** - convert data into suitable format (e.g., normalize numeric values, create date parts). (4) **Data Mining** - apply algorithms (e.g., Apriori to find frequent itemsets). (5) **Interpretation/Evaluation** - validate patterns (e.g., "customers who buy milk also buy bread" has 70% confidence).
    </details>
 2. What is the difference between supervised and unsupervised learning? Give two algorithms for each.
    <details>

@@ -162,7 +162,7 @@ Python is widely recommended as a first programming language for several reasons
 2. **Reflection:** Write down two features of Python that seem most interesting to you. Explain why they would help a beginner programmer.
    <details>
    <summary>Show Answer</summary>
-   Two key features: (1) **Readable syntax** — Python uses indentation instead of braces, making code clean and easy to read. (2) **Batteries included** — the vast standard library means beginners can do file I/O, web requests, etc. without installing extra packages.
+   Two key features: (1) **Readable syntax** - Python uses indentation instead of braces, making code clean and easy to read. (2) **Batteries included** - the vast standard library means beginners can do file I/O, web requests, etc. without installing extra packages.
    </details>
 
 3. **Short Answer:** What does "batteries included" mean in the context of Python?

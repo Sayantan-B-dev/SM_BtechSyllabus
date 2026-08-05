@@ -269,7 +269,7 @@ Data warehouses are the foundation for Business Intelligence. BI encompasses the
 1. List the four characteristics of a data warehouse according to Inmon's definition. Explain each with an example.
    <details>
    <summary>Show Answer</summary>
-   According to Bill Inmon, a data warehouse is: (1) **Subject-oriented** — organized around key subjects (e.g., customer, product, sales) rather than applications. (2) **Integrated** — data from multiple sources is cleaned and standardized (e.g., same date format, consistent gender codes). (3) **Time-variant** — maintains historical data for trend analysis (e.g., sales data for the past 10 years). (4) **Non-volatile** — data is read-only once loaded; updates are not made directly to the warehouse.
+   According to Bill Inmon, a data warehouse is: (1) **Subject-oriented** - organized around key subjects (e.g., customer, product, sales) rather than applications. (2) **Integrated** - data from multiple sources is cleaned and standardized (e.g., same date format, consistent gender codes). (3) **Time-variant** - maintains historical data for trend analysis (e.g., sales data for the past 10 years). (4) **Non-volatile** - data is read-only once loaded; updates are not made directly to the warehouse.
    </details>
 2. Draw a star schema for a university data warehouse. The fact table should track student enrollments. Include at least four dimension tables.
    <details>
@@ -297,11 +297,11 @@ Data warehouses are the foundation for Business Intelligence. BI encompasses the
 4. Describe the ETL process step by step. What happens during the Transform phase? Give three examples of transformations.
    <details>
    <summary>Show Answer</summary>
-   **ETL Process:** (1) **Extract** — read data from source systems (databases, flat files, APIs). (2) **Transform** — clean, standardize, and reshape data. (3) **Load** — insert the transformed data into the data warehouse.
-   **Transform phase examples:** (a) **Data cleansing** — removing duplicates, fixing null values. (b) **Data conversion** — converting date formats (MM/DD/YYYY to YYYY-MM-DD), standardizing currency. (c) **Aggregation** — calculating daily totals from raw transaction data before loading.
+   **ETL Process:** (1) **Extract** - read data from source systems (databases, flat files, APIs). (2) **Transform** - clean, standardize, and reshape data. (3) **Load** - insert the transformed data into the data warehouse.
+   **Transform phase examples:** (a) **Data cleansing** - removing duplicates, fixing null values. (b) **Data conversion** - converting date formats (MM/DD/YYYY to YYYY-MM-DD), standardizing currency. (c) **Aggregation** - calculating daily totals from raw transaction data before loading.
    </details>
 5. Explain the difference between star schema and snowflake schema. When would you choose one over the other?
    <details>
    <summary>Show Answer</summary>
-   **Star schema:** Dimension tables are denormalized (all attributes in one table) and directly connected to the fact table. **Snowflake schema:** Dimension tables are normalized into multiple related tables, reducing data redundancy. Star schemas are simpler and offer faster query performance (fewer joins) — best for most BI tools. Snowflake schemas save storage space and maintain better data integrity — best when storage is constrained or dimensions are highly normalized in the source system.
+   **Star schema:** Dimension tables are denormalized (all attributes in one table) and directly connected to the fact table. **Snowflake schema:** Dimension tables are normalized into multiple related tables, reducing data redundancy. Star schemas are simpler and offer faster query performance (fewer joins) - best for most BI tools. Snowflake schemas save storage space and maintain better data integrity - best when storage is constrained or dimensions are highly normalized in the source system.
    </details>

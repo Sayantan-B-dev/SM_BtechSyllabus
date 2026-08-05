@@ -256,7 +256,7 @@ If a new student `dave` joins, simply execute `GRANT student TO dave;` -- all st
    | Admin overhead | Low | High | Medium |
    | Use case | Personal files | Military | Enterprise |
 
-   **Recommendation:** RBAC — banks have well-defined roles (teller, manager, auditor) and need a balance of security and manageability.
+   **Recommendation:** RBAC - banks have well-defined roles (teller, manager, auditor) and need a balance of security and manageability.
    </details>
 4. What is a Trojan horse attack in the context of DAC? How does MAC prevent it?
    <details>
