@@ -3,27 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weekly Reports — Print Plan</title>
+<title>Weekly Reports - Print Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="wrap">
   <header>
     <div class="kicker">BTech 3rd Semester · Python Lab</div>
-    <h1>Weekly Reports — Print Plan</h1>
+    <h1>Weekly Reports - Print Plan</h1>
     <p>Pages to print for the final report, and pages left blank for handwritten work. Click any page to view it inline.</p>
   </header>
 
   <div class="layout">
     <main class="grid" id="cards"></main>
 
-    <section class="viewer" id="viewer">
+    <aside class="viewer" id="viewer">
       <div class="viewer-head">
-        <span class="title" id="viewer-title">PDF Viewer</span>
-        <button id="viewer-close">Close</button>
+        <span class="title" id="viewer-title">Select a page to preview</span>
+        <button id="viewer-close">Clear</button>
       </div>
+      <div class="viewer-empty" id="viewer-empty">Click any page chip to preview it here.</div>
       <iframe id="viewer-frame" title="PDF viewer"></iframe>
-    </section>
+    </aside>
   </div>
 
   <footer>Generated from <code>3rdSem/PROJECTS/PYTHON/docx/FinalWeeklyReport/pdf</code></footer>
