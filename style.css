@@ -28,6 +28,7 @@
   padding: 0;
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+  font-family: "Audiowide", sans-serif;
 }
 
 html {
@@ -35,16 +36,11 @@ html {
 }
 
 body {
-  font-family: "Audiowide", "Space Mono", Consolas, monospace;
   background: linear-gradient(145deg, var(--bg-grad-1), var(--bg-grad-2));
   color: var(--text);
   min-height: 100vh;
 }
-.audiowide-regular {
-  font-family: "Audiowide", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
+
 .wrap {
   max-width: 1280px;
   margin: 0 auto;
@@ -58,8 +54,6 @@ header {
 
 .kicker {
   font-size: clamp(10px, 1.4vw, 11px);
-  font-weight: 400;
-  font-family: "Audiowide", "Space Mono", sans-serif;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
@@ -69,8 +63,6 @@ header {
 
 header h1 {
   font-size: clamp(22px, 4.2vw, 32px);
-  font-weight: 400;
-  font-family: "Audiowide", "Space Mono", sans-serif;
   letter-spacing: 0.04em;
   text-shadow: 3px 3px 8px var(--shadow-dark), -2px -2px 6px var(--shadow-light);
   line-height: 1.2;
@@ -121,8 +113,6 @@ header p {
 
 .card-head h2 {
   font-size: clamp(14px, 1.7vw, 16px);
-  font-weight: 400;
-  font-family: "Audiowide", "Space Mono", sans-serif;
   letter-spacing: 0.04em;
   line-height: 1.3;
 }
@@ -186,7 +176,6 @@ header p {
   border: none;
   border-radius: var(--radius-chip);
   color: var(--text);
-  font-family: "Audiowide", "Space Mono", monospace;
   font-size: clamp(14px, 1.6vw, 15px);
   font-weight: 600;
   min-width: clamp(42px, 5vw, 46px);
