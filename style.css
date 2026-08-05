@@ -75,13 +75,6 @@ header p {
   max-width: 60ch;
 }
 
-.layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 460px);
-  gap: clamp(16px, 2.5vw, 28px);
-  align-items: start;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
@@ -258,82 +251,6 @@ header p {
 }
 
 /* ---------- Viewer (sticky side panel, visible beside cards) ---------- */
-.viewer {
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: clamp(12px, 2vw, 24px);
-  height: calc(100dvh - 48px);
-  max-height: calc(100vh - 48px);
-  min-height: 440px;
-  background: var(--surface);
-  border-radius: var(--radius-card);
-  box-shadow: var(--raise);
-  overflow: hidden;
-}.viewer-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px clamp(12px, 2vw, 18px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.viewer-empty {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  color: var(--dim);
-  font-size: clamp(12.5px, 1.4vw, 13.5px);
-  text-align: center;
-  padding: 24px;
-}
-
-.viewer-empty.hidden {
-  display: none;
-}
-
-.viewer-head .title {
-  font-size: clamp(12.5px, 1.4vw, 13.5px);
-  font-weight: 600;
-  color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.viewer-head button {
-  background: var(--surface);
-  border: none;
-  border-radius: 10px;
-  color: var(--muted);
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 12px;
-  font-family: inherit;
-  padding: 7px 14px;
-  touch-action: manipulation;
-  box-shadow: var(--raise-sm);
-  transition: box-shadow 0.15s ease, color 0.15s ease;
-}
-
-.viewer-head button:hover {
-  color: var(--text);
-}
-
-.viewer-head button:active {
-  box-shadow: var(--inset-sm);
-}
-
-#viewer-frame {
-  flex: 1;
-  border: none;
-  width: 100%;
-  min-height: 0;
-  background: var(--bg);
-}
-
 footer {
   margin-top: 36px;
   text-align: center;
@@ -376,22 +293,6 @@ footer code {
 
 .github-link svg {
   flex-shrink: 0;
-}
-
-@media (max-width: 1080px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
-  }
-}
-
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
-  .viewer {
-    display: none;
-  }
 }
 
 @media (max-width: 560px) {
